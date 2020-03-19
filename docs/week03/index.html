@@ -1,0 +1,327 @@
+<!-- uses https://highlightjs.org/
+-->
+
+<html>
+
+<head>
+	  	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
+        <script type="text/javascript">
+                 var codeType = "C++"
+        </script>
+        <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+        <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+	
+
+</head>
+
+<body onload="fetchSource()">
+<div class="hero-image">
+  <div class="hero-text">
+    <h1>CSE 121c: Week 03</h1>
+    <p>Functions, Pointers, and Libraries</p>
+  </div>
+</div>
+	<h1>Organization and Access</h1>
+	<p>All computer languages are ways to organize your communication and thinking. In this, they are very
+	similar to spoken languages. Each spoken language, or family of spoken languages, does this organization
+	differently. English sentences often have a structure of Subject-Helper Verb-Verb-Predicate...The boy will bite the dog, for example.
+	German, a language closely related to English, organizes things differently. Sometimes German sentences have a
+        Subject-Helper Verb-Predicate-Verb structure...
+	Ich werde das Buch bald lesen, which if translated word-by-word is "I will the book soon read." Spanish has adjectives 
+	after the nouns they modify.</p>
+	<p>While each language has its own organizational rules, they all do the same thing. They allow us to organize and express
+	our thinking.</p>
+	<h3>Functions - the fundimental organization concept of C</h3>
+	<p>C, and its descendent language Python, have functions as a fundamental organizational structure. When you truly begin 
+	thinking in C, you will be thinking in functions. You will think of how functions are related to each other. You will 
+	have thoughts along these lines, "If this function calls that one..." You will be able to do this since you will eventually
+	realize that when you are designing solutions in C, how a function accomplishes something is not as important as that it will, 
+	and that you can wait to figure out how to complete the function later.</p>
+	
+	<p>Put an example here of desinging a solution thinking in functions.</p>
+	
+	<h2>A Function in C</h2>
+	<p>Since Python is a descendent of C, there are similarities and differences between the languages regarding how you declare 
+	functions. All C function declarations follow the pattern you can see here.</p>
+	<p><span class="blue">returnType</span> theFunctionName(<span class="green">parameters</span>)</p>
+	<p>In C, you are required, as part of the function declaration, to declare the return type. In other words, 
+	the type of the thing being returned. If your function will return an integer, the return type is 'int'. 
+	If it will return a double, the return type is 'double'. Also, a function in C can only return one type of thing. 
+	You cant have it sometimes return a string and other times return an int.</p>
+	<p>Another item you must understand is that , C uses '{' and '}' for scope operators instead of the 
+	indentation you may be used to. The multiply function, below, shows how these work.</p>
+	<p><pre>
+<code>int multiply(int aMultiplicand, int aMultiplier){
+	return aMultiplicand * aMultiplier;
+}</code>
+</pre></p>
+	<p>The body of the multiply function, the stuff it is supposed to do, or any other C function goes between 
+	the begin scope operator, '{', and the end scope operator, '}'. These operators allow you to have multiple 
+lines of code in the body of a function. Take a look at the average function below.</p>
+<p><pre>
+<code>double average(double aNumber, double anotherNumber){
+	double sum = aNumber + anotherNumber;
+	double average = sum/2.0;
+	return average;
+}</code>
+</pre></p>
+	<p>Here, there are three lines of code in the body of the function. Could it be done in one? Of course...
+	but should you is the question you should ask. Here is one of many places you can find more information on 
+	<a href="https://www.tutorialspoint.com/cprogramming/c_functions.htm">C functions</a>.</p>
+
+	<p>Another thing you will notice when you look at code written by professionals, is that each function is often  
+	found in two seperate, but related, files. The first is called a header file and has a name like ###.h. 
+	The second is the implementation file and has a name like ####.c. The appropriate way to use these files is 
+	to declare your function, without a body, in the header file, and implement it and its body in the 
+	implementation file. Let's write a few silly math functions using a header file and implementation file.</p>
+<h4>The Header File</h4>
+<p><pre>
+<code>/*
+ * sillymath.h
+ *
+ */
+
+
+/*
+ * declarations of a few silly math functions
+ */
+#ifndef SILLYMATH_H_
+#define SILLYMATH_H_
+
+/*
+ * A silly function for adding two integers
+ */
+int sum(int anAddend, int anotherAddend);
+
+/*
+ * A silly function for multiplying two integers
+ */
+int multiply(int aMultiplicand, int aMultiplier);
+
+/*
+ * A silly function for dividing two doubles
+ */
+double divide(double aDividend, int aDivisor);
+
+/*
+ * A silly function for averaging two integers
+ */
+double average(int aNumber, int anotherNumber);
+
+#endif /* SILLYMATH_H_ */
+}</code>
+</pre></p>
+<h4>The Implementation File</h4>
+<p><pre>
+<code>/*
+ * sillymath.c
+ * *
+ */
+
+
+/*
+ * implementations of a few silly math functions
+ */
+
+
+/*
+ * A silly function for adding two integers
+ */
+int sum(int anAddend, int anotherAddend){
+	return anAddend + anotherAddend;
+}
+
+/*
+ * A silly function for multiplying two integers
+ */
+int multiply(int aMultiplicand, int aMultiplier){
+	return aMultiplicand * aMultiplier;
+}
+
+/*
+ * A silly function for dividing two doubles
+ */
+double divide(double aDividend, double aDivisor){
+	return aDividend/aDivisor;
+}
+
+/*
+ * A silly function for averaging two integers
+ */
+double average(int aNumber, int anotherNumber){
+	return (aNumber + anotherNumber)/2.0;//notice this is 2.0 (the return type)---not 2 (the parameters' type)
+}</code>
+</pre></p>
+<p>With your code split between your header and implementation files, it makes it easy for someone to use your 
+code. All they have to do is put both files in their project and put #include "sillymath.h" at the top of their 
+code file.</p>
+<h4>Using the Silly Math Functions</h4>
+<p><pre>
+<code>/*
+ ============================================================================
+ Name        : usingfunctions.c
+ Author      : Lee
+ Version     :
+ Copyright   : Your copyright notice
+ Description : using silly math functions in C, Ansi-style
+ ============================================================================
+ */
+
+#include &ltstdio.h&gt
+#include &ltstdlib.h&gt
+
+#include "sillymath.h"
+
+int main(void) {
+
+	int anInteger = 2332176;
+	int anotherInteger = 54325432;
+
+	int theSum = sum(anInteger, anotherInteger);
+	printf("%d + %d = %d\n\n", anInteger, anotherInteger, theSum);
+
+
+	int theProduct = multiply(anInteger, anotherInteger);
+	printf("%d * %d = %d\n\n", anInteger, anotherInteger, theProduct);
+
+
+	double theAverage = average(anInteger, anotherInteger);
+	printf("The average of %d and %d is %f.\n", anInteger, anotherInteger, theAverage);
+
+
+	return EXIT_SUCCESS;
+}</code>
+</pre></p>
+
+	<p><span class='green'>Heads up::</span>When you try to compile your app, if you get an error similar to this 'ld: symbol(s) not found for architecture x86_64', 
+	it is saying that you have declared a function in a header file but forgot to put an implementation for it in 
+	an implementation file.</p>
+	<p>Earlier, we mentioned how, as you become more experienced, you will begin to think in functions rather than 
+	the individual lines of code. Let's rethink a couple of the silly math functions to make them a little less silly.</p>
+	<p>Let's start by asking, "What does average mean?" An average is a sum of some set of numbers divided by the count 
+	of the numbers in the set. For example, the average of {4,6,7} is (4+6+7)/3. Yes, this is something you've known 
+	for a long time. The point is, if you look at the stated definition of average, the statement contains two interesting 
+	words, 'sum' and 'divide'. These are two functions. Average, then, can be viewed as the result of a sum function and a divide 
+	function being used one after the other. 
+	Let's see what average function's implementation would look like if we write it while thinking in functions.</p>
+<p><pre>
+<code>/*
+ * A less-silly, but not great, function for averaging two integers
+ */
+double less_silly_average(int aNumber, int anotherNumber){
+	return divide(sum(aNumber, anotherNumber),2.0);
+}</code>
+</pre></p>
+	<h3>Libraries - sharing your functions with others</h3>
+	<p> A higher order organizational idea in C is library. Libraries are a way that you can share your compiled code with other programmers 
+		or they can share with you. These libraries consist of compiled groups of functions that, unlike 
+		applications, can not run on their own. Instead, you add their library to the project for your application and use their functions 
+		in your code.</p>
+	<h4>Libraries - structure and compilation</h4>
+	<p>You have used others libraries alread without knowing it. Each time you put #include&ltstdio.h&gt or #include &ltstdlib.h&gtin your application you were using 
+	a library someone else wrote and compiled for you. Take a look at <a href="https://github.com/kozross/awesome-c">this partial list, by type</a>, 
+	of open source libraries people have created for you to use. It will give you an idea of how much you can do in an application 
+	without having to write all the code.</p>
+	<p>To share your functions, you create one or more header files that declare all of the functions you want them to have access too and 
+		write the code for the declarations in those header files...just like we did with the silly math functions. Since, as a C programmer, 
+		you will be writing and using libraries, let's step through how to create and use a compiled, static library of those functions. (
+	<a href="https://www.geeksforgeeks.org/static-vs-dynamic-libraries/">What is a Static Library?</a>) We'll follow the process outlined in 
+	<a href="https://youtu.be/TEgVahFr1GA">this video</a>.</p>
+	
+	<p>Using a library in a project is where all this library business is headed. It isn't particularlly difficult in eclipse, but it is picky. 
+	<a href="https://youtu.be/hT3lOd16xrQ"></a>This video</p> steps you through the process of using a library, one of your own or someone 
+	else's, in an application you are writing.
+
+	<h3>Pointers - keeping track of where things are</h3>
+	<p>Because of when and for what it was created, the PDP-11 computer, the C language has a structure many other languages do not...
+	it's called a pointer. A pointer is a way of keeping track of where something is in RAM or in other parts of the machine. 
+	Whatever that something is, a pointer will point at it. Don't make it harder than this. This is the entire concept. 
+	It just keeps track of where stuff is so you can use it or modify it later. Now let's use pointers to make the divide and 
+	less_silly_average functions better than what we've already done.</p>
+	
+	<p>C functions can only return 1 value. What then do you do when you need two pieces of information back from a function? Pointers 
+	come to your rescue! One of problems with the less_silly_divide function that is used by the less_silly_average function is that 
+	less_silly_divide will fail if the function is passed a 0 via the divisor parameter. "But that will never happen,right?" Oh...believe 
+	me it will. Somebody will call your function after calculating what the divisor should be, and sooner or later it will end up being 
+	0. Let's modify less_silly_divide and less_silly_average so we can find out if they succeed or fail. Let's call these new function s 
+	better_divide and better_average.</p>
+
+	<p>If you look at the code below, you will find a double variable designed to hold the average being calculated. You will also notice 
+	a new parameter being passed, '&amp;theAverage'. The &amp; is the operator in C that produces a pointer. In this case, the pointer 
+	points at the double variable 'theAverage'. You'll see how to leverage this a little bit later.</p>
+	<p>Also notice the boolean variable, 'succeeded', that is assigned the return value of the better_average function. What is going to 
+	happen in the better_average code is this. If everything goes as well, better_average updates the value in the double variable 'theAverage' 
+	and returns the boolean value true. If anything goes wrong, the double variable 'theAverage' is not updated and better_average returns 
+	false.</p>
+
+
+
+<p><pre>
+<code>
+#include &le;stdbool.h&gt;
+.
+.
+.
+int main(void) {
+.
+.
+.
+/*
+ * Using the better_average function
+ */
+double theAverage = 0.0;
+bool succeeded = better_average(10, 3, &theAverage);
+printf("1 is true, 0 is false\n; succeeded = %d with quotient of %f\n",succeeded, theAverage);
+</code>
+</pre></p>
+
+<p>To make this work, we need a better_divide function to go along with the better_average function. What, then, do these functions 
+look like? As you can see, both have a boolean return type, and three parameters...the two from the silly versions of the functions 
+and a strange one, 'double* aQuotientPtr' for the divide function and 'double* anAverage' for the average function.</p>
+
+<p><pre>
+<code>/*
+ * A better, but not great, function for averaging two integers
+ */
+bool better_divide(double aDividend, double aDivisor, double* aQuotientPtr){
+	bool success = false;
+	if(aDivisor != 0.0){
+		*aQuotientPtr = aDividend/aDivisor;
+		success = true;
+	}
+	return success;
+}
+
+/*
+ * A better, but not great, function for dividing two integers
+ */
+bool better_average(int aNumber, int anotherNumber, double* anAverage){
+	return better_divide(sum(aNumber,anotherNumber),2.0,anAverage);
+}</code>
+</pre></p>
+<p>If we act as if we were a debugger and trace the call from the main function you saw above all the way 
+	through the better_average and better_divide functions, we can see what is happening with the variables 
+	and paramters. Here we go.</p>
+
+<p>When better_average gets called, the aNumber parameter is assigned a copy of the integer 10, the anotherNumber parameter is 
+assigned a copy of the integer 3, and the anAverage parameter is assigned a copy of the double pointer, theAverage. An important 
+point to remember is that since theAverage pointer is a copy of the anAverage pointer, they both point at the same thing.</p>
+
+<p>Due to the order of operations rules, the same ones you learned about in Python, the next thing that happens is the calling of 
+	the sum function. It adds copies of aNumber(10) and anotherNumber(3) and returns the result(13). The better_divide function is then 
+	called. In the better_divide function, the aDividend parameter is a copy of the sum functions result(13), aDivisor is a copy of the double 2.0, and 
+	aQuotient is a copy of the anAverage pointer.</p>
+
+<p>There are two main things that have to happen in the better_divide function. One of which is to check to make sure we aren't 
+	trying to divide by 0 and return false if we are. The other is to update the double that aQuotientPtr is pointing to with the 
+	result of doing the division. Be careful. You don't want to update the pointer itself. When you update a pointer, you change 
+	what where it is pointing. No...you want to update the double the pointer is pointing at. To do this you use the 'dereference 
+	operator', *. It is the same character as the pointer indicator. Don't let that fool you. This line in better_divide 
+	<code>*aQuotientPtr = aDividend/aDivisor;</code> updates the result double variable in the main function. After all, that is 
+	what aQuotientPtr is pointing at.</p>
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</body>
+</html>

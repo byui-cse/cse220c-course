@@ -1,0 +1,180 @@
+<!-- uses https://highlightjs.org/
+-->
+
+<html>
+
+<head>
+	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
+        <script type="text/javascript">
+                 var codeType = "C++"
+        </script>
+        <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+        <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+	
+
+</head>
+
+<body onload="fetchSource()">
+	<div class="hero-image">
+		<div class="hero-text">
+			<h1>CSE 121c: Week 02</h1>
+			<p>The Fundamentals</p>
+		</div>
+	</div>
+	<h1>Similarities and Differences</h1>
+	<h3>Shared Operators</h3>
+	<p>Remember, Python has C as one of its ancestors. Because of this, it is not shocking to find out that they share many of the same
+		operators. These include +, -, /, *, ==, !=, &lt, &gt, etc. By going to these two sites, you can compare 
+		<a href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Python's list of operators</a> to 
+		<a href="https://www.tutorialspoint.com/cprogramming/c_operators.htm">C's list of operators</a>. When you do so, 
+		you will find that Python has a few that C does not.</p>
+	<h3>C's missing operators</h3>
+	<p>Because Python was created after C, its developers were able to add operators they had seen in other languages that made sense, to them, to include
+	in Python. These are the ones you should not expect to find in C:</p>
+	<ul>
+		<li>** - the exponentiation operator</li>
+		<li>// - the floor division operator</li>
+		<li>&lt&gt - an alternative to !=</li>
+		<li>**= - the exponent and assign operator</li>
+		<li>and - the logical and operator</li>
+		<li>or - the locical or operator</li>
+		<li>not - the logical not operator</li>
+	</ul>
+	<p>Don't get the wrong idea. Each of these behaviors can be done in C, they will just be done a little differently. Take a look
+	at Table 1 to see how.</p>
+	<p>
+		<table class="blueTable">
+			<caption>Table 1: C Equivalents of Python Operators</caption>
+			<thead>
+				<tr>
+					<th>Python</th>
+					<th>C</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>a**b</td><td>math.pow(a,b)</td>
+				</tr>
+				<tr>
+					<td>a//b</td><td>math.floor(a/b)</td>
+				</tr>
+				<tr>
+					<td>a &lt&gt b</td><td>a != b</td>
+				</tr>
+				<tr>
+					<td>a**=b</td><td>a = math.pow(a,b)</td>
+				</tr>
+				<tr>
+					<td>a and b</td><td>a && b</td>
+				</tr>
+				<tr>
+					<td>a or b</td><td>a || b</td>
+				</tr>
+				<tr>
+					<td>not(a and b)</td><td>!(a && b)</td>
+				</tr>
+			</tbody>
+		</table>
+	</p>
+	<h3>Variables</h3>
+	<p>In Python, a variable can hold any type of value and can change the type of value it holds. For example, this code is valid in Python.</p>
+	<pre>
+<code class="Python">age = 3
+age = 5
+age = 4.2</code>
+	</pre>
+	<p>C treats its variables differently. In C you not only declare the variable name, but must also declare the type of data the variable can hold.
+	This is a valid C variable declaration that can hold an int.</p>
+	<pre>
+<code>int age = 3;</code>
+	</pre>
+	While this is valid C code
+	<pre>
+<code>int age = 3;
+age = 5;</code>
+	</pre>
+	this is not valid.
+	<pre>
+<code>int age = 3;
+age = 4.2;</code>
+	</pre>
+	<p>As with all things, there are pluses and minuses of requiring the type of a varable to be unchangable. One minus is that you may need to declare 
+	more variables. One plus is that there is no chance that the type of data in a variable will change when the code is running. There is a common 
+	logic bug in all languages that allow the type of data in variables to change. The programmer forgets that the data type has changed, performs a
+	calculation, and then gets strange, unexpected results. This type of logic error can't happen in C since this type of invalid code would fail to compile.</p>
+	<h4>Some Common, Valid, C Variable Types</h4>
+	<p>Basic Integer Types
+	<ul>
+		<li>short</li>
+		<li>int</li>
+		<li>long</li>
+
+	</ul></p>
+	<p>Basic Floating Point Types
+		<ul>
+			<li>float</li>
+			<li>double</li>
+			<li>long double</li>
+		</ul>
+	</p>
+	<p>Boolean Types
+		<ul>
+			<li>bool</li>
+			<li>_Bool</li>
+		</ul>
+	</p>
+	<p>Character Types
+		<ul>
+			<li>char - single character</li>
+			<li>char[] - strings of characters</li>
+		</ul>
+	</p>
+	<pre><code id="types_examples__c"></code>
+	</pre>
+	Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought would lead you 
+	down a path you do not want to be on. Beginning programmers tend to think of floating point numbers as being a coninuous number line. They are not. There are 
+	numbers that a double can not represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you 
+	try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using 
+	variables of type double, not just integers.
+	<a href="https://www.tutorialspoint.com/cprogramming/c_data_types.htm">Listing of C types</a>
+	<h3>Manipulating Bits</h3>
+	<h4>A Bit Here and a Bit There</h4>
+	<p>For some programming jobs, especially those dealing with micro controllers and data compression, manipulating bits can be very important. </p>
+	<p>All C ints, longs, shorts, and chars are arrays of bits to the computer. For example, a char is an array of 8 bits. Each bit can have a value of
+	1 or 0, on or off. Certain combinations of ons and offs, 1's and 0's, represent each possible char. The character 'A' is 01000001, 'a' is 01100001, and
+	'@' is 01000000. You won't need to know the character mappings. This is just to help you understand how your computer deals with characters.
+	</p>
+	<p>Imagine a situation where you have created a function that had a boolean parameter, set to true or false, that controls how the function behaves.
+	Maybe this is a filtering function. Something like filter(int[] nums, bool isEven) that returns all even numbers from the array when isEven is true
+	and all the odd numbers when isEven is false. Imagine it's working great. It fits well into the code your boss asked you to write. No bugs...life is good.</p>
+	<p>One day your boss comes to you and lets you know that in the next release, this filter function needs to be much more flexible. The customer 
+	will be setting options for the filtering and the code needs to handle 8 possible true and false values...and can set more than one to be true and/or false
+	at a time. You could write a whole bunch of seperate functions (overloaded functions), each with a different number of boolean parameters. While this would
+	work, it would be unwise due to the amount of hours required to test and bug fix all 8 functions. Instead you could write 1 function...if you treat an char 
+	as an array of 8 'mini-booleans'. After all, each of the bits in a character is either 0 or 1. You can think of each of these being 1 (true) or 2 (false).</p>
+	
+	<p>In fact, it you needed to your function could have an int as a paramter providing you with a total of 16 mini-booleans that in the industry are called bit-flags. 
+	now your function could look like something like this -- filter(int[] nums, int filteringFlags) -- with if statements to deal with any valid combinations of true and false.</p>
+
+	<p>For the purpose of this class, we'll use char bit-flags rather than int bit-flags to make it easier to learn what is going on.</p>
+	<h3>Manipulating Individual Bits</h3><p>Imaging you have a situation where you are using a bit flag and the third bit needs to be 1 (on)....</p>
+	<h3>Manipulating All the Bits at Once</h3>
+	<h3>Discovering Which Bits are On</h3>
+	
+	</table>
+		<table class="blueTable">
+		<caption>Table 4: 5+1 = 6 (base 2)</caption>
+		<tbody>
+			<tr><td></td><td>0000000000000101</td></tr>
+			<tr><td>+</td><td>000000000000001</td></tr>
+			<tr><td>=</td><td>0000000000000110</td></tr>
+		</tbody>
+	</table>
+
+	<a href="https://youtu.be/024f0NX2FLs">Bitwise Operator Lecture</a>. When you hear resistor he is saying register.
+
+	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+</body>
+</html>
