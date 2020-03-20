@@ -19,11 +19,11 @@
 <body onload="fetchSource()">
 <div class="hero-image">
   <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
+    <h1>CSE 220c: Week 01</h1>
     <p>Installation and Purpose</p>
   </div>
 </div>
-	<h1>The Why of C</h1>
+	<h1>The Why of C++</h1>
 	<h3>Some Background</h3>
 	<p>Before and during the early 1970's, it was common to write operating systems in <a href="https://en.wikipedia.org/wiki/Assembly_language">assembly</a>, 
 	a low-level programming language. The first implementation of the Unix operating system was written in assembly to run on the <a href="https://en.wikipedia.org/wiki/PDP-7">PDP-7</a> computer and later 
@@ -37,76 +37,55 @@
 	lead the way to making C available on multiple hardware systems that don't follow the PDP-11 hardware patterns. While porting Unix is not an insignificant 
 	task, the C language has made several flavors of Unix such as Solaris, MacOS, HP-UX, the BSD variants, and AIX possible. 
 	Linux, a Unix-like system, is also written in C.</p>
-	<p>While you will not be writting code to run on a PDP-11, you pretend to do this anytime you use the C language. In computer science terms, you will
-	write to the PDP-11 model even though you are writing code for a modern hardware architecture. The C compiler will do the conversion from model to 
-	hardware for you.</p>
-	<h3>Python and C are Related</h3>
-	<p>Take a look at Figure 1. It shows the ancestery of both C and Python. Since C is an ancestor of Python you can expect to see some
-	things in C that remind you of what you learned about coding in Python. C is not Python's only ancester. A very strong contributor to Python 
-	is the <a href="https://en.wikipedia.org/wiki/Modula">Modula language</a>. Because of this ancestry, modules exist in Python even though the are
-	absent from C. Echos of Modulo's for-loops and ranges, among other things, can also be seen in Python. C has no concept of a range and, as you will see, the syntax 
-	and structure of for loops is different from what you learned for Python.</p>
+	<p>In the late 1970's, <a href="http://www.stroustrup.com/hopl2.pdf">Bjarne Stroustrup was a graduate student</a>. He had been using a language called Simula to simulate parallel data flow in 
+		computing systems. Amoung other things, Bjarne liked the way Simula allowed related functions to be grouped together into classes and that these classes could inherit properties 
+		and functionality from base classes. Unfortunately for Bjarne, the Simula language had drawbacks as any language does. Simula struggled to scale. 
+		It ran too large and too slow for Bjarne's project. Facing the colapse of his project, Bjarne switched languages to BCPL, a language he said was horrible. 
+		As to how easy BCPL was to use, Bjarne said, "BCPL makes C look like a very high level language."
+	</p>
+	<p>
+		After leaving the university with his PHD, Bjarne continued working on the problem he had faced. He eventually created C with Objects, and then 
+		C++. His goal was to create a language that allowed the organizational goodies he liked from Simula and yet would scale like C.
+	</p>
+	
+	<h3>Python and C++ are Related</h3>
+	<p>Take a look at Figure 1. It shows the ancestery of both C++ and Python. Since C is an ancestor of both C++ and Python you can expect to see some
+	things in C++ that remind you of what you learned about coding in Python. C is not Python's only ancester. A very strong contributor to Python 
+	is the <a href="https://en.wikipedia.org/wiki/Modula">Modula language</a>. Because of this ancestry, modules exist in Python that are somewhat 
+	similar to classes in C++. Since Modula is not an ancestor of C++, C++ has no concept of a range and, as you will see, the syntax 
+	and structure of for loops is different from what you learned for Python though the loop concepts remain the same.</p>
 
 <figure>
-  <img src="images/python_c_lang_history.png" alt="place holder">
-  <figcaption>Figure 1. - The anticedent languages for Python and C (Grady Booch).</figcaption>
+  <img src="images/python_c++_lang_history.png" alt="place holder">
+  <figcaption>Figure 1. - The anticedent languages for Python and C++ (Grady Booch).</figcaption>
 </figure>
 
 <h1>Installations</h1>
-	<h2>The Compiler</h2>
+	<h2>The IDE</h2>
 
 	<h3>Windows</h3>
-	<p>If it isn't already installed on your machine, start by installing <a href="https://sourceforge.net/projects/mingw/">minGW</a>. Select the link, then watch 
-		and follow <a href="https://youtu.be/sXW2VLrQ3Bs">this video</a>. The minGW link in the previous sentence takes 
-		you to the safe minGW download site. The video shows you an initial mingw.org page. Ignore that one. The second page
-		the video shows you is the same as the one for this <a href="https://sourceforge.net/projects/mingw/">minGW download</a>
-		link.</p>
-		<p>Follow the instructions in the video.</p>
+	<p>If it isn't already installed on your machine, start by installing <a href="https://visualstudio.microsoft.com/">Visual Studio 
+		Community Edition</a>, not Visual Studio Code. Watch 
+		and follow<a href="https://youtu.be/IsAoIqnNia4">this video</a> to see how to complete the download, create your first project, 
+		and then run it.
+	</p>
 
 	<h3>MacOS</h3>
-		<p>If it isn't already installed on your machine, start by installing the <a href="https://brew.sh">Homebrew package manager</a>. You can follow 
-		<a href="https://www.youtube.com/watch?v=N-SDrN4G4lE">this 
-		video tutorial</a> if you would like or follow the instructions on the <a href="https://brew.sh">Homebrew package manager</a> page.</p>
-		<p>Once you have installed Homebrew, use it to install gcc. To do so, enter this code into the terminal;</p>
-		<h4>brew install gcc</h4>
-		<p>If you previously installed gcc using brew, enter this code into the terminal;</p>
-		<h4>brew update gcc</h4>
+		<p>If it isn't already installed on your machine, start by installing 
+			<a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12">Xcode</a>. When you attempt to install, if you don't have the latest 
+			version of MacOS, you may see a message saying you don't have a compatible MacOS version. If you see this message, update your OS to 
+		the latest version.</p>
+		<p>You can follow <a href="https://youtu.be/HA-NahwEnyA">this video tutorial</a> to see how to create, compile, and run a C++ project 
+		after launching Xcode.</p>
 
-	<h3>Linux</h3>
-		<p>Since various flavors of Linux can use different package managers, in your web browser, do a search that includes the name of your 
-		Linux distribution followed by gcc, and install. Follow the instructions you find.</p>
-	<h2>Your IDE</h2>
-	<p>The Integrated Development Environment (IDE) you use in this class is <a href="https://www.eclipse.org">Eclipse</a>. 
-	Download the 64 bit version from <a href="https://www.eclipse.org">this site</a>. This may require clicking a few buttons. The result is
-	that you have downloaded the Eclipse IDE installer. Run the installer. Regardless of the platform (Windows, MacOS, Linux) you will see this 
-	window;</p>
-	<img src="images/eclipse_c_installer.png"/>
-	<p>When you select <span>Eclipse IDE for C\C++ Developers</span> you will be lead through a complete installation. Use all the default values 
-	the installer suggests. Pay particular attention to and remember where Eclipse is being installed.</p>
-	<p>Run Eclipse. You will see this dialog;</p>
-	<img src="images/eclipse_workspace.png"/>
-	<p>Remember but don't change the location of the workspace. This is where all your code will be when you create files using Eclipse.</p>
-	<p>If you are running MacOS, you will need to follow <a href="https://www.ics.uci.edu/~pattis/common/handouts/macmingweclipse/allexperimental/mac-gdb-install.html">
-	these instructions</a> before your debugger will work.</p>
+	
 
-<h1>Your First Project</h1>
+	<h3>Both</h3>
+	<p>It is important for you to remember that you will want to make a DIFFERENT project for each task you are given. Do NOT creat a single project 
+		and think you can reuse it for all of your tasks. If you try this, you will regret it. Instead, create a directory into which you can save 
+		all of your projects. That way you know where to look when you want to find an old project.
+	</p>
 
-	<p>In the next window you are shown, select <span>Create a new C/C++ project</span>. Up will pop a new set of options for which kind of C 
-		application you want to create. For this class, select the <span>Makefile Project</span> type and then you will see this;</p>
-	<img src="images/eclipse_project_name_type.png"/>
-	<p>In this dialog, give your project a name...hello_world would be great...and click <span>Finish</span> At this point, you're almost ready.
-	You should see this on your screen.</p>
-	<img src="images/default_main.png">
-	<p>Copy the code below and use it to replace the code in hello_world.cpp.</p> 
-
-<pre>
-	<code id="junk__c">
-	</code>
-</pre><p>Now your screen should look like this (without the big, blue, arrow).</p>
-	<img src="images/full_main.png">
-	<p>If you click the icon pointed to by the big, blue, arrow, your project will build and run and you will see <span>!!!Hello other lldb!!!</span>
-	in the <span>Console</span> tab at the bottom of the window.</p>
-	<p>Congratulations!! You have your system set up and tested!!!</p>
 <h1>Help for Finding Your Bugs</h1>
 <p>Other text</p>
 <pre>
