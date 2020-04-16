@@ -19,7 +19,7 @@
 <body onload="fetchSource()">
 	<div class="hero-image">
 		<div class="hero-text">
-			<h1>CSE 121c: Week 02</h1>
+			<h1>CSE 220c: Week 02</h1>
 			<p>The Fundamentals</p>
 		</div>
 	</div>
@@ -28,11 +28,11 @@
 	<p>Remember, Python has C as one of its ancestors. Because of this, it is not shocking to find out that they share many of the same
 		operators. These include +, -, /, *, ==, !=, &lt, &gt, etc. By going to these two sites, you can compare 
 		<a href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Python's list of operators</a> to 
-		<a href="https://www.tutorialspoint.com/cprogramming/c_operators.htm">C's list of operators</a>. When you do so, 
-		you will find that Python has a few that C does not.</p>
-	<h3>C's missing operators</h3>
-	<p>Because Python was created after C, its developers were able to add operators they had seen in other languages that made sense, to them, to include
-	in Python. These are the ones you should not expect to find in C:</p>
+		<a href="http://www.cplusplus.com/doc/tutorial/operators/">C++'s list of operators</a>. When you do so, 
+		you will find that Python has a few that C++ does not.</p>
+	<h3>C++'s missing operators</h3>
+	<p>Because Python was created after C++, its developers were able to add operators they had seen in other languages that made sense, to them, to include
+	in Python. These are the ones you should not expect to find in C++:</p>
 	<ul>
 		<li>** - the exponentiation operator</li>
 		<li>// - the floor division operator</li>
@@ -46,7 +46,7 @@
 	at Table 1 to see how.</p>
 	<p>
 		<table class="blueTable">
-			<caption>Table 1: C Equivalents of Python Operators</caption>
+			<caption>Table 1: C++ Equivalents of Python Operators</caption>
 			<thead>
 				<tr>
 					<th>Python</th>
@@ -85,26 +85,33 @@
 age = 5
 age = 4.2</code>
 	</pre>
-	<p>C treats its variables differently. In C you not only declare the variable name, but must also declare the type of data the variable can hold.
-	This is a valid C variable declaration that can hold an int.</p>
-	<pre>
-<code>int age = 3;</code>
-	</pre>
-	While this is valid C code
+	<p>C++ treats its variables differently. In C++ you not only declare the variable name, but must also either declare the type of data the variable can hold 
+		or let the compiler auto-detect the type, in CS speak this is called 'type inference', or declare the type specifically.
+	This is a valid C++ variable declaration that can hold an integer and one that can hold a double.</p>
 	<pre>
 <code>int age = 3;
-age = 5;</code>
+auto height = 1.7;</code>
+	</pre>
+	While this is valid C++ code
+	<pre>
+<code>int age = 3;
+age = 5;
+auto height = 1.7;
+height = 1.0;
+</code>
 	</pre>
 	this is not valid.
 	<pre>
 <code>int age = 3;
-age = 4.2;</code>
+age = 4.2;
+auto height = 1.7;
+height = "bob";</code>
 	</pre>
 	<p>As with all things, there are pluses and minuses of requiring the type of a varable to be unchangable. One minus is that you may need to declare 
 	more variables. One plus is that there is no chance that the type of data in a variable will change when the code is running. There is a common 
 	logic bug in all languages that allow the type of data in variables to change. The programmer forgets that the data type has changed, performs a
-	calculation, and then gets strange, unexpected results. This type of logic error can't happen in C since this type of invalid code would fail to compile.</p>
-	<h4>Some Common, Valid, C Variable Types</h4>
+	calculation, and then gets strange, unexpected results. This type of logic error can't happen in C++ since this type of invalid code would fail to compile.</p>
+	<h4>Some Common, Valid, C++ Variable Types</h4>
 	<p>Basic Integer Types
 	<ul>
 		<li>short</li>
@@ -122,46 +129,60 @@ age = 4.2;</code>
 	<p>Boolean Types
 		<ul>
 			<li>bool</li>
-			<li>_Bool</li>
 		</ul>
 	</p>
 	<p>Character Types
 		<ul>
 			<li>char - single character</li>
-			<li>char[] - strings of characters</li>
+			<li>std::string - strings of characters</li>
 		</ul>
 	</p>
-	<pre><code id="types_examples__c"></code>
-	</pre>
-	Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought would lead you 
+	<p>Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers than long can. Maybe I'll just use them." Such a thought would lead you 
 	down a path you do not want to be on. Beginning programmers tend to think of floating point numbers as being a coninuous number line. They are not. There are 
 	numbers that a double can not represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you 
 	try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using 
-	variables of type double, not just integers.
-	<a href="https://www.tutorialspoint.com/cprogramming/c_data_types.htm">Listing of C types</a>
-	<h3>Manipulating Bits</h3>
-	<h4>A Bit Here and a Bit There</h4>
-	<p>For some programming jobs, especially those dealing with micro controllers and data compression, manipulating bits can be very important. </p>
-	<p>All C ints, longs, shorts, and chars are arrays of bits to the computer. For example, a char is an array of 8 bits. Each bit can have a value of
-	1 or 0, on or off. Certain combinations of ons and offs, 1's and 0's, represent each possible char. The character 'A' is 01000001, 'a' is 01100001, and
-	'@' is 01000000. You won't need to know the character mappings. This is just to help you understand how your computer deals with characters.
+	variables of type double, not just integers.</p>
+	<p>
+		<a href="https://en.cppreference.com/w/cpp/language/types">Listing of C++ types</a>
 	</p>
-	<p>Imagine a situation where you have created a function that had a boolean parameter, set to true or false, that controls how the function behaves.
-	Maybe this is a filtering function. Something like filter(int[] nums, bool isEven) that returns all even numbers from the array when isEven is true
-	and all the odd numbers when isEven is false. Imagine it's working great. It fits well into the code your boss asked you to write. No bugs...life is good.</p>
-	<p>One day your boss comes to you and lets you know that in the next release, this filter function needs to be much more flexible. The customer 
-	will be setting options for the filtering and the code needs to handle 8 possible true and false values...and can set more than one to be true and/or false
-	at a time. You could write a whole bunch of seperate functions (overloaded functions), each with a different number of boolean parameters. While this would
-	work, it would be unwise due to the amount of hours required to test and bug fix all 8 functions. Instead you could write 1 function...if you treat an char 
-	as an array of 8 'mini-booleans'. After all, each of the bits in a character is either 0 or 1. You can think of each of these being 1 (true) or 2 (false).</p>
-	
-	<p>In fact, it you needed to your function could have an int as a paramter providing you with a total of 16 mini-booleans that in the industry are called bit-flags. 
-	now your function could look like something like this -- filter(int[] nums, int filteringFlags) -- with if statements to deal with any valid combinations of true and false.</p>
+	<h3>Pointers, Groups, and Flow</h3>
+	<p>If there is one concept in C++ you have heard about, it's probably pointers. Pointers have an undeserved reputation for being difficult. 
+	In fact, pointers are like your mother.</p>
+	<p>As a teenager, maybe you had a sibling that was an absolute slob...or maybe you WERE the slob.&#x1F61C; Either way, if you had a shared room, this interaction 
+		had a high probability of happening. Let's assume you were the slob just to make things easier. Early one morning, somewhere around 10:30 or 11:00, your sibling 
+		walks into the room, picks up the pile of 'only slightly used' clothes next to your bed, dumps them on you and says, "Here's your dirty clothes!" They then 'rudely' 
+		walk back out of the room.
+	</p>
+	<p>A mother, or at least my mother, took a different approach. She'd look at me, point at the clothes and say, "There are your dirty clothes." You see, 
+		she was pointing to the clothes and I was the one who was needing to act. She was a 'dirty clothes pointer.' She was NOT the dirty clothes. There is a 
+		difference.
+	</p>
+	<p>That's all pointers do, point at something.</p>
+	<p>Now pointers are not a new type of variable in C++. They are a modified type. As you know, this is the declaration of a string.</p>
 
-	<p>For the purpose of this class, we'll use char bit-flags rather than int bit-flags to make it easier to learn what is going on.</p>
-	<h3>Manipulating Individual Bits</h3><p>Imaging you have a situation where you are using a bit flag and the third bit needs to be 1 (on)....</p>
-	<h3>Manipulating All the Bits at Once</h3>
-	<h3>Discovering Which Bits are On</h3>
+	<p><pre><code class="C++">string name = "Bob"</code>
+	</pre></p>
+
+	<p>To declar a pointer, the * character is placed next to the type to modify it so it is a pointer. If a C++ variable is set to point at 
+		nothing, the key word to use is NULL. This is similar to the None keyword in Python. You can see both of these things in this example.
+	</p>
+	<p><pre><code class="C++">string* name = NULL;</code>
+	</pre></p>
+	<p>Let me translate this line of code for you. "There is a variable called name of type string pointer. Set it to point at nothing."</p>
+
+	<h5>Generating a Pointer Value</h5>
+	<p></p>
+	<h4>Arrays</h4>
+	<p>A common use you will have for pointers is to point at an array. </p>
+	<p>Without the use of any external libraries, the C++ languages' way of collecting like things together is to use arrays. </p>
+	<h4>Making Choices</h4>
+	<p>The flow of computation through the code of an application is something that some new to programming 
+		don't think about or think about it as if it was a static tree. It isn't static. Computation flows 
+		through an application like electricity flows through circuts. Both electricity and computation flow using a path of least resistance 
+		approach, much like unwise students. If it is possible for 
+	</p>
+	<h4>Getting Loopy</h4>
+	<p></p>
 	
 	</table>
 		<table class="blueTable">
@@ -173,8 +194,10 @@ age = 4.2;</code>
 		</tbody>
 	</table>
 
-	<a href="https://youtu.be/024f0NX2FLs">Bitwise Operator Lecture</a>. When you hear resistor he is saying register.
+	
 
-	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	<p>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	</p>
 </body>
 </html>
