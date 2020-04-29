@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
         <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
         <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
-	
 
 </head>
 
@@ -25,14 +24,14 @@
 	</div>
 	<h1>Similarities and Differences</h1>
 	<h3>Shared Operators</h3>
-	<p>Remember, Python has C as one of its ancestors. Because of this, it is not shocking to find out that they share many of the same
+	<p>Remember, both C++ and Python have C as an ancestor. Because of this, it is not shocking to find out that they share many of the same
 		operators. These include +, -, /, *, ==, !=, &lt, &gt, etc. By going to these two sites, you can compare 
 		<a href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Python's list of operators</a> to 
 		<a href="http://www.cplusplus.com/doc/tutorial/operators/">C++'s list of operators</a>. When you do so, 
 		you will find that Python has a few that C++ does not.</p>
 	<h3>C++'s missing operators</h3>
-	<p>Because Python was created after C++, its developers were able to add operators they had seen in other languages that made sense, to them, to include
-	in Python. These are the ones you should not expect to find in C++:</p>
+	<p>Because Python was created after C, its developers were able to add operators they had seen in other languages that made sense, to them, to include
+	in Python. These are the ones you should not expect to find in C or C++:</p>
 	<ul>
 		<li>** - the exponentiation operator</li>
 		<li>// - the floor division operator</li>
@@ -42,15 +41,15 @@
 		<li>or - the locical or operator</li>
 		<li>not - the logical not operator</li>
 	</ul>
-	<p>Don't get the wrong idea. Each of these behaviors can be done in C, they will just be done a little differently. Take a look
+	<p>Don't get the wrong idea. Each of these behaviors can be done in C++, they will just be done a little differently. Take a look
 	at Table 1 to see how.</p>
 	<p>
 		<table class="blueTable">
-			<caption>Table 1: C++ Equivalents of Python Operators</caption>
+			<caption>Table 1: C Equivalents of Python Operators</caption>
 			<thead>
 				<tr>
 					<th>Python</th>
-					<th>C</th>
+					<th>C++</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -85,32 +84,24 @@
 age = 5
 age = 4.2</code>
 	</pre>
-	<p>C++ treats its variables differently. In C++ you not only declare the variable name, but must also either declare the type of data the variable can hold 
-		or let the compiler auto-detect the type, in CS speak this is called 'type inference', or declare the type specifically.
-	This is a valid C++ variable declaration that can hold an integer and one that can hold a double.</p>
+	<p>C++ treats its variables differently. In C++ you not only declare the variable name, but must also declare the type of data the variable can hold.
+	This is a valid C++ variable declaration that can hold an int.</p>
 	<pre>
-<code>int age = 3;
-auto height = 1.7;</code>
+<code>int age = 3;</code>
 	</pre>
 	While this is valid C++ code
 	<pre>
 <code>int age = 3;
-age = 5;
-auto height = 1.7;
-height = 1.0;
-</code>
+age = 5;</code>
 	</pre>
 	this is not valid.
 	<pre>
 <code>int age = 3;
-age = 4.2;
-auto height = 1.7;
-height = "bob";</code>
+age = "Shoshana";</code>
 	</pre>
-	<p>As with all things, there are pluses and minuses of requiring the type of a varable to be unchangable. One minus is that you may need to declare 
-	more variables. One plus is that there is no chance that the type of data in a variable will change when the code is running. There is a common 
-	logic bug in all languages that allow the type of data in variables to change. The programmer forgets that the data type has changed, performs a
-	calculation, and then gets strange, unexpected results. This type of logic error can't happen in C++ since this type of invalid code would fail to compile.</p>
+	<p>As with all things, there are pluses and minuses of requiring the type of a varable to be unchangable. One minus is you may need to declare 
+	more variables. One plus is that there is no chance that the type of data in a variable will change when the code is running. 
+
 	<h4>Some Common, Valid, C++ Variable Types</h4>
 	<p>Basic Integer Types
 	<ul>
@@ -134,70 +125,459 @@ height = "bob";</code>
 	<p>Character Types
 		<ul>
 			<li>char - single character</li>
-			<li>std::string - strings of characters</li>
+			<li>char[] - array of characters</li>
+			<li>std::string - a textual set of characters</li>
 		</ul>
 	</p>
-	<p>Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers than long can. Maybe I'll just use them." Such a thought would lead you 
-	down a path you do not want to be on. Beginning programmers tend to think of floating point numbers as being a coninuous number line. They are not. There are 
-	numbers that a double can not represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you 
-	try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using 
-	variables of type double, not just integers.</p>
+	<section class="callout">
+        <h3>Note!</h3>
+        <h4>What is going on with that std:: stuff?</h4>
+        <p>
+        	C++ ships with a bunch of standard code already written and compiled for you. A bunch of this is in the <span class="file_name">standard library</span>. 
+        	Get it? standard -> std::
+        </p>
+        <p>The string type is one of those things found in the standard library. That's why the <span class="file_name">std::</span> 
+        	<a href="http://www.cplusplus.com/doc/oldtutorial/namespaces/"> namespace indicator</a> is in front 
+        	of it. By putting <span class="file_name">std::</span> infront of the string type indicator, the compiler knows to look for it in the standard library.</p>
+      </section>
+	<p>Examples of declaring and setting these types of variables are good to see.</p>
 	<p>
-		<a href="https://en.cppreference.com/w/cpp/language/types">Listing of C++ types</a>
-	</p>
-	<h3>Pointers, Groups, and Flow</h3>
-	<p>If there is one concept in C++ you have heard about, it's probably pointers. Pointers have an undeserved reputation for being difficult. 
-	In fact, pointers are like your mother.</p>
-	<p>As a teenager, maybe you had a sibling that was an absolute slob...or maybe you WERE the slob.&#x1F61C; Either way, if you had a shared room, this interaction 
-		had a high probability of happening. Let's assume you were the slob just to make things easier. Early one morning, somewhere around 10:30 or 11:00, your sibling 
-		walks into the room, picks up the pile of 'only slightly used' clothes next to your bed, dumps them on you and says, "Here's your dirty clothes!" They then 'rudely' 
-		walk back out of the room.
-	</p>
-	<p>A mother, or at least my mother, took a different approach. She'd look at me, point at the clothes and say, "There are your dirty clothes." You see, 
-		she was pointing to the clothes and I was the one who was needing to act. She was a 'dirty clothes pointer.' She was NOT the dirty clothes. There is a 
-		difference.
-	</p>
-	<p>That's all pointers do, point at something.</p>
-	<p>Now pointers are not a new type of variable in C++. They are a modified type. As you know, this is the declaration of a string.</p>
+	<pre><code>bool amSmart = true;
+short secondsForFourTenthsOfDay = 32767;
+int secondsSinceFirstNevadaNukeTest = 2147483647;
+long millisecondsSinceFirstLizards = 9223372036854775807;
 
-	<p><pre><code class="C++">string name = "Bob"</code>
-	</pre></p>
 
-	<p>To declar a pointer, the * character is placed next to the type to modify it so it is a pointer. If a C++ variable is set to point at 
-		nothing, the key word to use is NULL. This is similar to the None keyword in Python. You can see both of these things in this example.
+float largestFloat = 340282346638528859811704183484516925440.000000;
+double largestDouble = 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000;
+
+char sex = 'f';
+char name[5] = "Suzan";
+std::string password = "235X-643!-54jnge;l1jt3;2";</code>
+	</pre>
 	</p>
-	<p><pre><code class="C++">string* name = NULL;</code>
-	</pre></p>
-	<p>Let me translate this line of code for you. "There is a variable called name of type string pointer. Set it to point at nothing."</p>
-
-	<h5>Generating a Pointer Value</h5>
-	<p></p>
-	<h4>Arrays</h4>
-	<p>A common use you will have for pointers is to point at an array. </p>
-	<p>Without the use of any external libraries, the C++ languages' way of collecting like things together is to use arrays. </p>
-	<h4>Making Choices</h4>
-	<p>The flow of computation through the code of an application is something that some new to programming 
-		don't think about or think about it as if it was a static tree. It isn't static. Computation flows 
-		through an application like electricity flows through circuts. Both electricity and computation flow using a path of least resistance 
-		approach, much like unwise students. If it is possible for 
+	<p>
+		Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought would lead you 
+		down a path you do not want to be on. Beginning programmers tend to think of floating point numbers as being a coninuous number line. They are not. There are 
+		numbers that a double can not represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you 
+		try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using variables of type double, not just integers.
 	</p>
-	<h4>Getting Loopy</h4>
-	<p></p>
-	
-	</table>
-		<table class="blueTable">
-		<caption>Table 4: 5+1 = 6 (base 2)</caption>
-		<tbody>
-			<tr><td></td><td>0000000000000101</td></tr>
-			<tr><td>+</td><td>000000000000001</td></tr>
-			<tr><td>=</td><td>0000000000000110</td></tr>
-		</tbody>
-	</table>
+	<p>
+		Another common mistake made by those new to C++ is they will accidentally assign a float or double value to an integer variable. Your compiler may  or may not warn you about this. What will happen if you do this is the float or double value will be converted into an int. All the data after the decimal point 
+		will be lost. Be careful when you do this on purpose. It can lead to logic errors. You should, instead, make this conversion explicit so you won't forget you meant to do this, and those who come along later to fix bugs in your code will also know you meant to do this. The code example below shows you explicitly 
+		state you meant to do this.
+	</p>
+<p>
+	<pre><code>double ageInYears = 21.6;
+/*
+.
+. 
+.
+*/
+int anAge = int(ageInYears);//convert the double into an int and store the result in an int-type variable
+</code>
+</pre>
+	</p>
+	<p>
+		You can also go the other direction, from int to double or float.
+	</p>
+<p>
+	<pre><code>int lengthInFeet = 6;
+/*
+.
+. 
+.
+*/
+double aLength = double(lengthInFeet);//convert the int into a double and store the result in an double-type variable
+</code>
+</pre>
+	</p>
+	<p>
+		In this case, the value stored in <span class="file_name">aLength</span> is 6.0 not 6.
+	</p>
+	<p>
+		There is one more type you can use when you declare a variable, <span class="file_name">auto</span>. The <span class="file_name">auto</span> type is very 
+		interesting. It's purpose is to let the computer decide the type instead of you. Don't miss-understand, the type is still fixed. The compiler uses 
+		a process called <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/">type inference</a> to decide what the type to assign to the 
+		variable. For example, if the compiler infers a variable is a string type, you can't later assign it an int value.
+	</p>
+	<p>
+	<pre><code>auto color = "blue"
+color = 3;//this line causes a compiler error
+</code>
+</pre>
+	</p>
+	<h3>Arrays</h3>
+	<h4>The Basic Way</h4>
+	<p>
+		As with most languages, there are two ways to define and fill an array. Being experienced with <a href="https://www.w3schools.com/python/python_arrays.asp">
+			Python arrays</a>, little of this is new to you. The biggest differences are, since you are in C++, you have to declare the type of the data 
+			held in the array, and use the <span class="file_name">{</span> and <span class="file_name">}</span> characters when you are declaring and filling an array all at once.
+	</p>
+	<p>
+	<pre><code>std::string names[] = {"sally","bob","jorge","brunhilda"};//an array of the four indicated strings
+</code>
+</pre>
+	</p>
 
-	
+		<p>
+	<pre><code>std::string names[4];//an array of four strings to be filled later
+	names[0] = "sally";
+	names[1] = "bob";
+	names[2] = "jorge";
+	names[3] = "brunhilda";
+</code>
+</pre>
+	</p>
+
+	<h4>Another Way</h4>
+	<p>
+		One major problem with the basic way of creating C++ arrays, as you can see in the basic examples above, is you have to know either the size of the array or exactly 
+		what is going to be in the array when you are writing the code. C++ arrays don't have 
+		any sort of <a href="https://www.journaldev.com/33185/python-add-to-array">append</a> function. But what happens if you don't know what size the array should be? 
+		For example, what if the data to be put in the array is a set of your company's customers that have been pulled out of some database? You simply don't know how 
+		many there will be until after your code has pulled them out. You could write your code in such a way that it has an array that, you think, will always 
+		be larger than the number of customers. This approach will not only fail, because hopefully your business gets more and more customers, but creates an 
+		opening for a <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a> security exploit. Now your application can be hacked. 
+		Never a good thing. Only use the basic way of creating arrays if you know exactly how big, or small, the array needs to be. So what is this other way? It invoves the use of something very cool&hellip;pointers.
+	</p>
+	<h3>Pointers - keeping track of where things are</h3>
+	<p>
+		A pointer is a way of keeping track of where something is in RAM or in some other part of the computer. 
+		Whatever that something is, a pointer will point at it. Don't make it harder than this. This is the entire concept. 
+		It just keeps track of where stuff is so you can use it or modify it later. Now let's use pointers so we can have a stable variable that we can use even though 
+		the array it points to can change.
+	</p>
+	<p>Let's say we have have to repeatedly pull and store a set of patient name strings from a database and the action of pulling those customers' names produces not only the names, but 
+		how many there are. Also, suppose the purpose of pulling the names repeatedly is to anounce who gets helped in our emergency room next. The code below shows you the syntax for creating an array and storing the array in a pointer.
+	</p>
+	<p>
+	<pre><code>long numberOfNames = //code to get the number from some database response
+std::string* names = new std::string[numberOfNames];
+</code>
+</pre>
+	</p>
+	<p>
+		In the above example, the <span class="file_name">*</span> type modifier is used. The variable <span class="file_name">names</span> is not a string variable. 
+		Instead, it is a variable of type string pointer. The names variable is pointing at the first string in the <span class="file_name">names</span> array. C++ 
+		arrays are dense arrays just like the ones in Python. This means if we know where the first element of the array is and we know how many things there are 
+		in the array, we actually know where they all are since they are right next to each other. Because of this, you could print out the patients' names like this.
+	</p>
 
 	<p>
-		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	<pre><code>long numberOfNames = //code to get the number from some database response
+std::string* names = new std::string[numberOfNames];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+std::cout&lt;&lt;"name: "&lt;&lt;names[0]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[1]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[2]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;std::endl;
+
+//Clean Up Your Mess!
+delete[] names;
+names = nullptr;
+</code></pre></p>
+<p>
+	Notice the two lines of clean up at the end of this last example. In C++, any time you use the new keyword to create a pointer (called allocating memory in C++ speak), 
+	you must call delete. If you don't you will have a <a href="https://searchwindowsserver.techtarget.com/definition/memory-leak">memory leak</a> in your code. 
+	Memory leaks are REALLY BAD. Unfortuately they are easy to create in C++ and can be really hard to fix in complicated code. So&hellip;do as your mother taught you 
+	and clean up your mess!
+</p>
+<p>
+	Another good practice to follow is anytime you delete something, set all pointers to it to <span class="file_name"><a href="https://embeddedartistry.com/blog/2017/03/08/migrating-from-c-to-c-null-vs-nullptr/">nullptr</a></span>. (The <span class="file_name">nullptr</span>
+	keyword is similar to, but not the same as, the None keyword in Python.) If you don't get into this habit, you will eventually create something called a zombie pointer. While zombie pointers won't eat your brains, they will eat up your time and your energy when you get seemingly random crashes in you application. Just say 
+	no to zombie pointers. Do this by setting ANY pointer to <span class="file_name">nullptr</span> AFTER you call delete. Order is important. Do NOT do it before you 
+	call delete or you will have just written a memory leak into your code.
+</p>
+
+<section class="callout">
+	<h3>Note!</h3>
+	<h4>I'm getting tired of typing std:: all the time. Isn't there a better way?</h4>
+	<p>
+		Absolutely. All you have to do is put 
+		<p><pre><code>using namespace std;</code></pre></p>
+		at the beginning of your file. Then, in that file, you don't have to type std:: infront of the <a href="https://cs.lmu.edu/~ray/notes/cppstandardlibrary/"> 
+		things in the standard library</a> of which string, cout, and endl are a few examples!
 	</p>
+</section>
+
+<p>
+	As with any well written language, spoken or computer, there is more than one way to accomplish the same thing. Here is another just as valid and important way to 
+	print out the values in an array.
+</p>
+<p>
+	<pre><code>using namespace std;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long numberOfNames = //code to get the number from some database response
+string* names = new string[numberOfNames];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+    names++;
+    cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+    names++;
+    std::cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+    names++;
+    cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+    names++;
+    cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+    names -= 4;
+
+//Clean Up Your Mess!
+delete[] names;
+names = nullptr;
+</code></pre></p>
+<p>
+	In the first line of code where a name is being printed out, you are going to see the <span class="file_name">*</span> character again. This time, 
+	it isn't being used as a type modifier. Instead, it is an <a href="https://www.geeksforgeeks.org/operator-overloading-c/">overloaded operator</a> 
+	that has as its input the pointer and as its output the value of the thing being pointer at. That's why, when this code is run, the names get 
+	printed out instead of the string pointer.
+</p>
+<p> 
+	You'll also notice that in this case, the <span class="file_name">++</span> and <span class="file_name">-=</span> operators are used directly on the pointer. These 
+	are also overloaded operators. When <span class="file_name">++</span> works on a pointer, it moves the pointer to the next string in the array. It can do this 
+	since the compiler it 'knows' the array holds strings, therefore it knows how far to move the pointer to get to the next string. That's exactly what the overloaded ++ operator does on any kind of pointer, be it an array of strings, doubles, floats, ints, or anything else.
+</p>
+<p>
+	The <span class="">-=</span> operator is also overloaded. It moves the pointer backwards by some integer amount.
+</p>
+<p>"But wait a minute. Does that mean + and - are also overwritten?", you say. Excelent question...yep. These sections of code are equivalent.</p>
+
+
+
+
+<section class="callout">
+	<h3>Note!</h3>
+	<h4>My application is crashing!! Why?</h4>
+	<p>
+		If you application crashes the odds are very high you have abused your memory management priviledges. You might be deleting something more times than you 
+		should, remember one new requires one and only one delete, or you have created a zombie pointer, or you may have used up all the memory available for the 
+		application by creating a memory leak, or you may have set a variable to <span class="file_name">nullptr</span> and tried to use it anyway.
+	</p>
+	<p>
+		Remember, if you C++ app crashes, the first thing to look for are memory issues.
+	</p>
+</section>
+
+	<h3>Let's Get Loopy!</h3>
+
+	<p>
+		From your previous experience with programming languages, it has probably occured to you that accessing all values in an array using hardcoded numbers is 
+		not a good approach. Instead loops are the way to go. C++ has several loops to choose between.
+	</p>
+	<h4>The Counting Loop</h4>
+	<p>
+		Since arrays have a fixed size and a way to access values using the [] operator, the counting loop is an ideal way to iterate over the elements of arrays. 
+		The traditional, forward-iteration type of this loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code below. The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
+		initializes a variable traditionally called i, short for iterator. This is the variable that will be used to, later, access the elements of the array to retrieve or modify them. This operation is executed ONLY the first time the loop's code executes.
+	</p>
+	<p>
+		Item 4, below, increases the value of <span class="file_name">i</span> by one. This is no supprise, but it may be a little supprising that this statement 
+		isn't executed the first time the <span class="file_name">for</span> line of code executes, but it is exectued all of the other times, and, actually, Items 
+		3 and 4 both execute all of the other times. However, item 4 always executes BEFORE item 3.
+	</p>
+	<p>
+		Item 3 is a boolean check. As with most loops in most languages, if the check returns 
+		<span class="file_name">false</span>, the loop terminates and the next line of code after the loop is executed.
+	</p>
+	<p>
+		Item 5 is a set of lines of codes executed every time the item 3 check returns true
+	</p>
+
+	<p><pre><code>
+ 1       2        3     4
+for (int i = 0; i < 7; i++){
+       .
+       . 5
+       .
+}
+<span class="citation">Excerpt From: <a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=1023155821">"Doing Stuff With C."</a> Lee S. Barney, &copy;2015. Available on Apple Books. </span>
+</code></pre></p>
+<p>
+	So recapping, the first time the line of code is executed, only item 2 is executed. Each time after that, 4 is executed, then three is executed, and then if 3 is 
+	true, 5 executes.
+</p>
+<p>
+	An example using the same situation as in the customer names example from before is in order. That way you can see how the counting loop replaces the rediculous 
+	set of <span class="file_name">cout</span> lines of code with just one, as you would expect.
+</p>
+
+	<p>
+	<pre><code>using namespace std;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long numberOfNames = //code to get the number from some database response
+string* names = new string[numberOfNames];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+for(int i = 0; i < numberOfNames; i++){
+	cout&lt;&lt;"name: "&lt;&lt;names[i]&lt;&lt;endl;
+}
+
+//Clean Up Your Mess!
+delete[] names;
+names = nullptr;
+</code></pre></p>
+<p>
+	There is another variant of the counting loop. It's the count down loop. You use this when you want to go in the reverse order. Since dense arrays are 
+	zero indexed, you have to set the inital value of <span class="file_name">i</span> to be one less than some might expect. Here's our example re-worked 
+	to use a count down loop.
+</p>
+
+	<p>
+	<pre><code>using namespace std;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long numberOfNames = //code to get the number from some database response
+string* names = new string[numberOfNames];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+for(int i = numberOfNames-1; i >= 0; i--){
+	cout&lt;&lt;"name: "&lt;&lt;names[i]&lt;&lt;endl;
+}
+
+//Clean Up Your Mess!
+delete[] names;
+names = nullptr;
+</code></pre></p>
+
+
+	<h4>The Logical Loop</h4>
+	<p>
+		In C++, the logical loop uses a variation of the while syntax found in many languages. Here is one way you could do the names example 
+		using a logicial loop.
+	</p>
+<p>
+	<pre><code>using namespace std;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long numberOfNames = //code to get the number from some database response
+string* names = new string[numberOfNames];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+std::string* end = names + numberOfNames;
+    
+while (names &lt; end) {
+    cout&lt;&lt;"while name: "&lt;&lt;*names&lt;&lt;endl;
+    names++;
+}
+
+//Clean Up Your Mess!
+names -= numberOfNames;
+delete[] names;
+names = nullptr;
+</code></pre></p>
+
+
+	<h4>The Logical Loop's Ugly Step Sister</h4>
+	<p>
+		OK...there are those that love the the alternative to C++'s while loop know as 'the do-while loop.' I, the author, was taught to avoid it like the plague 
+		when I was first learning C++. I empathize with those who love it. I don't. I agree with what Bjarne Stroustrup wrote in his seminal book. 
+		<blockquote>In my experience, the do-statement is a source of errors and confusion. The reason is that its body is always executed once before the condition is evaluated. However, for the body to work correctly, something very much like the condition must hold even the first time through. More often then a would have guessed, I have found that condition not to hold as expected either when the program was first written and tested or later after the code preceding it has been modified. I also prefer the condition "up front where I can see it." Consequently, I tend to avoid do-statements.</blockquote>
+		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false"">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
+	</p>
+
+
+	<h3>Making Choices</h3>
+	<p>
+		 Many, but not all, programming languages use variations of the keywords if-else if-else to indicate choice making ('conditional branching; is the computer sciencey term) within applications. C++ is one of those 
+		 lanugages that does. A common, traditional example of the use of this set of keywords is a number guessing game. The example strips away all extranious 
+		 thinking and allows the reader to focus on the concept and syntax of code-branching in C++.
+	</p>
+	<p>
+	<pre><code>#include <iostream>
+
+using namespace std;
+
+int main(int argc, const char * argv[]) {
+	int secretNumber = rand()%(100 + 1);
+	cout&lt;&lt;"Guess a number between 0 and 100."&lt;&lt;endl;
+	int aGuess = -1;
+	cin&gt;&gtaGuess;
+	if (aGuess < secretNumber) {
+	    cout&lt;&lt;"To low."&lt;&lt;endl;
+	}
+	else if (aGuess > secretNumber){
+	    cout&lt;&lt;"To high."&lt;&lt;endl;
+	}
+	else{
+	    cout&lt;&lt;"You guessed correctly!!!"&lt;&lt;endl;
+	}
+}
+</code></pre></p>
+<p>
+	You'll see something new in this guessing game example, <span class="file_name">cin&gt;&gt;</span>. Using <span class="file_name">cin&gt;&gt;</span> is how you read a value from the command line into an 
+	application. The type being read in is determined by the type of variable being 'filled' with a value.
+</p>
+	<h3>Loopy Choices</h3>
+	<p>
+		So the previous example is a little ridiculous. You only get one chance to guess. Here is one way you can combine looping and code branching so the user can  guess until they guess correctly.
+	</p>
+		<pre><code>#include <iostream>
+
+using namespace std;
+
+int main(int argc, const char * argv[]) {
+	int secretNumber = rand()%(100 + 1);
+	while(true){}
+		cout&lt;&lt;"Guess a number between 0 and 100."&lt;&lt;endl;
+		int aGuess = -1;
+		cin&gt;&gtaGuess;
+		if (aGuess < secretNumber) {
+		    cout&lt;&lt;"To low."&lt;&lt;endl;
+		}
+		else if (aGuess > secretNumber){
+		    cout&lt;&lt;"To high."&lt;&lt;endl;
+		}
+		else{
+		    cout&lt;&lt;"You guessed correctly!!!"&lt;&lt;endl;
+		    break;
+		}
+	}
+}
+</code></pre></p>
+
+</section>
+	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </body>
 </html>
