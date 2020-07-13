@@ -20,359 +20,161 @@
 <div class="hero-image">
   <div class="hero-text">
     <h1>CSE 121c: Week 04</h1>
-    <p>Representing Data</p>
+    <p>Efficient Data Storage and Access</p>
   </div>
 </div>
 	<h1>Beyond Arrays</h1>
-	<p>Arrays and lists are wonderful things. If you need to keep several things of the same type together so you can work with
-	them, an array or list is the way to go. But what about more complicated data? Consider this situation, you need to write 
-	code to track medications in a pharmacy. If you do this with arrays, your code looks something like this.
+	<p>Up to this point, the only type of container you've seen is a C-type array being used in C++. While these arrays are interesting, they lead to so many common coding crashes and security defects that the C++ documentation says that <a href="https://isocpp.org/wiki/faq/containers#arrays-are-evil">they are evil</a> and should be avoided in almost every situation. This is why C++ has a set of standard containers. These include, but are not limited to, <a href="https://stackoverflow.com/questions/45723819/what-is-a-span-and-when-should-i-use-one">spans</a>, <a href="https://www.geeksforgeeks.org/pair-in-cpp-stl/">pairs</a>, <a href="https://thispointer.com/c11-stdtuple-tutorial-examples/">tuples</a>, <a href="https://medium.com/the-renaissance-developer/c-standard-template-library-stl-vector-a-pretty-simple-guide-d2b64184d50b">vectors</a>, <a href="http://www.cplusplus.com/reference/list/list/">lists</a>, <a href="https://www.educative.io/edpresso/what-is-the-cpp-stl-map">maps</a>, and <a href="https://www.learncpp.com/cpp-tutorial/6-15-an-introduction-to-stdarray/">non-C arrays</a>. The code for these containers is highly optimized. Rarely is anyone able to write <a href="https://isocpp.org/wiki/faq/containers#slow-containers">more efficient code</a> to store multiple instances of classes compared to these standard containers. This class focuses on lists and maps. 
+	</p>
 	<p>
-<pre><code class="C++">const char* medications[4][5] = {{"Lactated Ringers","levothyroxine","rosuvastatin","albuterol","esomeprazole"}, 
-		   {"100L","2000ct","1500ct","1325ct","23145ct"},
-		   {"i13ab7","iat342","igr5423","iuy6532","imnb78932"},
-		   {"12/30/2029","03/18/2021","09/01/2020","01/01/2023","10/01/2021"}};
-</code>
-	</pre></p>
-	Or worse,
-	<p>
-<pre><code class="C++">const char* medications[4][5] = {{"Lactated Ringers","levothyroxine","rosuvastatin","albuterol","esomeprazole"},{"100L","2000ct","1500ct","1325ct","23145ct"},{"i13ab7","iat342","igr5423","iuy6532","imnb78932"},{"12/30/2029","03/18/2021","09/01/2020","01/01/2023","10/01/2021"}};
-</code>
-	</pre></p>
-	and worst of all,
-	<p>
-<pre><code class="C++">const char* names =  {"Lactated Ringers","levothyroxine","rosuvastatin","albuterol","esomeprazole"}; 
-const char*  amount = {"100L","2000ct","1500ct","1325ct","23145ct" };
-const char*  id  = {"i13ab7","iat342","igr5423","iuy6532","imnb78932"};
-const char* expiration = {"12/30/2029","03/18/2021","09/01/2020","01/01/2023","10/01/2021"}
-</code>
-	</pre></p>
-	<p>This code is intrinsically unstable. The data about the medications will become corrupted. It is too difficult to 
-	keep everything straight and lined up in the actual or imagined two dimensional array being built in the code. 
-	Bugs will creap into this code and the application it is part of will fail. 
-	(FYI, the const keyword, as used here, indicates that the values of the array can be changed, but another array 
-	can't be assigned to the 'names' variable.)</p>
-	<p>There are other problems with this way of holding data in memory...arrays can only hold one type of data. Since the name of 
-		the medication must be a string and C arrays can only hold one type of data, all the data regarding each medication 
-		must also be of type string. This is true unless you make the really bad decision to make arrays of different types and 
-	try to keep them in sync.</p>
-	<p>Also, the expiration dates, though human readable, are also difficult to use. If you needed to find all the medications 
-	that would expire within the next month, you would need a lot of CPU resources and memory to convert the string to 
-	something that could be used by your code. Wouldn't it be great to be able to write some code like this to represent a medication?</p>
-<p>
-<pre><code class="C++">medication aMed = {"i13ab7","Lactated Ringers",100,L,1893351600}
-</code>
-	</pre></p>
-	<p>Here, all the information about a single medication is associated together so it can't get mixed up with the data from 
-		other medications. The syntax looks kinda like an array, but there are 
-	strings and numbers mixed together...so it can't be an array. What is it? A structure.</p>
-	<h3>Structs - keeping related data together </h3>
-	<p>Structures, known as structs in C, allow us to mingle different types of data together, and build relationships between the data. Using the 
-	medication example, you could create a struct called medication that holds the medication's id, its name, the numeric 
-	amount of the medication, the type of amount, count(CT) or liters(L), and its expiration date
-	 all in one place for each medication. Then you can have a whole bunch of these 
-	medications in an array.The array would look something like this.</p>
-	<p>
-<pre><code class="C++">medication medications[5] = {
-        {"i13ab7","Lactated Ringers",100,L,1893351600},
-        {"iat342","levothyroxine",2000,CT,1616090400},
-        {"igr5423","rosuvastatin",1500,CT,1598983200},
-        {"iuy6532","albuterol",1325,CT,1672599600},
-        {"imnb78932","esomeprazole",23145,CT,1633111200}
-
-</code>
-	</pre></p>
-	<p>The type of thing this array is holding is medication instead of what you are used to, things like ints, floats, doubles, etc
-		This medication type is a new, custom type of thing we can add to the C language that has never existed before. 
-		Now in addition to int,	double, and char, you have the type medication. You can use it just like any of the other 
-		types. You can pass medication paramters, create medication variables, return medications from functions, etc. 
-		How then do you define a struct like medicine? You do it like this.</p>
-<p>
-<pre><code class="C++">struct medication {
-    char id[10];//maximum of 9 characters
-    char name[32];//maximum of 31 characters
-    int amount;
-    count_t amountType;//count or liters
-    long expiration;//the number of seconds since the beginning of the Unix epoch
-};
-</code>
-	</pre></p>
-<p>Here you see that each related piece of data is declared, in a specific order. If you take a look at the code above, you'll 
-see the medication type contains an id that is 
-a string of 9 characters (followed by a null character indicating the end of the string), followed by a name that is a string 
-of 31 characters and a null, an int that is the amount of the medication in stock, a count_t (count type) that indicates if 
-the amount in stock is measured in count (CT) or liters(L), and a long that is the expiration data as the number of seconds 
-since midnight January 1, 1970.</p>
-<p>But wait a minute...what is that count_t thing? It is an enum like the ones you saw in python. You create one of those like 
-this.</p>
-<p>
-<pre><code class="C++">enum count_t{
-    CT,//count
-    L//liters
-};
-</code>
-	</pre></p>
-
-	<p>Putting this all together, including a way to print out a human readable date, you can write code that looks like this.</p>
-	<p>
-<pre><code class="C++">#include &lt;stdio.h&gt;
-#include &lt;time.h&gt;//include the time conversion functions
-
-
-enum count_t{
-    CT,//count
-    L//liters
-};
-
-struct medication {
-    char id[10];//maximum of 9 characters
-    char name[32];//maximum of 31 characters
-    int amount;
-    count_t amountType;//count or liters
-    long expiration;//the number of seconds since the beginning of the Unix epoch
-};
-
-int main(int argc, const char * argv[]) {
-    medication medications[5] = {
-        {"i13ab7","Lactated Ringers",100,L,1893351600},
-        {"iat342","levothyroxine",2000,CT,1616090400},
-        {"igr5423","rosuvastatin",1500,CT,1598983200},
-        {"iuy6532","albuterol",1325,CT,1672599600},
-        {"imnb78932","esomeprazole",23145,CT,1633111200}
-    };
-    
-    //convert to human readable time
-    const char* readable= asctime(localtime(&amp;medications[0].expiration));
-    printf("\n%s expires on %s\n",medications[0].name,readable);
-    return 0;
-}
-</code>
-	</pre></p>
-	<p>If you are using an older version of the C language and compiler, you may get compilation errors when you attempt to create and use 
-	structs as described in these examples. If you get compiler errors indicating the compiler doesn't know the name of your struct, 
-	check out using <a href="https://stackoverflow.com/questions/252780/why-should-we-typedef-a-struct-so-often-in-c">structs and typedefs</a>
-	 together.</p>
-	<h3>Pointers, Malloc, Free - creating and keeping track of things</h3>
-	<p>So here is a situation...we need to fill an instance of a struct  with data and use the struct elsewhere in our code..in some other fucntion. 
-		We also need to be able to determine whether or not our function was able to successfully fill the struct and share that result as a boolean. 
-		The the struct and the boolean aren't the same type, so we can't return 
-	an array containing both the struct and the boolean. What will we do? Thankfully, the creators of C have built in a work-around for these kinds 
-	of problems. They gave us the malloc, free, and pointer tools. Let's start learning about these tools by looking at pointers. </p>
-	<p>Pointers are actually pretty simple things. All they do is point at stuff. For example, imagine you were with your parents and a younger brother 
-	at the beach. Your mother turns to you and says, "Keep track of your brother." To be obedient, you would obviously have to know where 
-	your brother was at all times. You would be a brother pointer! In other words, when your mother or father asked, "Where's your 
-	brother?" You could point and say, "Right over there." Congratulations! You have fullfilled you responsibility as a brother pointer.</p>
-	<p>That's really all there is to this concept of a pointer. Don't let anybody fool you into thinking it is more complicated than that. 
-	But why should you care???</p>
-	<p>Remember the struct/boolean situation you just read about? That's why. Think of a function that could fill a structure with appropriate values 
-	read from a file, from a database, or entered by the user.</p>
-	<p>To help with understanding, let's put together a simple struct called person that we'll play with later.</p>
-	<p>
-<pre><code class="C++">struct person {
-    int age;
-    double weight;
-};
-</code>
-	</pre></p>
-	<p>There are three operators that we use when working with pointers. Let's take a look at the first in this next code snippet. Here 
-	is that function described earlier that needs to fill a struct with data. Notice the &amp; character. &amp; is the operator that takes 
-	a variable as a parameter and returns a pointer to that variable. (FYI, in c lingo &amp; is called the address-of operator.)</p>
-	<pre><code class="C++">bool success = fillPerson(&personToFill);
-</code>
-	</pre></p>
-	<p>This means that a copy of the person-structure does NOT get passed to the fillPerson function. Instead a copy of the pointer to the 
-	person-structure is passed!!!!! This small change makes a huge difference. What does a copy of a pointer point to? Yep...you guessed it! 
-	The same thing the original pointer was pointing at. It's as if in the beach example, you had a twin and both of you were told to keep track of your brother. 
-	You would both point to your brother when asked, "Where is your brother?"</p>
-	<p>You've seen a pointer to a struct, but you can make pointers to pretty much anything, ints, doubles, character arrays, directories, files, printers, 
-	a location in RAM, a register, or other pieces of hardware. They are very powerful, yet a simple tool.</p>
-	<p>Earlier you saw what a function with parameters looks like. Let's see what changes have to be made to write a function that has a 
-	parameter that is a pointer. Notice that the paramter type is not person, but something strange. The strangeness is the * between the type, person, 
-	and the parameter name, aPersonPointer. </p>
-	<p>	<pre><code class="C++">bool fillPerson(struct person* aPersonPointer){
+		Consider the <span class="file_name">PharmaceuticalStockModel</span> class you saw last week. It Has_A unique pointer to a C type array of <span class="file_name">Medications</span>. 
+	</p>
+		<p>
+	<pre><code>class PharmaceuticalStockModel{
+    private:
+        unique_ptr&lt;Medication[]&gt; in_stock_medications;
+        long medicationCount;
+        long medicationCapacity;
+    public:
     /*
-     * Code goes here
+     * constructor and class function declarations here
      */
-}
+ }
 </code>
-	</pre></p>
-	<p>The * character is doing double duty. It does not mean multiplication in this context. Instead, it changes the parameter type from person to 
-	person pointer. (FYI, in c lingo * used in this context is called the indirection operator.) I'll convert the function declaration line of code to English for you. </p>
-	<blockquote>"There is a function called fillPerson that has one parameter of 
-	type person pointer. The name of the parameter is 'aPersonPointer'. On completion, the fillPerson function returns a boolean."</blockquote>
-	<p>As you saw earlier with the medication struct, if we wanted to access, or change a value in a person-structure, we would use the . operator.</p>
-	<p>	<pre><code class="C++">aPerson.age = 5;
-aPerson.weight = 98.9;
-</code>
-	</pre></p>
-	<p>But the fillPerson function wasn't passed a person-structure. It was passed a person pointer. That's why we need another operator, -&gt;, which, 
-	in C lingo, is called the 'structure-dereference operator.' You can see it used below instead of the . operator. It us used to set 
-	the values of the person's age and id members of the person-structure that aPersonPointer is pointing at.</p>
-	<p>	<pre><code class="C++">bool fillPerson(struct person* aPersonPointer){
-    aPersonPointer->age = 3;
-    aPersonPointer->id = 123.7;
-    return true;
-}
-</code>
-	</pre></p>
-	<p>Let me translate the three lines in body of the fillPerson function for you like I did for the function declaration earlier</p>
-	<blockquote>"Set the age (=) of the person-structure aPersonPointer is pointing at (->) to be 3. Then set the id (=) of the person 
-	structure aPersonPointer is pointing at (->) to be 123.7. Finally, return true from the function."</blockquote>
-<p>One of the advantages of passing a pointer as a parameter to a function instead of a structure like this person-structure, is that the function doesn't have 
-	to make a copy of the structure instance you pass in. It takes a lot more RAM 
-and CPU cycles to make a copy of a struct than it does to make a copy of the pointer. So if it is important to you 
-that your C application be fast and small, you should be passing pointers to these kinds of things to functions rather than copies.</p>
-
-
-<p>Next you are going to see a more sophisticated example. Make sure you have played with, in code, and understand the previouse pointer and struct examples before you 
-tackle this one.</p>
-<p>No...really. STOP!!! Go make up some of your own examples and understand them. Then proceed.</p>
-<hr/>
-<p>OK...now that you have gone and played with your own examples, lets move on. It is true in C that if you want to have a function that changes 
-the value of an int that is not in the function (external), you pass a pointer to the int as a parameter. Changing an external double? 
-Pass a double pointer. A float? Pass a float pointer. A person-structure? Pass a person-structure pointer. Changing a pointer? Pass a pointer to 
-the pointer.</p>
-<p>Consider a car factory. It builds cars. A computer chip factory builds computer chips. All factories build things for us. Now think about 
-a function that could build an instance of a person-structure for us. It could contain all the code for asking the user for the data about 
-the person, it could be using data read from a file, or the data could come from elsewhere. Regardless of where the data comes from, the 
-function would build an instance of person for us.</p>
-<p>It's true that a function like this could instantiate a struct and then set its properties like we've seen in the examples so far and 
-then return that struct. 
-Doing this, though, would mean that the system would make a copy of the struct to return and then, as the function ends, delete the instance 
- created inside the factory function. Instantiating instances, making copies of those instances, and deleting instances are expensive acts. 
-They require lots of RAM and lots of CPU cycles. It sure would be great if we could dramatically reduce the RAM and CPU use and still use 
-a function to build an instance of a person-structure for us. Thankfully, this can be done in C and many other languages. Not only can it be done, 
-but it very commonly done. All that is required is for your function to have a parameter that is a pointer to a person-structure pointer. 
-I'll show you how this works.</p>
-
-
-<p>To start off with, let's look at some code inside a main function. When writing code that uses a factory type of a function, 
-	you will need to create a variable that is a pointer type and set it to point at nothing (NULL in C lingo). 
-Then create a function that has a parameter that is a pointer to that pointer. Take a look at the buildPerson function in this next example. 
-You'll see that aPerson is a pointer to a person-structure. You'll also see that build person is passed &aPerson. Remember that the & operator 
-produces a pointer to what ever it is in front of. It then follows that since aPerson is a pointer to a person-structure, the parameter type for the buildPerson 
-function must be a pointer to that pointer. In C lingo we'd say that that parameter must be a person-structure pointer pointer.</p>
-
-<p><pre><code class="C++">int main(int argc, const char * argv[]) {
-    struct person* aPerson = NULL;//set the pointer to point at nothing (NULL)
-    bool success = buildPerson(&aPerson);
+</pre>
+	</p>
+	<p>
+		While this works, it uses that evil C-type array. It can definitely be improved upon for flexibility, usability, and security.
+	</p>
+	<p>
+		Consider this situation. Using your application's User Interface (UI), your customer wants to select the name of a medication and see a list of all the bottles of that medication, when they were recieved, when they expire, and how many pills, or if liquid how much liquid, remains in each bottle. This can be done using C-type arrays, but the code will be slow since you will have to do a lot of searching...comparing the name of each medication in the array with the selected name and building a temporary C-type array to hold pointers or references to, heaven forbid copies of, each of the matching medications. Wow! Slow and error prone. 
+	</p>
+	<h1>Maps</h1>
+	<p>
+		All maps, including the one in the standard library of C++, <span class="file_name">std::map</span>, are very good at looking stuff up. Each map is a group of keys and values in pairs. These key-value pairs are so common in programming and applications that you've been using them for a long time without knowing it. Think about your music player on your phone. It has lists of the songs, artists, and music genre on your phone. When you select a song to play, what is actually happening? After all, the display doesn't contain the actual song file. Instead it's the name of the song, musician, or genre. Let's say you select a song name. That name is a key that is used to look up the song file to play. The song file is the value. Key - song name: Value - song file.
+	</p>
+	<p>
+		'Wait a minute', you say. Doesn't the map just have an array inside? Isn't it going to look through that array just like I could? The answer to both of these questions is no. It is much more sophisticated than that and you'll learn more about this when you take the <span class="file_name">CSE212 Programming with Data Structures</span> and <span class="file_name">CSE232 Designing Data Structures</span> classes. For now, just believe there are computer scientists who have more knowledge than you do right now and map is designed by them to be significantly better than using a hidden array.
+	</p>
+	<p>
+		Maps are good at looking things up. Looking up things in C++'s <span class="file_name">std::map</span> is O(log n) so let's modify the <span class="file_name">PharmaceuticalStockModel</span> class to have a map of medications instead of a unique_ptr to an array of medications. When this is done, what before was
+	</p>
+	<p><pre><code class="C++">class PharmaceuticalStockModel{
+    private:
+        unique_ptr&lt;Medication[]&gt; in_stock_medications;
+        long medication_count;
+        long medication_capacity;
+    public:
     /*
-     * more code here that uses success and aPerson
+     * constructor and class function declarations here
      */
-}
+ }
 </code>
 	</pre></p>
+	<p>
+		becomes
+	</p>
 
-
-<p>What, then, does such a function look like? Take a look at this next snippet.</p>
-
-<p><pre><code class="C++">bool buildPerson(struct person** builtPerson){
+	<p><pre><code class="C++">class PharmaceuticalStockModel{
+    using std::string;
+    using std::map;
+    private:
+        map&lt;string,Medication&gt; in_stock_medications;
+    public:
     /*
-     * the code that is the body of the function goes here.
+     * constructor and class function declarations here
      */
-}
+ }
 </code>
 	</pre></p>
-	<p>You can see the buildPerson function has a boolean return type. Nothing strange there. The parameter, builtPerson, has a type 
-	you haven't seen before. It is a person-structure pointer pointer, like we described earlier. The syntax uses the * character twice. 
-That's why it's a pointer pointer. If the parameter looked like this, struct person*** builtPerson, then the parameter type would 
-be struct person pointer pointer pointer. While you could have any number of * characters next to each other, mostly you will see 
-either 1 or 2...so either a pointer or a pointer pointer. Let's add in the next line of code to the buildPerson function to see what 
-it needs to do.</p>
+	<p>
+		Let's take a look at the lines that changed starting with the declaration of the <span class="file_name">in_stock_medications</span> instance variable. The changed line states that there is a instance variable named <span class="file_name">in_stock_medications</span> of type map where the key is a <span class="file_name">std::string</span> and the value is a list of <span class="file_name">Medications</span>. This is Sooo much simpler! Gone is the unique pointer. Gone is the C-type array. and gone are the <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> instance variables. Those last two were only there because a C-type array was used. They aren't needed anymore. Maps have infinite capacity and keep track of how many things are stored in them themselves. We don't have to do this separately like we had to when a C-type array was being used. 
+	</p>
 
-	<p><pre><code class="C++">bool buildPerson(struct person** builtPerson){
-    int personRAMSize = sizeof(struct person);
+	<p>
+		Notice in the declaration of the map, that there is some code that looks strange. &lt;string,Medication&gt. This is where you declare the types for the keys and values. The C++ standard map stores the keys and values in a <a href="http://www.cplusplus.com/reference/utility/pair/pair/">std::pair instance</a>. The key is the first element of the pair and the value is the second element of the pair. The map declaration line in the previous code snippet tells the compiler that the map should hold pairs of type <span class="file_name">std::pair&lt;string,Medication&gt;</span>.
+	</p>
+	<p>This is all good. But there is one big problem. The C-type array could have many bottles of any specific type of medication. Maps use keys to look up a single value. Oh no...now we can only have one bottle of each type of medication in the pharamcy. Don't worry. There is a solution.
+	</p>
+	<h1>Lists</h1>
+	<p>
+		Lists are containers that are very good at keeping a group of items in a specific order. They are also good at adding and removing additional elements at the beginning or end of the list, O(1). Since you've learned about and used lists before, draw on that experience to understand what your reading next. 
+	</p>
+	<p>The pharmacy needs to be able to have multiple bottles of each type of medication. We know we can use a map with the name of the medication as a key to do a fast lookup. What if instead of looking up a single bottle the map could look up a list of bottles? Then the <span class="file_name">PharmaceuticalStockModel</span> class would be fast and flexible. That's a good design! To make this happen the map needs a key of type string and a value that is a list of medications, list&lt;Medication&gt;. The complete, fast, flexible change is now,
+	</p>
+
+	<p><pre><code class="C++">class PharmaceuticalStockModel{
+    using std::string;
+    using std::map;
+    using std::list;
+    private:
+        map&lt;string,list&lt;Medication&gt; in_stock_medications;
+    public:
     /*
-     * the rest of the function
+     * constructor and class function declarations here
      */
+        void add_tablet_to_stock(const TabletMedication& medication_to_add);
+ }
+</code>
+	</pre></p>
+	<p>
+		There is another benefit of this design. If bottles of medication are always added at the end of the list for their type of medication. The medication purchased longest ago will always be at the front of the list. That way, when a perscription for some amount of medication is recieved, the bottle purchased longest ago is the one that will be used to fill the perscription. That guarentees the stock of that medication will get turned over appropriately, assuming there is a corelation between the dates the medications were recieved and the expiration date of the medication in the bottles.
+	</p>
+	<p>
+		What, then, would the code for the <span class="file_name">PharmaceuticalStockModel</span> instance function <span class="file_name">add_tablet_to_stock</span> look like that adds a tablet-type medication to an existing list for that medication stored in the map? To be able to write code for this method, there is one more tool needed.
+	</p>
+	<h2>Iterators</h2>
+	<p>
+		<dfn>iterate: </dfn><a href="https://www.merriam-webster.com/dictionary/iterate">to say or do again or again and again.</a>
+	</p>
+	<p>
+		<dfn>Iterators</dfn> are instances of classes that let you move through a container of elements. Like <a href="https://www.w3schools.com/python/python_iterators.asp">Python lists</a>, all C++ standard containers have one or more instance functions that return iterators. So for example, if you had the list of integers, list&lt;int&gt;ages{1,17,5,23}, you could get an iterator to the beginning of the list, the end of the list, or somewhere in between. But, unlike Python iterators, you have to use an operator in order to get the value out of the iterator.
+	</p>
+	<h3>Get the Beginning of the List</h3>
+		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+auto front_age_iterator = ages.begin();
+cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
+</code>
+	</pre></p>
+
+	<h3>Get the End of the List</h3>
+		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+auto end_age_iterator = ages.end();
+cout &lt;&lt; *end_age_iterator&lt;&lt;endl;//prints out 23
+</code>
+	</pre></p>
+	<h3>Find Some Place in the List</h3>
+
+	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+auto front_age_iterator = ages.begin();
+auto back_age_iterator = ages.end();
+//find the location of 5 in the list...search from the beginning to the end
+auto found_age_iterator = ages.find(ages.begin(),ages.end(),5);
+</code>
+	</pre></p>
+
+	<h3>Moving Using Iterators</h3>
+	<p>
+		To move to the next element of the list you use the ++ operator, a reflection of the sibling relationship C++ has with C.
+	</p>
+	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+auto front_age_iterator = ages.begin();
+cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
+front_age_iterator++;
+cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 17
+</code>
+	</pre></p>
+	<h3>Bringing it All Together</h3>
+	<p>
+	Now, combining a map that uses a string for its keys and a list of medications as its value, the <span class="file_name">addTabletToStockModel</span> method can now be done. Compare these next sentences with the code example below.</p>
+	<p> First, use the map's find method to get an iterator that contains the list of medications with the name of the medication as the key. The iterator for this map will have a key-value pair <span class="file_name">std::pair&lt;string, list&lt;Medication&gt;&gt;</span> internally. Since the list is the second element of the pair, use the second property of the pair to access the list containing all the bottles of medication. Lastly, use the list's <span class="file_name">push_back</span> method to add the medication to the end of the list...and you're done. The medication has been added.
+	</p>
+	<p><pre><code class="C++">void PharmaceuticalStockModel::add_tablet_to_stock(const TabletMedication& medication_to_add){
+auto found_medication_iterator = in_stock_medications.find(medication_to_add.get_name());
+found_medication_iterator->second.push_back(medication_to_add);
 }
 </code>
 	</pre></p>
-<p>In order to build a C person-structure that won't get removed from RAM at the end of the buildPerson function, 
-the first thing that needs to be done is to figure out how much RAM a person-structure takes up. It is possible for us to determine 
-the size of all the parts and add them up. This could become difficult if the software is compiled to run on diffrent machines since 
-sizes can change depending on what you compile your code for. The creators of C solved this problem for you.</p>
-<p> In the code snippet above, 
- the sizeof BIF is passed the person-structure type and returns how much RAM is required to hold a person-structure. Since this happens at run time, this code 
- works across all machine types. Now that we know how much RAM is required to hold a person-structure, the next thing the buildPerson 
-function needs to do is reserve that much RAM. To do this, use C's malloc BIF.</p>
-<h4>Malloc, Casting, and Dereferencing</h4>
-<p>Find where the malloc BIF is used in the new line of code in the snippet below. The use of the malloc function is the main thing going on in this new line of code. 
-In the C world,  the word malloc stands for Memory ALLOCation. In other words, claiming memory from the OS so nothing else can use that memory until 
-the program is done with it. The buildPerson function needs to create a new instance of a person-structure so we need to malloc enough memory to hold exactly 
-one person-structure. That is what is stored in the personRAMSize variable. That's why, in this code, personRAMSize is passed to the malloc BIF.
-
-<p><pre><code class="C++">bool buildPerson(struct person** builtPerson){
-    int personRAMSize = sizeof(struct person);
-    struct person* aPerson = (struct person*)malloc(personRAMSize);
-    /* the rest of the function
-     *
-     */
-}
-</code>
-	</pre></p> 
-<p>One thing to understand about the malloc BIF is that it has no concept of variable types. It doesn't know that we are allocating memory for a person-structure. 
-All it knows is that we requested an amount of RAM be reserved. That's why we must do something called casting.</p>
-
-<p>Casting is the concept that you can convert something to something else. For example, if we had a variable of type int named height, int height, 
-we could cast that to be a double like this, double heightAsDouble = (double)height;. This is an important skill to understand when you are writting C. 
-It is also very powerful. Unlike other languages, C doesn't check to see if you can or should cast some thing to something else. So in C, you could 
-cast a dog to be a Fararri and the compiler will do it. It is also important to understand that casting is not the same as converting. If you 
-cast an integer to a person-structure, the compiler will do it but it won't be converted. When you try to use that person-structure variable, your app will 
-crash. Sooner or later, your app will crash. It therefore falls on you to know if it is 'legal' to cast one type of thing to another.</p>
-<p>In the previous code snippet, you will see this '(struct person*)' right infront of the call of the malloc BIF. That is where the casting happens.</p>
-<p>Let me translate the second line of the the previous snippet to you. As with all C code, you start reading it on the right of the = character.</p>
-<blockquote>Call the malloc BIF and pass it the integer stored in personRAMSize. Cast what malloc returns to you to be a person-structure 
-pointer and assign the result in the aPerson variable.</blockquote>
-
-<p>Read over that last translation several times while you point at the parts of line two being described. That will help you figure out 
-what each part of the syntax does. It will also help you remember how to do this. Once you understand the second line of the snippet, you are ready 
-move on to the next idea to learn bout.</p>
-
-<p>Remember, the point of this function is to create a person-structure that not only can be used elsewhere in the code, but to set a 
-specific pointer to point at the person-structure buildPerson creates. That means we need to set that pointer to point at the person-structure 
-just created by the malloc BIF line of code. To accomplish this feat, the builtPerson pointer pointer needs to be set to point at the aPerson pointer. 
-To accomplish this, the * operator is reused. Take a look at the new line of code below. </p>
-
-	<p><pre><code class="C++">bool buildPerson(struct person** builtPerson){
-    int personRAMSize = sizeof(struct person);
-    struct person* aPerson = (struct person*)malloc(personRAMSize);
-    *builtPerson = aPerson;
-    /*
-     * the rest of the function
-     */
-}
-</code>
-	</pre></p>
-	<p>When the * character is used like this, it is called the dereferencing operator. It acts like a function that returns the value being pointed 
-	at by the pointer. Since buildPerson is pointing at a pointer, when the * operator is used, it returns the person struct pointer that builtPerson 
-	is pointing at. Let me translate the new line to you. It translates to, "convert the builtPerson person structure pointer pointer to a person 
-	structure pointer and then change it to point at the same thing as the aPerson person structure pointer." This line is where the 'magic' happens. 
-	Remember that the buildPerson pointer pointer is pointing at the person structure pointer in the main function. When the new line of code runs, 
-	it ends up changing the person structure pointer in main to point at the person structure created by the malloc BIF inside of buildPerson. That way 
-	we don't have to return the pointer aPerson!! Instead, this function updates the pointer in the other function. In Computer Science terms, the 
-	buildPerson function has a <href a="https://www.quora.com/What-are-the-side-effects-in-a-C-function-Is-there-a-definite-program-to-understand-this">
-	 side effect</href>.</p>
-
-	 <p>
-	 	Now let's set the age and weight values for aPerson. You can see that being done in the two new lines below.
-	 </p>
-
-	<p><pre><code class="C++">bool buildPerson(struct person** builtPerson){
-    struct person* aPerson = (struct person*)malloc(sizeof(struct person));
-    *builtPerson = aPerson;
-    
-    //eventually we will get these values from the user
-    aPerson->age = 3;
-    aPerson->weight = 190.5;
-    return true;
-}
-</code>
-	</pre></p>
-	<p>The only weirdness in these lines is the use of the -> (arrow) operator. Don't over think this one. Remember, aPerson is not a person structure. 
-		It is a person structure pointer. Any time you have a pointer, you must use the -> operator to access or change the properties of a structure. 
-		Just go with it. I know...they could have used the . operator that you saw earlier. I understand. But just go with it. Arrows are pointy. If you 
-		have a pointer to a structure, use the pointy arrow operator.</p>
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
