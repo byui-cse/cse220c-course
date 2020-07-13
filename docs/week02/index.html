@@ -142,14 +142,14 @@ age = "Shoshana";</code>
       </section>
 	<p>Examples of declaring and setting these types of variables are good to see.</p>
 	<p>
-	<pre><code>bool amSmart = true;
-short secondsForFourTenthsOfDay = 32767;
-int secondsSinceFirstNevadaNukeTest = 2147483647;
-long millisecondsSinceFirstLizards = 9223372036854775807;
+	<pre><code>bool am_smart = true;
+short seconds_for_four_tenths_of_day = 32767;
+int seconds_since_first_nevada_nuke_test = 2147483647;
+long milliseconds_since_first_lizards = 9223372036854775807;
 
 
-float largestFloat = 340282346638528859811704183484516925440.000000;
-double largestDouble = 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000;
+float largest_float = 340282346638528859811704183484516925440.000000;
+double largest_double = 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000;
 
 char sex = 'f';
 char name[5] = "Suzan";
@@ -157,24 +157,35 @@ std::string password = "235X-643!-54jnge;l1jt3;2";</code>
 	</pre>
 	</p>
 	<p>
-		Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought would lead you 
-		down a path you do not want to be on. Beginning programmers tend to think of floating point numbers as being a coninuous number line. They are not. There are 
+		Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought will lead you 
+		down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are the same as a continuous number line. They are not. There are 
 		numbers that a double can not represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you 
 		try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using variables of type double, not just integers.
 	</p>
+	<section class="callout">
+	<h3>Note!</h3>
+	<h4>What's up with all the underscores in the variable names?</h4>
+	<p>
+		Each language you will learn has written or unwritten rules called conventions. In this class you and I are following the naming convention used by Bjarne Stroustrup, the creator of C++ and head of the ISO international C++ standards body. According to 
+		Bjarne, <a href="http://www.stroustrup.com/bs_faq2.html#Hungarian">underscores should be used for separation between the words making up names</a>. 
+		If you are going to disagree with Bjarne, you'd better have a VERY good argument. But again, do what your boss says for these kinds of community conventions.
+	</p>
+</section>
+
+
 	<p>
 		Another common mistake made by those new to C++ is they will accidentally assign a float or double value to an integer variable. Your compiler may  or may not warn you about this. What will happen if you do this is the float or double value will be converted into an int. All the data after the decimal point 
 		will be lost. Be careful when you do this on purpose. It can lead to logic errors. You should, instead, make this conversion explicit so you won't forget you meant to do this, and those who come along later to fix bugs in your code will also know you meant to do this. The code example below shows you explicitly 
 		state you meant to do this.
 	</p>
 <p>
-	<pre><code>double ageInYears = 21.6;
+	<pre><code>double age_in_years = 21.6;
 /*
 .
 . 
 .
 */
-int anAge = int(ageInYears);//convert the double into an int and store the result in an int-type variable
+int an_age = int(age_in_years);//convert the double into an int and store the result in an int-type variable
 </code>
 </pre>
 	</p>
@@ -182,18 +193,18 @@ int anAge = int(ageInYears);//convert the double into an int and store the resul
 		You can also go the other direction, from int to double or float.
 	</p>
 <p>
-	<pre><code>int lengthInFeet = 6;
+	<pre><code>int length_in_feet = 6;
 /*
 .
 . 
 .
 */
-double aLength = double(lengthInFeet);//convert the int into a double and store the result in an double-type variable
+double a_length = double(length_in_feet);//convert the int into a double and store the result in an double-type variable
 </code>
 </pre>
 	</p>
 	<p>
-		In this case, the value stored in <span class="file_name">aLength</span> is 6.0 not 6.
+		In this case, the value stored in <span class="file_name">a_length</span> is 6.0 not 6.
 	</p>
 	<p>
 		There is one more type you can use when you declare a variable, <span class="file_name">auto</span>. The <span class="file_name">auto</span> type is very 
@@ -215,12 +226,14 @@ color = 3;//this line causes a compiler error
 			held in the array, and use the <span class="file_name">{</span> and <span class="file_name">}</span> characters when you are declaring and filling an array all at once.
 	</p>
 	<p>
-	<pre><code>std::string names[] = {"sally","bob","jorge","brunhilda"};//an array of the four indicated strings
+	<pre><code>auto names = {"sally","bob","jorge","brunhilda"};//an array of the four indicated strings
 </code>
 </pre>
 	</p>
-
-		<p>
+	<p>
+		You can also create an array, and then fill it with values later.
+	</p>
+	<p>
 	<pre><code>std::string names[4];//an array of four strings to be filled later
 	names[0] = "sally";
 	names[1] = "bob";
@@ -249,11 +262,11 @@ color = 3;//this line causes a compiler error
 		the array it points to can change.
 	</p>
 	<p>Let's say we have have to repeatedly pull and store a set of patient name strings from a database and the action of pulling those customers' names produces not only the names, but 
-		how many there are. Also, suppose the purpose of pulling the names repeatedly is to anounce who gets helped in our emergency room next. The code below shows you the syntax for creating an array and storing the array in a pointer.
+		how many there are. Also, suppose the purpose of pulling the names repeatedly is to anounce who gets helped in our emergency room next. The code below shows you C++'s original way of creating an array and storing where the array is in a pointer.
 	</p>
 	<p>
-	<pre><code>long numberOfNames = //code to get the number from some database response
-std::string* names = new std::string[numberOfNames];
+	<pre><code>long number_of_names = //code to get the number from some database response
+auto names = new std::string[number_of_names];//the type of the names variable is std::string* as infered by the compiler
 </code>
 </pre>
 	</p>
@@ -265,8 +278,8 @@ std::string* names = new std::string[numberOfNames];
 	</p>
 
 	<p>
-	<pre><code>long numberOfNames = //code to get the number from some database response
-std::string* names = new std::string[numberOfNames];
+	<pre><code>long number_of_names = //code to get the number from some database response
+auto names = new std::string[number_of_names];
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -285,7 +298,7 @@ delete[] names;
 names = nullptr;
 </code></pre></p>
 <p>
-	Notice the two lines of clean up at the end of this last example. In C++, any time you use the new keyword to create a pointer (called allocating memory in C++ speak), 
+	Notice the two lines of clean up at the end of this last example. If you use the original way of creating pointers in C++, any time you use the new keyword to create a pointer (called allocating memory in C++ speak), 
 	you must call delete. If you don't you will have a <a href="https://searchwindowsserver.techtarget.com/definition/memory-leak">memory leak</a> in your code. 
 	Memory leaks are REALLY BAD. Unfortuately they are easy to create in C++ and can be really hard to fix in complicated code. So&hellip;do as your mother taught you 
 	and clean up your mess!
@@ -296,31 +309,72 @@ names = nullptr;
 	no to zombie pointers. Do this by setting ANY pointer to <span class="file_name">nullptr</span> AFTER you call delete. Order is important. Do NOT do it before you 
 	call delete or you will have just written a memory leak into your code.
 </p>
-
 <section class="callout">
 	<h3>Note!</h3>
-	<h4>I'm getting tired of typing std:: all the time. Isn't there a better way?</h4>
+	<h4>I'm getting tired of typing std:: all the time. Isn't there some other way?</h4>
 	<p>
 		Absolutely. All you have to do is put 
-		<p><pre><code>using namespace std;</code></pre></p>
+		<p><pre><code>using std::cout;
+using std::endl;
+using std::string;</code></pre></p>
 		at the beginning of your file. Then, in that file, you don't have to type std:: infront of the <a href="https://cs.lmu.edu/~ray/notes/cppstandardlibrary/"> 
-		things in the standard library</a> of which string, cout, and endl are a few examples!
+		standard library</a> things you've specified. The standard items you've seen, string, cout, and endl, are just  a few examples!
 	</p>
 </section>
 
+	<h3>Pointers - the modern way</h3>
+	<p>
+		Unfortunately, the requirement to clean up your own mess, one aspect of memory management, is something that programmers and software engineers just can't seem to get right. Microsoft's own recent statements claim that <a href="https://www.zdnet.com/article/microsoft-heres-why-we-love-programming-language-rust-and-kicked-off-project-verona/"> 70% of  mission-critical defects</a> written into Microsoft's own apps by their programmers and engineers are the result of poor memory management (Google has made a <a href="https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/">similar statement about their Chrome web browser</a>). Modern C++ has some things in it that can help with this...smart pointers.
+	</p>
+	<p>
+		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us via His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the uses of the using keyword near the top of the file.
+	</p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
+
+/*
+ .
+ .A bunch of code here
+ .
+ */
+
+long number_of_names = //code to get the names number from some database response
+unique_ptr<string[]> names(new string[number_of_names]);
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+cout&lt;&lt;"name: "&lt;&lt;names[0]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[1]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[2]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;endl;
+</code></pre></p>
 <p>
-	As with any well written language, spoken or computer, there is more than one way to accomplish the same thing. Here is another just as valid and important way to 
-	print out the values in an array.
+	Notice that you don't have to call delete for your array. You don't have to set it to nullptr either. unique_ptr takes care of all of this for you! Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead. Which method would you choose?
+</p>
+
+
+<p>
+	As with any well written language, spoken or computer, there is more than one way to accomplish the same thing. Here is another valid way to 
+	print out the values in an array if you are using the old kinds of pointers.
 </p>
 <p>
-	<pre><code>using namespace std;
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
 /*
  .
  .A bunch of code in your app here
  .
  */
-long numberOfNames = //code to get the number from some database response
-string* names = new string[numberOfNames];
+long number_of_names = //code to get the number from some database response
+string* names = new string[number_of_names];
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -347,7 +401,7 @@ names = nullptr;
 	In the first line of code where a name is being printed out, you are going to see the <span class="file_name">*</span> character again. This time, 
 	it isn't being used as a type modifier. Instead, it is an <a href="https://www.geeksforgeeks.org/operator-overloading-c/">overloaded operator</a> 
 	that has as its input the pointer and as its output the value of the thing being pointer at. That's why, when this code is run, the names get 
-	printed out instead of the string pointer.
+	printed out instead of the pointer to the name.
 </p>
 <p> 
 	You'll also notice that in this case, the <span class="file_name">++</span> and <span class="file_name">-=</span> operators are used directly on the pointer. These 
@@ -357,7 +411,7 @@ names = nullptr;
 <p>
 	The <span class="">-=</span> operator is also overloaded. It moves the pointer backwards by some integer amount.
 </p>
-<p>"But wait a minute. Does that mean + and - are also overwritten?", you say. Excelent question...yep. These sections of code are equivalent.</p>
+<p>"But wait a minute. Does that mean + and - are also overwritten?", you say. Excelent question...yep. Stroustrup, however, does say <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?dchild=1&keywords=a+tour+of+c%2B%2B&qid=1594060107&sr=8-1">you should never write code like the example you just saw</a>. These overloaded operators are for the use of the wise and highly experienced. This example was included here because you will see old code like this in strange places written by engineers who didn't know what they are doing.</p>
 
 
 
@@ -367,11 +421,11 @@ names = nullptr;
 	<h4>My application is crashing!! Why?</h4>
 	<p>
 		If you application crashes the odds are very high you have abused your memory management priviledges. You might be deleting something more times than you 
-		should, remember one new requires one and only one delete, or you have created a zombie pointer, or you may have used up all the memory available for the 
-		application by creating a memory leak, or you may have set a variable to <span class="file_name">nullptr</span> and tried to use it anyway.
+		should. Remember, with the old methodology, one new requires one and only one delete. It's also possible you created a zombie pointer, or you may have used up all the memory available for the 
+		application by creating a memory leak, or you may have set a variable to <span class="file_name">nullptr</span> and tried to use it anyway. All but the last of these problems go away if you use modern smart pointers.
 	</p>
 	<p>
-		Remember, if you C++ app crashes, the first thing to look for are memory issues.
+		Remember, if your C++ app crashes, the first thing to look for are memory issues.
 	</p>
 </section>
 
@@ -383,14 +437,14 @@ names = nullptr;
 	</p>
 	<h4>The Counting Loop</h4>
 	<p>
-		Since arrays have a fixed size and a way to access values using the [] operator, the counting loop is an ideal way to iterate over the elements of arrays. 
+		Since arrays have a fixed size and a way to access values using the [] operator, the counting loop is one way to iterate over the elements of arrays. 
 		The traditional, forward-iteration type of this loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code below. The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
-		initializes a variable traditionally called i, short for iterator. This is the variable that will be used to, later, access the elements of the array to retrieve or modify them. This operation is executed ONLY the first time the loop's code executes.
+		initializes a variable traditionally called i, short for index. This is the variable that will be used to, later, access the elements of the array to retrieve or modify them. This operation is executed ONLY the first time the loop's code executes.
 	</p>
 	<p>
 		Item 4, below, increases the value of <span class="file_name">i</span> by one. This is no supprise, but it may be a little supprising that this statement 
-		isn't executed the first time the <span class="file_name">for</span> line of code executes, but it is exectued all of the other times, and, actually, Items 
-		3 and 4 both execute all of the other times. However, item 4 always executes BEFORE item 3.
+		isn't executed the first time the <span class="file_name">for</span> the for loop executes. Instead, it is exectued every time except the first time. Items 
+		3 and 4 both execute every time, but when item 4 is executed it will always be executed BEFORE item 3. Wow...that's confusing. Read that again. Think through it as see what the implications are for the example below.
 	</p>
 	<p>
 		Item 3 is a boolean check. As with most loops in most languages, if the check returns 
@@ -410,23 +464,26 @@ for (int i = 0; i < 7; i++){
 <span class="citation">Excerpt From: <a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=1023155821">"Doing Stuff With C."</a> Lee S. Barney, &copy;2015. Available on Apple Books. </span>
 </code></pre></p>
 <p>
-	So recapping, the first time the line of code is executed, only item 2 is executed. Each time after that, 4 is executed, then three is executed, and then if 3 is 
+	So recapping, the first time the line of code is executed, only items 2 and 3 are executed. Each time after that, 4 is executed, then three is executed, and then if 3 is 
 	true, 5 executes.
 </p>
 <p>
-	An example using the same situation as in the customer names example from before is in order. That way you can see how the counting loop replaces the rediculous 
+	An example using the customer names example you saw before is in order. That way you can see how the counting loop replaces the rediculous 
 	set of <span class="file_name">cout</span> lines of code with just one, as you would expect.
 </p>
 
 	<p>
-	<pre><code>using namespace std;
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
 /*
  .
  .A bunch of code in your app here
  .
  */
-long numberOfNames = //code to get the number from some database response
-string* names = new string[numberOfNames];
+long number_of_names = //code to get the number from some database response
+unique_ptr<string[]> names(new string[5]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -434,13 +491,9 @@ string* names = new string[numberOfNames];
  */
 
 //print out the names
-for(int i = 0; i < numberOfNames; i++){
+for(int i = 0; i < number_of_names; i++){
 	cout&lt;&lt;"name: "&lt;&lt;names[i]&lt;&lt;endl;
 }
-
-//Clean Up Your Mess!
-delete[] names;
-names = nullptr;
 </code></pre></p>
 <p>
 	There is another variant of the counting loop. It's the count down loop. You use this when you want to go in the reverse order. Since dense arrays are 
@@ -449,14 +502,17 @@ names = nullptr;
 </p>
 
 	<p>
-	<pre><code>using namespace std;
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
 /*
  .
  .A bunch of code in your app here
  .
  */
-long numberOfNames = //code to get the number from some database response
-string* names = new string[numberOfNames];
+long number_of_names = //code to get the number from some database response
+unique_ptr<string[]> names(new string[5]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -464,13 +520,9 @@ string* names = new string[numberOfNames];
  */
 
 //print out the names
-for(int i = numberOfNames-1; i >= 0; i--){
+for(int i = number_of_names-1; i >= 0; i--){
 	cout&lt;&lt;"name: "&lt;&lt;names[i]&lt;&lt;endl;
 }
-
-//Clean Up Your Mess!
-delete[] names;
-names = nullptr;
 </code></pre></p>
 
 
@@ -480,32 +532,28 @@ names = nullptr;
 		using a logicial loop.
 	</p>
 <p>
-	<pre><code>using namespace std;
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
 /*
  .
  .A bunch of code in your app here
  .
  */
-long numberOfNames = //code to get the number from some database response
-string* names = new string[numberOfNames];
+long number_of_names = //code to get the number from some database response
+unique_ptr<string[]> names(new string[number_of_names]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
  .
  */
-
-//print out the names
-std::string* end = names + numberOfNames;
+ int count_down_index = number_of_names - 1;
     
-while (names &lt; end) {
-    cout&lt;&lt;"while name: "&lt;&lt;*names&lt;&lt;endl;
+while (count_down_index - 1 >= 0) {
+    cout&lt;&lt;"while name: "&lt;&lt;names[count_down_index]&lt;&lt;endl;
     names++;
 }
-
-//Clean Up Your Mess!
-names -= numberOfNames;
-delete[] names;
-names = nullptr;
 </code></pre></p>
 
 
@@ -527,7 +575,9 @@ names = nullptr;
 	<p>
 	<pre><code>#include <iostream>
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
 
 int main(int argc, const char * argv[]) {
 	int secretNumber = rand()%(100 + 1);
@@ -551,11 +601,13 @@ int main(int argc, const char * argv[]) {
 </p>
 	<h3>Loopy Choices</h3>
 	<p>
-		So the previous example is a little ridiculous. You only get one chance to guess. Here is one way you can combine looping and code branching so the user can  guess until they guess correctly.
+		So the previous example is a little ridiculous. You only get one chance to guess. Here is one way you can combine looping and code branching so the user can  guess an infinite numbere of times or until they guess correctly.
 	</p>
 		<pre><code>#include <iostream>
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
 
 int main(int argc, const char * argv[]) {
 	int secretNumber = rand()%(100 + 1);
