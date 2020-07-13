@@ -17,310 +17,366 @@
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 03</h1>
-    <p>Functions, Pointers, and Libraries</p>
-  </div>
-</div>
-	<h1>Organization and Access</h1>
+<section class="hero-image">
+  <section class="hero-text">
+    <h1>CSE 220c: Week 03</h1>
+    <p>Classes and Inheritance</p>
+  </section>
+</section>
+<h1>Language Organization and Access</h1>
 	<p>All computer languages are ways to organize your communication and thinking. In this, they are very
 	similar to spoken languages. Each spoken language, or family of spoken languages, does this organization
-	differently. English sentences often have a structure of Subject-Helper Verb-Verb-Predicate...The boy will bite the dog, for example.
+	differently. English sentences often have a structure of Subject-Helper Verb-Verb-Predicate..."The boy will bite the dog", for example.
 	German, a language closely related to English, organizes things differently. Sometimes German sentences have a
         Subject-Helper Verb-Predicate-Verb structure...
-	Ich werde das Buch bald lesen, which if translated word-by-word is "I will the book soon read." Spanish has adjectives 
+	"Ich werde das Buch bald lesen", which if translated word-by-word is "I will the book soon read." Spanish has adjectives 
 	after the nouns they modify.</p>
 	<p>While each language has its own organizational rules, they all do the same thing. They allow us to organize and express
 	our thinking.</p>
-	<h3>Functions - the fundimental organization concept of C</h3>
-	<p>C, and its descendent language Python, have functions as a fundamental organizational structure. When you truly begin 
-	thinking in C, you will be thinking in functions. You will think of how functions are related to each other. You will 
-	have thoughts along these lines, "If this function calls that one..." You will be able to do this since you will eventually
-	realize that when you are designing solutions in C, how a function accomplishes something is not as important as that it will, 
-	and that you can wait to figure out how to complete the function later.</p>
-	
-	<p>Put an example here of desinging a solution thinking in functions.</p>
-	
-	<h2>A Function in C</h2>
-	<p>Since Python is a descendent of C, there are similarities and differences between the languages regarding how you declare 
-	functions. All C function declarations follow the pattern you can see here.</p>
-	<p><span class="blue">returnType</span> theFunctionName(<span class="green">parameters</span>)</p>
-	<p>In C, you are required, as part of the function declaration, to declare the return type. In other words, 
-	the type of the thing being returned. If your function will return an integer, the return type is 'int'. 
-	If it will return a double, the return type is 'double'. Also, a function in C can only return one type of thing. 
-	You cant have it sometimes return a string and other times return an int.</p>
-	<p>Another item you must understand is that , C uses '{' and '}' for scope operators instead of the 
-	indentation you may be used to. The multiply function, below, shows how these work.</p>
-	<p><pre>
-<code>int multiply(int aMultiplicand, int aMultiplier){
-	return aMultiplicand * aMultiplier;
-}</code>
-</pre></p>
-	<p>The body of the multiply function, the stuff it is supposed to do, or any other C function goes between 
-	the begin scope operator, '{', and the end scope operator, '}'. These operators allow you to have multiple 
-lines of code in the body of a function. Take a look at the average function below.</p>
-<p><pre>
-<code>double average(double aNumber, double anotherNumber){
-	double sum = aNumber + anotherNumber;
-	double average = sum/2.0;
-	return average;
-}</code>
-</pre></p>
-	<p>Here, there are three lines of code in the body of the function. Could it be done in one? Of course...
-	but should you is the question you should ask. Here is one of many places you can find more information on 
-	<a href="https://www.tutorialspoint.com/cprogramming/c_functions.htm">C functions</a>.</p>
+	<h3>Instances of Classes - the fundimental organizational concept of C++</h3>
+	<p>C++, being a sibling of C, has the concept of functions but when you truely begin thinking in C++, you think in classes and instances of classes. So much so, that, in modern C++, any stand-alone function other than the main function, has <a href="https://www.quora.com/What-is-code-smell">'code smell'</a>.</p>
 
-	<p>Another thing you will notice when you look at code written by professionals, is that each function is often  
-	found in two seperate, but related, files. The first is called a header file and has a name like ###.h. 
-	The second is the implementation file and has a name like ####.c. The appropriate way to use these files is 
-	to declare your function, without a body, in the header file, and implement it and its body in the 
-	implementation file. Let's write a few silly math functions using a header file and implementation file.</p>
-<h4>The Header File</h4>
-<p><pre>
-<code>/*
- * sillymath.h
- *
- */
+<h1>The Situation</h1>
+<p>To help learn about the C++ syntax for classes and instances, a set of classes is needed. The set selected for your perusal describes 
+	a very simplified stock-tracker for an imagined pharmaceutical company. Several classes are included in this set. A Date class storing 
+	individual numbers for a day, month, and year. A Medication class that is the parent class for two medication types, TabletMedications 
+	and LiquidMedications. And last, but not least, a model class (<a href="https://www.youtube.com/watch?v=FCkDEHWDATI">MVC</a>) that stores and manipulates data regarding the stock available for sale. 
+<img src="images/pharm_uml.png" alt="An image showing each of the classes, Date, Medication, Liquid Medication, Tablet Medication, Pharmaceutical Stock Tracker, their properties, and the relationships between them">
+</p>
+<h1>The Classes</h1>
+<h2>C++ Peculiarities</h2>
+<p>Due to C++'s ancestor C, C++ class declarations and definitions are put in seperate files. A declaration describes what properties and functions a class has, but 
+	not what the functions do. An implementation describes what each class function does but does not describe the properties and functions a class has. Many other languages 
+	combine the declaration and definition in one spot. By convention, the declaration files for C++ use the .h or .hpp file extension to the file name. 
+	Also by convention, C++ implementation files use the .cpp extension. Since this is by convention only, you could use any extension you want, 
+	but if you choose to do so, you better have a VERY good reason or you will confuse everone else who ever reads or supports your code. An example of a declaration 
+	file and an implementation file for a simple data-class is in order.
+	<section class="callout">
+    <h3>Note!</h3>
+    <h4>.h or .hpp?</h4>
+    <p>
+    	Everybody who has written C++ for any significant amount of time has an opinion on what the extension for header files should be. Microsoft Visual Studio 
+    	uses .h by default, matching the header files used when using the C language. Apple's Xcode uses .hpp to diferentiate C++ header files from C header files. 
+        Bjarne Stroustrup weighed in on this contravercial topic when it was being discussed by the <a href="https://isocpp.org">C++ International Standards Body</a>.
+		<blockquote>I have worked on projects that used .h, on projects that used .hpp, and on projects that used .H. 
+		I did not notice the choice of suffix to be among the significant problems or advantages. So, I prefer to spend my efforts 
+		on other things.</blockquote>
+		<span class="citation">Excerpt From: <a href="https://github.com/isocpp/CppCoreGuidelines/issues/686">"Default convention for C++ header files should be .hpp"</a>ISO C++, 2016.</span>
+	</p>
+    <p>
+    	In other words, it doesn't matter which you use. Go with the default your IDE uses. It's not even worth the time to change it from your IDE's default. 
+    	When you get a job, you boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this is will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!!
+    </p>
+</section>
+</p>
+<h2>The Date Class</h2>
+<p>
+	The purpose of the Date class is to store the day, month, and year for any specific date. This design allows searching by comparing any 
+	or all of these three values. If you look at the UML class diagram, it shows the Date class is composed of three integers, one for the day, one for the month, 
+	and one for the year. In the code below focus on the code starting with the keyword <span class="file_name">class</span>.  
+</p>
+<h3>A Class Declaration, the date.hpp File</h3>
+<p>
+	<pre><code>#ifndef date_hpp
+#define date_hpp
 
-
-/*
- * declarations of a few silly math functions
- */
-#ifndef SILLYMATH_H_
-#define SILLYMATH_H_
-
-/*
- * A silly function for adding two integers
- */
-int sum(int anAddend, int anotherAddend);
-
-/*
- * A silly function for multiplying two integers
- */
-int multiply(int aMultiplicand, int aMultiplier);
-
-/*
- * A silly function for dividing two doubles
- */
-double divide(double aDividend, int aDivisor);
-
-/*
- * A silly function for averaging two integers
- */
-double average(int aNumber, int anotherNumber);
-
-#endif /* SILLYMATH_H_ */
-}</code>
-</pre></p>
-<h4>The Implementation File</h4>
-<p><pre>
-<code>/*
- * sillymath.c
- * *
- */
-
-
-/*
- * implementations of a few silly math functions
- */
-
-
-/*
- * A silly function for adding two integers
- */
-int sum(int anAddend, int anotherAddend){
-	return anAddend + anotherAddend;
+namespace pharmaceutical_tracker{
+    class Date{
+    private:
+        int day;
+        int month;
+        int year;
+    public:
+        Date();
+        Date(int a_day, int a_month, int a_year);
+        void set_day(int aDay);
+        int get_day()const;
+        void set_month(int aMonth);
+        int get_month()const;
+        void set_year(int aMonth);
+        int get_year()const;
+        bool operator==(const Date& other_date)const;
+    };
 }
 
-/*
- * A silly function for multiplying two integers
- */
-int multiply(int aMultiplicand, int aMultiplier){
-	return aMultiplicand * aMultiplier;
-}
-
-/*
- * A silly function for dividing two doubles
- */
-double divide(double aDividend, double aDivisor){
-	return aDividend/aDivisor;
-}
-
-/*
- * A silly function for averaging two integers
- */
-double average(int aNumber, int anotherNumber){
-	return (aNumber + anotherNumber)/2.0;//notice this is 2.0 (the return type)---not 2 (the parameters' type)
-}</code>
-</pre></p>
-<p>With your code split between your header and implementation files, it makes it easy for someone to use your 
-code. All they have to do is put both files in their project and put #include "sillymath.h" at the top of their 
-code file.</p>
-<h4>Using the Silly Math Functions</h4>
-<p><pre>
-<code>/*
- ============================================================================
- Name        : usingfunctions.c
- Author      : Lee
- Version     :
- Copyright   : Your copyright notice
- Description : using silly math functions in C, Ansi-style
- ============================================================================
- */
-
-#include &ltstdio.h&gt
-#include &ltstdlib.h&gt
-
-#include "sillymath.h"
-
-int main(void) {
-
-	int anInteger = 2332176;
-	int anotherInteger = 54325432;
-
-	int theSum = sum(anInteger, anotherInteger);
-	printf("%d + %d = %d\n\n", anInteger, anotherInteger, theSum);
-
-
-	int theProduct = multiply(anInteger, anotherInteger);
-	printf("%d * %d = %d\n\n", anInteger, anotherInteger, theProduct);
-
-
-	double theAverage = average(anInteger, anotherInteger);
-	printf("The average of %d and %d is %f.\n", anInteger, anotherInteger, theAverage);
-
-
-	return EXIT_SUCCESS;
-}</code>
-</pre></p>
-
-	<p><span class='green'>Heads up::</span>When you try to compile your app, if you get an error similar to this 'ld: symbol(s) not found for architecture x86_64', 
-	it is saying that you have declared a function in a header file but forgot to put an implementation for it in 
-	an implementation file.</p>
-	<p>Earlier, we mentioned how, as you become more experienced, you will begin to think in functions rather than 
-	the individual lines of code. Let's rethink a couple of the silly math functions to make them a little less silly.</p>
-	<p>Let's start by asking, "What does average mean?" An average is a sum of some set of numbers divided by the count 
-	of the numbers in the set. For example, the average of {4,6,7} is (4+6+7)/3. Yes, this is something you've known 
-	for a long time. The point is, if you look at the stated definition of average, the statement contains two interesting 
-	words, 'sum' and 'divide'. These are two functions. Average, then, can be viewed as the result of a sum function and a divide 
-	function being used one after the other. 
-	Let's see what average function's implementation would look like if we write it while thinking in functions.</p>
-<p><pre>
-<code>/*
- * A less-silly, but not great, function for averaging two integers
- */
-double less_silly_average(int aNumber, int anotherNumber){
-	return divide(sum(aNumber, anotherNumber),2.0);
-}</code>
-</pre></p>
-	<h3>Libraries - sharing your functions with others</h3>
-	<p> A higher order organizational idea in C is library. Libraries are a way that you can share your compiled code with other programmers 
-		or they can share with you. These libraries consist of compiled groups of functions that, unlike 
-		applications, can not run on their own. Instead, you add their library to the project for your application and use their functions 
-		in your code.</p>
-	<h4>Libraries - structure and compilation</h4>
-	<p>You have used others libraries alread without knowing it. Each time you put #include&ltstdio.h&gt or #include &ltstdlib.h&gtin your application you were using 
-	a library someone else wrote and compiled for you. Take a look at <a href="https://github.com/kozross/awesome-c">this partial list, by type</a>, 
-	of open source libraries people have created for you to use. It will give you an idea of how much you can do in an application 
-	without having to write all the code.</p>
-	<p>To share your functions, you create one or more header files that declare all of the functions you want them to have access too and 
-		write the code for the declarations in those header files...just like we did with the silly math functions. Since, as a C programmer, 
-		you will be writing and using libraries, let's step through how to create and use a compiled, static library of those functions. (
-	<a href="https://www.geeksforgeeks.org/static-vs-dynamic-libraries/">What is a Static Library?</a>) We'll follow the process outlined in 
-	<a href="https://youtu.be/TEgVahFr1GA">this video</a>.</p>
-	
-	<p>Using a library in a project is where all this library business is headed. It isn't particularlly difficult in eclipse, but it is picky. 
-	<a href="https://youtu.be/hT3lOd16xrQ"></a>This video</p> steps you through the process of using a library, one of your own or someone 
-	else's, in an application you are writing.
-
-	<h3>Pointers - keeping track of where things are</h3>
-	<p>Because of when and for what it was created, the PDP-11 computer, the C language has a structure many other languages do not...
-	it's called a pointer. A pointer is a way of keeping track of where something is in RAM or in other parts of the machine. 
-	Whatever that something is, a pointer will point at it. Don't make it harder than this. This is the entire concept. 
-	It just keeps track of where stuff is so you can use it or modify it later. Now let's use pointers to make the divide and 
-	less_silly_average functions better than what we've already done.</p>
-	
-	<p>C functions can only return 1 value. What then do you do when you need two pieces of information back from a function? Pointers 
-	come to your rescue! One of problems with the less_silly_divide function that is used by the less_silly_average function is that 
-	less_silly_divide will fail if the function is passed a 0 via the divisor parameter. "But that will never happen,right?" Oh...believe 
-	me it will. Somebody will call your function after calculating what the divisor should be, and sooner or later it will end up being 
-	0. Let's modify less_silly_divide and less_silly_average so we can find out if they succeed or fail. Let's call these new function s 
-	better_divide and better_average.</p>
-
-	<p>If you look at the code below, you will find a double variable designed to hold the average being calculated. You will also notice 
-	a new parameter being passed, '&amp;theAverage'. The &amp; is the operator in C that produces a pointer. In this case, the pointer 
-	points at the double variable 'theAverage'. You'll see how to leverage this a little bit later.</p>
-	<p>Also notice the boolean variable, 'succeeded', that is assigned the return value of the better_average function. What is going to 
-	happen in the better_average code is this. If everything goes as well, better_average updates the value in the double variable 'theAverage' 
-	and returns the boolean value true. If anything goes wrong, the double variable 'theAverage' is not updated and better_average returns 
-	false.</p>
-
-
-
-<p><pre>
-<code>
-#include &le;stdbool.h&gt;
-.
-.
-.
-int main(void) {
-.
-.
-.
-/*
- * Using the better_average function
- */
-double theAverage = 0.0;
-bool succeeded = better_average(10, 3, &theAverage);
-printf("1 is true, 0 is false\n; succeeded = %d with quotient of %f\n",succeeded, theAverage);
+#endif /* date_hpp */
 </code>
-</pre></p>
+</pre>
+	</p>
+	<p>
+		You'll notice the class keyword is followed directly by the name of the class. Also notice that, <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?crid=BTYSB77L90QG&dchild=1&keywords=a+tour+of+c+bjarne+stroustrup&qid=1594136212&sprefix=a+tour+of+%2Caps%2C249&sr=8-1">in accordance with convention</a>, the first letter 
+		of a custom class's name is capitalized. Nothing else in C++ is capitalized, except a thing called macros that have fallen out of favor.
+	</p>
+	<p>
+		After the line declaring the class name, you will see four lines of code that declare three private properties. If a C++ class's properties are private, 
+		then they can not be accessed directly. For example, if there was a variable of type date called birthday, this code would be invalid and fail to 
+		compile. 
+	</p>
+<p>
+	<pre><code>if(birthday.year < 2020)</code>
+</pre>
+	</p>
+	<p>
+		Please realize that only things in the <span class="file_name">public:</span> block can be accessed or changed directly. That's why all private properties must
+		be accessed and changed (mutated) by class functions in the <span class="file_name">public:</span> block. These are colloquially called "getters and setters". 
+		You can recognize them by their names. Take a look at the code for the <span class="file_name">Date</span> class above and find its getter and setter declarations in the <span class="file_name">public</span> section. 
+		Notice that the first part of the getter declarations start with the same type as the property it is associated with. C++ requires that the type of what 
+		is returned from the function be declared directly. The setters have <span class="file_name">void</span> in this same location meaning nothing is going to 
+		be returned. Also notice the parameters for the setters also require a type be declared. 
+	</p>
+		There is a third option, in addition to <span class="file_name">private</span> and <span class="file_name">public</span>, known as <span class="file_name">protected</span>. If a property or class function is protected, it is directly accessable to anything that inherits from the class but not accessable to everything else.
+	</p>
+<section class="callout">
+	<h3>Note!</h3>
+    <h4>I should never actually use the <span class="file_name">protected</span> keyword when writting real code. Right?</h4>
+    <p>
+    	No. You are wrong if you try to make this 'never' type of a claim. You should use <a href="https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil">protected when appropriate</a>. Use it when you don't really need to strongly hide how you've done something.
+	</p>
+</section>
+	<p>
+		The last declaration in the date.hpp file for the <span class="file_name">Date</span> class is the C++ syntax for overloading the 
+		<span class="file_name">==</span> operator. This syntax for operator overloading compares the current instance of <span class="file_name">Date</span>, the one 
+		on the left side of the <span class="file_name">==</span> operator, with the instance of <span class="">Date</span> on the right, in this declaration known as 
+		<span class="file_name">other_date</span>. As part of this declaration, you can see another new type modifier, <span class="file_name">&</span>. This modifier 
+		means that the parameter isn't a <span class="file_name">Date</span>. Instead it is a <span class="file_name">Date</span> reference. References are similar to 
+		pointers in that references allow a class instance to be used within a function without the instance being copied. There are some differences however, and Bjarne 
+		Stroustrup states that references were <a href="http://www.stroustrup.com/bs_faq2.html#pointers-and-references"> designed specifically for operator overloading</a> to make the overloading syntax clearer. He also gives some rules for <a href="http://www.stroustrup.com/bs_faq2.html#pointers-and-references">when you should use references and when you should use pointers</a>.
+	</p>
+	<p>
+		One last item before moving on to the class function definitions. Notice the namespace declaration right before the class declaration. In C++, namespaces are 
+		used to group classes together and differentiate them from other classes that may be named the same. Think of it this way, let 
+		<span class="file_name">Date</span> be the 'given name' of the class in the date.hpp file. With people, rarely are given names sufficient to differentiate people from each other. They need a family name. You can think of the 
+		namespace as being the 'family name' of the class. It helps differentiate this <span class="file_name">Date</span> class declaration from any other, 
+		thus helping the compiler know which type 
+		of Date to use if there happens to be more than one. With this namespace declaration in the .hpp file, this <span class="file_name">Date</span>'s name isn't 
+		just <span class="file_name">Date</span>, it's <span class="file_name">pharmaceutical_tracker::Date</span> with <span class="file_name">::</span> connecting 
+		the namespace to the class name.
+	</p>
 
-<p>To make this work, we need a better_divide function to go along with the better_average function. What, then, do these functions 
-look like? As you can see, both have a boolean return type, and three parameters...the two from the silly versions of the functions 
-and a strange one, 'double* aQuotientPtr' for the divide function and 'double* anAverage' for the average function.</p>
+<h3>The Class Function Definitions, the date.cpp File</h3>
+<p>
+	The first thing the compiler needs to know when working with a .cpp file is which class declaration the defintions in the file belong to. This is done by the 
+	first line in the example below. The <span class="file_name">#include "date.hpp"</span> line of code is known as a 'precompiler directive'. It informs the 
+	compiler that the declarations in the date.hpp file will be used. Also remember from last week that typing the namespace over and over again can be very 
+	tedious. So, once again, the <span class="file_name">using</span> declaration is used. That way we, having declared the "full name" for all the 
+	class functions being defined here, the class function defintions are significantly shorter and easier to read.
+</p>
+<p>
+	The first line of code after the namespace declaration is the definition of the Date constructor declared in the date.hpp file and discussed above. The name of 
+	this constructor includes the class, Date, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as it's name. Directly 
+	after the name of the function, you'll notice a colon character (:) followed by a list of the property names for the date class. Each property name is 
+	folowed by a pair of curly braces ({ and }) and an integer value. the combination of a property name, the curly braces, and a valid value initializes that 
+	property with the stated value. In the default constructor for this Date class, the day, month, and year are all set to be -1, an invalid value, so any default 
+	instance of Day can be detected and differentiated from those instantiated using the non-default constructor. The items after the colon are known as an initiator 
+	list.  
+</p>
+<p>
+	<pre><code>#include "date.hpp"
 
-<p><pre>
-<code>/*
- * A better, but not great, function for averaging two integers
- */
-bool better_divide(double aDividend, double aDivisor, double* aQuotientPtr){
-	bool success = false;
-	if(aDivisor != 0.0){
-		*aQuotientPtr = aDividend/aDivisor;
-		success = true;
-	}
-	return success;
+using pharmaceutical_tracker::Date;
+
+Date::Date():day{-1}, month{-1}, year{-1} {}
+
+Date::Date(int aDay, int aMonth, int aYear):day{aDay},month{aMonth},year{aYear} {
+    
+    //todo: check to make sure day, month, and year are a valid combination for a date
 }
 
-/*
- * A better, but not great, function for dividing two integers
- */
-bool better_average(int aNumber, int anotherNumber, double* anAverage){
-	return better_divide(sum(aNumber,anotherNumber),2.0,anAverage);
-}</code>
-</pre></p>
-<p>If we act as if we were a debugger and trace the call from the main function you saw above all the way 
-	through the better_average and better_divide functions, we can see what is happening with the variables 
-	and paramters. Here we go.</p>
+void Date::set_day(int aDay){
+    //todo: check to make sure is valid day
+    day = aDay;
+}
+int Date::get_day()const{
+    return day;
+}
+void Date::set_month(int aMonth){
+    //todo: check to make sure is valid month
+    month = aMonth;
+}
+int Date::get_month()const{
+    return day;
+}
+void Date::set_year(int aYear){
+    //todo: check to make sure is valid year
+    year = aYear;
+}
+int Date::get_year()const{
+    return year;
+}
 
-<p>When better_average gets called, the aNumber parameter is assigned a copy of the integer 10, the anotherNumber parameter is 
-assigned a copy of the integer 3, and the anAverage parameter is assigned a copy of the double pointer, theAverage. An important 
-point to remember is that since theAverage pointer is a copy of the anAverage pointer, they both point at the same thing.</p>
+bool Date::operator ==(const Date& other_date)const{
+    return day == other_date.day
+        && month == other_date.month
+        && year == other_date.year;
+}
+</code>
+</pre>
+	</p>
+	<p>
+		Directly after the default constructor, above, is the non-default constructor. In this example, each property is set using a value via an initialization list. 
+		You don't have to assign all properties for an instance of a class, but if it makes sense to do so you should. 
+	</p>
+	<p>
+		Following both constructors, are the getters and setters described earlier. Notice that the <span class="file_name">return</span> keyword is not required 
+		if nothing, <span class="file_name">void</span>, is to be returned.
+	</p>
+	<p>
+		Remembering the discussion regarding the reference type modifier above, consider the lines of code that is the definition of the <span class="file_name">==</span> operator. When you use a reference to an instance of a class, you can access any class function or public properties using the <span class="file_name">.</span> <a href="http://www.stroustrup.com/bs_faq2.html#overload-dot">(dot) operator</a>. "But wait a minute!", you say. "Those properties being access are 
+		private!" You are absolutely right. They are private to the CLASS not the instance. This means that since both items being checked are part of the 
+		<span class="file_name">Date</span> class, they can access any of their own public, private, or protected properties. The reasoning behind this was to provide 
+		cleaner syntax for overloading operators and other class functions that need to access private and protected members.
+		
+	</p>
 
-<p>Due to the order of operations rules, the same ones you learned about in Python, the next thing that happens is the calling of 
-	the sum function. It adds copies of aNumber(10) and anotherNumber(3) and returns the result(13). The better_divide function is then 
-	called. In the better_divide function, the aDividend parameter is a copy of the sum functions result(13), aDivisor is a copy of the double 2.0, and 
-	aQuotient is a copy of the anAverage pointer.</p>
+<section class="callout">
+    <h3>Note!</h3>
+    <h4>Put Code in the Header or Not?</h4>
+    <p>
+    	One important reason people use for selecting C or C++ as an implementation language for a project is speed. It used to be that you had to make difficult 
+    	choices as to where to put your code to make it fast but use more RAM. If you not only declared but also defined a class's functions in the header file, the functions would  
+    	end up 'inline', meaning the class function call would be replaced with the class function's code thus increasing the size of you application. If, on the other 
+    	hand, you put the function's defintion in the .cpp file it would not 
+    	end up inline, your application would use less RAM and run slower. There were tricks you could use to force the compiler to make you function be inline if you wanted. Thankfully those days of making difficult choices are gone. Today, the compilers for C and C++ are much more sophisticated than they used to be. 
+	</p>
+    <p>
+    	Ben Klemens tested the compiler in the Gnu Compiler Collection (gcc) and found it,
+    	<quote>"threw every optimization trick it knew at my sample programs, and those optimizations knew ... when to inline functions without my explicitly instructing the compiler."</quote>
+		<span class="citation">Excerpt From: <a href="https://www.amazon.com/21st-Century-Tips-New-School-ebook/dp/B00NYBRH30/ref=sr_1_1?dchild=1&keywords=21st+century+c%3A+chips+from+the+new+school&qid=1588266896&sr=8-1&swrs=AF5B754DFF2FAA8BDA238ACC35626D8C">"21st Century C: C Tips from the New School (p. 181)"</a>Ben Klemens, O'Reilly Media. Kindle Edition. </span>
+	</p>
+    <p>
+    	This means that, with today's modern compilers, programmers don't have to chose when functions should or shouldn't be 'inlined'. The compiler will make a better choice than the programmer can, given the entirety of the code it is compiling. So put the declaration in the .h or .hpp file and the defintion in 
+    	the .cpp file and let the compiler do a better job of optimization than you can <a href="https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl">unless otherwise restricted</a>.
+    </p>
+</section>
+	<p>
+		So far, this week, you've learned how to write the code that describes the class. You've seen the <span class="file_name">Date</span> class declaration and the definition of its class functions. This is a lot to take in, so if it's confusing, STOP. Take the time to go over the previous material with a classmate. Talk about it. Discuss it. State what each of you understand and what each of you don't. If you just try to keep going without understanding, it's going to get worse not better. Please listen. Success in using C++ in your follow-on classes requires that you understand these basic, beginner things.
+	</p>
+	
+	
 
-<p>There are two main things that have to happen in the better_divide function. One of which is to check to make sure we aren't 
-	trying to divide by 0 and return false if we are. The other is to update the double that aQuotientPtr is pointing to with the 
-	result of doing the division. Be careful. You don't want to update the pointer itself. When you update a pointer, you change 
-	what where it is pointing. No...you want to update the double the pointer is pointing at. To do this you use the 'dereference 
-	operator', *. It is the same character as the pointer indicator. Don't let that fool you. This line in better_divide 
-	<code>*aQuotientPtr = aDividend/aDivisor;</code> updates the result double variable in the main function. After all, that is 
-	what aQuotientPtr is pointing at.</p>
+	
+	<h2>Creating an Instance</h2>
+	<p>
+		Declarations and definitions are vital...but they are not sufficient. To write object oriented code in any language you need to be able to create an instance of a class. The way you do this depends on if you want to instantiate an instance and get a pointer to it, or if you just want to instantate an instace. If you want both an instance and a pointer to that instance, you can do it the old fashioned pointer way or the modern pointer way. Remember, if you use the old fashioned way, there has to be somewhere in your code where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
+	</p>
+	<p>
+	<pre><code>//old fashioned way
+auto birthday = new Date(5,12,1999);//the type of the birthday variable is Date* (date pointer)
+</code>
+</pre>
+	</p>
+	<p>
+	<pre><code>//modern way
+unique_ptr&lt;Date&gt; birthday(new Date(5,12,1999));//the type of the birthday variable is a unique pointer to the birthday instance
+</code>
+</pre>
+	</p>
+<p>
+	If you want just an instance, you instantiate it like this.
+</p>
+
+</pre>
+	</p>
+	<p>
+	<pre><code>
+Date birthday(5, 12, 1999);//the type of the birthday variable is a unique pointer to the birthday instance
+</code>
+</pre>
+	</p>
+
+
+	<h2>HasA Inheritance</h2>
+	<p>
+		Like all object oriented languages, HasA type inheritance is supported. As an example, we'll look at a new class called Medication. The medication class represents a bottle of medication in the pharmacy. It Has_A Date that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is Date. That's it. That's all you have to do to apply the HasA type of inheritance. Also, if you needed to for a different class you were making, you can have class variables that are arrays of custom types like Dates.
+	</p>
+	<p>
+	<pre><code>#ifndef medication_hpp
+#define medication_hpp
+
+#include <string>
+#include "date.hpp"//this line must be here so the compiler knows what a date is.
+
+using std::string;
+
+namespace pharmaceutical_tracker {
+
+
+    class Medication {
+    protected:
+        string name;
+        int count;
+        Date expiration_date;
+        string units_description;
+        
+    public:
+        Medication();
+        Medication(string aName, int aCount, string aUnitsDescription, int expirationYear, int expirationMonth,int expirationDay);
+        string get_name() const;
+        void set_name(const string& aName);
+        int get_count() const;
+        void set_count(int anAmount);
+        const Date& get_expiration_date() const;
+        bool operator==(const Medication& other_medication)const;
+    };
+}
+#endif /* medication_hpp */
+
+}
+</code>
+</pre>
+	</p>
+	<p>
+		It is also common for there to be some stort of container that holds multiple instances of a class in a HasA relationship. The <span class="file_name">PharmaceuticalStockModel</span> class has such a relationship as seen in the earlier UML diagram and this code snippet.
+	</p>
+
+	<p>
+	<pre><code>class PharmaceuticalStockModel{
+    private:
+        unique_ptr&lt;Medication[]&gt; in_stock_medications;
+        long medication_count;
+        long medication_capacity;
+    public:
+    /*
+     * constructor and class function declarations here
+     */
+ }
+</code>
+</pre>
+	</p>
+	<p>
+		Since <span class="file_name">PhamaceuticalStockModel</span> HasA array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">deal with the problem of a full array</a>.
+	</p>
+
+
+	<h2>IsA Inheritance</h2>
+	<p>
+		IsA inheritance is done differently. The example below is the header file for <span class="file_name">TabletMedication</span>. It IsA <span class="file_name">Medication</span>. It is a subclass of <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. These statements all mean the same thing, the <span class="file_name">TabletMedication</span> class is derived from the <span class="file_name">Medication</span> class. Because it is  a derived class without very much added to the base class, you see very little in the <span class="file_name">TabletMedication</span> class' header file, just the class variables and functions required to differentiate tablet type medications from other kinds.
+	</p>
+
+	<p>
+	<pre><code>#ifndef tablet_medication_hpp
+#define tablet_medication_hpp
+
+#include "medication.hpp"
+
+namespace pharmaceutical_tracker {
+    class TabletMedication: public Medication{
+    private:
+        short dosage;
+    public:
+        TabletMedication(string aName, int aCount, short aDosage, string dosageUnits,int expirationYear, int expirationMonth,int expirationDay);
+        short get_dosage() const;
+        void set_dosage(short aDosage);
+    };
+}
+
+#endif /* tablet_medication_hpp */
+</code>
+</pre>
+	</p>
+	<p>
+		Notice the use of the public keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publically accessable when using an instance of TabletMedication. That means the programmer does not need to create additional class functions for <span class="file_name">TabletMedication</span> to use them. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a>.
+	</p>
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </body>
