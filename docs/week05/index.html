@@ -251,6 +251,12 @@ int main(int argc, const char * argv[]) {
     nums.push_back(5);
     nums.push_back(7);
     nums.push_back(9);
+
+    //make a new list that has all of the values doubled
+    List<int> doubled = nums.map([](int an_int)->int{
+        return an_int*2;
+    });
+
     return 0;
 }
 </code></pre></p>
