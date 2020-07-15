@@ -25,6 +25,8 @@
 #ifndef list_h
 #define list_h
 
+#include <functional>
+
 using std::shared_ptr;
 using std::weak_ptr;
 
@@ -57,6 +59,7 @@ private:
 public:
     List();
     void push_back(T aValue);
+    List<T> map(std::function<T(T& a_value)>mapping_function);
     /*
      * There are many more instance functions a fully functional list would need.
      * Take CSE232, Designing Data Structures, to learn more!!
@@ -98,6 +101,22 @@ void List<T>::push_back(T aValue){
 }
 
 
+template<typename T>
+List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
+    shared_ptr<Node>currentNode = root_node;
+    //if this list is empty, its mapped version should be empty also
+     if(nullptr == currentNode){
+         return List<T>();//empty list
+     }
+    List<T> mapped_list;
+     while (nullptr != currentNode->right_child) {
+         T node_value = currentNode.get()->value;
+         T mapped_value = mapping_function(node_value);
+         mapped_list.push_back(mapped_value);
+     }
+    //return a copy of the list
+    return mapped_list;
+}
 
 /*
  * Node instance function implementations
