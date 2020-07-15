@@ -19,244 +19,236 @@
 <body onload="fetchSource()">
 <div class="hero-image">
   <div class="hero-text">
-    <h1>CSE 121c: Week 05</h1>
-    <p>Controlling Your Code</p>
+    <h1>CSE 220c: Week 05</h1>
+    <p>Inside Containers</p>
   </div>
 </div>
-	<h1>Choice Making and Computational Flow</h1>
-	<h3>Logic Used in Computing</h3>
-	<p>Since our computers use a binary system, it is logical that the type of logic used when writing code is also binary. In other words, the logic
-		used when writing C includes only two possibilities when checking for truth. Those two options are true or false. Don't be fooled. There are other types of logic used in computing and in other programming languages. An example where you would use a logic that has more than pure true and pure false as options is when you write code or create hardware to do signal processing.
+	<h1>Hidden Arrays</h1>
+	<p>
+		Many of the standard containers, array, vector stack, queueu, etc., are acutally classes that have a private C-type array as a property. Algorithms are then turned into code, methods of the class, to make the use of the C-type array MUCH safer. These methods have been tested, enhanced, fixed, and optimized for decades. That's why it is so much safer to use a standard container that wraps a C-type array than to use one directly. If you are ever tempted to use a C-type array, you should probably use the std::array instead. It adds almost no overhead.
 	</p>
-	<p>As novice computer people, we think of the electrical signal coming through a wire, be it internal or external to the computer, as being either on or 
-		off coresponding to a 1 or a zero with the signal looking something like this.</p>
-	<img src="https://cdn.instructables.com/FE7/OVFQ/J4G58M8L/FE7OVFQJ4G58M8L.LARGE.jpg?auto=webp&fit=bounds"/>
-	<p>While we may think of the signal this way, it is not actually like this at all. Why? Because it is too dificult to get a signal to be 
-		truely off. The noise in the wire caused by electromagnetic induction makes it nearly impossible to have a completly 'off' signal. 
-		Instead, there would be a 'nearly off' signal and a design decision would have to be made by the engineers as to how strong an  the 'on' signal would have to be to 
-		indicate an actual on. This get's very nasty, since electromagnetic interference can also degrade a fully on signal so it would be 'nearly off'.  
+	<p>
+		But sometimes, arrays are either too restrictive or the code to manipulate to match the need becomes way to complicated and slow. Take a look at this image of a structure known as a list.
 	</p>
-	<p>How then, does signal processing work? How do electrical signals get sent down a wire inside a computer or across a network? The trick is to NOT use on and off. 
-		Instead, electrical signal voltages are either positive (+) or negative (-), not neutral (off).</p>
-	<img src="https://www.researchgate.net/profile/Mohamed_Salem47/publication/295276491/figure/fig8/AS:668240233639951@1536332295896/The-inverter-output-voltage-square-wave_W640.jpg"/>
-	<p>When using this +/- type system, the amplitude (height) of the wave is irelevent...only 
-		whether current signal sample is negative or positive. If you want to know more about this, a good place to start would be 
-		to do a web search for 'convert analog digital signal'. You'll start on an interesting journey.</p>
-    <p>Electronic signal processing uses a logic with  
-		<a href="https://en.wikipedia.org/wiki/Many-valued_logic">many different kinds of true or false values</a>. 
-		Do not get caught up in the idea that for something to be logical there can only be one true and one false. If you do, you will limit yourself. 
-		A simple three valued logic, used in computer databases and elsewhere, has three possible values of true, false, and undefined. 
+	<img src="images/tree.png">
+	<p>
+		Can this be represented using a C-type array? Yes. But just because you can, doesn't mean you should. When you shouldn't, that's when things like list and map come into play. They are NOT wrappers around a hidden C-type array. Instead they use a completely different design...nodes.
+	</p>
+
+	<h1>Nodes: (Sometimes) A Better Way</h1>
+	<h3>A Node?? What is that??</h3>
+
+	<p>
+		Take a look at this image. It's what you are going to be reading about for a while.
+	</p>
+	<img src="images/list.png">
+	<p>In this image, each blue square represents a node. A node has data. Each node in the image has A,B,C, or D as its data. A node also 'knows' about other nodes. This keeps the nodes in some specific order. These connections are the black lines you see in the image connecting the nodes together.</p>
+	<p>When nodes are well designed, you can start anywhere in the list and move either direction. That means, it has to know about the previous node, known as 'parent', and the next node known as a 'child'. In the image above, the node containing B is the child of the node containing A and the node containing A is the parent of the node containing B.</p>
+	<p>
+		Take a look at this image again (By the way, this type of structure is known as a tree).
+	</p>
+
+	<img src="images/tree.png">
+	<p>
+		In this diagram, each node has to 'know about' two children, traditionally called 'right child' and 'left child.' Therefore, the node containing D is the parent of the two nodes containing B and G. The parent of the node containing B is the node containing D, and the parent of the node containing G is also the node containing D. 
+	</p>
+	<p>
+		Compare the list and tree images. Notice that the right-most branch of the tree, the nodes containing D, G, and Z, looks just like a list. That's because a list is just a tree with no branches.&#128512 It should, then, be possible to create a well designed node that can be used to represent both a list and a tree. Ah...code re-use...that's a great thing! The code snippet below shows the code for a node that can hold characters and be used for lists and trees.&#128526
 	</p>
 	
-
-	<h3>If and Switch</h3>
-
-	<p>The C language uses two value logic. Zero is false and anything that is not zero is true. This means you could write some code that looks something 
-	like this.</p>
-	<p><pre><code class="C++">int isTrue = 1;
-if(isTrue){
-    printf("It's true! :) \n");
-}
-else{
-    printf("It's false :( \n");
-}
-</code>
-<p>Notice that the conditional check is put between the ( and ) characters and that the code to be executed for each condition is put between the { and 
-	} characters for each condition.
+	<p><pre><code class="C++">class Node{
+private:
+    char value;
+    weak_ptr&lt;Node&gt; parent;
+    shared_ptr&lt;Node&gt; left_child;
+    shared_ptr&lt;Node&gt; right_child;
+public:
+    Node(char a_value);
+    Node(char a_value, shared_ptr&lt;Node&gt; a_parent);
+    char& operator * ();
+};//end of Node class
+</code></pre></p>
+<p>
+	This Node class has a constructor that has, as parameters, a value and the node that should be the parent. Inside this constructor is where the pointers are arranged to point from parent to child and from child to parent.
 	</p>
-	</pre></p>
-	<p>Often, but not always, it is inconvinent to think if conditions using numbers rather than true or false. Because of this, there is a header file that defines true and 
-	false for you. All it really does is define a new bool type that's really an int, and a true that has a value of 1 and a false that has a value of 0. 
-	So...not much of a change, but after including 
-	<a href="https://gist.github.com/duckinator/303856">stdbool.h</a> your code can now look like this.</p>
-	<p><pre><code class="C++">bool isTrue = false;
-if(isTrue){
-    printf("It's true! :) \n");
-}
-else{
-    printf("It's false :( \n");
-}
-</code>
-	</pre></p>
-	<p>If you go back and look at the operators in the <a href="../week01/index.html"> reading for week 01</a>, you will find all of the boolean 
-	operators you are used to using when determining the truth or falsehood of a logic statement. There are also a large number of C tutorials for 
-	learning how to do <a href="https://www.khanacademy.org/computing/ap-computer-science-principles/programming-101/boolean-logic/a/compound-booleans-with-logical-operators">
-	compound boolean checks</a> like you see in many other languages.</p>
+<p> 
+	Stop for a few minutes and think about deleting a bunch of linked nodes for a minute then answer the question, "Why is the parent pointer a weak_ptr?" Feel free to discuss this question and possible answers with other members of the class through direct conversation, or by some sort of posting. Googling won't be much help here.
+</p>
+<p>
+	Now, having a node that can hold characters is OK, but yuck! Why can't it hold anything we want like the std::list class template we used last week? To do that, the Node class also has to be changed and become a node class template.</p> 
+<p>
+	<img src="images/stop.png"> Go back and review last week's information about class templates if you need to brush up.
+</p>
+<p> 
+	I'm going to show you some code here...don't over think it. All that's going to happen is the <span class="file_name">char</span> type keyword is going to get replaced with a temporary placeholder. It's called <span class="file_name">T</span>. The first line of the code snippet below tells the compiler that Node is a class template, instead of a complete class, and the type placeholder is called <span class="file_name">T</span>. The  <span class="file_name">typename</span> keyword is just used to tell the compiler that  <span class="file_name">T</span> is actually a type, not a variable. All that's happened is one line of code is added so the compiler can understand what we are doing, and then all the <span class="file_name">char</span> type keywords are replaced with <span class="file_name">T</span>. Other than that, there are no changes.
+</p>
 
-	<p>But what if there are more than two possible situations you want to react to? Ahhhh....that's where else if comes in. Here is an example of 
-	making poor nutrition choices.</p>
-	<p><pre><code class="C++">if(cashOnHand > 3 && cashOnHand < 10){
-        printf("Buy rammen noodles.\n");
+	<p><pre><code class="C++">template&lt;typename T>
+class Node{
+private:
+    T value;
+    weak_ptr&lt;Node&gt; parent;
+    shared_ptr&lt;Node&gt; left_child;
+    shared_ptr&lt;Node&gt; right_child;
+public:
+    Node(T a_value);
+    Node(T a_value, shared_ptr&lt;Node&gt; a_parent);
+    T& operator * ();
+};//end of Node class
+</code></pre></p>
+<p>
+	This node class works and can encapsulate any type of data, but by themselves, nodes are pretty useless. Below is a simplistic, naive list class template. Notice that the List class template has Node as a private, inner class. Because of this, no code anywhere else in any app can instantiate or use the encapsulated Node class. Because the Node class template is completely encapsulated, it can be made much simpler than the previous code where Node was not encapsulated. Now its instance variables can be public and its operator can be deleted. It does keep the two constructors to help make instantiating Nodes easier.
+</p>
+<p>
+	Now, each instance of List can instantiate and directly manipulate a Node any time the list is told to add an element, but nothing else can touch the List's Nodes. This is good.</p>
+	<p>&#128512 Now the node won't need any <a href="https://en.wikipedia.org/wiki/Boilerplate_code">boilerplate code</a> for getters, setters, operators, and the like.&#128512
+</p>
+<p>Compare the code for Node below with the Node code above.</p>
+<p>
+	There is a VERY important bit of code on the line right after the end of the encapsulated, Node inner class. <span class="file_name">shared_ptr&lt;Node&gt; root_node;</span>. This is a private property of the List class template. It is a pointer to the Node instance that is the head of the list. By convention, we are 
+	referring to is as the root of the list. The root is equal to <span class="file_name">nullptr</span> for an empty list. 
+</p>
+
+<p>
+<pre><code>/*
+* list.h
+* Never use this code in production.&#128078; &#128078; 
+*
+* Use std::list.&#128077; 
+*/
+
+#ifndef list_h
+#define list_h
+
+using std::shared_ptr;
+using std::weak_ptr;
+
+/*
+* declaration of namespace, class template name, properties,
+* constructors, operators, and member functions.
+*/
+namespace naive {
+
+template&lt;typename&gt;
+/// This is a partial, naive implementation of a list-type container.
+/// It is designed for learning purposes only and should not be used
+/// instead of the std::list class template from the C++ standard library.
+class List{
+private:
+    /*
+     * Node is a private inner class so nothing other than an instance
+     * of list can instantiate one. Node's properties are public so
+     * instances of list can manipulate and access them directly.
+    */
+    class Node{
+    public:
+        T value;
+        weak_ptr&lt;Node&gt; parent;
+        shared_ptr&lt;Node&gt; left_child;
+        shared_ptr&lt;Node&gt; right_child;
+        //Node constructors
+        Node(T a_value);
+        Node(T a_value, shared_ptr&lt;Node&gt; a_parent);
+    };//end of Node class
+    shared_ptr&lt;Node&gt; root_node;
+public:
+    List();
+    void push_back(T aValue);
+    /*
+     * There are many more instance functions a fully functional list would need.
+     * Take CSE232, Designing Data Structures, to learn more!!
+     */
+};//end of List class
+}//end of custom namespace
+
+
+using naive::List;
+
+/*
+ * List instance function implementations
+ */
+
+template&lt;typename&gt;
+/// Instantiates an empty List.
+///
+/// Complexity - O(n)
+List&lt;T&gt;::List(){}
+
+template&lt;typename&gt;
+/// Adds a value to the end of the list. The implementation was selected to illustrate how 
+/// to move through a sequence of linked nodes. There are designs for List that allow
+/// push_back to be implemented more efficiently than this naive design.
+///
+/// @param aValue the value to add to the list
+///
+/// - Complexity: O(n)
+void List&lt;T&gt;::push_back(T aValue){
+	//start at the root of the list
+    shared_ptr&lt;Node&gt;currentNode = root_node;
+    //instantiate a node encapsulating the value
+    shared_ptr&lt;Node&gt;nodeToAdd = shared_ptr&lt;Node&gt;(new Node(aValue));
+    // if the root is null, set the root to be the node created and return
+    if(nullptr == currentNode){
+        root_node = nodeToAdd;
+        return;
     }
-    else if(cashOnHand <= 20){
-        printf("Buy a frozen pizza.\n");
+    //otherwise move to the end of the list of nodes
+    while (nullptr != currentNode->right_child) {
+        currentNode = currentNode->right_child;
     }
-    else{
-        printf("Go out to eat.\n");
-    }
+    //set the current end of list node to have a right child that is the node encapsulating
+    //the value to be added
+    currentNode->right_child = nodeToAdd;
+    //set the parent of the node encapsulating the value to be added to be the node that 
+    //used to be the node at the end of the list
+    nodeToAdd->parent = currentNode;
 }
-</code>
-	</pre></p>
 
-	<p>Sometimes an if statement, with all its conditions, possibilities, and ifs embeded inside of other ifs, can become too hard to read and consider.
-		Like many other languages, but not Python, C has an alternative to using if statements that can help solve this reading and cognition problem, 
-		the <a href="https://en.cppreference.com/w/c/language/switch">switch statement</a>. 
-		Switch statements allow you to branch which part of your code executes, as an if statement does, but on a format that, sometimes, is easier to read. 
-		Here is a very simplified example.
-	</p>
-		<p><pre><code class="C++">int cashOnHand;
-scanf("%d",&cashOnHand);
-switch (cashOnHand) {
-    case 5:
-        printf("not much\n");
-        break;
-    case 10:
-        printf("a little more\n");
-        break;
-    default:
-        printf("unacceptable number\n");
-        break;
+
+
+/*
+ * Node instance function implementations
+ */
+template&lt;typename&gt;
+/// Value based constructor for a Node. For this constructor, the parent, left child, 
+/// and right child nodes are all null
+///
+/// @param a_value the value to be stored in the node
+///
+/// - Complexity: O(*1*)
+List&lt;T&gt;::Node::Node(T a_value):value{a_value}{}
+
+
+template&lt;typename&gt;
+/// Value and parent based constructor for a Node. For this constructor, the left and 
+/// right child nodes are null
+///
+/// @param a_value the value to be stored in the node
+/// @param a_parent a constant reference to the parent node of the node being constructed
+///
+/// - Complexity: O(*1*)
+List&lt;T&gt;::Node::Node(T a_value, shared_ptr&lt;Node&gt; a_parent):value{a_value},parent{a_parent}{}
+
+#endif /* list_h */
+</code>
+	</pre>
+</p>
+
+<p>
+	To add a value to an empty list, use the list's <span class="file_name">push_back</span> instance function. You can find the code for the push_back instance function above. There you can see that each time a value is to be added to a list, a node, nodeToAdd, is created to encapsulate the value; then that node is added to the list. If the node is empty, nodeToAdd is added to the list by setting the root node to be nodeToAdd. Otherwise, the last node in the list is found, nodeToAdd is set to be the last node's right child node, and nodeToAdd's parent is set to be the node that used to be the node at the end of the list.
+</p>
+<p>Below is an example of using this naive, incomplete list class template, use it contain ints, and then add 3 ints to the list.
+</p>
+<p><pre><code class="C++">#include "list.h"
+
+int main(int argc, const char * argv[]) {
+    List<int> nums;
+    nums.push_back(5);
+    nums.push_back(7);
+    nums.push_back(9);
+    return 0;
 }
-</code>
-	</pre></p> 
-	<p>There are some important parts of switches that you MUST both be aware of and know. First, there is the call to switch. You must pass it a value. 
-		In C speak, we say we are 'switching on' the value, but not in the sense of switching on a light bulb. When we say we are switching 
-		on something, it means that is the thing we are going to examine for specific values. It would be like saying we would be 'ifing on' a value 
-		or set of values if we were using an if statement.
-	</p>
-	<p>Another important thing to remember is that in C, but not in all languages that have the concept of a switch statement, the type of things 
-		you can switch on are very limited. You can switch on an ints, shorts, longs, and you can switch on a character 
-		(which by the way is an int in C), or an enum (which is also an int in C). 
-		<a href="https://www.geeksforgeeks.org/interesting-facts-about-switch-statement-in-c/">That's it. That's all</a>.
-		You can not switch on booleans, structures, or anything else since they are not integral types of values. If something is an ntegeral type of 
-		value, it means it is numeric but isn't a floating point type or fixed point type like 2.5.
-	</p>
-	<p>Another thing to be aware of is how the <a href="https://beginnersbook.com/2017/08/cpp-switch-case/">break keyword</a> works. 
-		You leave it out when you want the code for consecutive cases to execute and put it in when you don't. A common noob mistake is to accidentally 
-		leave out a break when they intended to put one in. If you see your code executing statements from more than one case and you didn't intend 
-		for that to happen, you left out a break. Go fix the bug by adding one in.
-	</p>
-
-	<h3>Getting Loopy</h3>
-	<p>Conditional branching has a cousin...loops. If you think about loops for a bit you'll realize they continue under certain conditions. That means 
-		loops are also a type of conditional branching. There are <a href="https://www.geeksforgeeks.org/loops-in-c-and-cpp/"> three types of loops</a> 
-		in C, the for loop, the while loop, and the do-while loop. Each has a purpose so let's take a look at each type.
-	</p>
-	<h4>The For Loop</h4>
-	<p>For loops are used to iterate over arrays. That is their purpose. If you are trying to use a for loop for any other purpose, you picked the 
-		wrong loop type.
-	</p>
-    <p>Let's start off with an extremely simple situation where all you need to do is print out each item in an array of items. This example does nothing but print out each integer on its own line in the 
-    console.</p>
-	<p><pre><code class="C++">int marks[] = {4,5,6};
-for(int i = 0; i < 3; i++){
-    printf("%d",marks[i]);
-}
-</code>
-	</pre></p> 
-    <p>The C for loop has four parts. The first three are seperated by the ; character. The first part is an int variable that is used to keep 
-    	track of where we are in the array. By tradition the name of this variable is 'i' and stands for iterator. We are, after all, 
-    	<a href="https://dictionary.cambridge.org/us/dictionary/english/iterate"> iterating</a> over an array. As you can see in the code 
-    above, the int variable i is initially set to be 0. The next part is the continuation check. In the code above it is 'i &lt 3'. 
-	This means that when i is greater than or equal to 3, the loop will terminate.</p>
-    <p>The third part is 'i++'. This is the part of the code that updates the iterator so the loop will move through the array. The fourth 
-    part of the for loop is the code to execute each time i is less than 3. This code is between the { and } characters just like with the if 
-	statement you saw earlier.</p>
-    <p>It is important to understand the timing when each of these parts is executed so let me step you through it.</p>
-    <p>As the code is run, the first time the for loop is executed, i is set to zero and then i is checked to make sure it is less than 3. 
-    If it is less than three the code in between the { and } is executed. When the code reaches the } character, execution returns to the line 
-	including the 'for' declaration. This time, i is not set to 0. Instead, i++ is executed and the i &lt 3 check is done again. If i is still 
-	less than 3, the code in the fourth part is executed again. If not, the line of code AFTER the } character is executed since the loop is done.</p>
-
-
-
-
-    <p>While there is no built-in filter, map, or reduce functions in C, you can still do these things, but you will have to write code to do this 
-    yourself. Below is a naive example of how you could filter an array of integers so you end up with just evens in a new array called foundEvens.</p>
-
-<p><pre><code class="C++">int marks[] = {4,5,6,10,13,21,44};
-int evenMarks[7];
-int foundEvens = 0;
-for(int i = 0; i < 7; i++){
-    int aMark = marks[i];
-    if (aMark % 2 == 0) {
-        evenMarks[foundEvens] = aMark;
-        foundEvens++;
-    }
-}
-</code>
-	</pre></p>
-    <p>Can you also map an array? You bet. In the example below all of the elements in the array are updated to be twice what they were before.</p>
-<p><pre><code class="C++">int marks[] = {4,5,6,10,13,21,44};
-int evenMarks[7];
-int foundEvens = 0;
-for(int i = 0; i < 7; i++){
-    int aMark = marks[i];
-    if (aMark % 2 == 0) {
-        evenMarks[foundEvens] = aMark;
-        foundEvens++;
-    }
-}
-</code>
-	</pre></p>
-    <p>If you want to reduce an array to one sensible value, you can do that to.</p>
-    <p><pre><code class="C++">int marks[] = {4,5,6,10,13,21,44};
-int sum = 0;
-for(int i = 0; i < 7; i++){
-    sum += marks[i];
-}
-</code>
-	</pre></p>
-    <p>So you can do map, filter, and reduce in C, but you have to write them yourself or find a non-standard library someone else has written and use that.</p>
-	<h4>The While Loop</h4>
-	<p>
-		While loops are used to keep executing the same code over and over again as long as some state remains the same. For example, as long as 
-		the user hasn't selected an appropriate option, keep asking them for an option.
-	</p>
-
-	<p><pre><code class="C++">int numAttendies = 0;
-while (numAttendies < 100) {
-    printf("100 attendies are required to have this meeting. You currently have %d.", numAttendies);
-    int moreAttendies;
-    scanf("Enter the number of additional attendies you've found: %d",&moreAttendies);
-    numAttendies += moreAttendies;
-}
-</code>
-	</pre></p> 
-	<h4>The Do-While Loop</h4>
-	<p>
-		Do-while loops are like while loops in that they execute the same code repeatedly as long as some state remains the same. However, and this 
-		is a BIG however, they are dangerous. They execute the loop code BEFORE the condition is checked. This is kind of like running around with 
-		a blind flold on when you know there is a cliff nearby. For most of the steps you take you won't die. But there is that one step..... 
-	</p>
-	<p>
-		In the 21 years I, the author, have been writing code, there is only one time where I had to use a do-while loop, and that was because of a 
-		poor engineering choice someone else made elsewhere in the code base I was working on...an engineering choice I wasn't allowed change. All of the other times 
-		where a do-while might have been used, I was able to rethink the situation and find a small change that would make it possible to use a 
-		while loop instead. Here is a well thought out comment regarding do-while loops in a <a href="https://www.reddit.com/r/learnprogramming/comments/93gka0/why_dont_we_see_more_use_of_the_dowhile_loop/">redit</a> on the topic.</p>
-	<blockquote>The problem with do while is that it is syntactically unlike any other language construct in a confusing and ugly way.
-In every other case where a code block is conditional (if, for, while, else if), the condition being evaluated is read before the block it controls. When the reader hits an if statement, they know under what circumstances the enclosed code executes. Same for while.
-When a reader hits a do while block, they have no idea how long the enclosed code will execute. They have to scroll down to the bottom of the loop and check, then they can go back and read the code. This context switch is expensive for the reader. Scrolling around for no reason is annoying. Having code in a place you don't expect is annoying.
-Every time you write a do while loop, you should instead not do that and express it as a while loop. They're much clearer and lead to cleaner code.</blockquote>
-
-	<p>So here is what a do-while loop looks like in C.
-	</p>
-
-	<p><pre><code class="C++">int choice;
-do {
-    printf("How many loop types do you think there are in C?");
-    scanf("%d",&choice);
-} while (choice != 3);
-</code>
-	</pre></p> 
-<p>And here is a while loop that would do the same thing.</p>
-	<p><pre><code class="C++">int choice = 0;
-while (choice != 3) {
-    printf("How many loop types do you think there are in C?");
-    scanf("%d",&choice);
-}
-</code>
-	</pre></p>
+</code></pre></p>
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </body>
