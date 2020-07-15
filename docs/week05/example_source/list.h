@@ -77,14 +77,14 @@ using naive::List;
 template<typename T>
 /// Instantiates an empty List.
 ///
-/// Complexity - O(n)
+/// Complexity - O(*n*)
 List<T>::List(){}
 
 template<typename T>
 /// Adds a value to the end of the list. The implementation was selected to illustrate how to move through a sequence of linked nodes. There are designs for List that allow push_back to be implemented more efficiently than this naive design.
 /// @param aValue the value to add to the list
 ///
-/// - Complexity: O(n)
+/// - Complexity: O(*n*)
 void List<T>::push_back(T aValue){
     shared_ptr<Node>currentNode = root_node;
     shared_ptr<Node>nodeToAdd = shared_ptr<Node>(new Node(aValue));
@@ -102,6 +102,14 @@ void List<T>::push_back(T aValue){
 
 
 template<typename T>
+/// A non-destructive mapping instance methods.It applies the lambda function to
+/// each value in the existing list and adds it to a list that is returned.
+///
+/// @param mapping_function the function to be applied to each value in the list
+///
+/// - Returns: a list that has as each of its values a modified version of each
+/// value of this list
+/// - Complexity: O(*n*) assuming that mapping_function has a complexity of O(*1*)
 List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
     shared_ptr<Node>currentNode = root_node;
     //if this list is empty, its mapped version should be empty also
