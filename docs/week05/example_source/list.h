@@ -109,10 +109,11 @@ List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
          return List<T>();//empty list
      }
     List<T> mapped_list;
-     while (nullptr != currentNode->right_child) {
+     while (nullptr != currentNode) {
          T node_value = currentNode.get()->value;
          T mapped_value = mapping_function(node_value);
          mapped_list.push_back(mapped_value);
+         currentNode = currentNode->right_child;
      }
     //return a copy of the list
     return mapped_list;
