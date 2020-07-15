@@ -120,19 +120,19 @@ public:
 #ifndef list_h
 #define list_h
 
+#include <functional>
+
 using std::shared_ptr;
 using std::weak_ptr;
 
 /*
-* declaration of namespace, class template name, properties,
+* declaration of custom namespace, class template name, properties,
 * constructors, operators, and member functions.
 */
 namespace naive {
 
-template&lt;typename&gt;
+template<typename T>
 /// This is a partial, naive implementation of a list-type container.
-/// It is designed for learning purposes only and should not be used
-/// instead of the std::list class template from the C++ standard library.
 class List{
 private:
     /*
@@ -143,17 +143,18 @@ private:
     class Node{
     public:
         T value;
-        weak_ptr&lt;Node&gt; parent;
-        shared_ptr&lt;Node&gt; left_child;
-        shared_ptr&lt;Node&gt; right_child;
+        weak_ptr<Node> parent;
+        shared_ptr<Node> left_child;
+        shared_ptr<Node> right_child;
         //Node constructors
         Node(T a_value);
-        Node(T a_value, shared_ptr&lt;Node&gt; a_parent);
+        Node(T a_value, shared_ptr<Node> a_parent);
     };//end of Node class
-    shared_ptr&lt;Node&gt; root_node;
+    shared_ptr<Node> root_node;
 public:
     List();
     void push_back(T aValue);
+    List<T> map(std::function<T(T& a_value)>mapping_function);
     /*
      * There are many more instance functions a fully functional list would need.
      * Take CSE232, Designing Data Structures, to learn more!!
@@ -168,66 +169,70 @@ using naive::List;
  * List instance function implementations
  */
 
-template&lt;typename&gt;
+template<typename T>
 /// Instantiates an empty List.
 ///
 /// Complexity - O(n)
-List&lt;T&gt;::List(){}
+List<T>::List(){}
 
-template&lt;typename&gt;
-/// Adds a value to the end of the list. The implementation was selected to illustrate how 
-/// to move through a sequence of linked nodes. There are designs for List that allow
-/// push_back to be implemented more efficiently than this naive design.
-///
+template<typename T>
+/// Adds a value to the end of the list. The implementation was selected to illustrate how to move through a sequence of linked nodes. There are designs for List that allow push_back to be implemented more efficiently than this naive design.
 /// @param aValue the value to add to the list
 ///
 /// - Complexity: O(n)
-void List&lt;T&gt;::push_back(T aValue){
-	//start at the root of the list
-    shared_ptr&lt;Node&gt;currentNode = root_node;
-    //instantiate a node encapsulating the value
-    shared_ptr&lt;Node&gt;nodeToAdd = shared_ptr&lt;Node&gt;(new Node(aValue));
-    // if the root is null, set the root to be the node created and return
+void List<T>::push_back(T aValue){
+    shared_ptr<Node>currentNode = root_node;
+    shared_ptr<Node>nodeToAdd = shared_ptr<Node>(new Node(aValue));
+   
     if(nullptr == currentNode){
         root_node = nodeToAdd;
         return;
     }
-    //otherwise move to the end of the list of nodes
     while (nullptr != currentNode->right_child) {
         currentNode = currentNode->right_child;
     }
-    //set the current end of list node to have a right child that is the node encapsulating
-    //the value to be added
     currentNode->right_child = nodeToAdd;
-    //set the parent of the node encapsulating the value to be added to be the node that 
-    //used to be the node at the end of the list
     nodeToAdd->parent = currentNode;
 }
 
 
+template<typename T>
+List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
+    shared_ptr<Node>currentNode = root_node;
+    //if this list is empty, its mapped version should be empty also
+     if(nullptr == currentNode){
+         return List<T>();//empty list
+     }
+    List<T> mapped_list;
+     while (nullptr != currentNode->right_child) {
+         T node_value = currentNode.get()->value;
+         T mapped_value = mapping_function(node_value);
+         mapped_list.push_back(mapped_value);
+     }
+    //return a copy of the list
+    return mapped_list;
+}
 
 /*
  * Node instance function implementations
  */
-template&lt;typename&gt;
-/// Value based constructor for a Node. For this constructor, the parent, left child, 
-/// and right child nodes are all null
-///
+template<typename T>
+/// Value based constructor for a Node. For this constructor, the parent, left child, and right child nodes are
+/// all null
 /// @param a_value the value to be stored in the node
 ///
 /// - Complexity: O(*1*)
-List&lt;T&gt;::Node::Node(T a_value):value{a_value}{}
+List<T>::Node::Node(T a_value):value{a_value}{}
 
 
-template&lt;typename&gt;
-/// Value and parent based constructor for a Node. For this constructor, the left and 
-/// right child nodes are null
+template<typename T>
+/// Value and parent based constructor for a Node. For this constructor, the left and right child nodes are null
 ///
 /// @param a_value the value to be stored in the node
 /// @param a_parent a constant reference to the parent node of the node being constructed
 ///
 /// - Complexity: O(*1*)
-List&lt;T&gt;::Node::Node(T a_value, shared_ptr&lt;Node&gt; a_parent):value{a_value},parent{a_parent}{}
+List<T>::Node::Node(T a_value, shared_ptr<Node> a_parent):value{a_value},parent{a_parent}{}
 
 #endif /* list_h */
 </code>
