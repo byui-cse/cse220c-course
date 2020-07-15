@@ -197,6 +197,14 @@ void List<T>::push_back(T aValue){
 
 
 template<typename T>
+/// A non-destructive mapping instance methods.It applies the lambda function to
+/// each value in the existing list and adds it to a list that is returned.
+///
+/// @param mapping_function the function to be applied to each value in the list
+///
+/// - Returns: a list that has as each of its values a modified version of each
+/// value of this list
+/// - Complexity: O(*n*) assuming that mapping_function has a complexity of O(*1*)
 List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
     shared_ptr<Node>currentNode = root_node;
     //if this list is empty, its mapped version should be empty also
