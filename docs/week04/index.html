@@ -169,12 +169,15 @@ cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 17
 	Now, combining a map that uses a string for its keys and a list of medications as its value, the <span class="file_name">addTabletToStockModel</span> method can now be done. Compare these next sentences with the code example below.</p>
 	<p> First, use the map's find method to get an iterator that contains the list of medications with the name of the medication as the key. The iterator for this map will have a key-value pair <span class="file_name">std::pair&lt;string, list&lt;Medication&gt;&gt;</span> internally. Since the list is the second element of the pair, use the second property of the pair to access the list containing all the bottles of medication. Lastly, use the list's <span class="file_name">push_back</span> method to add the medication to the end of the list...and you're done. The medication has been added.
 	</p>
-	<p><pre><code class="C++">void PharmaceuticalStockModel::add_tablet_to_stock(const TabletMedication& medication_to_add){
-auto found_medication_iterator = in_stock_medications.find(medication_to_add.get_name());
-found_medication_iterator->second.push_back(medication_to_add);
+<p><pre><code class="C++">void PharmaceuticalStockModel::add_tablet_to_stock(const TabletMedication& medication_to_add){
+	auto found_medication_iterator = in_stock_medications.find(medication_to_add.get_name());
+	found_medication_iterator->second.push_back(medication_to_add);
 }
 </code>
 	</pre></p>
+<p>
+	But map, filter, and reduce aren't the only algorithms you are limmited to. C++ has a <a href="https://www.youtube.com/watch?v=2olsGf6JIkU">large number of others in the standard library</a> you can use in your code.
+</p>
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
