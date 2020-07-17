@@ -134,7 +134,7 @@ age = "Shoshana";</code>
         <h4>What is going on with that std:: stuff?</h4>
         <p>
         	C++ ships with a bunch of standard code already written and compiled for you. A bunch of this is in the <span class="file_name">standard library</span>. 
-        	Get it? standard -> std::
+        	Get it? standard -> std:: &#128512;
         </p>
         <p>The string type is one of those things found in the standard library. That's why the <span class="file_name">std::</span> 
         	<a href="http://www.cplusplus.com/doc/oldtutorial/namespaces/"> namespace indicator</a> is in front 
@@ -158,7 +158,7 @@ std::string password = "235X-643!-54jnge;l1jt3;2";</code>
 	</p>
 	<p>
 		Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought will lead you 
-		down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are the same as a continuous number line. They are not. There are 
+		down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are the same as a continuous number line. <a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html#680">They are not</a>. There are 
 		numbers that a double can not represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you 
 		try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using variables of type double, not just integers.
 	</p>
@@ -167,8 +167,13 @@ std::string password = "235X-643!-54jnge;l1jt3;2";</code>
 	<h4>What's up with all the underscores in the variable names?</h4>
 	<p>
 		Each language you will learn has written or unwritten rules called conventions. In this class you and I are following the naming convention used by Bjarne Stroustrup, the creator of C++ and head of the ISO international C++ standards body. According to 
-		Bjarne, <a href="http://www.stroustrup.com/bs_faq2.html#Hungarian">underscores should be used for separation between the words making up names</a>. 
-		If you are going to disagree with Bjarne, you'd better have a VERY good argument. But again, do what your boss says for these kinds of community conventions.
+		Bjarne, <a href="http://www.stroustrup.com/bs_faq2.html#Hungarian">underscores should be used for separation between the words making up names</a>. You will see this naming convention being used in the standard library containers you will see in week 4. 
+	</p>
+	<p>
+		On the other hand, the official ISO standards body FAQ which Bjarne helps oversee makes a <a href="https://isocpp.org/wiki/faq/coding-standards#identifier-name-conventions">different statement</a>. Essentially, they say the way you write your names for things depends on your background, whether you are going to be using platform specific library functions, what your IDE generates for you automatically, and what your team mates are doing. In other words, don't sweat it. There are bigger things to think about and more important things to spend your time on. Oh...one more thing. Do what ever you boss says.
+	</p>
+	<p>
+		In this class, we are using underscores_like_this (snake case). In your other classes it will probably be different. This is a good thing.&#128077;
 	</p>
 </section>
 
@@ -219,7 +224,7 @@ color = 3;//this line causes a compiler error
 </pre>
 	</p>
 	<h3>Arrays</h3>
-	<h4>The Basic Way</h4>
+	<h4>The Basic Way, C-type Arrays</h4>
 	<p>
 		As with most languages, there are two ways to define and fill an array. Being experienced with <a href="https://www.w3schools.com/python/python_arrays.asp">
 			Python arrays</a>, little of this is new to you. The biggest differences are, since you are in C++, you have to declare the type of the data 
@@ -242,11 +247,14 @@ color = 3;//this line causes a compiler error
 </code>
 </pre>
 	</p>
+	<p>
+		There are also other <a href="https://www.tutorialspoint.com/cplusplus/cpp_arrays.htm">C-type ways</a> to create an array.
+	</p>
 
 	<h4>Another Way</h4>
 	<p>
-		One major problem with the basic way of creating C++ arrays, as you can see in the basic examples above, is you have to know either the size of the array or exactly 
-		what is going to be in the array when you are writing the code. C++ arrays don't have 
+		One major problem with the C-type arrays, as you can see in the basic examples above, is you have to know either the size of the array or exactly 
+		what is going to be in the array when you are writing the code. C-type arrays don't have 
 		any sort of <a href="https://www.journaldev.com/33185/python-add-to-array">append</a> function. But what happens if you don't know what size the array should be? 
 		For example, what if the data to be put in the array is a set of your company's customers that have been pulled out of some database? You simply don't know how 
 		many there will be until after your code has pulled them out. You could write your code in such a way that it has an array that, you think, will always 
@@ -305,9 +313,11 @@ names = nullptr;
 </p>
 <p>
 	Another good practice to follow is anytime you delete something, set all pointers to it to <span class="file_name"><a href="https://embeddedartistry.com/blog/2017/03/08/migrating-from-c-to-c-null-vs-nullptr/">nullptr</a></span>. (The <span class="file_name">nullptr</span>
-	keyword is similar to, but not the same as, the None keyword in Python.) If you don't get into this habit, you will eventually create something called a zombie pointer. While zombie pointers won't eat your brains, they will eat up your time and your energy when you get seemingly random crashes in you application. Just say 
-	no to zombie pointers. Do this by setting ANY pointer to <span class="file_name">nullptr</span> AFTER you call delete. Order is important. Do NOT do it before you 
-	call delete or you will have just written a memory leak into your code.
+	keyword is similar to, but not the same as, the None keyword in Python.) If you don't get into this habit, you will eventually create something called a zombie pointer or <a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointer</a>. While zombie pointers won't eat your brains, they will eat up your time and energy when you get seemingly random crashes in you application. Just say 
+	no to zombie pointers. If you don't, you will eventually get a <a href="https://www.webopedia.com/TERM/U/use-after-free.html">use after free</a> crash in your code.
+</p>
+<p>
+		Do this by setting ANY pointer to <span class="file_name">nullptr</span> AFTER you call delete. Order is important. Do NOT set it to nullptr before you call delete or you will have just written a memory leak into your code.
 </p>
 <section class="callout">
 	<h3>Note!</h3>
@@ -327,7 +337,7 @@ using std::string;</code></pre></p>
 		Unfortunately, the requirement to clean up your own mess, one aspect of memory management, is something that programmers and software engineers just can't seem to get right. Microsoft's own recent statements claim that <a href="https://www.zdnet.com/article/microsoft-heres-why-we-love-programming-language-rust-and-kicked-off-project-verona/"> 70% of  mission-critical defects</a> written into Microsoft's own apps by their programmers and engineers are the result of poor memory management (Google has made a <a href="https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/">similar statement about their Chrome web browser</a>). Modern C++ has some things in it that can help with this...smart pointers.
 	</p>
 	<p>
-		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us via His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the uses of the using keyword near the top of the file.
+		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us via His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the application of the <span class="file_name">using</span> keyword near the top of the file.
 	</p>
 	<pre><code>using std::cout;
 using std::endl;
@@ -356,7 +366,7 @@ cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;endl;
 cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;endl;
 </code></pre></p>
 <p>
-	Notice that you don't have to call delete for your array. You don't have to set it to nullptr either. unique_ptr takes care of all of this for you! Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead. Which method would you choose?
+	Did you see that there is no call to delete for the array? The unique pointer takes care of that.&#128077; You don't have to set it to nullptr either.&#128077;&#128077; unique_ptr takes care of all of this for you!&#128077;&#128077;&#128077; Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead.&#129395;&#129395;&#129395; Which method of using pointers do you like better? Yep...that's what I thought.&#128578;
 </p>
 
 
@@ -411,16 +421,16 @@ names = nullptr;
 <p>
 	The <span class="">-=</span> operator is also overloaded. It moves the pointer backwards by some integer amount.
 </p>
-<p>"But wait a minute. Does that mean + and - are also overwritten?", you say. Excelent question...yep. Stroustrup, however, does say <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?dchild=1&keywords=a+tour+of+c%2B%2B&qid=1594060107&sr=8-1">you should never write code like the example you just saw</a>. These overloaded operators are for the use of the wise and highly experienced. This example was included here because you will see old code like this in strange places written by engineers who didn't know what they are doing.</p>
+<p>"But wait a minute. Does that mean + and - are also overwritten?" Excelent question...yep. Stroustrup, however, does say <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?dchild=1&keywords=a+tour+of+c%2B%2B&qid=1594060107&sr=8-1">that being new to C++ you should never write code like the example you just saw</a>. These overloaded operators for pointers are for the use of the wise and highly experienced.</p>
 
 
 
 
 <section class="callout">
 	<h3>Note!</h3>
-	<h4>My application is crashing!! Why?</h4>
+	<h4>My application is crashing!!&#128560; Why?</h4>
 	<p>
-		If you application crashes the odds are very high you have abused your memory management priviledges. You might be deleting something more times than you 
+		If you application crashes the odds are very high you have abused your memory management privileges. You might be deleting something more times than you 
 		should. Remember, with the old methodology, one new requires one and only one delete. It's also possible you created a zombie pointer, or you may have used up all the memory available for the 
 		application by creating a memory leak, or you may have set a variable to <span class="file_name">nullptr</span> and tried to use it anyway. All but the last of these problems go away if you use modern smart pointers.
 	</p>
@@ -429,16 +439,178 @@ names = nullptr;
 	</p>
 </section>
 
-	<h3>Let's Get Loopy!</h3>
+	<h3>Let's Get Loopy!&#128540;</h3>
 
 	<p>
 		From your previous experience with programming languages, it has probably occured to you that accessing all values in an array using hardcoded numbers is 
 		not a good approach. Instead loops are the way to go. C++ has several loops to choose between.
 	</p>
-	<h4>The Counting Loop</h4>
+
+
+<h4>The Logical Loop</h4>
 	<p>
-		Since arrays have a fixed size and a way to access values using the [] operator, the counting loop is one way to iterate over the elements of arrays. 
-		The traditional, forward-iteration type of this loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code below. The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
+		In C++, the logical loop uses a variation of the while syntax found in many languages. Here is one way you could do the names example 
+		using a logicial loop.
+	</p>
+<p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long number_of_names = //code to get the number from some database response
+unique_ptr<string[]> names(new string[number_of_names]);
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+ int count_down_index = number_of_names - 1;
+    
+while (count_down_index - 1 >= 0) {
+    cout&lt;&lt;"while name: "&lt;&lt;names[count_down_index]&lt;&lt;endl;
+    names++;//use of the advanced ++ overloaded pointer operator. There are better ways!
+}
+</code></pre></p>
+
+	<h4>The Logical Loop's Ugly Alternative</h4>
+	<p>
+		OK...there are those that love the the alternative to C++'s while loop that is known as 'the do statement.' I, the author, was taught to avoid it like the plague 
+		when I was first learning C++. I empathize with those who love it. I don't love it. My experience agrees with what Bjarne Stroustrup wrote about in his seminal book. 
+		<blockquote>In my experience, the do-statement is a source of errors and confusion. The reason is that its body is always executed once before the condition is evaluated. However, for the body to work correctly, something very much like the condition must hold even the first time through. More often than I would have guessed, I have found that condition not to hold as expected either when the program was first written and tested or later after the code preceding it has been modified. I also prefer the condition "up front where I can see it." Consequently, I tend to avoid do-statements.</blockquote>
+		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false"">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
+	</p>
+	<h4>Map, Filter, Reduce, and For Each - looping's better ways</h4>
+
+		<p>
+			In C++, as in most other languages, it is important not to write code that duplicates fundimental parts of the standard language library. While it would be possible to write a loop in JavaScript to average, modify, or select some elements of an array, you should not. Instead you should use the built-in <span class="file_name">filter</span> (select some), <span class="file_name">reduce</span> (average, sum, product, etc.), or <span class="file_name">map</span> (convert all) functionallity.
+		</p>
+      <p>
+        Consider a situation where you have been hired to write code for a
+        social media site. You have been asked to write code to count up the
+        total number of 'likes' postings from a single customer has recieved.
+        Existing code that others have written puts a likes count for each
+        posting in an array called 'likes' for you. It looks something like this.
+      </p>
+      <p>
+      	<pre>
+<code class="C++">#include <algorithm>
+#include <memory>
+#include <numeric>
+
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long likes_count = //code to get the number from some database response
+unique_ptr<int[]> likes(new int[likes_count]);
+auto likes_end = likes.get()+likes_count;
+//some code here to fill the array with values from the database response
+}</code>
+</pre>
+      </p>
+      <p>
+        Suppose you were told to write code that filtered out likes that are less
+        then 10. How should this be done?
+      </p>
+      <p>You would use the filter functionallity. In C++, this is in the <a href="https://www.geeksforgeeks.org/stdremove-stdremove_if-c/"><span class="file_name">remove_if</span> function</a> of the standard algorithm library.</p>
+ 	  <p>
+      <pre>
+<code class="JavaScript">likes_end = remove_if(likes.get(), likes_end, [](auto a_likes_amount){
+        return a_likes_amount < 10;
+    });
+}</code>
+	</pre>
+	  </p>
+	  <p>
+	  	The <span class="file_name">remove_if</span> function has three parameters, the beginning of the array, the end of the array, and a lambda that compares each element of the array and returns the result of the comparison. In contrast to the filtering behavior in many other languages, <span class="file_name">remove_if</span> does NOT return a filtered result. Instead, it moves any element that matches the condition in the lambda to be one of the first elements in the array and returns an indicator of where the end of the filtered part of the array is. That means that the elements in the array past the updated value (look at the assignment in the code snippet) of <span class="file_name">likes_end</span> are garbage.
+	  </p>
+      <p>
+        Let's break up the syntax for the C++ lambda function being used. It starts with the <span class="file_name">[]</span> operator. Between these, you include any variables who's values you want to capture from the enclosing scope. In this case there are none, so <span class="file_name">[]</span> is empty. The lambda required for <span class="file_name">remove_if</span> has one required parameter. It's type must match the type of the elements in the array and is each element of the array in turn. The body of the lambda function is in the <span class="file_name">{}</span> operators, and in this case, consists of just one line of code where the resultof comparing each array element to 10 is returned.
+        parameter to 10.
+      </p>
+
+      <p>
+        Now that you've done this, your boss asks you to write code that, instead of filtering out likes, gives the customer five
+        'bonus likes' that are to be added to each posting.
+      </p>
+
+      <p>
+      	How should the likes array be modified? You use C++'s map functionallity, the standard <a href="https://www.fluentcpp.com/2017/02/13/transform-central-algorithm/"><span class="file_name">transform</span></a> function. The code looks like this.
+      </p>
+      <pre>
+<code class="JavaScript">likes_end = transform(likes.get(), likes_end, likes.get(), [](auto a_likes_amount){
+        return a_likes_amount + 5;
+    });
+</code>
+	</pre>
+	  <p>
+	  	The <span class="file_name">transform</span> function has four parameters instead of just three. The additional parameter is the third, right before the lambda. It indicates to the function where the first result should be put back into the array. In this case, the beginning of the array is used and each subsequent result is placed in the next position. So, if the array constisted of <span class="file_name">{1,3,15,7,23}</span>, the array would be transformed to be <span class="file_name">{6,9,21,13,28}</span>. See? Each element had 5 added to it and the result was put in the array at the same index as the un-transformed value.
+	  </p>
+      <p>
+        Maybe you are asked to total the customers likes instead of filtering or mapping them. Then you should use the C++'s reduce behavior, the standard <a href="https://stackoverflow.com/questions/12633950/understanding-stdaccumulate"><span class="file_name">accumulate</span> function</a>. 
+      </p>
+      <p>
+      <pre>
+<code class="JavaScript">auto total = accumulate(likes.get(), likes_end, 0, [](auto accumulator, auto a_likes_amount){
+        return accumulator + a_likes_amount;
+    });
+</code>
+	</pre>
+	   </p>
+    	The <span class="file_name">accumulate</span> function also has four parameters. The first the beginning of the array to total, the second is the end, the third is the accumulator's initial value, and the fourth is the lambda that returns the partial accumulated value. For this case the
+        the final result is the summation of the likes which the <span class="file_name">accumulate</span> function returns.
+      </p>
+      <p>
+        But what if you are asked to do something more real? Something like you are to give five bonus likes only for those that already
+        have 10 likes and then sum the result? You could do a seperate line of
+        code to accomplish this, or since the map and filter array functions
+        return an array, you could do it more professionally like this. It uses
+        map, filter, and reduce.
+      </p>
+      <p><pre>
+<code class="JavaScript">
+    likes_end = remove_if(likes.get(), likes_end, [](auto a_like_count){
+        return a_like_count < 10;
+    });
+    
+    likes_end = transform(likes.get(), likes_end, likes.get(), [](int a_likes_amount){
+        return a_likes_amount + 5;
+    });
+    
+    auto total = accumulate(likes.get(), likes_end, 0, [](auto accumulator, auto a_likes_amount){
+        return accumulator + a_likes_amount;
+    });
+</code>
+	</pre></p>
+		<p>
+			If you just can't get map, filter, and reduce to work for you in any combination, there is a fallback option. The <span class="file_name">for_each</span> function. Like it does in other languages, <span class="file_name">for_each</span> iterates over each element in the array, hands it to you in a lambda, and says, "Do what you want!" If you were going to use <span class="file_name">for_each</span> to print out everything in the original array of likes to the console (something you are very unlikely to do in a real app), the code would look like this.
+		</p>
+		<p>
+      <pre>
+<code class="JavaScript">for_each(likes.get(), likes_end, [](auto a_likes_amount){
+        cout&lt;&lt;a_likes_amount&lt;&lt;endl;
+    });
+</code>
+	</pre>
+
+		<p>
+			But map, filter, and reduce aren't the only algorithms you are limmited to. C++ has a <a href="https://www.youtube.com/watch?v=2olsGf6JIkU">large number of others in the standard library</a> you can use in your code. Nor are you limitted to using arrays. There are a whole host of different kinds of data containers in C++ <a href="https://en.cppreference.com/w/cpp/container">containers library</a>, sometimes coloquially known as the STL library, that the algorithms library functions work on.
+		</p>
+	<h4>The Counting Loop - Welcome to the Past!</h4>
+	<p>
+		In older C++ code it can be common to see C-types of constructs &#128531;. C++ has been and is moving away from these kinds of things, but you will see them. Counting loops are one type of those C-type constructs.
+	</p>
+	<p>
+		Since C-type arrays have a fixed size and a way to access values using the [] operator, the counting loop is the C-type way to iterate over the elements of C-type arrays, but here is a very good piece of advice. Don't get too caught up in the counting loops you are about to see. In fact, you should have <a href="https://www.youtube.com/watch?v=W2tWOdzgXHA">no raw loops in your code</a> (search for 'raw loop' in the pdf). If you want a more accessable presentation on this topic, check out <a href="https://developer.apple.com/videos/play/wwdc2018/223">Dave Abraham's take</a>. Dave's code examples aren't in C++, but everything he says applies to C++ as well.
+	</p>
+	<p>
+		The traditional, forward-iteration C-type loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code snippet below (glance down and take a look). The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
 		initializes a variable traditionally called i, short for index. This is the variable that will be used to, later, access the elements of the array to retrieve or modify them. This operation is executed ONLY the first time the loop's code executes.
 	</p>
 	<p>
@@ -525,45 +697,6 @@ for(int i = number_of_names-1; i >= 0; i--){
 }
 </code></pre></p>
 
-
-	<h4>The Logical Loop</h4>
-	<p>
-		In C++, the logical loop uses a variation of the while syntax found in many languages. Here is one way you could do the names example 
-		using a logicial loop.
-	</p>
-<p>
-	<pre><code>using std::cout;
-using std::endl;
-using std::string;
-using std::unique_ptr;
-/*
- .
- .A bunch of code in your app here
- .
- */
-long number_of_names = //code to get the number from some database response
-unique_ptr<string[]> names(new string[number_of_names]);
-/*
- .
- .Code here to fill the array with the names from some database, etc.
- .
- */
- int count_down_index = number_of_names - 1;
-    
-while (count_down_index - 1 >= 0) {
-    cout&lt;&lt;"while name: "&lt;&lt;names[count_down_index]&lt;&lt;endl;
-    names++;
-}
-</code></pre></p>
-
-
-	<h4>The Logical Loop's Ugly Step Sister</h4>
-	<p>
-		OK...there are those that love the the alternative to C++'s while loop know as 'the do-while loop.' I, the author, was taught to avoid it like the plague 
-		when I was first learning C++. I empathize with those who love it. I don't. I agree with what Bjarne Stroustrup wrote in his seminal book. 
-		<blockquote>In my experience, the do-statement is a source of errors and confusion. The reason is that its body is always executed once before the condition is evaluated. However, for the body to work correctly, something very much like the condition must hold even the first time through. More often then a would have guessed, I have found that condition not to hold as expected either when the program was first written and tested or later after the code preceding it has been modified. I also prefer the condition "up front where I can see it." Consequently, I tend to avoid do-statements.</blockquote>
-		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false"">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
-	</p>
 
 
 	<h3>Making Choices</h3>
