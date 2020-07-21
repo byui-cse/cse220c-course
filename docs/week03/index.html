@@ -26,10 +26,10 @@
 <h1>Language Organization and Access</h1>
 	<p>All computer languages are ways to organize your communication and thinking. In this, they are very
 	similar to spoken languages. Each spoken language, or family of spoken languages, does this organization
-	differently. English sentences often have a structure of Subject-Helper Verb-Verb-Predicate..."The boy will bite the dog", for example.
+	differently. English sentences often have a structure of Subject-Helper Verb-Verb-Predicate..."The boy will bite the dog," for example.
 	German, a language closely related to English, organizes things differently. Sometimes German sentences have a
         Subject-Helper Verb-Predicate-Verb structure...
-	"Ich werde das Buch bald lesen", which if translated word-by-word is "I will the book soon read." Spanish has adjectives 
+	"Ich werde das Buch bald lesen," which if translated word-by-word is "I will the book soon read." Spanish has adjectives 
 	after the nouns they modify.</p>
 	<p>While each language has its own organizational rules, they all do the same thing. They allow us to organize and express
 	our thinking.</p>
@@ -37,7 +37,7 @@
 	<p>C++, being a sibling of C, has the concept of functions but when you truely begin thinking in C++, you think in classes and instances of classes. So much so, that, in modern C++, any stand-alone function other than the main function, has <a href="https://www.quora.com/What-is-code-smell">'code smell'</a>.</p>
 
 <h1>The Situation</h1>
-<p>To help learn about the C++ syntax for classes and instances, a set of classes is needed. The set selected for your perusal describes 
+<p>To help learn about the C++ syntax for classes and instances, a set of class descriptions is needed. The set selected for your perusal describes 
 	a very simplified stock-tracker for an imagined pharmaceutical company. Several classes are included in this set. A Date class storing 
 	individual numbers for a day, month, and year. A Medication class that is the parent class for two medication types, TabletMedications 
 	and LiquidMedications. And last, but not least, a model class (<a href="https://www.youtube.com/watch?v=FCkDEHWDATI">MVC</a>) that stores and manipulates data regarding the stock available for sale. 
@@ -45,7 +45,7 @@
 </p>
 <h1>The Classes</h1>
 <h2>C++ Peculiarities</h2>
-<p>Due to C++'s ancestor C, C++ class declarations and definitions are put in seperate files. A declaration describes what properties and functions a class has, but 
+<p>Due to C++'s ancestor C, C++ class declarations and definitions are put in <a href="http://www.math.uaa.alaska.edu/~afkjm/csce211/handouts/SeparateCompilation.pdf">seperate files</a>. A declaration describes what properties and functions a class has, but 
 	not what the functions do. An implementation describes what each class function does but does not describe the properties and functions a class has. Many other languages 
 	combine the declaration and definition in one spot. By convention, the declaration files for C++ use the .h or .hpp file extension to the file name. 
 	Also by convention, C++ implementation files use the .cpp extension. Since this is by convention only, you could use any extension you want, 
@@ -57,7 +57,7 @@
     <p>
     	Everybody who has written C++ for any significant amount of time has an opinion on what the extension for header files should be. Microsoft Visual Studio 
     	uses .h by default, matching the header files used when using the C language. Apple's Xcode uses .hpp to diferentiate C++ header files from C header files. 
-        Bjarne Stroustrup weighed in on this contravercial topic when it was being discussed by the <a href="https://isocpp.org">C++ International Standards Body</a>.
+        Bjarne Stroustrup weighed in on this controversial topic when it was being discussed by the <a href="https://isocpp.org">C++ International Standards Body</a>.
 		<blockquote>I have worked on projects that used .h, on projects that used .hpp, and on projects that used .H. 
 		I did not notice the choice of suffix to be among the significant problems or advantages. So, I prefer to spend my efforts 
 		on other things.</blockquote>
@@ -65,15 +65,16 @@
 	</p>
     <p>
     	In other words, it doesn't matter which you use. Go with the default your IDE uses. It's not even worth the time to change it from your IDE's default. 
-    	When you get a job, you boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this is will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!!
+    	When you get a job, you boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this is will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!! &#129395;
     </p>
 </section>
 </p>
 <h2>The Date Class</h2>
 <p>
-	The purpose of the Date class is to store the day, month, and year for any specific date. This design allows searching by comparing any 
+	The purpose of the Date class is to store the day, month, and year for any specific date. In a reall app, you'd never create this class. Instead you'd use the <a href="https://en.cppreference.com/w/cpp/chrono">standard date and time utilities</a>. Be flexible. The purpose of this Date class is to help you learn how to write a simplistic C++ class.</p>
+<p> The design of the Date class allows searching by comparing any 
 	or all of these three values. If you look at the UML class diagram, it shows the Date class is composed of three integers, one for the day, one for the month, 
-	and one for the year. In the code below focus on the code starting with the keyword <span class="file_name">class</span>.  
+	and one for the year. In the code below focus, for now, on the code starting with the keyword <span class="file_name">class</span>.  
 </p>
 <h3>A Class Declaration, the date.hpp File</h3>
 <p>
@@ -105,7 +106,7 @@ namespace pharmaceutical_tracker{
 	</p>
 	<p>
 		You'll notice the class keyword is followed directly by the name of the class. Also notice that, <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?crid=BTYSB77L90QG&dchild=1&keywords=a+tour+of+c+bjarne+stroustrup&qid=1594136212&sprefix=a+tour+of+%2Caps%2C249&sr=8-1">in accordance with convention</a>, the first letter 
-		of a custom class's name is capitalized. Nothing else in C++ is capitalized, except a thing called macros that have fallen out of favor.
+		of a custom class's name is capitalized. Nothing else in C++ is usually capitalized except a thing called macros that have fallen out of favor.
 	</p>
 	<p>
 		After the line declaring the class name, you will see four lines of code that declare three private properties. If a C++ class's properties are private, 
@@ -249,7 +250,7 @@ bool Date::operator ==(const Date& other_date)const{
     </p>
 </section>
 	<p>
-		So far, this week, you've learned how to write the code that describes the class. You've seen the <span class="file_name">Date</span> class declaration and the definition of its class functions. This is a lot to take in, so if it's confusing, STOP. Take the time to go over the previous material with a classmate. Talk about it. Discuss it. State what each of you understand and what each of you don't. If you just try to keep going without understanding, it's going to get worse not better. Please listen. Success in using C++ in your follow-on classes requires that you understand these basic, beginner things.
+		So far, this week, you've learned how to write the code that describes the class. You've seen the <span class="file_name">Date</span> class declaration and the definition of its class functions. This is a lot to take in, so if it's confusing, STOP&#x1F6D1;. Take the time to go over the previous material with a classmate. Talk about it. Discuss it. State what each of you understand and what each of you don't. If you just try to keep going without understanding, it's going to get worse not better. Please listen. Success in using C++ in your follow-on classes requires that you understand these basic, beginner things.
 	</p>
 	
 	
