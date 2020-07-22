@@ -82,22 +82,22 @@ List<T>::List(){}
 
 template<typename T>
 /// Adds a value to the end of the list. The implementation was selected to illustrate how to move through a sequence of linked nodes. There are designs for List that allow push_back to be implemented more efficiently than this naive design.
-/// @param aValue the value to add to the list
+/// @param a_value the value to add to the list
 ///
 /// - Complexity: O(*n*)
-void List<T>::push_back(T aValue){
-    shared_ptr<Node>currentNode = root_node;
-    shared_ptr<Node>nodeToAdd = shared_ptr<Node>(new Node(aValue));
+void List<T>::push_back(T a_value){
+    shared_ptr<Node>current_node = root_node;
+    shared_ptr<Node>node_to_add = shared_ptr<Node>(new Node(a_value));
    
-    if(nullptr == currentNode){
-        root_node = nodeToAdd;
+    if(nullptr == current_node){
+        root_node = node_to_add;
         return;
     }
-    while (nullptr != currentNode->right_child) {
-        currentNode = currentNode->right_child;
+    while (nullptr != current_node->right_child) {
+        current_node = current_node->right_child;
     }
-    currentNode->right_child = nodeToAdd;
-    nodeToAdd->parent = currentNode;
+    current_node->right_child = node_to_add;
+    node_to_add->parent = current_node;
 }
 
 
