@@ -96,6 +96,7 @@
 	<p>
 		Notice in the declaration of the map, that there is some code that looks strange. &lt;string,Medication&gt. This is where you declare the types for the keys and values. The C++ standard map stores the keys and values in a <a href="http://www.cplusplus.com/reference/utility/pair/pair/">std::pair instance</a>. The key is the first element of the pair and the value is the second element of the pair. The map declaration line in the previous code snippet tells the compiler that the map should hold pairs of type <span class="file_name">std::pair&lt;string,Medication&gt;</span>. This means that <span class="file_name">std::map</span> is something called a class <a href="https://www.merriam-webster.com/dictionary/template">template</a>. 
 	</p>
+	<a name="template_description"><h2>Templates</h2>
 	<p>
 		If you had a template for a pair of pants, known as a pattern, you could use that template to make pants from denim, cotton, or even silk if you wanted to. They would all be pants. The template ensures that, regardless of the material used, the pants would all be the same size, be put on the same way, and have the same number and shape of pockets. This is what templates do; maintain commonality. C++'s <span class="file_name">std::map</span> is a template. It maintains commonality, but doesn't care what is stored in it as long as there is one key for one value. You can choose anything you want for a key and anything you want for a value. 
 	</p>
