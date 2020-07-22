@@ -121,11 +121,11 @@ namespace pharmaceutical_tracker{
 		Please realize that only things in the <span class="file_name">public:</span> block can be accessed or changed directly. That's why all private properties must
 		be accessed and changed (mutated) by class functions in the <span class="file_name">public:</span> block. These are colloquially called "getters and setters". 
 		You can recognize them by their names. Take a look at the code for the <span class="file_name">Date</span> class above and find its getter and setter declarations in the <span class="file_name">public</span> section. 
-		Notice that the first part of the getter declarations start with the same type as the property it is associated with. C++ requires that the type of what 
+		Notice that the first part of the getter declarations start with the same type as the intance variable it is associated with. C++ requires that the type of what 
 		is returned from the function be declared directly. The setters have <span class="file_name">void</span> in this same location meaning nothing is going to 
 		be returned. Also notice the parameters for the setters also require a type be declared. 
 	</p>
-		There is a third option, in addition to <span class="file_name">private</span> and <span class="file_name">public</span>, known as <span class="file_name">protected</span>. If a property or class function is protected, it is directly accessable to anything that inherits from the class but not accessable to everything else.
+		There is a third option, in addition to <span class="file_name">private</span> and <span class="file_name">public</span>, known as <span class="file_name">protected</span>. If a intance variable or class function is protected, it is directly accessable to anything that inherits from the class but not accessable to everything else.
 	</p>
 <section class="callout">
 	<h3>Note!</h3>
@@ -165,9 +165,9 @@ namespace pharmaceutical_tracker{
 <p>
 	The first line of code after the namespace declaration is the definition of the Date constructor declared in the date.hpp file and discussed above. The name of 
 	this constructor includes the class, Date, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as it's name. Directly 
-	after the name of the function, you'll notice a colon character (:) followed by a list of the property names for the date class. Each property name is 
-	folowed by a pair of curly braces ({ and }) and an integer value. the combination of a property name, the curly braces, and a valid value initializes that 
-	property with the stated value. In the default constructor for this Date class, the day, month, and year are all set to be -1, an invalid value, so any default 
+	after the name of the function, you'll notice a colon character (:) followed by a list of the intance variable names for the date class. Each intance variable name is 
+	folowed by a pair of curly braces ({ and }) and an integer value. the combination of a intance variable name, the curly braces, and a valid value initializes that 
+	intance variable with the stated value. In the default constructor for this Date class, the day, month, and year are all set to be -1, an invalid value, so any default 
 	instance of Day can be detected and differentiated from those instantiated using the non-default constructor. The items after the colon are known as an initiator 
 	list.  
 </p>
@@ -214,7 +214,7 @@ bool Date::operator ==(const Date& other_date)const{
 </pre>
 	</p>
 	<p>
-		Directly after the default constructor, above, is the non-default constructor. In this example, each property is set using a value via an initialization list. 
+		Directly after the default constructor, above, is the non-default constructor. In this example, each intance variable is set using a value via an initialization list. 
 		You don't have to assign all properties for an instance of a class, but if it makes sense to do so you should. 
 	</p>
 	<p>
@@ -258,17 +258,21 @@ bool Date::operator ==(const Date& other_date)const{
 	
 	<h2>Creating an Instance</h2>
 	<p>
-		Declarations and definitions are vital...but they are not sufficient. To write object oriented code in any language you need to be able to create an instance of a class. The way you do this depends on if you want to instantiate an instance and get a pointer to it, or if you just want to instantate an instace. If you want both an instance and a pointer to that instance, you can do it the old fashioned pointer way or the modern pointer way. Remember, if you use the old fashioned way, there has to be somewhere in your code where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
+		Declarations and definitions are vital...but they are not sufficient. To write object oriented code in any language you need to be able to create an instance of any declared and defined class. The way you do this depends on if you want to instantiate an instance and get a pointer to it, or if you just want to instantate an instace. If you want both an instance and a pointer to that instance, you can do it the old fashioned pointer way or the modern pointer way. Remember, if you use the old fashioned way, there has to be somewhere in your code where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
 	</p>
 	<p>
 	<pre><code>//old fashioned way
-auto birthday = new Date(5,12,1999);//the type of the birthday variable is Date* (date pointer)
+
+//the type of the birthday variable is Date* (date pointer)
+auto birthday = new Date(5,12,1999);
 </code>
 </pre>
 	</p>
 	<p>
 	<pre><code>//modern way
-unique_ptr&lt;Date&gt; birthday(new Date(5,12,1999));//the type of the birthday variable is a unique pointer to the birthday instance
+
+//the type of the birthday variable is a unique pointer to the birthday instanc
+unique_ptr&lt;Date&gt; birthday(new Date(5,12,1999));e
 </code>
 </pre>
 	</p>
@@ -286,9 +290,9 @@ Date birthday(5, 12, 1999);//the type of the birthday variable is a unique point
 	</p>
 
 
-	<h2>HasA Inheritance</h2>
+	<h2>Has_A Inheritance</h2>
 	<p>
-		Like all object oriented languages, HasA type inheritance is supported. As an example, we'll look at a new class called Medication. The medication class represents a bottle of medication in the pharmacy. It Has_A Date that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is Date. That's it. That's all you have to do to apply the HasA type of inheritance. Also, if you needed to for a different class you were making, you can have class variables that are arrays of custom types like Dates.
+		Like all object oriented languages, C++ supports <a href="https://stackoverflow.com/questions/2218937/has-a-is-a-terminology-in-object-oriented-language">Has_A type inheritance</a>. As an example, look at the Medication class below (see the UML class diagram above for an overview). The medication class represents a bottle of medication in the pharmacy. It Has_A instance of Date that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is Date. That's it. That's all you have to do to use Has_A type of inheritance. Also, if needed, you can have instance variables that are arrays of custom types like Dates.
 	</p>
 	<p>
 	<pre><code>#ifndef medication_hpp
@@ -327,7 +331,7 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		It is also common for there to be some stort of container that holds multiple instances of a class in a HasA relationship. The <span class="file_name">PharmaceuticalStockModel</span> class has such a relationship as seen in the earlier UML diagram and this code snippet.
+		It is also common for there to be some stort of container that holds multiple instances of a class in a Has_A relationship. The <span class="file_name">PharmaceuticalStockModel</span> class has such a relationship as seen in the earlier UML diagram and this code snippet.
 	</p>
 
 	<p>
@@ -345,13 +349,13 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		Since <span class="file_name">PhamaceuticalStockModel</span> HasA array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">deal with the problem of a full array</a>.
+		Since <span class="file_name">PhamaceuticalStockModel</span> Has_A array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">deal with the problem of a full array</a>.
 	</p>
 
 
-	<h2>IsA Inheritance</h2>
+	<h2>Is_A Inheritance</h2>
 	<p>
-		IsA inheritance is done differently. The example below is the header file for <span class="file_name">TabletMedication</span>. It IsA <span class="file_name">Medication</span>. It is a subclass of <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. These statements all mean the same thing, the <span class="file_name">TabletMedication</span> class is derived from the <span class="file_name">Medication</span> class. Because it is  a derived class without very much added to the base class, you see very little in the <span class="file_name">TabletMedication</span> class' header file, just the class variables and functions required to differentiate tablet type medications from other kinds.
+		<a href="https://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">Is_A inheritance is done differently</a>. The example below is the header file for <span class="file_name">TabletMedication</span>. It Is_A <span class="file_name">Medication</span>. It is a subclass of <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. It is a derived class of the <span class="file_name">Medication</span> base class. These statements all mean the same thing. Because it is  a derived class without very much added to the base class, you see very little in the <span class="file_name">TabletMedication</span> class' header file, just the instance variables and functions required to differentiate tablet type medications from other kinds.
 	</p>
 
 	<p>
@@ -376,7 +380,7 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		Notice the use of the public keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publically accessable when using an instance of TabletMedication. That means the programmer does not need to create additional class functions for <span class="file_name">TabletMedication</span> to use them. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a>.
+		Notice the use of the public keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publicly accessable when using an instance of TabletMedication. That means the programmer does not need to create additional instance functions for <span class="file_name">TabletMedication</span> for programmers using the <span class="file_name">TabletMedication</span> class to use public methods of the <span class="file_name">Medication</span> class, the essence of the Is_A type of inheritance. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a> and those types of inheritance are Has_A instead of Is_A due to the inheritance hiding.
 	</p>
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
