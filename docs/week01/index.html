@@ -25,19 +25,27 @@
 </div>
 	<h1>The Why of C++</h1>
 	<h3>Some Background</h3>
-	<p>Before and during the early 1970's, it was common to write operating systems in <a href="https://en.wikipedia.org/wiki/Assembly_language">assembly</a>, 
-	a low-level programming language. The first implementation of the Unix operating system was written in assembly to run on the <a href="https://en.wikipedia.org/wiki/PDP-7">PDP-7</a> computer and later 
-	was ported, by modifying the original assembly code, to the <a href="https://en.wikipedia.org/wiki/PDP-11">PDP-11</a>. Since writing and porting assembly for larger systems is difficult, first Ken Thompson 
+	<p>Before and during the early 1970's, it was common to write operating systems in <a href="https://en.wikipedia.org/wiki/Assembly_language"
+          target="_blank">assembly</a>, 
+	a low-level programming language. The first implementation of the Unix operating system was written in assembly to run on the <a href="https://en.wikipedia.org/wiki/PDP-7"
+          target="_blank">PDP-7</a> computer and later 
+	was ported, by modifying the original assembly code, to the <a href="https://en.wikipedia.org/wiki/PDP-11"
+          target="_blank">PDP-11</a>. Since writing and porting assembly for larger systems is difficult, first Ken Thompson 
 	and later Dennis Richie decided to create languages to make this process easier. Thompson created the 
-	<a href="https://en.wikipedia.org/wiki/B_(programming_language)">B</a> language that Richie used as a starting point when creating the earliest versions of
-	<a href="https://en.wikipedia.org/wiki/C_(programming_language)#Early_developments">C</a>. By the end of 1973, the Unix kernel had been rewritten 
+	<a href="https://en.wikipedia.org/wiki/B_(programming_language)"
+          target="_blank">B</a> language that Richie used as a starting point when creating the earliest versions of
+	<a href="https://en.wikipedia.org/wiki/C_(programming_language)#Early_developments"
+          target="_blank">C</a>. By the end of 1973, the Unix kernel had been rewritten 
 	completely in C, making it easier to port to new versions of hardware.</p>
 	<p>C, then, was a language designed for writting operating systems, device drivers, and other types of systems. The patterns you use when you write C are those you would
-		use if you were writing code for the PDP-11. Thankfully, the <a href="https://en.wikipedia.org/wiki/Portable_C_Compiler">portable C compiler</a> 
-	lead the way to making C available on multiple hardware systems that don't follow the PDP-11 hardware patterns while <a href="https://queue.acm.org/detail.cfm?id=3212479">maintaining the PDP-11 coding patterns</a>. Porting Unix is not an insignificant 
+		use if you were writing code for the PDP-11. Thankfully, the <a href="https://en.wikipedia.org/wiki/Portable_C_Compiler"
+          target="_blank">portable C compiler</a> 
+	lead the way to making C available on multiple hardware systems that don't follow the PDP-11 hardware patterns while <a href="https://queue.acm.org/detail.cfm?id=3212479"
+          target="_blank">maintaining the PDP-11 coding patterns</a>. Porting Unix is not an insignificant 
 	task. In spite of this, the C language has made several flavors of Unix such as Solaris, MacOS, HP-UX, the BSD variants, and AIX possible. 
 	Linux, a Unix-like system, is also written in C.</p>
-	<p>In the late 1970's, <a href="http://www.stroustrup.com/hopl2.pdf">Bjarne Stroustrup was a graduate student</a>. He had been using a language called Simula to simulate parallel data flow in 
+	<p>In the late 1970's, <a href="http://www.stroustrup.com/hopl2.pdf"
+          target="_blank">Bjarne Stroustrup was a graduate student</a>. He had been using a language called Simula to simulate parallel data flow in 
 		computing systems. Amoung other things, Bjarne liked the way Simula allowed related functions to be grouped together into classes and that these classes could inherit properties 
 		and functionality from base classes. Unfortunately for Bjarne, the Simula language had drawbacks as any language does. Simula struggled to scale. 
 		It ran too large and too slow for Bjarne's project. Facing the colapse of his project, Bjarne switched languages to BCPL, a language he said was horrible. 
@@ -48,14 +56,16 @@
 		C++. His goal was to create a language that allowed the organizational goodies he liked from Simula and yet would scale like C.
 	</p>
 	<p>
-		If you are interested in a career using C++, or just want to know it in depth, Stroustup's seminal book, The C++ Programming Language, <a href="https://www.amazon.com/Programming-Language-Programm-Lang_p4-ebook/dp/B00DUW4BMS/ref=sr_1_2?crid=3CRR6NOADR53E&dchild=1&keywords=stroustrup+c%2B%2B+programming+language&qid=1588086678&sprefix=Stroustrup+c%2Caps%2C233&sr=8-2">is available 
+		If you are interested in a career using C++, or just want to know it in depth, Stroustup's seminal book, The C++ Programming Language, <a href="https://www.amazon.com/Programming-Language-Programm-Lang_p4-ebook/dp/B00DUW4BMS/ref=sr_1_2?crid=3CRR6NOADR53E&dchild=1&keywords=stroustrup+c%2B%2B+programming+language&qid=1588086678&sprefix=Stroustrup+c%2Caps%2C233&sr=8-2"
+          target="_blank">is available 
 		in hardback, paperback and electronically</a>.
 	</p>
 	
 	<h3>Python and C++ are Related</h3>
 	<p>Take a look at Figure 1. It shows the ancestery of both C++ and Python. Since C is an ancestor of both C++ and Python you can expect to see some
 	things in C++ that remind you of what you learned about coding in Python. C is not Python's only ancester. A very strong contributor to Python 
-	is the <a href="https://en.wikipedia.org/wiki/Modula">Modula language</a>. Because of this ancestry, modules exist in Python that are somewhat 
+	is the <a href="https://en.wikipedia.org/wiki/Modula"
+          target="_blank">Modula language</a>. Because of this ancestry, modules exist in Python that are somewhat 
 	similar to classes in C++. Since Modula is not an ancestor of C++, C++ has no concept of a range and, as you will see, the syntax 
 	and structure of for loops is different from what you learned for Python though the loop concepts remain the same.</p>
 
@@ -64,24 +74,29 @@
   <figcaption>Figure 1. - The anticedent languages for Python and C++ (Grady Booch and Bjarne Stroustrup).</figcaption>
 </figure>
 	<p>If a more complete understanding of the 
-	relationship between C and C++ read <a href="https://pdfs.semanticscholar.org/c56c/95fc39e214b3fe91d82cbe9edd2e6ad5aac3.pdf">Stroustup's paper on the subject</a> written in 2002. There you will learn, among other things, that C++ is not a superset of C. The article does not, however, include changes made to both languages since 2002.</p>
+	relationship between C and C++ read <a href="https://pdfs.semanticscholar.org/c56c/95fc39e214b3fe91d82cbe9edd2e6ad5aac3.pdf"
+          target="_blank">Stroustup's paper on the subject</a> written in 2002. There you will learn, among other things, that C++ is not a superset of C. The article does not, however, include changes made to both languages since 2002.</p>
 
 <h1>Installations</h1>
 	<h2>The IDE</h2>
 
 	<h3>Windows</h3>
-	<p>If it isn't already installed on your machine, start by installing <a href="https://visualstudio.microsoft.com/">Visual Studio 
+	<p>If it isn't already installed on your machine, start by installing <a href="https://visualstudio.microsoft.com/"
+          target="_blank">Visual Studio 
 		Community Edition</a>, not Visual Studio Code. Watch 
-		and follow <a href="https://youtu.be/IsAoIqnNia4">this video</a> to see how to complete the download, create your first project, 
+		and follow <a href="https://youtu.be/IsAoIqnNia4"
+          target="_blank">this video</a> to see how to complete the download, create your first project, 
 		and then run it.
 	</p>
 
 	<h3>MacOS</h3>
 		<p>If it isn't already installed on your machine, start by installing 
-			<a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12">Xcode</a>. When you attempt to install, if you don't have the latest 
+			<a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12"
+          target="_blank">Xcode</a>. When you attempt to install, if you don't have the latest 
 			version of MacOS, you may see a message saying you don't have a compatible MacOS version. If you see this message, update your OS to 
 		the latest version.</p>
-		<p>You can follow <a href="https://youtu.be/HA-NahwEnyA">this video tutorial</a> to see how to create, compile, and run a C++ project 
+		<p>You can follow <a href="https://youtu.be/HA-NahwEnyA"
+          target="_blank">this video tutorial</a> to see how to create, compile, and run a C++ project 
 		after launching Xcode.</p>
 
 	
