@@ -107,7 +107,7 @@
 	</p>
 	<h1>Lists</h1>
 	<p>
-		Lists are containers that are very good at keeping a group of items in a specific order. They are also good at adding and removing additional elements at the beginning or end of the list, O(1). Since you've learned about and used lists before, draw on that experience to understand what your reading next. 
+		Lists are containers that are very good at keeping a group of items in a specific order. They are also good at adding and removing additional elements at the beginning or end of the list, O(1). Since you've learned about and used lists before, draw on that experience to understand what you're reading next. 
 	</p>
 	<p>The pharmacy needs to be able to have multiple bottles of each type of medication. We know we can use a map with the name of the medication as a key to do a fast lookup. What if instead of looking up a single bottle the map could look up a list of bottles? Then the <span class="file_name">PharmaceuticalStockModel</span> class would be fast and flexible. That's a good design! &#127881; To make this happen all the map needs is a key of type string and a value that is a list of medications, <span class="file_name">list&lt;Medication&gt;</span>. The complete, fast, flexible change is now,
 	</p>
@@ -117,7 +117,7 @@
     using std::map;
     using std::list;
     private:
-        map&lt;string,list&lt;Medication&gt; in_stock_medications;
+        map&lt;string,list&lt;Medication&gt;&gt; in_stock_medications;
     public:
     /*
      * constructor and class function declarations here
@@ -127,7 +127,7 @@
 </code>
 	</pre></p>
 	<p>
-		There is another benefit of this design. If bottles of medication are always added at the end of the list for their type of medication. The medication purchased longest ago will always be at the front of the list. That way, when a perscription for some amount of medication is recieved, the bottle purchased longest ago is the one that will be used to fill the perscription. That guarentees the stock of that medication will get turned over appropriately, assuming there is a corelation between the dates the medications were recieved and the expiration date of the medication in the bottles.
+		There is another benefit of this design. If bottles of medication are always added at the end of the list for their type of medication. The medication purchased longest ago will always be at the front of the list. That way, when a perscription for some amount of medication is recieved, the bottle purchased longest ago is the one that will be used to fill the perscription. That guarentees the stock of that medication will get turned over appropriately, assuming there is a correlation between the dates the medications were received and the expiration date of the medication in the bottles.
 	</p>
 	<p>
 		What, then, would the code for the <span class="file_name">PharmaceuticalStockModel</span> instance function <span class="file_name">add_tablet_to_stock</span> look like that adds a tablet-type medication to an existing list for that medication stored in the map? To pull this off, there is one more tool you need...

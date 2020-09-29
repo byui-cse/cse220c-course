@@ -25,7 +25,7 @@
 </div>
 	<h1>Hidden Arrays</h1>
 	<p>
-		Many of the standard containers, array, vector stack, queueu, etc., are acutally classes that have a private C-type array as a property. Algorithms are then turned into code, instance functions of the class, to make the use of the C-type array MUCH safer. These methods have been tested, enhanced, fixed, and optimized for decades. That's why it is so much safer to use a standard container that wraps a C-type array than to use one directly. If you are ever tempted to use a C-type array, you should probably use the std::array instead. It adds almost no overhead.
+		Many of the standard containers, array, vector stack, queue, etc., are actually classes that have a private C-type array as a property. Algorithms are then turned into code, instance functions of the class, to make the use of the C-type array MUCH safer. These methods have been tested, enhanced, fixed, and optimized for decades. That's why it is so much safer to use a standard container that wraps a C-type array than to use one directly. If you are ever tempted to use a C-type array, you should probably use the std::array instead. It adds almost no overhead.
 	</p>
 	<p>
 		But sometimes, arrays are either too restrictive or the code to manipulate to match the need becomes way to complicated and slow. Take a look at this image of a structure known as a <a href="https://www.youtube.com/watch?v=qH6yxkw0u78">tree</a>.
@@ -77,7 +77,7 @@ public:
 <p>
 	Now, having a node that can hold characters is OK, but yuck! Why can't it hold anything we want like the std::list class template we used last week? To do that, the Node class also has to be changed and become a node class template.</p> 
 <p>
-	<img src="images/stop.png"> Go back and review <a href="https://byui-cse.github.io/cse220c-course/week04/index.html#template_description">last week's information about class templates</a> if you need to brush up.
+	<img src="images/stop.png"> Go back and review <a href="../week04/index.html#template_description">last week's information about class templates</a> if you need to brush up.
 </p>
 <p> 
 	I'm going to show you some code here...don't over think it. All that's going to happen is the <span class="file_name">char</span> type keyword is going to get replaced with a temporary placeholder. It's called <span class="file_name">T</span>. The first line of the code snippet below tells the compiler that Node is a class template, instead of a complete class, and the type placeholder is called <span class="file_name">T</span>. The  <span class="file_name">typename</span> keyword is just used to tell the compiler that  <span class="file_name">T</span> is actually a type, not a variable. All that's happened is one line of code is added so the compiler can understand what we are doing, and then all the <span class="file_name">char</span> type keywords are replaced with <span class="file_name">T</span>. Other than that, there are no changes.
@@ -126,7 +126,7 @@ public:
 #ifndef list_h
 #define list_h
 
-#include <functional>
+#include &lt;functional&gt;
 
 using std::shared_ptr;
 using std::weak_ptr;
@@ -137,7 +137,7 @@ using std::weak_ptr;
 */
 namespace naive {
 
-template<typename T>
+template&lt;typename T&gt;
 /// This is a partial, naive implementation of a list-type container.
 class List{
 private:
@@ -149,18 +149,18 @@ private:
     class Node{
     public:
         T value;
-        weak_ptr<Node> parent;
-        shared_ptr<Node> left_child;
-        shared_ptr<Node> right_child;
+        weak_ptr&lt;Node&gt; parent;
+        shared_ptr&lt;Node&gt; left_child;
+        shared_ptr&lt;Node&gt; right_child;
         //Node constructors
         Node(T a_value);
-        Node(T a_value, shared_ptr<Node> a_parent);
+        Node(T a_value, shared_ptr&lt;Node&gt; a_parent);
     };//end of Node class
-    shared_ptr<Node> root_node;
+    shared_ptr&lt;Node&gt; root_node;
 public:
     List();
     void push_back(T aValue);
-    List<T> map(std::function<T(T& a_value)>mapping_function);
+    List&lt;T&gt; map(std::function&lt;T(T& a_value)&gt;mapping_function);
     /*
      * There are many more instance functions a fully functional list would need.
      * Take CSE232, Designing Data Structures, to learn more!!
@@ -175,34 +175,36 @@ using naive::List;
  * List instance function implementations
  */
 
-template<typename T>
+template&lt;typename T&gt;
 /// Instantiates an empty List.
 ///
 /// Complexity - O(n)
-List<T>::List(){}
+List&lt;T&gt;::List(){}
 
-template<typename T>
-/// Adds a value to the end of the list. The implementation was selected to illustrate how to move through a sequence of linked nodes. There are designs for List that allow push_back to be implemented more efficiently than this naive design.
+template&lt;typename T&gt;
+/// Adds a value to the end of the list. The implementation was selected to illustrate how 
+/// to move through a sequence of linked nodes. There are designs for List that allow 
+/// push_back to be implemented more efficiently than this naive design.
 /// @param aValue the value to add to the list
 ///
 /// - Complexity: O(n)
-void List<T>::push_back(T aValue){
-    shared_ptr<Node>currentNode = root_node;
-    shared_ptr<Node>node_to_add = shared_ptr<Node>(new Node(aValue));
+void List&lt;T&gt;::push_back(T aValue){
+    shared_ptr&lt;Node&gt;currentNode = root_node;
+    shared_ptr&lt;Node&gt;node_to_add = shared_ptr&lt;Node&gt;(new Node(aValue));
    
     if(nullptr == currentNode){
         root_node = node_to_add;
         return;
     }
-    while (nullptr != currentNode->right_child) {
-        currentNode = currentNode->right_child;
+    while (nullptr != currentNode-&gt;right_child) {
+        currentNode = currentNode-&gt;right_child;
     }
-    currentNode->right_child = node_to_add;
-    node_to_add->parent = currentNode;
+    currentNode-&gt;right_child = node_to_add;
+    node_to_add-&gt;parent = currentNode;
 }
 
 
-template<typename T>
+template&lt;typename T&gt;
 /// A non-destructive mapping instance methods.It applies the lambda function to
 /// each value in the existing list and adds it to a list that is returned.
 ///
@@ -211,15 +213,15 @@ template<typename T>
 /// - Returns: a list that has as each of its values a modified version of each
 /// value of this list
 /// - Complexity: O(*n*) assuming that mapping_function has a complexity of O(*1*)
-List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
-    shared_ptr<Node>currentNode = root_node;
+List&lt;T&gt; List&lt;T&gt;::map(std::function&lt;T(T& a_value)&gt;mapping_function){
+    shared_ptr&lt;Node&gt;currentNode = root_node;
     //if this list is empty, its mapped version should be empty also
      if(nullptr == currentNode){
-         return List<T>();//empty list
+         return List&lt;T&gt;();//empty list
      }
-    List<T> mapped_list;
+    List&lt;T&gt; mapped_list;
      while (nullptr != currentNode) {
-         T node_value = currentNode.get()->value;
+         T node_value = currentNode.get()-&gt;value;
          T mapped_value = mapping_function(node_value);
          mapped_list.push_back(mapped_value);
      }
@@ -230,23 +232,24 @@ List<T> List<T>::map(std::function<T(T& a_value)>mapping_function){
 /*
  * Node instance function implementations
  */
-template<typename T>
-/// Value based constructor for a Node. For this constructor, the parent, left child, and right child nodes are
-/// all null
+template&lt;typename T&gt;
+/// Value based constructor for a Node. For this constructor, the parent, left child,
+/// and right child nodes are all null
 /// @param a_value the value to be stored in the node
 ///
 /// - Complexity: O(*1*)
-List<T>::Node::Node(T a_value):value{a_value}{}
+List&lt;T&gt;::Node::Node(T a_value):value{a_value}{}
 
 
-template<typename T>
-/// Value and parent based constructor for a Node. For this constructor, the left and right child nodes are null
+template&lt;typename T&gt;
+/// Value and parent based constructor for a Node. For this constructor, the left 
+/// and right child nodes are null
 ///
 /// @param a_value the value to be stored in the node
 /// @param a_parent a constant reference to the parent node of the node being constructed
 ///
 /// - Complexity: O(*1*)
-List<T>::Node::Node(T a_value, shared_ptr<Node> a_parent):value{a_value},parent{a_parent}{}
+List&lt;T&gt;::Node::Node(T a_value, shared_ptr&lt;Node&gt; a_parent):value{a_value},parent{a_parent}{}
 
 #endif /* list_h */
 </code>
@@ -256,18 +259,18 @@ List<T>::Node::Node(T a_value, shared_ptr<Node> a_parent):value{a_value},parent{
 <p>
 	To add a value to an empty list, use the list's <span class="file_name">push_back</span> instance function. You can find the code for the <span class="file_name">push_back</span> instance function above. There you can see that each time a value is to be added to a list, a node, <span class="file_name">node_to_add</span>, is created to encapsulate the value; then that node is added to the list. If the node is empty, <span class="file_name">node_to_add</span> is added to the list by setting the root node to be <span class="file_name">node_to_add</span>. Otherwise, the last node in the list is found, <span class="file_name">node_to_add</span> is set to be the last node's right child node, and <span class="file_name">node_to_add</span>'s parent is set to be the node that used to be the node at the end of the list.
 </p>
-<p>Below is an example of using this naive, incomplete list class template, use it contain ints, and then add 3 ints to the list.
+<p>Below is an example of using this naive, incomplete list class template by using it to contain ints and then adding 3 ints to the list.
 </p>
 <p><pre><code class="C++">#include "list.h"
 
 int main(int argc, const char * argv[]) {
-    List<int> nums;
+    List&lt;int&gt; nums;
     nums.push_back(5);
     nums.push_back(7);
     nums.push_back(9);
 
     //make a new list that has all of the values doubled
-    List<int> doubled = nums.map([](int an_int)->int{
+    List&lt;int&gt; doubled = nums.map([](int an_int)-&gt;int{
         return an_int*2;
     });
 
