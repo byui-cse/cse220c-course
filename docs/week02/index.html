@@ -351,7 +351,7 @@ using std::unique_ptr;
  */
 
 long number_of_names = //code to get the names number from some database response
-unique_ptr<string[]> names(new string[number_of_names]);
+unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -652,7 +652,7 @@ using std::unique_ptr;
  .
  */
 long number_of_names = //code to get the number from some database response
-unique_ptr<string[]> names(new string[5]);
+unique_ptr&lt;string[]&gt; names(new string[5]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -681,7 +681,7 @@ using std::unique_ptr;
  .
  */
 long number_of_names = //code to get the number from some database response
-unique_ptr<string[]> names(new string[5]);
+unique_ptr&lt;string[]&gt; names(new string[5]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
