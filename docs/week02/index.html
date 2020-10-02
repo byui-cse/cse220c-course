@@ -213,8 +213,8 @@ double a_length = double(length_in_feet);//convert the int into a double and sto
 	</p>
 	<p>
 		There is one more type you can use when you declare a variable, <span class="file_name">auto</span>. The <span class="file_name">auto</span> type is very 
-		interesting. It's purpose is to let the computer decide the type instead of you. Don't miss-understand, the type is still fixed. The compiler uses 
-		a process called <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/">type inference</a> to decide what the type to assign to the 
+		interesting. Its purpose is to let the computer decide the type instead of you. Don't misunderstand, the type is still fixed. The compiler uses 
+		a process called <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/">type inference</a> to decide what type to assign to the 
 		variable. For example, if the compiler infers a variable is a string type, you can't later assign it an int value.
 	</p>
 	<p>
@@ -270,7 +270,7 @@ color = 3;//this line causes a compiler error
 		the array it points to can change.
 	</p>
 	<p>Let's say you have a set of patient name strings you have to repeatedly pull from and store to a database. And, let the action of pulling those customers' names produces not only the names, but 
-		how many names there are. Also, suppose the purpose of pulling the names repeatedly is to anounce who gets helped in the emergency room next at the hospital for which you work. The code below shows you C++'s original way of creating an array and storing where the just created array is. It uses a pointer.
+		how many names there are. Also, suppose the purpose of pulling the names repeatedly is to announce who gets helped in the emergency room next at the hospital for which you work. The code below shows you C++'s original way of creating an array and storing where the just created array is. It uses a pointer.
 	</p>
 	<p>
 	<pre><code>long number_of_names = //code to get the number from some database response
@@ -421,7 +421,7 @@ names = nullptr;
 <p>
 	The <span class="">-=</span> operator is also overloaded. It moves the pointer backwards by some integer amount.
 </p>
-<p>"But wait a minute. Does that mean + and - are also overwritten?" Excelent question...yep. Stroustrup, however, does say <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?dchild=1&keywords=a+tour+of+c%2B%2B&qid=1594060107&sr=8-1">that being new to C++ you should never write code like the example you just saw</a>. These overloaded operators for pointers are for the use of the wise and highly experienced.</p>
+<p>"But wait a minute. Does that mean + and - are also overwritten?" Excellent question...yep. Stroustrup, however, does say <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?dchild=1&keywords=a+tour+of+c%2B%2B&qid=1594060107&sr=8-1">that being new to C++ you should never write code like the example you just saw</a>. These overloaded operators for pointers are for the use of the wise and highly experienced.</p>
 
 
 
@@ -469,7 +469,7 @@ unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
  .Code here to fill the array with the names from some database, etc.
  .
  */
- long count_down_index = number_of_names - 1;
+long count_down_index = number_of_names - 1;
         
 while (count_down_index >= 0) {
     cout&lt;&lt;"while name: "&lt;&lt;names[count_down_index]&lt;&lt;endl;
@@ -487,12 +487,12 @@ while (count_down_index >= 0) {
 	<h4>Map, Filter, Reduce, and For Each - looping's better, safer ways</h4>
 
 		<p>
-			In C++, as in most other languages, it is important not to write code that duplicates fundimental parts of the standard language library. While it is possible to write a loop in C++ to average, modify, or select some elements of an array, you should not. Instead you should use the built-in <span class="file_name">filter</span> (select some), <span class="file_name">reduce</span> (average, sum, product, etc.), or <span class="file_name">map</span> (convert all) functionality.
+			In C++, as in most other languages, it is important not to write code that duplicates fundamental parts of the standard language library. While it is possible to write a loop in C++ to average, modify, or select some elements of an array, you should not. Instead you should use the built-in <span class="file_name">filter</span> (select some), <span class="file_name">reduce</span> (average, sum, product, etc.), or <span class="file_name">map</span> (convert all) functionality.
 		</p>
       <p>
         Consider a situation where you have been hired to write code for a
         social media site. You have been asked to write code to count up the
-        total number of 'likes' postings from a single customer has recieved.
+        total number of 'likes' postings from a single customer has received.
         Existing code that others have written puts a likes count for each
         posting in an array called 'likes' for you. The code they wrote looks something like this.
       </p>
@@ -515,8 +515,11 @@ auto likes_end = likes.get()+likes_count;
 </pre>
       </p>
       <p>
-        Suppose you were told to write code that filtered out likes that are less
-        then 10. What's a good way to approach solving this problem?
+		  Note that in the above code, <span class="file_name">likes.get()</span> provides us with access to the beginning of the array.
+		</p>
+		<p>
+		  Suppose you were told to write code that filtered out likes that are less
+        than 10. What's a good way to approach solving this problem?
       </p>
       <p>Use filter functionality. In C++, this is in the <a href="https://www.geeksforgeeks.org/stdremove-stdremove_if-c/"><span class="file_name">remove_if</span> function</a> of the standard algorithm library. Did you notice the <span class="file_name">#include</span> statement in the code snippet above? &#128578;</p>
  	  <p>
@@ -531,7 +534,7 @@ auto likes_end = likes.get()+likes_count;
 	  	The <span class="file_name">remove_if</span> function has three parameters, the beginning of the array, the end of the array, and a lambda that compares each element of the array to something of your choice and returns the result of that comparison. In contrast to the filtering behavior in many other languages, <span class="file_name">remove_if</span> does NOT return a filtered result. Instead, it copies all elements that do not match the condition (remember this is a <span class="file_name">remove_if</span> filter) in the lambda into the front the array and returns an indicator of where the end of the filtered part of the array is. That means that the elements in the array past the updated value (look at the assignment in the code snippet) of <span class="file_name">likes_end</span> are garbage. There's a bunch of elements still out there beyond the new value of <span class="file_name">likes_end</span>, but they are meaningless.
 	  </p>
       <p>
-        Let's break up the syntax for the C++ lambda function being used. It starts with two operators <span class="file_name">[</span>, and <span class="file_name">]</span>. Between these two operators, you include any variables who's values you want to capture from the enclosing scope. In this case there are none, so <span class="file_name">[]</span> is empty. The lambda required for <span class="file_name">remove_if</span> has one required parameter. It's type must match the type of the elements in the array, <span class="file_name">auto</span> takes care of this for us, and the parameter's value is each element of the array in turn. The body of the lambda function is in the <span class="file_name">{}</span> scope operators, and in this case, consists of just one line of code where the result of comparing each array element to 10 is returned.
+        Let's break up the syntax for the C++ lambda function being used. It starts with two operators <span class="file_name">[</span>, and <span class="file_name">]</span>. Between these two operators, you include any variables whose values you want to capture from the enclosing scope. In this case there are none, so <span class="file_name">[]</span> is empty. The lambda required for <span class="file_name">remove_if</span> has one required parameter. Its type must match the type of the elements in the array, <span class="file_name">auto</span> takes care of this for us, and the parameter's value is each element of the array in turn. The body of the lambda function is in the <span class="file_name">{}</span> scope operators, and in this case, consists of just one line of code where the result of comparing each array element to 10 is returned.
       </p>
 
       <p>
@@ -549,10 +552,10 @@ auto likes_end = likes.get()+likes_count;
 </code>
 	</pre>
 	  <p>
-	  	The <span class="file_name">transform</span> function has four parameters instead of just three. The additional parameter is the third, right before the lambda. It indicates to the function where the first result should be put back into the array. In this case, the beginning of the array is used and each subsequent result is placed in the next position. So, if the array constisted of <span class="file_name">{1,3,15,7,23}</span>, the array would be transformed to be <span class="file_name">{6,9,21,13,28}</span>. See? Each element had 5 added to it and the transformed value was put in the array where the un-transformed value was.
+	  	The <span class="file_name">transform</span> function has four parameters instead of just three. The additional parameter is the third, right before the lambda. It indicates to the function where the first result should be put back into the array. In this case, the beginning of the array is used and each subsequent result is placed in the next position. So, if the array consisted of <span class="file_name">{1,3,15,7,23}</span>, the array would be transformed to be <span class="file_name">{6,9,21,13,28}</span>. See? Each element had 5 added to it and the transformed value was put in the array where the un-transformed value was.
 	  </p>
       <p>
-        Maybe you are asked to total the customers likes instead of filtering or mapping them. Then you should use reduce behavior, C++'s standard <a href="https://stackoverflow.com/questions/12633950/understanding-stdaccumulate"><span class="file_name">accumulate</span> function</a>. 
+        Maybe you are asked to total the customers' likes instead of filtering or mapping them. Then you should use reduce behavior, C++'s standard <a href="https://stackoverflow.com/questions/12633950/understanding-stdaccumulate"><span class="file_name">accumulate</span> function</a>. 
       </p>
       <p>
       <pre>
@@ -562,8 +565,7 @@ auto likes_end = likes.get()+likes_count;
 </code>
 	</pre>
 	   </p>
-    	The <span class="file_name">accumulate</span> function also has four parameters. The first the beginning of the array to total, the second is the end, the third is the accumulator's initial value, and the fourth is the lambda that returns the partial accumulated value. For this case the
-        the final result is the summation of the likes which the <span class="file_name">accumulate</span> function returns.
+    	The <span class="file_name">accumulate</span> function also has four parameters. The first the beginning of the array to total, the second is the end, the third is the accumulator's initial value, and the fourth is the lambda that returns the partial accumulated value. For this case the final result is the summation of the likes which the <span class="file_name">accumulate</span> function returns.
       </p>
       <p>
         But what if you are asked to do something more real? Something like you are to give five bonus likes only for those that already
@@ -597,7 +599,7 @@ auto likes_end = likes.get()+likes_count;
 	</pre>
 
 		<p>
-			But map, filter, and reduce aren't the only algorithms you are limmited to. C++ has a <a href="https://www.youtube.com/watch?v=2olsGf6JIkU">large number of others in the standard library</a> you can use in your code. Nor are you limitted to using arrays. There are a whole host of different kinds of data containers in C++ <a href="https://en.cppreference.com/w/cpp/container">containers library</a>, sometimes coloquially known as the STL library, that the algorithms library functions work on.
+			But map, filter, and reduce aren't the only algorithms you are limited to. C++ has a <a href="https://www.youtube.com/watch?v=2olsGf6JIkU">large number of others in the standard library</a> you can use in your code. Nor are you limited to using arrays. There are a whole host of different kinds of data containers in C++ <a href="https://en.cppreference.com/w/cpp/container">containers library</a>, sometimes coloquially known as the STL library, that the algorithms library functions work on.
 		</p>
 	<h4>The Counting Loop - Welcome to the Past!</h4>
 	<p>
@@ -611,8 +613,8 @@ auto likes_end = likes.get()+likes_count;
 		initializes a variable traditionally called i, short for index. This is the variable that will be used to, later, access the elements of the array to retrieve or modify them. This operation is executed ONLY the first time the loop's code executes.
 	</p>
 	<p>
-		Item 4, below, increases the value of <span class="file_name">i</span> by one. This is no supprise, but it may be a little supprising that this statement 
-		isn't executed the first time the <span class="file_name">for</span> the for loop executes. Instead, it is exectued every time except the first time. Items 
+		Item 4, below, increases the value of <span class="file_name">i</span> by one. This is no suprise, but it may be a little suprising that this statement 
+		isn't executed the first time the <span class="file_name">for</span> loop executes. Instead, it is exectued every time except the first time. Items 
 		3 and 4 both execute every time, but when item 4 is executed it will always be executed BEFORE item 3. Wow...that's confusing. Read that again. Think through it as see what the implications are for the example below.
 	</p>
 	<p>
@@ -637,7 +639,7 @@ for (int i = 0; i < 7; i++){
 	true, 5 executes.
 </p>
 <p>
-	An example using the customer names example you saw before is in order. That way you can see how the counting loop replaces the rediculous 
+	An example using the customer names example you saw before is in order. That way you can see how the counting loop replaces the ridiculous 
 	set of <span class="file_name">cout</span> lines of code with just one, as you would expect.
 </p>
 
@@ -699,7 +701,7 @@ for(int i = number_of_names-1; i >= 0; i--){
 	<h3>Making Choices</h3>
 	<p>
 		 Many, but not all, programming languages use variations of the keywords if - else_if - else to indicate choice making ('conditional branching' is the computer sciencey term) within applications. C++ is one of the 
-		 lanugages that does. A common, traditional example of the use of this set of keywords is a number guessing game. The example strips away all extranious 
+		 languages that does. A common, traditional example of the use of this set of keywords is a number guessing game. The example strips away all extranious 
 		 thinking and allows the reader to focus on the concept and syntax of code-branching in C++.
 	</p>
 	<p>
@@ -731,7 +733,7 @@ int main(int argc, const char * argv[]) {
 </p>
 	<h3>Loopy Choices</h3>
 	<p>
-		So the previous example is a little ridiculous. You only get one chance to guess. Here is one way you can combine looping and code branching so the user can  guess an infinite numbere of times or until they guess correctly.
+		So the previous example is a little ridiculous. You only get one chance to guess. Here is one way you can combine looping and code branching so the user can guess an infinite number of times or until they guess correctly.
 	</p>
 		<pre><code>#include &lt;iostream&gt;
 
