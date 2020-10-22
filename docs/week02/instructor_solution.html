@@ -4,28 +4,158 @@
 <html>
 
 <head>
-	<script type="text/javascript">
-		var codeType = "C++"
-	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+   <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+   <script>
+      var codeType = "C++"
+   </script>
+   <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+   <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+   <header class="hero-image">
+      <div class="hero-text">
+         <h1>CSE 220c: Week 02</h1>
+         <p>Ponder and Prove</p>
+      </div>
+   </header>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+   <main>
+      <h1>Sample Solution</h1>
+      <p>This is one possible solution to the Week 02 Ponder and Prove task.</p>
+      <pre>
+			<code>
+// cse220c_week_02_prove.cpp - Sample Solution
+//
+
+#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;numeric&gt;
+
+using namespace std; // avoid the need to use std:: in front of cin, cout, etc
+
+
+// Function prototypes. Required if the function definitions come after main.
+int calc_sum(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
+int find_min(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
+int find_max(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
+
+
+int main()
+{
+	int count = 0;
+
+	cout &lt;&lt; &quot;How many numbers? &quot;;
+	cin &gt;&gt; count;
+
+	// Set up an array to store the numbers. Notice the &quot;new&quot; keyword. This
+	// allows us to allocate the appropriate amount of space at run time. In
+	// this case, we are reserving memory for an array that can store
+	// &quot;count&quot; number of integers and we will refer to that array using
+	// a smart pointer called &quot;numbers&quot;
+	unique_ptr&lt;int[]&gt; numbers(new int[count]);
+
+	// Get numbers from console
+	for (int i = 0; i &lt; count; i++) {
+		cout &lt;&lt; &quot;Number &quot; &lt;&lt; i+1 &lt;&lt;  &quot;: &quot;;
+		cin &gt;&gt; numbers[i];
+	}
+
+	// Using explicit for loops in functions
+	int sum = calc_sum(count, numbers);
+	float average = (float) sum / count;
+	int min = find_min(count, numbers);
+	int max = find_max(count, numbers);
+
+	cout &lt;&lt; endl;
+	cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;
+	cout &lt;&lt; &quot;Average: &quot; &lt;&lt; average &lt;&lt; endl;
+	cout &lt;&lt; &quot;Minimum: &quot; &lt;&lt; min &lt;&lt; endl;
+	cout &lt;&lt; &quot;Maximum: &quot; &lt;&lt; max &lt;&lt; endl;
+
+
+	// Using reduce functionality -- the accumulate function
+	auto numbers_end = numbers.get() + count;
+	sum = accumulate(numbers.get(), numbers_end, 0, [](auto sum, auto number) { return sum + number; });
+	average = accumulate(numbers.get(), numbers_end, 0, [](auto sum, auto number) { return sum + number; }) / (float) count;
+	min = accumulate(numbers.get(), numbers_end, numbers[0], [](auto min, auto number) { return (number &lt; min) ? number : min; });
+	max = accumulate(numbers.get(), numbers_end, numbers[0], [](auto max, auto number) { return (number &gt; max) ? number : max; });
+
+	cout &lt;&lt; endl;
+	cout &lt;&lt; &quot;Using reduce to perform calculations&quot; &lt;&lt; endl;
+	cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; endl;
+	cout &lt;&lt; &quot;Average: &quot; &lt;&lt; average &lt;&lt; endl;
+	cout &lt;&lt; &quot;Minimum: &quot; &lt;&lt; min &lt;&lt; endl;
+	cout &lt;&lt; &quot;Maximum: &quot; &lt;&lt; max &lt;&lt; endl;
+
+	// Square all numbers in the list using map (transform)
+	numbers_end = numbers.get() + count;
+	numbers_end = transform(numbers.get(), numbers_end, numbers.get(), [](auto x) { return x * x; });
+	cout &lt;&lt; &quot;Square of each number:&quot;;
+	for (int i = 0; i &lt; count; i++) {
+		cout &lt;&lt; &quot; &quot; &lt;&lt; numbers[i];
+	}
+	cout &lt;&lt; endl;
+
+	// Find all numbers less than 1000 using filter (remove_if)
+	numbers_end = remove_if(numbers.get(), numbers_end, [](auto x) {return x &gt;= 1000; });
+	cout &lt;&lt; &quot;Numbers less than 1000:&quot;;
+	for_each(numbers.get(), numbers_end, [](auto x) { cout &lt;&lt; &quot; &quot; &lt;&lt; x; });
+	cout &lt;&lt; endl;
+
+	// Of the numbers less than 1000, find all odd numbers 
+	numbers_end = remove_if(numbers.get(), numbers_end, [](auto x) { return (x % 2) == 0; });
+	cout &lt;&lt; &quot;Odd numbers:&quot;;
+	for_each(numbers.get(), numbers_end, [](auto x) { cout &lt;&lt; &quot; &quot; &lt;&lt; x; });
+	cout &lt;&lt; endl;
+
+	return 0;
+}
+
+int calc_sum(int count, const unique_ptr&lt;int[]&gt;&amp; numbers)
+{
+	int sum = 0;
+	for (int i = 0; i &lt; count; i++) {
+		sum += numbers[i];
+	}
+	return sum;
+}
+
+int find_min(int count, const unique_ptr&lt;int[]&gt;&amp; numbers)
+{
+	int min = numbers[0];
+	for (int i = 1; i &lt; count; i++) {
+		min = (numbers[i] &lt; min) ? numbers[i] : min;
+	}
+	return min;
+}
+
+int find_max(int count, const unique_ptr&lt;int[]&gt;&amp; numbers)
+{
+	int max = numbers[0];
+	for (int i = 1; i &lt; count; i++) {
+		max = (numbers[i] &gt; max) ? numbers[i] : max;
+	}
+	return max;
+}
+
+
+				
+			</code>
+		</pre>
+   </main>
+
+   <footer><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+            style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+      licensed
+      under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+         International License</a>.
+   </footer>
 </body>
+
 </html>

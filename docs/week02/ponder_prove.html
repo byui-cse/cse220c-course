@@ -4,28 +4,160 @@
 <html>
 
 <head>
-	<script type="text/javascript">
+	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+	<script>
 		var codeType = "C++"
 	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+	<script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+	<link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+	<link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+	<script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+	<header class="hero-image">
+		<div class="hero-text">
+			<h1>CSE 220c: Week 02</h1>
+			<p>Ponder and Prove</p>
+		</div>
+	</header>
+	<main>
+		<h1>Week 2 Ponder and Prove: First C++ Program</h1>
+		<h2>Overview</h2>
+		<p>Task: Write a console-based calculator program that works with a series of integers.</p>
+		<p>Purpose: Learn to write C++ programs.</p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+		<h2>Instructions</h2>
+		<p>You will create a console-based calculator program that will accept a series of integers entered by the
+			user,
+			then
+			display the sum, average, min, and max. The program will first prompt the user for the number of integers
+			they
+			will be entering. Then prompt the user for each number, one at a time. The program will then calculate the
+			sum,
+			average, min, and max for the given numbers and display the result on the console.
+		</p>
+		<h3>Requirements</h3>
+		<ul>
+			<li>Store the numbers entered by the user in an array of integers.</li>
+			<li>Use a <span class="file_name">unique_ptr</span> and <span class="file_name">new</span> to declare an
+				array
+				of
+				the required size.</li>
+			<li>In addition to <span class="file_name">main</span>, you must write three function definitions for these
+				three
+				function prototypes:
+				<pre>
+				<code class="C++">
+int calc_sum(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
+int find_min(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
+int find_max(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
+				</code></pre>
+			</li>
+			<li>Do not use any built-in sum, min, or max functions. You must write them yourself.</li>
+			<li>Use a standard C++ for loop to calculate the sum, min, and max in each function. You may use
+				the value returned by the <span class="file_name">calc_sum</span> function to calculate the average.
+			</li>
+		</ul>
+
+		<p>
+			Once your program is working using the three functions, now calculate the sum, average, min, and max again,
+			but
+			this time use the built-in reduce function (<span class="file_name">accumulate</span>) to
+			calculate the sum, min, and max.
+		</p>
+		<p>
+			Now add to your program. This time, let's practice using a map function. Use the C++ <span
+				class="file_name">transform</span> function on
+			the array of numbers to square each number, storing the results back in the array in place of the
+			original numbers. Use a standard C++ for loop to display the resulting list of numbers.
+		</p>
+		<p>
+			Next, let's use a filter function (<span class="file_name">remove_if</span>) to find all numbers in the
+			array
+			of
+			squares that are less than
+			1000. Use a <span class="file_name">for_each</span> loop to display these numbers on the console.
+		</p>
+		<p>
+			Finally, use the <span class="file_name">remove_if</span> function again to find all <em>odd</em> numbers in
+			our
+			array of numbers less than 1000 and display them using a <span class="file_name">for_each</span> loop.
+		</p>
+
+		<h3>Hints</h3>
+		<ul>
+			<li>Use a standard C++ <span class="file_name">for</span> loop to prompt for each number and insert it into
+				the
+				array
+			</li>
+			<li>You may need to explicitly convert a value from <span class="file_name">int</span> to <span
+					class="file_name">float</span> when calculating the average
+			</li>
+			<li>You will need to include the <span class="file_name">algorithm</span> library for the <span
+					class="file_name">transform</span>, <span class="file_name">remove_if</span>, and for_each functions
+			</li>
+			<li>You will need to include the <span class="file_name">numeric</span> library for the <span
+					class="file_name">accumulate</span> function</li>
+			<li>You will need to include the <span class="file_name">memory</span> library for <span
+					class="file_name">unique_ptr</span></li>
+		</ul>
+
+
+		<h3>Example run of the program</h3>
+		<p>
+			(User input is <span style="text-decoration: underline;">underlined</span>)
+		</p>
+		<pre>
+		<code class="console">
+How many numbers? <span style="text-decoration: underline;"></span>10
+Number 1: <span style="text-decoration: underline;">18</span>
+Number 2: <span style="text-decoration: underline;">-7</span>
+Number 3: <span style="text-decoration: underline;">1</span>
+Number 4: <span style="text-decoration: underline;">26</span>
+Number 5: <span style="text-decoration: underline;">39</span>
+Number 6: <span style="text-decoration: underline;">17</span>
+Number 7: <span style="text-decoration: underline;">18</span>
+Number 8: <span style="text-decoration: underline;">57</span>
+Number 9: <span style="text-decoration: underline;">-21</span>
+Number 10: <span style="text-decoration: underline;">11</span>
+
+Sum: 159
+Average: 15.9
+Minimum: -21
+Maximum: 57
+
+Using reduce to perform calculations
+Sum: 159
+Average: 15.9
+Minimum: -21
+Maximum: 57
+Square of each number: 324 49 1 676 1521 289 324 3249 441 121
+Numbers less than 1000: 324 49 1 676 289 324 441 121
+Odd numbers: 49 1 289 441 121
+			
+		
+		</code>
+	</pre>
+
+		<h2>Review</h2>
+		<p>After completing the instructions:</p>
+		<ol>
+			<li>Review one of the many <a href="instructor_solution.html">possible solutions</a> for this task,</li>
+			<li>Compare and contrast your code with the possible solution's code, and</li>
+			<li>Make note of any improvements you could make for future tasks.</li>
+	  </ol>
+
+	</main>
+	<footer>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+				style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+		licensed
+		under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+			International License</a>.
+	</footer>
 </body>
+
 </html>
