@@ -38,7 +38,7 @@
 
 <h1>The Situation</h1>
 <p>To help learn about the C++ syntax for classes and instances, a set of class descriptions is needed. The set selected for your perusal describes 
-	a very simplified stock-tracker for an imagined pharmaceutical company. Several classes are included in this set. A Date class storing 
+	a very simplified stock-tracker for an imagined pharmaceutical company. Several classes are included in this set. A <span class="file_name">Date</span> class storing 
 	individual numbers for a day, month, and year. A Medication class that is the parent class for two medication types, TabletMedications 
 	and LiquidMedications. And last, but not least, a model class (<a href="https://www.youtube.com/watch?v=FCkDEHWDATI">MVC</a>) that stores and manipulates data regarding the stock available for sale. 
 <img src="images/pharm_uml.png" alt="An image showing each of the classes, Date, Medication, Liquid Medication, Tablet Medication, Pharmaceutical Stock Tracker, their properties, and the relationships between them">
@@ -69,11 +69,11 @@
     </p>
 </section>
 </p>
-<h2>The Date Class</h2>
+<h2>The <span class="file_name">Date</span> Class</h2>
 <p>
-	The purpose of the Date class is to store the day, month, and year for any specific date. In a real app, you'd never create this class. Instead you'd use the <a href="https://en.cppreference.com/w/cpp/chrono">standard date and time utilities</a>. Be flexible. The purpose of this Date class is to help you learn how to write a simplistic C++ class.</p>
-<p> The design of the Date class allows searching by comparing any 
-	or all of these three values. If you look at the UML class diagram, it shows the Date class is composed of three integers, one for the day, one for the month, 
+	The purpose of the <span class="file_name">Date</span> class is to store the day, month, and year for any specific date. In a real app, you'd never create this class. Instead you'd use the <a href="https://en.cppreference.com/w/cpp/chrono">standard date and time utilities</a>. Be flexible. The purpose of this <span class="file_name">Date</span> class is to help you learn how to write a simplistic C++ class.</p>
+<p> The design of the <span class="file_name">Date</span> class allows searching by comparing any 
+	or all of these three values. If you look at the UML class diagram, it shows the <span class="file_name">Date</span> class is composed of three integers, one for the day, one for the month, 
 	and one for the year. In the code below focus, for now, on the code starting with the keyword <span class="file_name">class</span>.  
 </p>
 <h3>A Class Declaration, the date.hpp File</h3>
@@ -81,8 +81,8 @@
 	<pre><code>#ifndef date_hpp
 #define date_hpp
 
-namespace pharmaceutical_tracker{
-    class Date{
+namespace pharmaceutical_tracker {
+    class Date {
     private:
         int day;
         int month;
@@ -110,7 +110,7 @@ namespace pharmaceutical_tracker{
 	</p>
 	<p>
 		After the line declaring the class name, you will see four lines of code that declare three private properties. If a C++ class's properties are private, 
-		then they cannot be accessed directly. For example, if there was a variable of type date called birthday, this code would be invalid and fail to 
+		then they cannot be accessed directly. For example, if there was a variable of type <span class="file_name">Date</span> called birthday, the following code would be invalid and fail to 
 		compile. 
 	</p>
 <p>
@@ -149,7 +149,7 @@ namespace pharmaceutical_tracker{
 		<span class="file_name">Date</span> be the 'given name' of the class in the date.hpp file. With people, rarely are given names sufficient to differentiate people from each other. They need a family name. You can think of the 
 		namespace as being the 'family name' of the class. It helps differentiate this <span class="file_name">Date</span> class declaration from any other, 
 		thus helping the compiler know which type 
-		of Date to use if there happens to be more than one. With this namespace declaration in the .hpp file, this <span class="file_name">Date</span>'s name isn't 
+		of <span class="file_name">Date</span> to use if there happens to be more than one. With this namespace declaration in the .hpp file, this <span class="file_name">Date</span>'s name isn't 
 		just <span class="file_name">Date</span>, it's <span class="file_name">pharmaceutical_tracker::Date</span> with <span class="file_name">::</span> connecting 
 		the namespace to the class name.
 	</p>
@@ -163,11 +163,11 @@ namespace pharmaceutical_tracker{
 	class functions being defined here, the class function definitions are significantly shorter and easier to read.
 </p>
 <p>
-	The first line of code after the namespace declaration is the definition of the Date constructor declared in the date.hpp file and discussed above. The name of 
+	The first line of code after the namespace declaration is the definition of the <span class="file_name">Date</span> constructor declared in the date.hpp file and discussed above. The name of 
 	this constructor includes the class, Date, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as its name. Directly 
 	after the name of the function, you'll notice a colon character (:) followed by a list of the instance variable names for the date class. Each instance variable name is 
 	followed by a pair of curly braces ({ and }) and an integer value. The combination of an instance variable name, the curly braces, and a valid value initializes that 
-	instance variable with the stated value. In the default constructor for this Date class, the day, month, and year are all set to be -1, an invalid value, so any default 
+	instance variable with the stated value. In the default constructor for this <span class="file_name">Date</span> class, the day, month, and year are all set to be -1, an invalid value, so any default 
 	instance of Day can be detected and differentiated from those instantiated using the non-default constructor. The items after the colon are known as an initiator 
 	list.  
 </p>
@@ -183,29 +183,29 @@ Date::Date(int aDay, int aMonth, int aYear):day{aDay},month{aMonth},year{aYear} 
     //todo: check to make sure day, month, and year are a valid combination for a date
 }
 
-void Date::set_day(int aDay){
+void Date::set_day(int aDay) {
     //todo: check to make sure is valid day
     day = aDay;
 }
-int Date::get_day()const{
+int Date::get_day()const {
     return day;
 }
-void Date::set_month(int aMonth){
+void Date::set_month(int aMonth) {
     //todo: check to make sure is valid month
     month = aMonth;
 }
-int Date::get_month()const{
+int Date::get_month()const {
     return day;
 }
-void Date::set_year(int aYear){
+void Date::set_year(int aYear) {
     //todo: check to make sure is valid year
     year = aYear;
 }
-int Date::get_year()const{
+int Date::get_year()const {
     return year;
 }
 
-bool Date::operator ==(const Date& other_date)const{
+bool Date::operator ==(const Date& other_date)const {
     return day == other_date.day
         && month == other_date.month
         && year == other_date.year;
@@ -292,13 +292,13 @@ Date birthday(5, 12, 1999);//the type of the birthday variable is a unique point
 
 	<h2>Has_A Inheritance</h2>
 	<p>
-		Like all object oriented languages, C++ supports <a href="https://stackoverflow.com/questions/2218937/has-a-is-a-terminology-in-object-oriented-language">Has_A type inheritance</a>. As an example, look at the Medication class below (see the UML class diagram above for an overview). The medication class represents a bottle of medication in the pharmacy. It Has_A instance of Date that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is Date. That's it. That's all you have to do to use Has_A type of inheritance. Also, if needed, you can have instance variables that are arrays of custom types like Dates.
+		Like all object oriented languages, C++ supports <a href="https://stackoverflow.com/questions/2218937/has-a-is-a-terminology-in-object-oriented-language">Has_A type inheritance</a>. As an example, look at the Medication class below (see the UML class diagram above for an overview). The medication class represents a bottle of medication in the pharmacy. It Has_A instance of <span class="file_name">Date</span> that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is Date. That's it. That's all you have to do to use Has_A type of inheritance. Also, if needed, you can have instance variables that are arrays of custom types like Dates.
 	</p>
 	<p>
 	<pre><code>#ifndef medication_hpp
 #define medication_hpp
 
-#include <string>
+#include &lt;string&gt;
 #include "date.hpp"//this line must be here so the compiler knows what a date is.
 
 using std::string;
@@ -316,7 +316,7 @@ namespace pharmaceutical_tracker {
     public:
         Medication();
         Medication(string aName, int aCount, string aUnitsDescription, int expirationYear,
-                   int expirationMonth,int expirationDay);
+                   int expirationMonth, int expirationDay);
         string get_name() const;
         void set_name(const string& aName);
         int get_count() const;
@@ -336,7 +336,7 @@ namespace pharmaceutical_tracker {
 	</p>
 
 	<p>
-	<pre><code>class PharmaceuticalStockModel{
+	<pre><code>class PharmaceuticalStockModel {
     private:
         unique_ptr&lt;Medication[]&gt; in_stock_medications;
         long medication_count;
@@ -366,12 +366,12 @@ namespace pharmaceutical_tracker {
 #include "medication.hpp"
 
 namespace pharmaceutical_tracker {
-    class TabletMedication: public Medication{
+    class TabletMedication: public Medication {
     private:
         short dosage;
     public:
         TabletMedication(string aName, int aCount, short aDosage, string dosageUnits,
-                         int expirationYear, int expirationMonth,int expirationDay);
+                         int expirationYear, int expirationMonth, int expirationDay);
         short get_dosage() const;
         void set_dosage(short aDosage);
     };
