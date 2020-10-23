@@ -34,7 +34,7 @@
 	<p>While each language has its own organizational rules, they all do the same thing. They allow us to organize and express
 	our thinking.</p>
 	<h3>Instances of Classes - the fundamental organizational concept of C++</h3>
-	<p>C++, being a sibling of C, has the concept of functions but when you truely begin thinking in C++, you think in classes and instances of classes. So much so, that, in modern C++, any stand-alone function other than the main function, has <a href="https://www.quora.com/What-is-code-smell">'code smell'</a>.</p>
+	<p>C++, being a sibling of C, has the concept of functions but when you truly begin thinking in C++, you think in classes and instances of classes. So much so, that, in modern C++, any stand-alone function other than the main function, has <a href="https://www.quora.com/What-is-code-smell">'code smell'</a>.</p>
 
 <h1>The Situation</h1>
 <p>To help learn about the C++ syntax for classes and instances, a set of class descriptions is needed. The set selected for your perusal describes 
@@ -49,14 +49,14 @@
 	not what the functions do. An implementation describes what each class function does but does not describe the properties and functions a class has. Many other languages 
 	combine the declaration and definition in one spot. By convention, the declaration files for C++ use the .h or .hpp file extension to the file name. 
 	Also by convention, C++ implementation files use the .cpp extension. Since this is by convention only, you could use any extension you want, 
-	but if you choose to do so, you better have a VERY good reason or you will confuse everone else who ever reads or supports your code. An example of a declaration 
+	but if you choose to do so, you better have a VERY good reason or you will confuse everyone else who ever reads or supports your code. An example of a declaration 
 	file and an implementation file for a simple data-class is in order.
 	<section class="callout">
     <h3>Note!</h3>
     <h4>.h or .hpp?</h4>
     <p>
     	Everybody who has written C++ for any significant amount of time has an opinion on what the extension for header files should be. Microsoft Visual Studio 
-    	uses .h by default, matching the header files used when using the C language. Apple's Xcode uses .hpp to diferentiate C++ header files from C header files. 
+    	uses .h by default, matching the header files used when using the C language. Apple's Xcode uses .hpp to differentiate C++ header files from C header files. 
         Bjarne Stroustrup weighed in on this controversial topic when it was being discussed by the <a href="https://isocpp.org">C++ International Standards Body</a>.
 		<blockquote>I have worked on projects that used .h, on projects that used .hpp, and on projects that used .H. 
 		I did not notice the choice of suffix to be among the significant problems or advantages. So, I prefer to spend my efforts 
@@ -65,13 +65,13 @@
 	</p>
     <p>
     	In other words, it doesn't matter which you use. Go with the default your IDE uses. It's not even worth the time to change it from your IDE's default. 
-    	When you get a job, you boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this is will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!! &#129395;
+    	When you get a job, your boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this is will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!! &#129395;
     </p>
 </section>
 </p>
 <h2>The Date Class</h2>
 <p>
-	The purpose of the Date class is to store the day, month, and year for any specific date. In a reall app, you'd never create this class. Instead you'd use the <a href="https://en.cppreference.com/w/cpp/chrono">standard date and time utilities</a>. Be flexible. The purpose of this Date class is to help you learn how to write a simplistic C++ class.</p>
+	The purpose of the Date class is to store the day, month, and year for any specific date. In a real app, you'd never create this class. Instead you'd use the <a href="https://en.cppreference.com/w/cpp/chrono">standard date and time utilities</a>. Be flexible. The purpose of this Date class is to help you learn how to write a simplistic C++ class.</p>
 <p> The design of the Date class allows searching by comparing any 
 	or all of these three values. If you look at the UML class diagram, it shows the Date class is composed of three integers, one for the day, one for the month, 
 	and one for the year. In the code below focus, for now, on the code starting with the keyword <span class="file_name">class</span>.  
@@ -110,7 +110,7 @@ namespace pharmaceutical_tracker{
 	</p>
 	<p>
 		After the line declaring the class name, you will see four lines of code that declare three private properties. If a C++ class's properties are private, 
-		then they can not be accessed directly. For example, if there was a variable of type date called birthday, this code would be invalid and fail to 
+		then they cannot be accessed directly. For example, if there was a variable of type date called birthday, this code would be invalid and fail to 
 		compile. 
 	</p>
 <p>
@@ -121,15 +121,15 @@ namespace pharmaceutical_tracker{
 		Please realize that only things in the <span class="file_name">public:</span> block can be accessed or changed directly. That's why all private properties must
 		be accessed and changed (mutated) by class functions in the <span class="file_name">public:</span> block. These are colloquially called "getters and setters". 
 		You can recognize them by their names. Take a look at the code for the <span class="file_name">Date</span> class above and find its getter and setter declarations in the <span class="file_name">public</span> section. 
-		Notice that the first part of the getter declarations start with the same type as the intance variable it is associated with. C++ requires that the type of what 
+		Notice that the first part of the getter declarations start with the same type as the instance variable it is associated with. C++ requires that the type of what 
 		is returned from the function be declared directly. The setters have <span class="file_name">void</span> in this same location meaning nothing is going to 
 		be returned. Also notice the parameters for the setters also require a type be declared. 
 	</p>
-		There is a third option, in addition to <span class="file_name">private</span> and <span class="file_name">public</span>, known as <span class="file_name">protected</span>. If a intance variable or class function is protected, it is directly accessable to anything that inherits from the class but not accessable to everything else.
+		There is a third option, in addition to <span class="file_name">private</span> and <span class="file_name">public</span>, known as <span class="file_name">protected</span>. If an instance variable or class function is protected, it is directly accessible to anything that inherits from the class but not accessible to everything else.
 	</p>
 <section class="callout">
 	<h3>Note!</h3>
-    <h4>I should never actually use the <span class="file_name">protected</span> keyword when writting real code. Right?</h4>
+    <h4>I should never actually use the <span class="file_name">protected</span> keyword when writing real code. Right?</h4>
     <p>
     	No. You are wrong if you try to make this 'never' type of a claim. You should use <a href="https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil">protected when appropriate</a>. Use it when you don't really need to strongly hide how you've done something.
 	</p>
@@ -156,18 +156,18 @@ namespace pharmaceutical_tracker{
 
 <h3>The Class Function Definitions, the date.cpp File</h3>
 <p>
-	The first thing the compiler needs to know when working with a .cpp file is which class declaration the defintions in the file belong to. This is done by the 
+	The first thing the compiler needs to know when working with a .cpp file is which class declaration the definitions in the file belong to. This is done by the 
 	first line in the example below. The <span class="file_name">#include "date.hpp"</span> line of code is known as a 'precompiler directive'. It informs the 
 	compiler that the declarations in the date.hpp file will be used. Also remember from last week that typing the namespace over and over again can be very 
 	tedious. So, once again, the <span class="file_name">using</span> declaration is used. That way we, having declared the "full name" for all the 
-	class functions being defined here, the class function defintions are significantly shorter and easier to read.
+	class functions being defined here, the class function definitions are significantly shorter and easier to read.
 </p>
 <p>
 	The first line of code after the namespace declaration is the definition of the Date constructor declared in the date.hpp file and discussed above. The name of 
-	this constructor includes the class, Date, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as it's name. Directly 
-	after the name of the function, you'll notice a colon character (:) followed by a list of the intance variable names for the date class. Each intance variable name is 
-	folowed by a pair of curly braces ({ and }) and an integer value. the combination of a intance variable name, the curly braces, and a valid value initializes that 
-	intance variable with the stated value. In the default constructor for this Date class, the day, month, and year are all set to be -1, an invalid value, so any default 
+	this constructor includes the class, Date, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as its name. Directly 
+	after the name of the function, you'll notice a colon character (:) followed by a list of the instance variable names for the date class. Each instance variable name is 
+	followed by a pair of curly braces ({ and }) and an integer value. The combination of an instance variable name, the curly braces, and a valid value initializes that 
+	instance variable with the stated value. In the default constructor for this Date class, the day, month, and year are all set to be -1, an invalid value, so any default 
 	instance of Day can be detected and differentiated from those instantiated using the non-default constructor. The items after the colon are known as an initiator 
 	list.  
 </p>
@@ -214,7 +214,7 @@ bool Date::operator ==(const Date& other_date)const{
 </pre>
 	</p>
 	<p>
-		Directly after the default constructor, above, is the non-default constructor. In this example, each intance variable is set using a value via an initialization list. 
+		Directly after the default constructor, above, is the non-default constructor. In this example, each instance variable is set using a value via an initialization list. 
 		You don't have to assign all properties for an instance of a class, but if it makes sense to do so you should. 
 	</p>
 	<p>
@@ -236,7 +236,7 @@ bool Date::operator ==(const Date& other_date)const{
     	One important reason people use for selecting C or C++ as an implementation language for a project is speed. It used to be that you had to make difficult 
     	choices as to where to put your code to make it fast but use more RAM. If you not only declared but also defined a class's functions in the header file, the functions would  
     	end up 'inline', meaning the class function call would be replaced with the class function's code thus increasing the size of you application. If, on the other 
-    	hand, you put the function's defintion in the .cpp file it would not 
+    	hand, you put the function's definition in the .cpp file it would not 
     	end up inline, your application would use less RAM and run slower. There were tricks you could use to force the compiler to make you function be inline if you wanted. Thankfully those days of making difficult choices are gone. Today, the compilers for C and C++ are much more sophisticated than they used to be. 
 	</p>
     <p>
@@ -245,7 +245,7 @@ bool Date::operator ==(const Date& other_date)const{
 		<span class="citation">Excerpt From: <a href="https://www.amazon.com/21st-Century-Tips-New-School-ebook/dp/B00NYBRH30/ref=sr_1_1?dchild=1&keywords=21st+century+c%3A+chips+from+the+new+school&qid=1588266896&sr=8-1&swrs=AF5B754DFF2FAA8BDA238ACC35626D8C">"21st Century C: C Tips from the New School (p. 181)"</a>Ben Klemens, O'Reilly Media. Kindle Edition. </span>
 	</p>
     <p>
-    	This means that, with today's modern compilers, programmers don't have to chose when functions should or shouldn't be 'inlined'. The compiler will make a better choice than the programmer can, given the entirety of the code it is compiling. So put the declaration in the .h or .hpp file and the defintion in 
+    	This means that, with today's modern compilers, programmers don't have to chose when functions should or shouldn't be 'inlined'. The compiler will make a better choice than the programmer can, given the entirety of the code it is compiling. So put the declaration in the .h or .hpp file and the definition in 
     	the .cpp file and let the compiler do a better job of optimization than you can <a href="https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl">unless otherwise restricted</a>.
     </p>
 </section>
@@ -258,7 +258,7 @@ bool Date::operator ==(const Date& other_date)const{
 	
 	<h2>Creating an Instance</h2>
 	<p>
-		Declarations and definitions are vital...but they are not sufficient. To write object oriented code in any language you need to be able to create an instance of any declared and defined class. The way you do this depends on if you want to instantiate an instance and get a pointer to it, or if you just want to instantate an instace. If you want both an instance and a pointer to that instance, you can do it the old fashioned pointer way or the modern pointer way. Remember, if you use the old fashioned way, there has to be somewhere in your code where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
+		Declarations and definitions are vital...but they are not sufficient. To write object oriented code in any language you need to be able to create an instance of any declared and defined class. The way you do this depends on whether you want to instantiate an instance and get a pointer to it, or if you just want to instantiate an instance. If you want both an instance and a pointer to that instance, you can do it the old fashioned pointer way or the modern pointer way. Remember, if you use the old fashioned way, there has to be somewhere in your code where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
 	</p>
 	<p>
 	<pre><code>//old fashioned way
@@ -271,8 +271,8 @@ auto birthday = new Date(5,12,1999);
 	<p>
 	<pre><code>//modern way
 
-//the type of the birthday variable is a unique pointer to the birthday instanc
-unique_ptr&lt;Date&gt; birthday(new Date(5,12,1999));e
+//the type of the birthday variable is a unique pointer to the birthday instance
+unique_ptr&lt;Date&gt; birthday(new Date(5,12,1999));
 </code>
 </pre>
 	</p>
@@ -315,7 +315,8 @@ namespace pharmaceutical_tracker {
         
     public:
         Medication();
-        Medication(string aName, int aCount, string aUnitsDescription, int expirationYear, int expirationMonth,int expirationDay);
+        Medication(string aName, int aCount, string aUnitsDescription, int expirationYear,
+                   int expirationMonth,int expirationDay);
         string get_name() const;
         void set_name(const string& aName);
         int get_count() const;
@@ -331,7 +332,7 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		It is also common for there to be some stort of container that holds multiple instances of a class in a Has_A relationship. The <span class="file_name">PharmaceuticalStockModel</span> class has such a relationship as seen in the earlier UML diagram and this code snippet.
+		It is also common for there to be some sort of container that holds multiple instances of a class in a Has_A relationship. The <span class="file_name">PharmaceuticalStockModel</span> class has such a relationship as seen in the earlier UML diagram and this code snippet.
 	</p>
 
 	<p>
@@ -369,7 +370,8 @@ namespace pharmaceutical_tracker {
     private:
         short dosage;
     public:
-        TabletMedication(string aName, int aCount, short aDosage, string dosageUnits,int expirationYear, int expirationMonth,int expirationDay);
+        TabletMedication(string aName, int aCount, short aDosage, string dosageUnits,
+                         int expirationYear, int expirationMonth,int expirationDay);
         short get_dosage() const;
         void set_dosage(short aDosage);
     };
@@ -380,7 +382,7 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		Notice the use of the public keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publicly accessable when using an instance of TabletMedication. That means the programmer does not need to create additional instance functions for <span class="file_name">TabletMedication</span> for programmers using the <span class="file_name">TabletMedication</span> class to use public methods of the <span class="file_name">Medication</span> class, the essence of the Is_A type of inheritance. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a> and those types of inheritance are Has_A instead of Is_A due to the inheritance hiding.
+		Notice the use of the public keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publicly accessible when using an instance of TabletMedication. That means the programmer does not need to create additional instance functions for <span class="file_name">TabletMedication</span> for programmers using the <span class="file_name">TabletMedication</span> class to use public methods of the <span class="file_name">Medication</span> class, the essence of the Is_A type of inheritance. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a> and those types of inheritance are Has_A instead of Is_A due to the inheritance hiding.
 	</p>
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
