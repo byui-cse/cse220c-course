@@ -39,8 +39,62 @@
 
 	<h2>Visual Studio Users</h2>
 	<p>
-		Place holder as the writer doesn't have a Windows machine.
+		Run Visual Studio and create a new Console App project called <span class="file_name">learning_debugging</span>.
+		Select the <span class="file_name">learning_debugging.cpp</span> file in your project and delete all the code there.
+		Copy and paste the contents of the <span class="file_name">learning.cpp</span> file you unzipped into the <span
+			class="file_name">learning_debugging.cpp</span> file in Visual Studio, then type Ctrl+S to save it. Don't try to
+		fully understand all the code
+		in the file for now. It will all be expained later. For now, just focus on completing and understanding the
+		following actions.
 	</p>
+	<p>Start by clicking the gray area just to the left of the number <span class="file_name">42</span> on the left side of
+		the Visual Studio window. You should see a red dot appear. This red dot indicates that a 'break point' has just been
+		set in the code. Breakpoints are how you temporarily pause the code's execution so you can see what is actually
+		going on in the code rather than what you think might be going on. You are now ready to use Visual Studio's built-in
+		stepwise debugger. <img src="images/break-point-visual-studio.png"
+			alt="Visual Studio code window showing learning_debugging.cpp with a breakpoint set on line 42"></p>
+	<p>Now click the green triangle button labeled "Local Windows Debugger" near the top center of the Visual Studio
+		window. This will compile your code and begin running it in debugger mode. You'll notice a black window pop open.
+		This is where the output from the program will eventually appear, so leave this window open (even though it is blank
+		right now). <img src="images/visual-studio-console-window.png" alt="Blank Visual Studio console window"></p>
+	<p>After the compilation process completes, the application will run up to the breakpoint on line 42 and pause. </p>
+	<p>You should see that the red dot breakpoint indicator you set earlier on line 42 now has a yellow arrow in it to
+		indicate that the program is currently executing, but has paused on line 42, which has not yet executed. Let's make
+		it execute. On the top center area of the Visual Studio window, look for a black dot with a bent arrow over it. When
+		you hover the mouse over it (without clicking), a help message pops up letting you know this is the 'step over'
+		button. Each time you click this button, the highlighted line of code executes. Let's try it. Click the step over
+		button. <img src="images/visual-studio-step-over.png" alt="Visual Studio step over button"></p>
+	<p>The first thing you'll notice is the yellow arrow has moved down to the next line of code. Now Visual Studio has
+		paused again and is waiting to execute that line. Next, hover your mouse over "currentDateAndTime" on line 42 in the
+		code. You'll see a popup message with the value of this variable displayed. If you look in the pane at the bottom
+		left of the Visual Studio window, you'll also see this same variable with its value. You can use either way to keep
+		track of the values of any variable you create in your code.</p>
+	<p>Click the 'step over' button again. Now line 44 has executed. In the black window that popped open earlier, you
+		should now see "It is now " followed by the current date and time. This is the Visual Studio console. We use <span
+			class="file_name">cout</span> in C++ to display output in the console, similar to using <span
+			class="file_name">print</span> in Python. We typically use <span class="file_name">cout</span> to print out debug
+		messages. Whether you use a debug statement like this or the stepwise debugger is situationally dependent. Your
+		instructor and your own experience will help you decide when it is best to use which option. </p>
+	<img src="images/visual-studio-console.png"
+		alt="Visual Studio console window showing the message It is now followed by the current date">
+	<p>The debugger has now paused on line 47. Line 47 is different. While you will learn much more about this later, what
+		you see in line 47 is a call to a C++ function that returns a value. That value is stored in the 'theTotal'
+		variable. Now...if you were to (please don't) click the step over button again, you would then see the sum of the
+		numbers 1 through 10 in the theTotal variable, but we are going to do something much more interesting.</p>
+	<p>Next to the step over button, there is another button. This one is a black dot with an arrow pointing down to it.
+		Move your mouse over it and a help message pops up letting you know that this is the 'step into' button. Go ahead
+		and click it.</p>
+	<p>Wow! The highlighted line of code jumped to line 21! That's because you stepped into, instead of over, the total C++
+		function. Now, as you continue click the step over button, you can watch the value of each number in theNumbers get
+		added to the sum.</p>
+	<p>Eventually, the numbers have all been added to the sum and the debugger is on line 33. Move your mouse over sum or
+		find it in the bottom-left-hand pane and you will find the total is 55. It is important to realize you know this
+		BEFORE the function returns the value.</p>
+	<p>Click step over again, and the hightlighted code moves back to line 47. Click step over one more time and the result
+		of the calculation, 55, is stored in the theTotal variable. With your next click, cout prints out the next debug
+		statement including the value 55, in the console window.</p>
+
+>>>>>>> 468f2b87e5133e4523d13c54d18d6ad44cbe44c9
 	<h2>Xcode Users</h2>
 	<p>Run Xcode and create a new project called <span class="file_name">learning_debugging</span> following the same process you did the reading. Double-click 
 		the <span class="file_name">learning.cpp</span> file found in the zip file you donwloaded and unzipped earlier. Copy the contents of the file. Then select the <span class="file_name">main.cpp</span> file in your project 
@@ -49,7 +103,7 @@
 		on completing and understanding the following actions.
 	</p>
 	<p>
-		Start by clicking on the number <span class="file_name">43</span> on the left of the center pane of the Xcode window. This area is called 'the gutter' 
+		Start by clicking on the number <span class="file_name">42</span> on the left of the center pane of the Xcode window. This area is called 'the gutter' 
 		and shows you the line numbers for your code. You will see a blue indicator show up in the gutter. This indicator is showing you where a 'break point' 
 		has just been set in the code. Breakpoints are how you temporarily pause the code's execution so you can see what is actually going on in 
 		the code rather than what you think might be going on. You are now ready to use Xcode's built-in stepwise debugger and should see this.
@@ -57,28 +111,28 @@
 		Now click the triangular run button in the upper-left-hand of the window. This will start the compilation process and run your code for you. 
 	</p>
 	<p>
-		After the compilation process completes, the application will run up to the breakpoint on line 43.
+		After the compilation process completes, the application will run up to the breakpoint on line 42.
 		<img src="images/break_point_active.png" alt="Xcode running the application up to the break point set on line 43. The values for the variables are shown in the bottom-left pane."/>
 	</p>
 	<p>What you now see is a bounded green selection including all the 
-		code for line 43. At this point in time, line 43 has not executed. Let's make it execute. On the left-hand side of the top part of the bottom pane that just showed up,
+		code for line 42. At this point in time, line 42 has not executed. Let's make it execute. On the left-hand side of the top part of the bottom pane that just showed up,
 		 you will see a bar with a bent arrow over it. It looks kind of like an squinty eye with a weird eyebrow. When you move your mouse over it, without clicking, a 
 		help message pops up letting you know this is the 'step over' button. Each time you click this button, the highlighted line of code executes. 
 		Let's give it a go. Click the step over button.
 	</p>
 	<p>
-		The first thing you'll notice is that the highlighter has moved to the next line of code. Now you know Xcode is waiting to extecute that line. 
+		The first thing you'll notice is that the highlighter has moved to the next line of code. Now you know Xcode is waiting to execute that line. 
 		Next, move your mouse over 'currentDateAndTime' in the code. As you do, it gets outlined and the value of this variable is displayed. Handy!! Now 
 		you don't have to guess what the value is. If you look in the left-hand part of the bottom pane, you will also see this same variable 
 		with its value. You can use which ever way you like to keep track of the values of any variable you create in your code.
 	</p>
 	<p>
-		Click the step over button again. Now line 46 has executed. In the bottom-right pane of Xcode is the console.  There you see "It is now " followed 
+		Click the step over button again. Now line 44 has executed. In the bottom-right pane of Xcode is the console.  There you see "It is now " followed 
 		by the current date and time. You use <span class="file_name">cout</span> in C++ to print out debug statements. Whether you choose to use a debug statement or 
 		the stepwise debugger is situationally dependent. Your instructor, and your own experience, help you decide when it is best to use which option.
 	</p>
 	<p>
-		The debugger is now 'stopped' on line 49. Line 49 is different. While you will learn much more about this later, what you see in line 49 is a call to a 
+		The debugger is now 'stopped' on line 47. Line 47 is different. While you will learn much more about this later, what you see in line 47 is a call to a 
 		C++ function that returns a value. That value is stored in the 'theTotal' variable. Now...if you were to (please don't) click the step over button again, 
 		you would then see the sum of the numbers 1 through 10 in the theTotal variable, but we are going to do something much more interesting. 
 	</p>
@@ -86,7 +140,7 @@
 		Next to the step over button, there is another button. This one is a bar with an arrow pointing down to it. Move your mouse over it and a help 
 		message pops up letting you know that this is the 'step into' button. Go ahead and click it.
 	</p>
-	<p>Wow! The highlighted line of code jumped to line 22! That's because you stepped into, instead of over, the <span class="file_name">total</span> C++ function. 
+	<p>Wow! The highlighted line of code jumped to line 23! That's because you stepped into, instead of over, the <span class="file_name">total</span> C++ function. 
 		Now, as you click the step over button, you can watch the value of each number in theNumbers get added to the sum.
 	</p>
 	<p>
@@ -94,10 +148,11 @@
 		you will find the total is 55. It is important to realize you know this BEFORE the function returns the value.
 	</p>
 	<p>
-		Click step over again, and the hightlighted code moves back to line 49. Click step over 
+		Click step over again, and the hightlighted code moves back to line 47. Click step over 
 		one more time and the result of the calculation, 55, is stored in the theTotal variable. 
 		With your next click, cout prints out the next debug statement including the value 55.
 	</p>
+	<h2>Final thoughts</h2>
 	<p>
 		Noobs and pro's all use the stepwise debugger. When your code is acting up it lets you see EXACTLY what your code is doing instead of thinking you know 
 		what it is doing. Rule number one of debugging your code is, "Never assume you know what your code is doing." If you follow this rule and use the stepwise 
