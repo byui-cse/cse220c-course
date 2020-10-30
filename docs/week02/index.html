@@ -438,6 +438,11 @@ names = nullptr;
 	<p>
 		Remember, if your C++ app crashes, the first thing to look for are memory issues.
 	</p>
+	<p>
+		One last thing about these C-style arrays you've been using. Don't fall in love with them. In week 04 you will learn much better and safer ways to store data in a 
+		C++ way. That doesn't mean you don't need to recognize the C-style arrays. You will see them in a lot of older code and will need to know how they work and 
+		what can go wrong with them. Then you will be able to fix the problem and, where possible, replace them with the C++ alternatives.
+	</p>
 </section>
 
 	<h3>Let's Get Loopy!&#129322;</h3>
@@ -607,7 +612,7 @@ auto likes_end = likes.get()+likes_count;
 		In older C++ code it can be common to see C-types of constructs &#128531;. C++ has been and is moving away from these kinds of things, but you will see them. Counting loops are one type of those C-type constructs.
 	</p>
 	<p>
-		Since C-type arrays have a fixed size and a way to access values using the [] operator, the counting loop is the C-type way to iterate over the elements of C-type arrays, but here is a very good piece of advice. Don't get too caught up in the counting loops you are about to see. In fact, you should have <a href="https://www.youtube.com/watch?v=W2tWOdzgXHA">no raw loops in your code</a> (search for 'raw loop' in the pdf). If you want a more accessable presentation on this topic, check out <a href="https://developer.apple.com/videos/play/wwdc2018/223">Dave Abraham's take</a>. Dave's code examples aren't in C++, but everything he says applies to C++ as well.
+		Since C-type arrays have a fixed size and a way to access values using the [] operator, the counting loop is the C-type way to iterate over the elements of C-type arrays, but here is a very good piece of advice. Don't get too caught up in the counting loops you are about to see. In fact, you should have <a href="https://www.youtube.com/watch?v=W2tWOdzgXHA">no raw loops in your code</a>. If you want a more accessable presentation on this topic, check out <a href="https://developer.apple.com/videos/play/wwdc2018/223">Dave Abraham's take</a>. Dave's code examples aren't in C++, but everything he says applies to C++ as well.
 	</p>
 	<p>
 		The traditional, forward-iteration C-type loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code snippet below (glance down and take a look). The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
