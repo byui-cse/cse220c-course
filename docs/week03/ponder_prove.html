@@ -41,24 +41,37 @@
       <h2>Instructions</h2>
       <p>Implement the classes shown in the diagram (Customer and Account). First, create a header file to contain your
          code for each class declaration. Then, create a cpp file for each class definition. You
-         should end up with four files: customer.h, customer.cpp, account.h, and account.cpp.
+         should end up with four files: <span class="file_name">customer.h</span>, <span
+            class="file_name">customer.cpp</span>, <span class="file_name">account.h</span>, and <span
+            class="file_name">account.cpp</span>.
          <img src="images/cse220c_week03_prove_uml.png" alt="UML diagram showing Customer and Account classes">
       </p>
-      <p>Do not use pass-by-value for the Customer object in the Account constructor. We don't want to create a copy of
-         a Customer. Instead, we want to pass a reference to the Customer, so we need to use the C++ pass-by-reference
-         mechanism. The private member variable "owner" in the Account class should be a Customer reference rather than
-         a Customer object.
+      <p>Do not use pass-by-value for the <span class="file_name">Customer</span> object in the <span
+            class="file_name">Account</span> constructor. We
+         don't want to create a copy of
+         a <span class="file_name">Customer</span>. Instead, we want to pass a reference to the <span
+            class="file_name">Customer</span>, so we need to use the C++ pass-by-reference
+         mechanism. The private member variable "owner" in the <span class="file_name">Account</span> class should be a
+         <span class="file_name">Customer</span> reference rather than
+         a <span class="file_name">Customer</span> object.
       </p>
-      <p>The get_name() member function of the Customer class should return a string composed of the given name and
+      <p>The <span class="file_name">get_name()</span> member function of the <span class="file_name">Customer</span>
+         class should return a string
+         composed of the given name and
          family name concatenated together with a space in between. For example, if the given name is "John" and the
-         family name is "Smith", the get_name() function should return the string "John Smith".
+         family name is "Smith", the <span class="file_name">get_name()</span> function should return the string "John
+         Smith".
       </p>
       <p>You should include the == operator in each class declaration and implementation.
       </p>
-      <p>After you have created the Customer and Account class definitions, create a file called main.cpp and write a
-         simple driver program in the main() function to test your classes. Create an instance of the Account class and
-         test each public method. You will need to create an instance of the Customer class before creating an Account.
-         You should also test each public method of the Customer class.
+      <p>After you have created the <span class="file_name">Customer</span> and <span class="file_name">Account</span>
+         class definitions, create a file
+         called <span class="file_name">main.cpp</span> and write a
+         simple driver program in the <span class="file_name">main()</span> function to test your classes. Create an
+         instance of the <span class="file_name">Account</span> class and
+         test each public method. You will need to create an instance of the <span class="file_name">Customer</span>
+         class before creating an <span class="file_name">Account</span>.
+         You should also test each public method of the <span class="file_name">Customer</span> class.
       </p>
       <p>Here is an example of what your driver program output might look like:
       </p>
@@ -84,7 +97,9 @@ New account balance: 500.25
 
 
       <h2>Thinking about Security</h2>
-      <p>Now that your Customer and Account classes have been implemented, take a moment to think about what could go
+      <p>Now that your <span class="file_name">Customer</span> and <span class="file_name">Account</span> classes have
+         been implemented, take a moment
+         to think about what could go
          wrong. Consider these situations:</p>
       <ul>
          <li>
