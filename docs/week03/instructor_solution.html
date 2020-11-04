@@ -1,31 +1,244 @@
 <!-- uses https://highlightjs.org/
 -->
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<script type="text/javascript">
-		var codeType = "C++"
-	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Week 02 Sample Solution | CSE 220c</title>
+   <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+   <script>
+      var codeType = "C++"
+   </script>
+   <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+   <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+   <header class="hero-image">
+      <div class="hero-text">
+         <h1>CSE 220c: Week 03</h1>
+         <p>Ponder and Prove</p>
+      </div>
+   </header>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+   <main>
+      <h1>Sample Solution</h1>
+      <p>This is one possible solution to the Week 03 Ponder and Prove task.</p>
+      <h2>customer.h</h2>
+      <pre><code>
+#ifndef customer_h
+#define customer_h
+
+#include &lt;string&gt;
+
+class Customer {
+private:
+   std::string given_name;
+   std::string family_name;
+   int id;
+
+public:
+   Customer(int id, std::string given_name, std::string family_name);
+   std::string get_name() const;
+   int get_id() const;
+   bool operator==(const Customer&amp; other_customer) const;
+
+};
+
+#endif /* customer_h */
+      </code></pre>
+      <h2>customer.cpp</h2>
+      <pre><code>
+#include &quot;customer.h&quot;
+
+// Note that we prefer to use a constructor initialization list
+// here instead of assigning values in the function body
+Customer::Customer(int id, std::string given_name, std::string family_name) :
+   id{ id }, given_name{ given_name }, family_name{ family_name } {}
+
+
+std::string Customer::get_name() const {
+   return given_name + &quot; &quot; + family_name;
+}
+
+int Customer::get_id() const {
+   return id;
+}
+
+bool Customer::operator==(const Customer&amp; other_customer) const {
+   return id == other_customer.id
+      &amp;&amp; given_name == other_customer.given_name
+      &amp;&amp; family_name == other_customer.family_name;
+}
+      </code></pre>
+      <h2>account.h</h2>
+      <pre><code>
+#ifndef account_h
+#define account_h
+
+#include &quot;customer.h&quot;
+
+class Account {
+private:
+   int account_number;
+   double balance;
+   const Customer&amp; owner; // owner is a constant reference to a Customer
+
+public:
+   // use &quot;pass-by-reference&quot; mechanism for the owner
+   Account(int account_number, const Customer&amp; owner);
+   Account(int account_number, const Customer&amp; owner, double opening_balance);
+   int get_account_num() const;
+   double get_balance() const;
+   std::string get_owner_name() const;
+   int get_owner_id() const;
+   void set_balance(double balance);
+   void deposit(double amount);
+   void withdraw(double amount);
+   bool operator==(const Account&amp; other_account) const;
+};
+
+#endif /* account_h */
+         
+      </code></pre>
+      <h2>account.cpp</h2>
+      <pre><code>
+#include &quot;account.h&quot;
+
+// Note that we MUST use an initialization list with
+// the constructors for this class because the 
+// member variable &quot;owner&quot; is a const reference.
+Account::Account(int account_num, const Customer&amp; owner) : 
+   account_number{ account_num }, owner{ owner }, balance{ 0 } {}
+
+Account::Account(int account_num, const Customer&amp; owner, double opening_balance) : 
+   account_number{ account_num }, owner{ owner }, balance{ opening_balance }
+{
+   // TODO: What if the balance is less than 0 on creation of the account?
+   //       Or an unreasonably large value?
+}
+
+int Account::get_account_num() const
+{
+   return account_number;
+}
+
+double Account::get_balance() const
+{
+   return balance;
+}
+
+std::string Account::get_owner_name() const
+{
+   return owner.get_name();
+}
+
+int Account::get_owner_id() const
+{
+   return owner.get_id();
+}
+
+void Account::set_balance(double balance)
+{
+   // We can use &quot;this&quot; to distinguish between the member
+   // variable &quot;balance&quot; vs the parameter with the name &quot;balance&quot;
+   this-&gt;balance = balance;
+}
+
+void Account::deposit(double amount)
+{
+   // TODO: Check for valid amount first
+   balance += amount;
+}
+
+void Account::withdraw(double amount)
+{
+   // TODO: Check for valid amount first
+   // TODO: Check that balance will not go below 0
+
+   balance -= amount;
+}
+
+bool Account::operator==(const Account&amp; other_account) const
+{
+   return account_number == other_account.account_number
+      &amp;&amp; balance == other_account.balance
+      &amp;&amp; owner == other_account.owner;
+}
+         
+      </code></pre>
+      <h2>Sample driver program main.cpp</h2>
+      <pre><code>
+// cse220c_week03_prove.cpp -- Sample Solution
+//
+
+#include &lt;iostream&gt;    // std::cout, std::endl
+#include &quot;customer.h&quot;  
+#include &quot;account.h&quot;
+
+using namespace std;
+
+// Driver program to test the Customer and Account classes
+int main()
+{
+
+   // Create a customer
+   cout &lt;&lt; &quot;Creating a customer...&quot; &lt;&lt; endl;
+   Customer customer_1(100, &quot;John&quot;, &quot;Smith&quot;);
+
+   // Test the customer public methods
+   cout &lt;&lt; &quot;Customer ID: &quot; &lt;&lt; customer_1.get_id() &lt;&lt; endl;
+   cout &lt;&lt; &quot;Name: &quot; &lt;&lt; customer_1.get_name() &lt;&lt; endl;
+   cout &lt;&lt; endl;
+
+   // Create an account using just an id and customer
+   cout &lt;&lt; &quot;Creating an account...&quot; &lt;&lt; endl;
+   Account savings(12345, customer_1);
+
+   // Test the account public methods
+   cout &lt;&lt; &quot;Account Number: &quot; &lt;&lt; savings.get_account_num() &lt;&lt; endl;
+   cout &lt;&lt; &quot;Account Owner: &quot; &lt;&lt; savings.get_owner_name() &lt;&lt; endl;
+   cout &lt;&lt; &quot;Account Owner ID: &quot; &lt;&lt; savings.get_owner_id() &lt;&lt; endl;
+   cout &lt;&lt; &quot;Account balance: &quot; &lt;&lt; savings.get_balance() &lt;&lt; endl;
+   cout &lt;&lt; endl;
+
+   // Create an account with an opening balance greater than 0
+   cout &lt;&lt; &quot;Creating an account with an opening balance...&quot; &lt;&lt; endl;
+   Account checking(67890, customer_1, 500.25);
+
+   // Test the account public methods
+   cout &lt;&lt; &quot;Account Number: &quot; &lt;&lt; checking.get_account_num() &lt;&lt; endl;
+   cout &lt;&lt; &quot;Account balance: &quot; &lt;&lt; checking.get_balance() &lt;&lt; endl;
+
+   // Make a deposit
+   cout &lt;&lt; &quot;Depositing 25.00...&quot; &lt;&lt; endl;
+   checking.deposit(25.00);
+   cout &lt;&lt; &quot;New account balance: &quot; &lt;&lt; checking.get_balance() &lt;&lt; endl;
+
+   // Make a withdrawal
+   cout &lt;&lt; &quot;Withdrawing 25.00...&quot; &lt;&lt; endl;
+   checking.withdraw(25.00);
+   cout &lt;&lt; &quot;New account balance: &quot; &lt;&lt; checking.get_balance() &lt;&lt; endl;
+
+   cout &lt;&lt; &quot;Done&quot; &lt;&lt; endl;
+
+   return 0;
+}
+      </code></pre>
+   </main>
+
+   <footer><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+            style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+      licensed
+      under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+         International License</a>.
+   </footer>
 </body>
+
 </html>

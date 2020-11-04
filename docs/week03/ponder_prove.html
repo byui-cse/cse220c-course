@@ -1,31 +1,127 @@
 <!-- uses https://highlightjs.org/
 -->
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<script type="text/javascript">
-		var codeType = "C++"
-	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Week 03 Ponder & Prove | CSE 220c</title>
+   <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+   <script>
+      var codeType = "C++"
+   </script>
+   <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+   <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
+   <style>
+      .underline {
+         text-decoration: underline;
+      }
+   </style>
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+   <header class="hero-image">
+      <div class="hero-text">
+         <h1>CSE 220c: Week 03</h1>
+         <p>Ponder and Prove</p>
+      </div>
+   </header>
+   <main>
+      <h1>Week 3 Ponder and Prove: Using Classes</h1>
+      <h2>Overview</h2>
+      <p>Task: Implement the Customer and Account classes shown in the provided UML diagram</p>
+      <p>Purpose: Learn to create C++ classes</p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      <h2>Instructions</h2>
+      <p>Implement the classes shown in the diagram (Customer and Account). First, create a header file to contain your
+         code for each class declaration. Then, create a cpp file for each class definition. You
+         should end up with four files: customer.h, customer.cpp, account.h, and account.cpp.
+         <img src="images/cse220c_week03_prove_uml.png" alt="UML diagram showing Customer and Account classes">
+      </p>
+      <p>Do not use pass-by-value for the Customer object in the Account constructor. We don't want to create a copy of
+         a Customer. Instead, we want to pass a reference to the Customer, so we need to use the C++ pass-by-reference
+         mechanism. The private member variable "owner" in the Account class should be a Customer reference rather than
+         a Customer object.
+      </p>
+      <p>The get_name() member function of the Customer class should return a string composed of the given name and
+         family name concatenated together with a space in between. For example, if the given name is "John" and the
+         family name is "Smith", the get_name() function should return the string "John Smith".
+      </p>
+      <p>You should include the == operator in each class declaration and implementation.
+      </p>
+      <p>After you have created the Customer and Account class definitions, create a file called main.cpp and write a
+         simple driver program in the main() function to test your classes. Create an instance of the Account class and
+         test each public method. You will need to create an instance of the Customer class before creating an Account.
+         You should also test each public method of the Customer class.
+      </p>
+      <p>Here is an example of what your driver program output might look like:
+      </p>
+      <pre><code class="console">
+Creating a customer...
+Customer ID: 100
+Name: John Smith
+
+Creating an account...
+Account Number: 12345
+Account Owner: John Smith
+Account Owner ID: 100
+Account balance: 0
+
+Creating an account with an opening balance...
+Account Number: 67890
+Account balance: 500.25
+Depositing 25.00...
+New account balance: 525.25
+Withdrawing 25.00...
+New account balance: 500.25
+      </code></pre>
+
+
+      <h2>Thinking about Security</h2>
+      <p>Now that your Customer and Account classes have been implemented, take a moment to think about what could go
+         wrong. Consider these situations:</p>
+      <ul>
+         <li>
+            What will happen if you pass a negative number to the deposit method?
+         </li>
+         <li>
+            What if you pass a negative number to the withdraw method?
+         </li>
+         <li>
+            What if you withdraw an amount greater than the balance of the account?
+         </li>
+         <li>
+            What if you deposit an amount greater than can be held by a double?
+         </li>
+      </ul>
+
+      <p>Consider the implications of these questions. Then go back to your driver program and try each of these
+         situations. Is the result what you expected? What do you need to add to your code to address these questions?
+         Can you think of any other potential bugs or security vulnerabilities with your code?
+      </p>
+
+      <h2>Review</h2>
+      <p>After completing the instructions:</p>
+      <ol>
+         <li>Review one of the many <a href="instructor_solution.html">possible solutions</a> for this task,</li>
+         <li>Compare and contrast your code with the possible solution's code, and</li>
+         <li>Make note of any improvements you could make for future tasks.</li>
+      </ol>
+
+   </main>
+   <footer>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+            style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+      licensed
+      under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+         International License</a>.
+   </footer>
 </body>
+
 </html>
