@@ -1,31 +1,397 @@
 <!-- uses https://highlightjs.org/
 -->
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<script type="text/javascript">
-		var codeType = "C++"
-	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Week 04 Sample Solution | CSE 220c</title>
+   <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+   <script>
+      var codeType = "C++"
+   </script>
+   <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+   <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+   <header class="hero-image">
+      <div class="hero-text">
+         <h1>CSE 220c: Week 04</h1>
+         <p>Ponder and Prove</p>
+      </div>
+   </header>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+   <main>
+      <h1>Sample Solution</h1>
+      <p>This is one possible solution to the Week 04 Ponder and Prove task.</p>
+      <h2>message.cpp</h2>
+      <pre><code>
+// message.cpp - sample solution
+//
+
+#ifdef _WIN32 
+#define _CRT_SECURE_NO_WARNINGS // allow use of gmtime
+#endif
+
+#include &quot;message.h&quot;
+#include &lt;ctime&gt;    // time_t, strftime, gmtime
+#include &lt;iostream&gt; // cout, endl
+
+Message::Message(const string&amp; sender, const string&amp; receiver, 
+   const string&amp; subject, const string&amp; content) : 
+   id{ ++id_next }, author{ sender }, recipient{ receiver }, 
+   subject{ subject }, content{ content }
+{
+   // Get the current date and time as a formatted string
+   time_t now = time(0);
+   char buffer[24]; // temporary place to store the date in the format provided by strftime
+   size_t count = strftime(buffer, sizeof(buffer), &quot;%m/%d/%Y&quot;, gmtime(&amp;now));
+   if (count &gt; 0)
+      date = buffer;
+   else
+      date = &quot;1/1/1900&quot;;
+}
+
+Message::Message(const string&amp; sender, const string&amp; receiver,
+   const string&amp; date, const string&amp; subject, const string&amp; content) :
+   id{ ++id_next }, date{ date }, author{ sender }, recipient{ receiver },
+   subject{ subject }, content{ content } {}
+
+void Message::display_message() const
+{
+   cout &lt;&lt; &quot;Message ID: &quot; &lt;&lt; id &lt;&lt; endl;
+   cout &lt;&lt; &quot;Date: &quot; &lt;&lt; date &lt;&lt; endl;
+   cout &lt;&lt; &quot;From: &quot; &lt;&lt; author &lt;&lt; endl;
+   cout &lt;&lt; &quot;Subject: &quot; &lt;&lt; subject &lt;&lt; endl;
+   cout &lt;&lt; &quot;Message: &quot; &lt;&lt; endl;
+   cout &lt;&lt; content &lt;&lt; endl;
+   cout &lt;&lt; &quot;----------------------&quot; &lt;&lt; endl;
+}
+
+void Message::display_properties() const
+{
+   cout &lt;&lt; &quot;[&quot; &lt;&lt; id &lt;&lt; &quot;] &quot;;
+   cout &lt;&lt; &quot;Message from &quot; &lt;&lt; author &lt;&lt; &quot; at &quot; &lt;&lt; date 
+        &lt;&lt; &quot; - Subject: &quot; &lt;&lt; subject;
+   cout &lt;&lt; endl;
+}
+
+int Message::get_id() const
+{
+   return id;
+}
+
+int Message::id_next = 0;
+
+
+      </code></pre>
+
+      <h2>message_store.cpp</h2>
+      <pre><code>
+// message_store.cpp - sample solution
+//
+
+#include &quot;message_store.h&quot;
+#include &lt;algorithm&gt; // for_each
+#include &lt;iostream&gt;  // cout, endl
+
+
+MessageStore::MessageStore(const string&amp; filename)
+{
+   read_messages_from_file(filename);
+}
+
+void MessageStore::display_messages_for_user(const string&amp; user) const
+{
+   // Find the map item associated with the given user
+   auto iterator = messages.find(user);
+
+   if (iterator == messages.end()) { // no user found
+      return;
+   }
+
+   // Remember, the iterator points to an item in the map,
+   // which is a std::Pair&lt;string, list&lt;Message&gt;&gt;, so we
+   // use -&gt;second to get access to the list of Messages
+   auto&amp; list = iterator-&gt;second;
+
+   // Use a range-based for loop to iterate over each
+   // item in the list
+   for (auto message : list) {
+      message.display_properties();
+   }
+
+   // Another way, using for_each to iterate through the list:
+   //for_each(list.begin(), list.end(), [](auto m) { m.display_properties(); });
+
+}
+
+
+void MessageStore::read_message(const string&amp; user, int msg_id) const
+{
+   // Find the map entry associated with the given user
+   auto iterator = messages.find(user);
+
+   if (iterator == messages.end()) { // no user found
+      return;
+   }
+
+   auto&amp; list = iterator-&gt;second; // the list of messages
+
+   // Range-based for loop to look at each item in the list
+   for (auto message : list) {
+      if (msg_id == message.get_id()) { // found the right message
+         message.display_message();
+         break;
+      }
+   }
+
+   // Alternatively, use the find_if function
+   //auto message_iterator = find_if(list.begin(), list.end(), 
+   //  [msg_id](auto m) { return msg_id == m.get_id(); });
+
+   //if (message_iterator != list.end()) { // found a match
+   //  message_iterator-&gt;display_message();
+   //}
+
+}
+
+void MessageStore::delete_message(const string&amp; user, int msg_id)
+{
+   // Find the map entry for the given user
+   auto iterator = messages.find(user);
+
+   if (iterator == messages.end()) { // user not found in map
+      return;
+   }
+
+   auto&amp; list = iterator-&gt;second; // get the list of messages
+
+   // remove message with matching ID
+   list.remove_if([msg_id](auto m) { return msg_id == m.get_id(); });
+   
+}
+
+void MessageStore::send_message(const string&amp; sender, const string&amp; receiver, 
+   const string&amp; subject, const string&amp; content)
+{
+   // Create a new message
+   Message message(sender, receiver, subject, content);
+
+   // Finds the list of messages for the recipient
+   // and adds a new message to the end of that recipient&apos;s
+   // list. If the recipient does not exist, a new entry
+   // in the map is created for the recipient
+   messages[receiver].push_back(message);
+
+}
+
+void MessageStore::save_message_store(const string&amp; filename)
+{
+   write_messages_to_file(filename);
+}
+
+void MessageStore::read_messages_from_file(const string&amp; filename)
+{
+   ifstream fin(filename); // open the file
+
+   if (fin.fail()) {
+      cout &lt;&lt; &quot;Error, unable to open file &quot; &lt;&lt; filename &lt;&lt; endl;
+      return;
+   }
+
+   while (!fin.fail()) {
+      string sender;
+      string receiver;
+      string date;
+      string subject;
+      string content;
+      getline(fin, sender, &apos;|&apos;);
+      getline(fin, receiver, &apos;|&apos;);
+      getline(fin, date, &apos;|&apos;);
+      getline(fin, subject, &apos;|&apos;);
+      getline(fin, content, &apos;\n&apos;);
+
+      if (!fin.fail()) {
+         Message message(sender, receiver, date, subject, content);
+         messages[receiver].push_back(message);
+      }
+   }
+
+   fin.close();
+}
+
+void MessageStore::write_messages_to_file(const string&amp; filename)
+{
+   // open a file for writing
+   ofstream fout(filename);
+   if (fout.fail()) {
+      cout &lt;&lt; &quot;Unable to write to &quot; &lt;&lt; filename &lt;&lt; endl;
+      return;
+   }
+
+   for (auto&amp; each : messages) {
+      for (auto&amp; message : each.second) {
+         fout &lt;&lt; message.get_sender() &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_receiver() &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_date() &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_subject() &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_contents() &lt;&lt; endl;
+      }
+   }
+
+   fout.close();
+}
+
+      </code></pre>
+      <h2>week04.cpp - The main driver program</h2>
+      <pre><code>
+// week04.cpp - sample solution
+// The main driver for the messaging application.
+//
+
+#include &quot;message.h&quot;
+#include &quot;message_store.h&quot;
+#include &lt;iostream&gt;  // cout, endl
+#include &lt;string&gt;
+
+void display_menu();
+void user_loop(const string&amp; username, MessageStore&amp; store);
+void user_login(MessageStore&amp; store);
+int prompt_for_id();
+
+// file used for persistent storage of messages
+const string FILENAME = &quot;sample_messages.txt&quot;;
+
+int main()
+{
+  // Create a new message store
+  MessageStore store(FILENAME);
+
+  // Main loop
+  user_login(store);
+
+  // Save the messages before exiting
+  store.save_message_store(FILENAME);
+
+}
+
+void display_menu()
+{
+  cout &lt;&lt; &quot;Choose an option: &quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\td - Display all messages&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\tr - Read a message&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\tx - Delete a message&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\ts - Send a message&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\tq - Exit user&quot; &lt;&lt; endl;
+}
+
+// Interaction with a given user
+void user_loop(const string&amp; username, MessageStore&amp; store)
+{
+  char response;           // collect user reponse to menu
+  int id;                  // store a message id
+  string receiver;         // message recipient
+  string subject;          // message subject
+  string message_content;  // message contents
+
+  cout &lt;&lt; &quot;\nWelcome, &quot; &lt;&lt; username &lt;&lt; endl;
+
+  while (true) {
+
+    display_menu();
+    cout &lt;&lt; &quot;\n&quot; &lt;&lt; username &lt;&lt; &quot;&gt; &quot;;
+    cin &gt;&gt; response; // get a single character from the input stream
+    cin.ignore();  // ignore the next character in the input stream, &apos;\n&apos;
+
+    cout &lt;&lt; endl;
+    switch (response) {
+    case &apos;d&apos;: // display all messages for the user
+      store.display_messages_for_user(username);
+      break;
+    case &apos;r&apos;: // read a single message
+      id = prompt_for_id();
+      if (id &lt; 0) { break; } // id was not valid
+      cout &lt;&lt; endl;
+      store.read_message(username, id);
+      break;
+    case &apos;x&apos;: // delete a single message
+      id = prompt_for_id();
+      if (id &lt; 0) { break; } // id was not valid
+      store.delete_message(username, id);
+      break;
+    case &apos;s&apos;: // send a message
+      cout &lt;&lt; &quot;Who are you sending to? &quot;;
+      getline(cin, receiver);
+      cout &lt;&lt; &quot;What is the subject? &quot;;
+      getline(cin, subject);
+      cout &lt;&lt; &quot;What is the message? &quot;;
+      getline(cin, message_content);
+      store.send_message(username, receiver, subject, message_content);
+      break;
+    case &apos;q&apos;: // exit menu for user
+      cout &lt;&lt; &quot;Goodbye &quot; &lt;&lt; username &lt;&lt; &quot;.&quot; &lt;&lt; endl;
+      return;
+    default:
+      cout &lt;&lt; &quot;Invalid option: &quot; &lt;&lt; response &lt;&lt; endl;
+      break;
+    }
+    cout &lt;&lt; endl;
+  }
+}
+
+// Allows user to login to system
+void user_login(MessageStore&amp; store)
+{
+  string username;
+
+  while (true) {
+    cout &lt;&lt; &quot;\nEnter user name (&apos;quit&apos; to exit): &quot;;
+    getline(cin, username);
+
+    if (username == &quot;quit&quot;) {
+      cout &lt;&lt; &quot;Goodbye.&quot; &lt;&lt; endl &lt;&lt; endl;
+      return;
+    }
+
+    user_loop(username, store);
+
+  }
+}
+
+// Helper function to get a message id
+int prompt_for_id()
+{
+  int id;
+  cout &lt;&lt; &quot;Enter message id: &quot;;
+  cin &gt;&gt; id;
+  if (!cin) {
+    cout &lt;&lt; &quot;Invalid ID&quot; &lt;&lt; endl;
+    cin.clear();  // unset fail bit
+    // skip any bad characters until the end of the line
+    cin.ignore(numeric_limits&lt;streamsize&gt;::max(), &apos;\n&apos;);
+    return -1; // signals error
+  }
+  return id;
+}
+         
+         
+      </code></pre>
+
+   </main>
+
+   <footer><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+            style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+      licensed
+      under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+         International License</a>.
+   </footer>
 </body>
+
 </html>

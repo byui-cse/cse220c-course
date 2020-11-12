@@ -1,0 +1,3 @@
+bob|alice|1/2/2020|Hi|Alice, it's great to hear from you. Any news on the security front?
+alice|bob|1/1/2020|Hello|Hi Bob, How are you? I haven't talked to you for a while.
+carol|bob|1/1/2020|Secret Project|Let's get together to work on the project. What time are you available?

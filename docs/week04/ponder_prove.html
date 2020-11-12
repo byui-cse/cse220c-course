@@ -1,31 +1,395 @@
 <!-- uses https://highlightjs.org/
 -->
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<script type="text/javascript">
-		var codeType = "C++"
-	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Week 04 Ponder & Prove | CSE 220c</title>
+   <link rel="shortcut icon"
+      href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
+      type="image/x-icon">
+   <script>
+      var codeType = "C++"
+   </script>
+   <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+   <link rel="stylesheet"
+      href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+   <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+   <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
+   <style>
+      .underline {
+         text-decoration: underline;
+         font-weight: bold;
+      }
+   </style>
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+   <header class="hero-image">
+      <div class="hero-text">
+         <h1>CSE 220c: Week 04</h1>
+         <p>Ponder and Prove</p>
+      </div>
+   </header>
+   <main>
+      <h1>Week 4 Ponder and Prove: C++ Containers</h1>
+      <h2>Overview</h2>
+      <p>Task: Create a simple messaging system</p>
+      <p>Purpose: Learn to use the C++ map and list containers</p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+      <h2>Instructions</h2>
+      <p>Scenario: Your company is working on a top secret project and the CEO is concerned
+         about industrial espionage. In order to prevent competitors from spying on
+         communications between employees, the executive management team has just created a new
+         company policy that the use of any messaging, email, text, chat, or other communication
+         apps is banned for all communication between employees. The company will create its own
+         messaging app for all internal communication between employees.
+      </p>
+      <p>Your boss has just assigned you the task of creating a program that allows employees to
+         send and receive simple text-based messages within the company. The boss has provided
+         you with the following sample mockups of the program, along with the two class diagrams
+         shown below. In addition, your team lead has created the class declarations, along with
+         some code that will retrieve messages from a file and write messages to a file. You
+         have also been provided with a <a href="sample_messages.txt">file containing sample
+            messages</a> that you can use to test the application. </p>
+      <p>Your task is to finish each class by creating the class definitions for the <span
+            class="file_name">Message</span> and
+         <span class="file_name">MessageStore</span> classes, then to write a driver program
+         that will use these classes to
+         complete the app so it works according to the sample mockups.
+      </p>
+      <p>Before you begin, your team lead has given you the following advice:
+         <ul>
+            <li>Start familiarizing yourself with C++ documentation. <a
+                  href="https://en.cppreference.com">cppreference.com</a> is a great place to
+               start.</li>
+            <li>Use a <a href="https://en.cppreference.com/w/cpp/container/map">std::map</a>
+               and <a href="https://en.cppreference.com/w/cpp/container/list">std::list</a> for
+               this task.
+            </li>
+         </ul>
+      </p>
+      <h3>Sample program output (mockups)</h3>
+      <p>This is an example run of the completed program. User input is <span
+            class="underline">underlined</span></p>
+      <pre><code class="console">
+Enter user name ('quit' to exit): <span class="underline">bob</span>
+
+Welcome, bob
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+bob> <span class="underline">d</span>
+
+[2] Message from alice at 1/1/2020 - Subject: Hello
+[3] Message from carol at 1/1/2020 - Subject: Secret Project
+
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+bob> <span class="underline">r</span>
+
+Enter message id: <span class="underline">2</span>
+
+Message ID: 2
+Date: 1/1/2020
+From: alice
+Subject: Hello
+Message:
+Hi Bob, How are you? I haven't talked to you for a while.
+----------------------
+
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+bob> <span class="underline">s</span>
+
+Who are you sending to? alice
+What is the subject? Doing fine
+What is the message? Hi Alice, I'm doing great.
+
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+bob> <span class="underline">x</span>
+
+Enter message id: <span class="underline">2</span>
+
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+bob> <span class="underline">d</span>
+
+[3] Message from carol at 1/1/2020 - Subject: Secret Project
+
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+bob> <span class="underline">q</span>
+
+Goodbye bob.
+
+Enter user name ('quit' to exit): <span class="underline">alice</span>
+
+Welcome, alice
+Choose an option:
+         d - Display all messages
+         r - Read a message
+         x - Delete a message
+         s - Send a message
+         q - Exit user
+
+alice> <span class="underline">q</span>
+Goodbye alice.
+
+Enter user name ('quit' to exit): <span class="underline">quit</span>
+Goodbye.
+      </code></pre>
+
+      <h3>UML Class Diagrams</h3>
+      <img src="images/cse220c_week04_prove_uml.svg"
+         alt="UML Class Diagram showing the Message and MessageStore classes">
+
+      <h3>Message class declaration</h3>
+      <pre><code>
+// message.h
+// 
+// Represents a single message from a sender (author) 
+// to a receiver (recipient), along with the message id,
+// date, subject, and content
+//
+
+#ifndef message_h // prevents the header from being imported multiple times
+#define message_h
+
+#include &lt;string&gt;
+
+using namespace std;
+
+class Message {
+
+public:
+
+   // The typical constructor for a message
+   Message(const string&amp; sender, const string&amp; receiver, const string&amp; subject, 
+      const string&amp; content);
+   
+   // Constructor used to create a message with a specific date.
+   Message(const string&amp; sender, const string&amp; receiver, const string&amp; date, 
+      const string&amp; subject, const string&amp; content);
+   
+   // Get a message id
+   int get_id() const;
+
+   // Display the contents of the message
+   void display_message() const;
+
+   // Display the properties of the message excluding its content in this format
+   // [id] Message from sender at date - Subject: subject
+   //
+   // Example:
+   // [1] Message from Karen at 11/1/2020 - Subject: Good afternoon
+   void display_properties() const;
+
+   // Get individual message properties
+   string get_sender() const { return author; }
+   string get_receiver() const { return recipient; }
+   string get_date() const { return date; }
+   string get_subject() const { return subject; }
+   string get_contents() const { return content; }
+
+private:
+   int id;
+   static int id_next; // Incremented to generate the id for each new message
+   string author;
+   string recipient;
+   string date;
+   string subject;
+   string content;
+};
+
+#endif // message_h
+</code></pre>
+      <h3>MessageStore class declaration</h3>
+      <pre><code>
+// message_store.h
+//
+// Stores a collection of messages and provides a way to 
+// send, read, and delete a message.
+//
+
+// prevents the header from being imported multiple times
+#ifndef message_store_h
+#define message_store_h
+
+#include &lt;fstream&gt;  // ifstream, ofstream
+#include &lt;list&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+#include &quot;message.h&quot;
+
+using namespace std;
+
+class MessageStore
+{
+public:
+   // Default constructor to create an empty message store
+   MessageStore() = default; 
+
+   // Constructor that reads a file to populate messages
+   MessageStore(const string&amp; filename);
+
+   // Display all the messages for a given user
+   void display_messages_for_user(const string&amp; user) const;
+
+   // Display a single message 
+   void read_message(const string&amp; user, int msg_id) const;
+
+   // Delete a single message
+   void delete_message(const string&amp; user, int msg_id);
+
+   // Send a message from sender to receiver
+   void send_message(const string&amp; sender, const string&amp; receiver, 
+      const string&amp; subject, const string&amp; content);
+
+   // Save all messages to a file
+   void save_message_store(const string&amp; filename);
+
+private:
+   // store usernames mapped to a list of messages
+   map&lt;string, list&lt;Message&gt;&gt; messages;
+
+   // read messages in from a file
+   void read_messages_from_file(const string&amp; filename);
+
+   // write messages to a file
+   void write_messages_to_file(const string&amp; filename);
+};
+
+#endif // message_store_h
+         
+</code></pre>
+
+      <h3>read_messages_from_file function</h3>
+      <pre><code>
+void MessageStore::read_messages_from_file(const string&amp; filename)
+{
+   ifstream fin(filename); // open the file
+
+   if (fin.fail()) {
+      cout &lt;&lt; &quot;Error, unable to open file &quot; &lt;&lt; filename &lt;&lt; endl;
+      return;
+   }
+
+   while (!fin.fail()) {
+      string sender;
+      string receiver;
+      string date;
+      string subject;
+      string content;
+      getline(fin, sender, &apos;|&apos;);
+      getline(fin, receiver, &apos;|&apos;);
+      getline(fin, date, &apos;|&apos;);
+      getline(fin, subject, &apos;|&apos;);
+      getline(fin, content, &apos;\n&apos;);
+
+      if (!fin.fail()) {
+         Message message(sender, receiver, date, subject, content);
+         messages[receiver].push_back(message);
+      }
+   }
+
+   fin.close();
+}
+</code></pre>
+
+      <h3>write_messages_to_file function</h3>
+      <pre><code>
+void MessageStore::write_messages_to_file(const string&amp; filename)
+{
+   // open a file for writing
+   ofstream fout(filename);
+   if (fout.fail()) {
+      cout &lt;&lt; &quot;Unable to write to &quot; &lt;&lt; filename &lt;&lt; endl;
+      return;
+   }
+
+   for (auto&amp; each : messages) {
+      for (auto&amp; message : each.second) {
+         fout &lt;&lt; message.get_sender()   &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_receiver() &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_date()     &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_subject()  &lt;&lt; &quot;|&quot;
+              &lt;&lt; message.get_contents() &lt;&lt; endl;
+      }
+   }
+
+   fout.close();
+}
+</code></pre>
+      <h3>Sample message file</h3>
+      <p>Use this sample file of stored messages to test your code: <a
+            href="sample-messages.txt">Sample Messages File</a></p>
+      <h2>Thinking about Security</h2>
+      <p>The way it is currently written, the messaging application does not require a password
+         for a user to access their messages. This has several obvious security implications.
+         Anyone could log on to the system and view the messages sent to someone else, which
+         would be a potential breach of confidentiality. Anyone could log on to the system and
+         send a message by posing as someone they are not. What if someone logged in with your
+         name and sent a nasty message to your boss?</p>
+
+      <h3>Stretch challenge</h3>
+      <p>As a stretch challenge, modify the existing application to require a password when a
+         user accesses the system.</p>
+
+      <h2>Review</h2>
+      <p>After completing the instructions:</p>
+      <ol>
+         <li>Review one of the many <a href="instructor_solution.html">possible solutions</a>
+            for this task,</li>
+         <li>Compare and contrast your code with the possible solution's code, and</li>
+         <li>Make note of any improvements you could make for future tasks.</li>
+      </ol>
+
+   </main>
+   <footer>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+            alt="Creative Commons License" style="border-width:0"
+            src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+      licensed
+      under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+         Commons Attribution 4.0
+         International License</a>.
+   </footer>
 </body>
+
 </html>
