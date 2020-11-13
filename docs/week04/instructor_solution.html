@@ -123,7 +123,7 @@ void MessageStore::display_messages_for_user(const string&amp; user) const
 
    // Use a range-based for loop to iterate over each
    // item in the list
-   for (auto message : list) {
+   for (const auto&amp; message : list) {
       message.display_properties();
    }
 
@@ -145,7 +145,7 @@ void MessageStore::read_message(const string&amp; user, int msg_id) const
    auto&amp; list = iterator-&gt;second; // the list of messages
 
    // Range-based for loop to look at each item in the list
-   for (auto message : list) {
+   for (const auto&amp; message : list) {
       if (msg_id == message.get_id()) { // found the right message
          message.display_message();
          break;
