@@ -1,0 +1,2 @@
+bob|alice|11/2/2020|Hi|Alice, it's great to hear from you. Any news on the security front?
+carol|alice|11/3/2020|Latest security updates|Alice, The latest security protocols are ready. Please push them out to your office.

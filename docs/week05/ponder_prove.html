@@ -1,31 +1,608 @@
 <!-- uses https://highlightjs.org/
 -->
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<script type="text/javascript">
-		var codeType = "C++"
-	</script>
-	<script src="../../../site/highlight.pack.js"></script>
-	<link rel="stylesheet" href="../../../site/highlight_styles/xcode.css">
-	<link rel="stylesheet" href="../../../site/weekly.css">
-	<script type="text/javascript" src="../../../site/weekly.js"></script>
-	
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 05 Ponder & Prove | CSE 220c</title>
+  <link rel="shortcut icon"
+    href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet"
+    href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
+  <style>
+    .underline {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .border {
+      border: 1px solid black;
+    }
+  </style>
 
 </head>
 
 <body onload="fetchSource()">
-<div class="hero-image">
-  <div class="hero-text">
-    <h1>CSE 121c: Week 01</h1>
-    <p>Ponder and Prove</p>
-  </div>
-</div>
-	<h1>Your Task</h1>
-	<p>Create a desktop video of you using the stepwise debugger in the Eclipse IDE. Show how to use the step-over and step-into features, 
-	along with the mouse-over and variables tab feature.</p>
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220c: Week 05</h1>
+      <p>Ponder and Prove</p>
+    </div>
+  </header>
+  <main>
+    <h1>Week 5 Ponder and Prove: Nodes</h1>
+    <h2>Overview</h2>
+    <p>Task: Upgrade the messaging system with office locations</p>
+    <p>Purpose: Explore the concept of a Node</p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    <h2>Instructions</h2>
+    <p>Scenario: Your company's CEO is getting more nervous about the possibility of company
+      secrets leaking to unauthorized third parties. The messaging system you created for the
+      company is working, but the boss wants it to be even more secure. You have been tasked
+      with adding new functionality to the application so that messages are sent based on the
+      destination company office. Instead of sending a message to a user, now all messages
+      must be sent to a user <em>at a specific location</em>. Users must login to a specific
+      location
+      in order to read the messages stored for them there. Users can only see the messages
+      for the location at which they are logged in.
+    </p>
+    <p>In order to implement this new functionality, your team lead has given you the following
+      guidance, in addition to the <span class="file_name">MessageRouter</span> class
+      (message_router.h)
+      declaration, the modified driver program (week05.cpp) for
+      the application using the <span class="file_name">MessageRouter</span> class, and message
+      files
+      containing sample messages for three offices: a, b, and c.
+    </p>
+    <h3>Guidance</h3>
+    <p>Use the existing <span class="file_name">Message</span> and <span
+        class="file_name">MessageStore</span> classes from last week without making
+      modifications. (You may
+      use your code from last week, or use <a href="../week04/instructor_solution.html">last
+        week's sample solution</a> as a starting point)
+    </p>
+    <p>
+      Create a new class called <span class="file_name">MessageRouter</span> based on the
+      following diagram. The <span class="file_name">MessageRouter</span>
+      class includes a private class called <span class="file_name">OfficeNode</span>, which is
+      a simplified version of the
+      <span class="file_name">Node</span> class you saw in the <a href="index.html">reading
+        material</a>. The <span class="file_name">OfficeNode</span>
+      class is used to represent an
+      office location and includes an office name and a <span
+        class="file_name">MessageStore</span> unique to that office
+      location.
+    </p>
+    <p>******* UML Diagram of MessageRouter Class Here *******</p>
+
+    <p>The <span class="file_name">MessageRouter</span> class is analogous to the List class you
+      saw from the reading. It
+      provides a way to keep track of all the company offices (represented as
+      <span class="file_name">OfficeNode</span>s) and facilities for sending and reading
+      messages
+      at a given office location.
+    </p>
+    <p>You will need to implement the <span class="file_name">MessageRouter</span> based on the
+      diagram and the <span class="file_name">MessageRouter.h</span>
+      file provided.
+    </p>
+    <p>Using the concept of a simplified Node as the <span class="file_name">OfficeNode</span>,
+      we can keep track of an
+      unlimited number of <span class="file_name">OfficeNode</span>s by chaining them together
+      like this, where the "&bull;" represents a pointer to the next node, which we will
+      call next_ptr:
+    </p>
+    <img src="images/cse220c_week05_prove_linked_list.svg" alt="" class="border">
+
+    <p>Adding a new node is similar to the "push_back" function of a list. If the root_ptr is
+      null, that means there are not currently any nodes:
+    </p>
+    <img src="images/cse220c_week05_prove_linked_list_1.svg" alt="" class="border">
+
+    <p>In this case, we can add a node <span class="file_name">a</span> by first creating a new
+      OfficeNode, then telling the
+      root_ptr to point to the new node <span class="file_name">a</span>. The new node's
+      next_ptr will point to nullptr:
+    </p>
+    <img src="images/cse220c_week05_prove_linked_list_2.svg" alt="" class="border">
+
+    <p>If root_ptr is not null, then there is at least one node in existence. To add a new
+      node <span class="file_name">d</span>, we would need to "walk" through each node in the
+      list until we
+      find the one that points to nullptr, which would mean we have found the last node in the
+      list:
+    </p>
+    <img src="images/cse220c_week05_prove_linked_list_3.svg" alt="" class="border">
+
+    <p>We would then change the last node's next_ptr to point to the newly created node that we
+      want to add, which effectively inserts the new node at the end of the list.</p>
+    <img src="images/cse220c_week05_prove_linked_list.svg" alt="" class="border">
+
+    <p>In a similar manner, if we want to send a message or read a message, we can "walk"
+      through the list of <span class="file_name">OfficeNode</span>s looking for the node with
+      the matching office name. Once
+      we find the appropriate node, we can use its <span class="file_name">MessageStore</span>
+      to send, read, or delete a
+      message.
+    </p>
+    <p>Here is an example of adding a new <span class="file_name">OfficeNode</span> to our list.
+    </p>
+    <pre><code>
+
+// create a new OfficeNode which we can access using the pointer node_to_add_ptr
+shared_ptr&lt;OfficeNode&gt; node_to_add_ptr = make_shared&lt;OfficeNode&gt;(office_name);
+
+// Check if the list is currently empty
+if (root_ptr == nullptr) {
+  root_ptr = node_to_add_ptr;
+  return;
+}
+
+// If the list already has nodes, &quot;walk&quot; through the existing nodes to find
+// the last one
+shared_ptr&lt;OfficeNode&gt; curr_ptr = root_ptr;
+while (curr_ptr-&gt;next_ptr != nullptr) {
+  curr_ptr = curr_ptr-&gt;next_ptr;
+}
+
+// Point the last node&apos;s next_ptr to the new node
+curr_ptr-&gt;next_ptr = node_to_add_ptr;
+
+
+    </code></pre>
+
+    <h3>Example run of the messaging application with office locations</h3>
+    <p>User input is <span class="underline">underlined</span></p>
+    <pre><code class="console">
+
+Enter user name ('quit' to exit): alice
+
+Enter location: <span class="underline">a</span>
+
+Welcome, alice
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+alice (a)> <span class="underline">d</span>
+
+[1] Message from bob at 11/2/2020 - Subject: Hi
+[2] Message from carol at 11/3/2020 - Subject: Latest security updates
+
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+alice (a)> <span class="underline">s</span>
+
+Who are you sending to? <span class="underline">bob</span>
+What is their location? <span class="underline">b</span>
+What is the subject? <span class="underline">test message</span>
+What is the message? <span class="underline">Bob, This message is a test to see if you receive it.</span>
+sent message from alice to bob at b
+
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+alice (a)> <span class="underline">q</span>
+
+Goodbye alice.
+
+Enter user name ('quit' to exit): <span class="underline">bob</span>
+
+Enter location: <span class="underline">b</span>
+
+Welcome, bob
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+bob (b)> <span class="underline">d</span>
+
+[3] Message from alice at 11/5/2020 - Subject: Hello
+[4] Message from carol at 11/6/2020 - Subject: Secret Project
+[5] Message from carol at 11/13/2020 - Subject: Secret Project
+[8] Message from alice at 11/13/2020 - Subject: test message
+
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+bob (b)> <span class="underline">x</span>
+
+Enter message id: <span class="underline">8</span>
+
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+bob (b)> <span class="underline">d</span>
+
+[3] Message from alice at 11/5/2020 - Subject: Hello
+[4] Message from carol at 11/6/2020 - Subject: Secret Project
+[5] Message from carol at 11/13/2020 - Subject: Secret Project
+
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+bob (b)> <span class="underline">q</span>
+
+Goodbye bob.
+
+Enter user name ('quit' to exit): <span class="underline">carol</span>
+
+Enter location: <span class="underline">c</span>
+
+Welcome, carol
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+carol (c)> <span class="underline">d</span>
+
+[6] Message from alice at 11/4/2020 - Subject: Security pdates
+[7] Message from bob at 11/13/2020 - Subject: Secret Project
+
+Choose an option:
+        d - Display all messages
+        r - Read a message
+        x - Delete a message
+        s - Send a message
+        q - Exit user
+
+carol (c)> <span class="underline">q</span>
+
+Goodbye carol.
+
+Enter user name ('quit' to exit): <span class="underline">quit</span>
+Goodbye.
+
+Saved office a to file
+Saved office b to file
+Saved office c to file
+Saved office d to file
+      </code></pre>
+
+    <h3>MessageRouter Class Diagram</h3>
+
+    <img src="images/cse220c_week04_prove_uml.svg"
+      alt="UML Class Diagram showing the Message and MessageStore classes">
+
+    <h3>MessageRouter class declaration</h3>
+    <pre><code>
+// message_router.h
+//
+// Stores a collection of office nodes and provides facilities
+// to send, read, delete messages between office locations
+//
+
+#ifndef message_router_h
+#define message_router_h
+
+#include &lt;string&gt;
+#include &quot;message_store.h&quot;
+
+using namespace std;
+
+class MessageRouter
+{
+public:
+  // Adds a new office node to the collection of offices
+  void add_office(const string&amp; office_name);
+
+  // Adds an office node by importing a file of stored messages
+  void open_office(const string&amp; office_name, const string&amp; filename);
+
+  // Removes an office node from the collection
+  void remove_office(const string&amp; office_name);
+
+  // Show all office name in the collection
+  void display_office_names() const;
+
+  // Save the message store of an office to filename
+  void save_office(const string&amp; office, const string&amp; filename) const;
+
+  // Returns true if the given location exists in the collection
+  bool location_is_valid(const string&amp; location) const;
+
+  // Display all messages for recipient at the location
+  void display_messages(const string&amp; location, const string&amp; recipient);
+
+  // Read the message identified by msg_id at office for recipient
+  void read_message(const string&amp; location, const string&amp; recipient, int msg_id);
+
+  // Send a message to reciever at location
+  void send_message(const string&amp; location, const string&amp; author,
+    const string&amp; receiver, const string&amp; subject, const string&amp; content);
+
+  // Delete a message to recipient at location
+  void delete_message(const string&amp; location, const string&amp; recipient, int msg_id);
+
+private:
+  // Stores an instance of an office
+  class OfficeNode  {
+  public:
+    shared_ptr&lt;MessageStore&gt; store;   // the messages for this office
+    string name;                      // the office name
+    shared_ptr&lt;OfficeNode&gt; next_ptr;  // points to the next node
+    OfficeNode(const string&amp; a_name); // constructor for a new office node
+  };
+  shared_ptr&lt;OfficeNode&gt; root_ptr;    // points to the first node
+
+};
+
+# endif // message_router_h
+
+      
+</code></pre>
+    <h3>week05.cpp - main driver for the application</h3>
+    <pre><code>
+// week05.cpp
+// The main driver for the messaging application using 
+// the MessageRouter class
+//
+
+#include &quot;message_router.h&quot;
+#include &lt;iostream&gt;  // cout, endl
+#include &lt;string&gt;
+
+void display_menu();
+void user_loop(const string&amp; username, const string&amp; location, MessageRouter&amp; r);
+void user_login(MessageRouter&amp; r);
+int prompt_for_id();
+
+// file used for persistent storage of messages
+const string FILENAME = &quot;sample_messages.txt&quot;;
+
+int main()
+{
+  // Create a new message router
+  MessageRouter r;
+
+  // Open three offices
+  r.open_office(&quot;a&quot;, &quot;a_messages.txt&quot;);
+  r.open_office(&quot;b&quot;, &quot;b_messages.txt&quot;);
+  r.open_office(&quot;c&quot;, &quot;c_messages.txt&quot;);
+
+  // Add a new office that doesn&apos;t have previously stored messages
+  r.add_office(&quot;d&quot;);
+
+  // Display all offices
+  cout &lt;&lt; &quot;Welcome. You may login to one of the following offices: &quot; &lt;&lt; endl;
+  r.display_office_names();
+
+  // Main loop
+  user_login(r);
+
+  // Save the messages from each office before exiting
+  r.save_office(&quot;a&quot;, &quot;a_messages.txt&quot;);
+  r.save_office(&quot;b&quot;, &quot;b_messages.txt&quot;);
+  r.save_office(&quot;c&quot;, &quot;c_messages.txt&quot;);
+  r.save_office(&quot;d&quot;, &quot;d_messages.txt&quot;);
+}
+
+void display_menu()
+{
+  cout &lt;&lt; &quot;Choose an option: &quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\td - Display all messages&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\tr - Read a message&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\tx - Delete a message&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\ts - Send a message&quot; &lt;&lt; endl;
+  cout &lt;&lt; &quot;\tq - Exit user&quot; &lt;&lt; endl;
+}
+
+// Interaction with a given user
+void user_loop(const string&amp; username, const string&amp; location, MessageRouter&amp; r)
+{
+  char response;           // collect user reponse to menu
+  int id;                  // store a message id
+  string receiver;         // message recipient
+  string subject;          // message subject
+  string message_content;  // message contents
+  string destination;      // location of recipient
+
+  cout &lt;&lt; &quot;\nWelcome, &quot; &lt;&lt; username &lt;&lt; endl;
+
+  while (true) {
+
+    display_menu();
+    cout &lt;&lt; &quot;\n&quot; &lt;&lt; username &lt;&lt; &quot; (&quot; &lt;&lt; location &lt;&lt; &quot;)&gt; &quot;;
+    cin &gt;&gt; response; // get a single character from the input stream
+    cin.ignore();  // ignore the next character in the input stream, &apos;\n&apos;
+
+    cout &lt;&lt; endl;
+    switch (response) {
+    case &apos;d&apos;: // display all messages for the user
+      r.display_messages(location, username);
+      break;
+    case &apos;r&apos;: // read a single message
+      id = prompt_for_id();
+      if (id &lt; 0) { break; } // id was not valid
+      cout &lt;&lt; endl;
+      r.read_message(location, username, id);
+      break;
+    case &apos;x&apos;: // delete a single message
+      id = prompt_for_id();
+      if (id &lt; 0) { break; } // id was not valid
+      r.delete_message(location, username, id);
+      break;
+    case &apos;s&apos;: // send a message
+      cout &lt;&lt; &quot;Who are you sending to? &quot;;
+      getline(cin, receiver);
+      cout &lt;&lt; &quot;What is their location? &quot;;
+      getline(cin, destination);
+      cout &lt;&lt; &quot;What is the subject? &quot;;
+      getline(cin, subject);
+      cout &lt;&lt; &quot;What is the message? &quot;;
+      getline(cin, message_content);
+      r.send_message(destination, username, receiver, subject, message_content);
+      break;
+    case &apos;q&apos;: // exit menu for user
+      cout &lt;&lt; &quot;Goodbye &quot; &lt;&lt; username &lt;&lt; &quot;.&quot; &lt;&lt; endl;
+      return;
+    default:
+      cout &lt;&lt; &quot;Invalid option: &quot; &lt;&lt; response &lt;&lt; endl;
+      break;
+    }
+    cout &lt;&lt; endl;
+  }
+}
+
+// Allows user to login to system
+void user_login(MessageRouter&amp; r)
+{
+
+  while (true) {
+    string username;
+    string location; // office name
+
+    cout &lt;&lt; &quot;\nEnter user name (&apos;quit&apos; to exit): &quot;;
+    getline(cin, username);
+
+    if (username == &quot;quit&quot;) {
+      cout &lt;&lt; &quot;Goodbye.&quot; &lt;&lt; endl &lt;&lt; endl;
+      return;
+    }
+
+    cout &lt;&lt; &quot;\nEnter location: &quot;;
+    getline(cin, location);
+
+    if (!r.location_is_valid(location)) {
+      cout &lt;&lt; &quot;That location does not exist&quot; &lt;&lt; endl;
+    }
+    else {
+      user_loop(username, location, r);
+    }
+
+  }
+}
+
+// Helper function to get a message id
+int prompt_for_id()
+{
+  int id;
+  cout &lt;&lt; &quot;Enter message id: &quot;;
+  cin &gt;&gt; id;
+  if (!cin) {
+    cout &lt;&lt; &quot;Invalid ID&quot; &lt;&lt; endl;
+    cin.clear();  // unset fail bit
+    // skip any bad characters until the end of the line
+    cin.ignore(numeric_limits&lt;streamsize&gt;::max(), &apos;\n&apos;);
+    return -1; // signals error
+  }
+  return id;
+}
+      
+</code></pre>
+    <h3>Sample message files</h3>
+    <p>Use these sample files of stored messages to test your code. These files must be located
+      in
+      the same folder as the week05.cpp file:
+      <ul>
+        <li><a href="prove/a_messages.txt">a_messages.txt</a></li>
+        <li><a href="prove/b_messages.txt">b_messages.txt</a></li>
+        <li><a href="prove/c_messages.txt">c_messages.txt</a></li>
+      </ul>
+    </p>
+    <h2>Thinking about Security</h2>
+    <p> Instead of calling the offices "a", "b", "c" and so on, what if we think about each
+      "office" as a security classification level? For example, we could create four offices
+      called "public",
+      "confidential", "secret", and "top secret". Messages sent to each "office" can then be
+      considered as "protected" at that level of classificatino. This prevents the accidental
+      mingling
+      of messages at different security classifications. A user must login to the specified
+      classification level before reading any messages sent to them. Users can only read the
+      messages
+      at the level they are logged into, preventing the accidental mixing of
+      information classified at different levels.
+    </p>
+    <p>
+      What would happen if a user was logged into the "top secret" level and tried to send a
+      message to someone at the "public" level? Should a user be allowed to send messages from a
+      higher classification level to a lower level? Think about how this could result in an
+      accidental disclosure of information classified at a higher level to users who are only
+      authorized to read messages at a lower level.
+    </p>
+    <p>What about sending messages to a higher classification level than the current "logged
+      in" level? Should that be allowed? Would any harm be done if information from a lower
+      classification level was sent to a higher classification level?
+    </p>
+    <p>
+      Under a security model known as Bell-Lapadula, a user is allowed to <em>send</em> messages
+      to a <em>higher</em> classification level, but never to <em>send</em> messages to a
+      <em>lower</em> classification
+      level. Conversely, users can <em>read</em> any messages at a <em>lower</em> classification
+      level than that
+      which they are currently "logged in" to, but a user can never <em>read</em> messages at a
+      <em>higher</em>
+      classification than their current authorization level--the level they are currently logged
+      in to.
+
+    </p>
+
+    <h3>Stretch challenge</h3>
+    <p>Add functionality to the application that prevents a user from
+      sending messages to a security level lower than the level at which they are currently
+      logged in, but still allows them to send messages to a higher security level.
+    </p>
+
+
+    <h2>Review</h2>
+    <p>After completing the instructions:</p>
+    <ol>
+      <li>Review one of the many <a href="instructor_solution.html">possible solutions</a>
+        for this task,</li>
+      <li>Compare and contrast your code with the possible solution's code, and</li>
+      <li>Make note of any improvements you could make for future tasks.</li>
+    </ol>
+
+  </main>
+  <footer>
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+        alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+    licensed
+    under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+      Commons Attribution 4.0
+      International License</a>.
+  </footer>
 </body>
+
 </html>
