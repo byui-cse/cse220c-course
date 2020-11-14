@@ -34,7 +34,165 @@
     <p>This is one possible solution to the Week 05 Ponder and Prove task.</p>
     <h2>message_store.cpp</h2>
     <pre><code>
-sample solution will be posted here.
+// message_router.cpp - sample solution
+//
+
+#include &lt;iostream&gt;
+#include &quot;message_router.h&quot;
+
+
+MessageRouter::OfficeNode::OfficeNode(const string&amp; a_name) : name{ a_name }
+{
+  store = make_shared&lt;MessageStore&gt;(); // creates a new message store
+}
+
+// Adds a new office node to the collection - at the &quot;end&quot; of the list
+void MessageRouter::add_office(const string&amp; office_name)
+{
+  shared_ptr&lt;OfficeNode&gt; node_to_add_ptr = make_shared&lt;OfficeNode&gt;(office_name);
+  if (root_ptr == nullptr) {
+    root_ptr = node_to_add_ptr;
+    return;
+  }
+  shared_ptr&lt;OfficeNode&gt; curr_ptr = root_ptr;
+  while (curr_ptr-&gt;next_ptr != nullptr) {
+    curr_ptr = curr_ptr-&gt;next_ptr;
+  }
+
+  curr_ptr-&gt;next_ptr = node_to_add_ptr;
+}
+
+void MessageRouter::open_office(const string&amp; office_name, const string&amp; filename)
+{
+  shared_ptr&lt;OfficeNode&gt; node_to_add_ptr = make_shared&lt;OfficeNode&gt;(office_name);
+
+  // create MessageStore by opening filename
+  node_to_add_ptr-&gt;store = make_shared&lt;MessageStore&gt;(filename);
+
+  if (root_ptr == nullptr) {
+    root_ptr = node_to_add_ptr;
+    return;
+  }
+  shared_ptr&lt;OfficeNode&gt; curr_ptr = root_ptr;
+  while (curr_ptr-&gt;next_ptr != nullptr) {
+    curr_ptr = curr_ptr-&gt;next_ptr;
+  }
+
+  curr_ptr-&gt;next_ptr = node_to_add_ptr;
+}
+
+void MessageRouter::remove_office(const string&amp; office_name)
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  shared_ptr&lt;OfficeNode&gt; prev = root_ptr;
+
+  while (curr != nullptr) {
+    if (curr-&gt;name == office_name) { // found correct node to remove
+      prev-&gt;next_ptr = curr-&gt;next_ptr;
+      return;
+    }
+    prev = curr;
+    curr = curr-&gt;next_ptr;
+  }
+}
+
+void MessageRouter::send_message(const string&amp; location, const string&amp; author,
+  const string&amp; receiver, const string&amp; subject, const string&amp; content)
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+
+  // walk list searching for correct office
+  while (curr != nullptr) {
+    if (curr-&gt;name == location) {
+      curr-&gt;store-&gt;send_message(author, receiver, subject, content);
+      cout &lt;&lt; &quot;sent message from &quot; &lt;&lt; author &lt;&lt; &quot; to &quot; &lt;&lt; receiver &lt;&lt; &quot; at &quot; &lt;&lt; location &lt;&lt; endl;
+      return;
+    }
+    curr = curr-&gt;next_ptr;
+  }
+
+  cout &lt;&lt; &quot;Office &quot; &lt;&lt; location &lt;&lt; &quot; does not exist&quot; &lt;&lt; endl;
+}
+
+void MessageRouter::read_message(const string&amp; location, const string&amp; recipient, int msg_id)
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  while (curr != nullptr) {
+    if (curr-&gt;name == location) { // found correct office 
+      curr-&gt;store-&gt;read_message(recipient, msg_id);
+      return;
+    }
+    curr = curr-&gt;next_ptr;
+  }
+  cout &lt;&lt; &quot;No message with &quot; &lt;&lt; msg_id &lt;&lt; &quot; for &quot; &lt;&lt; recipient &lt;&lt; &quot; found\n&quot;;
+}
+
+void MessageRouter::delete_message(const string&amp; location, const string&amp; recipient, int msg_id)
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  while (curr != nullptr) {
+    if (curr-&gt;name == location) { // found correct office 
+      curr-&gt;store-&gt;delete_message(recipient, msg_id);
+      return;
+    }
+    curr = curr-&gt;next_ptr;
+  }
+  cout &lt;&lt; &quot;No message with &quot; &lt;&lt; msg_id &lt;&lt; &quot; for &quot; &lt;&lt; recipient &lt;&lt; &quot; found\n&quot;;
+
+
+}
+
+void MessageRouter::display_messages(const string&amp; location, const string&amp; recipient)
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  while (curr != nullptr) {
+    if (curr-&gt;name == location) { // found correct node
+      curr-&gt;store-&gt;display_messages_for_user(recipient);
+      return;
+    }
+    curr = curr-&gt;next_ptr;
+  }
+
+  cout &lt;&lt; &quot;No messages for &quot; &lt;&lt; recipient &lt;&lt; &quot; found.&quot; &lt;&lt; endl;
+
+}
+
+void MessageRouter::display_office_names() const
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  while (curr != nullptr) {
+    cout &lt;&lt; curr-&gt;name &lt;&lt; endl;
+    curr = curr-&gt;next_ptr;
+  }
+}
+
+// Saves the office MessageStore to a file
+void MessageRouter::save_office(const string&amp; office, const string&amp; filename) const
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  while (curr != nullptr) {
+    if (curr-&gt;name == office) {
+      curr-&gt;store-&gt;save_message_store(filename);
+      cout &lt;&lt; &quot;Saved office &quot; &lt;&lt; office &lt;&lt; &quot; to file&quot; &lt;&lt; endl;
+      return;
+    }
+    curr = curr-&gt;next_ptr;
+  }
+  cout &lt;&lt; &quot;Office &quot; &lt;&lt; office &lt;&lt; &quot; not found.&quot; &lt;&lt; endl;
+}
+
+bool MessageRouter::location_is_valid(const string&amp; location) const
+{
+  shared_ptr&lt;OfficeNode&gt; curr = root_ptr;
+  while (curr != nullptr) {
+    if (curr-&gt;name == location) {
+      return true;
+    }
+    curr = curr-&gt;next_ptr;
+  }
+  return false;
+}
+      
 </code>
 </pre>
 

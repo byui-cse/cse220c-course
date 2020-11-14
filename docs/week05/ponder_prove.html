@@ -83,7 +83,8 @@
         class="file_name">MessageStore</span> unique to that office
       location.
     </p>
-    <p>******* UML Diagram of MessageRouter Class Here *******</p>
+    <img src="images/cse220c_week05_prove_uml_messagerouter.svg"
+      alt="UML class diagram for MessageRouter">
 
     <p>The <span class="file_name">MessageRouter</span> class is analogous to the List class you
       saw from the reading. It
@@ -299,10 +300,10 @@ Saved office c to file
 Saved office d to file
       </code></pre>
 
-    <h3>MessageRouter Class Diagram</h3>
+    <h3>Class Diagrams</h3>
 
-    <img src="images/cse220c_week04_prove_uml.svg"
-      alt="UML Class Diagram showing the Message and MessageStore classes">
+    <img src="images/cse220c_week05_prove_uml.svg"
+      alt="UML Class Diagram showing the MessageRouter classes">
 
     <h3>MessageRouter class declaration</h3>
     <pre><code>
@@ -363,6 +364,7 @@ private:
     shared_ptr&lt;OfficeNode&gt; next_ptr;  // points to the next node
     OfficeNode(const string&amp; a_name); // constructor for a new office node
   };
+  
   shared_ptr&lt;OfficeNode&gt; root_ptr;    // points to the first node
 
 };
@@ -566,9 +568,11 @@ int prompt_for_id()
     </p>
     <p>
       Under a security model known as Bell-Lapadula, a user is allowed to <em>send</em> messages
-      to a <em>higher</em> classification level, but never to <em>send</em> messages to a
+      at the same or <em>higher</em> classification level they are currently at, but never to
+      <em>send</em> messages to a
       <em>lower</em> classification
-      level. Conversely, users can <em>read</em> any messages at a <em>lower</em> classification
+      level. Conversely, users can <em>read</em> any messages at the same or <em>lower</em>
+      classification
       level than that
       which they are currently "logged in" to, but a user can never <em>read</em> messages at a
       <em>higher</em>
@@ -583,6 +587,8 @@ int prompt_for_id()
       logged in, but still allows them to send messages to a higher security level.
     </p>
 
+    <h2>Final Thoughts</h2>
+    <p>This exercise was designed to help you think about and understand the concept of a "node" and how a node can be used to implement a collection or container of items. In fact, you have just implemented a data structure known as a "linked list". While this exercise was useful academically, in a real world production application you should use the built-in Standard Template Library (STL) containers, such as <a href="https://en.cppreference.com/w/cpp/container/vector">std::vector</a>, <a href="https://en.cppreference.com/w/cpp/container/list">std::list</a>, <a href="https://en.cppreference.com/w/cpp/container/map">std::map</a>, and others rather than create your own container from scratch. Much care and effort has been put into making the STL containers as efficient as possible, making it unlikely that anyone could do a better job by writing their own container.</p>
 
     <h2>Review</h2>
     <p>After completing the instructions:</p>
