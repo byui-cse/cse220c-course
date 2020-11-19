@@ -28,9 +28,9 @@
 		Many of the standard containers, array, vector stack, queue, etc., are actually classes that have a private C-type array as a property. Algorithms are then turned into code, instance functions of the class, to make the use of the C-type array MUCH safer. These methods have been tested, enhanced, fixed, and optimized for decades. That's why it is so much safer to use a standard container that wraps a C-type array than to use one directly. If you are ever tempted to use a C-type array, you should probably use the std::array instead. It adds almost no overhead.
 	</p>
 	<p>
-		But sometimes, arrays are either too restrictive or the code to manipulate to match the need becomes way to complicated and slow. Take a look at this image of a structure known as a <a href="https://www.youtube.com/watch?v=qH6yxkw0u78">tree</a>.
+		But sometimes, arrays are either too restrictive or the code to manipulate to match the need becomes way to complicated and slow. Here is an image of a structure known as a <a href="https://www.youtube.com/watch?v=qH6yxkw0u78">tree</a>.
 	</p>
-	<img src="images/tree.png">
+	<img src="images/tree.png" alt="A tree with root D, branches B and G, and leaves A, C in branch B, and E, Z in branch G">
 	<p>
 		Can this be represented using a C-type array? Yes. But just because you can, doesn't mean you should. When you shouldn't, that's when things like list and map come into play. They are NOT wrappers around a hidden C-type array. Instead they use a completely different design...nodes.
 	</p>
@@ -39,16 +39,16 @@
 	<h3>A Node?? What is that??</h3>
 
 	<p>
-		Take a look at this image. It's what you are going to be reading about for a while.
+		Here is a list. It's what you are going to be reading about for a while.
 	</p>
-	<img src="images/list.png">
+	<img src="images/list.png" alt="a list with the contents A through D">
 	<p>In this image, each blue square represents a node. A node has data. Each node in the image has A, B, C, or D as its data. A node also 'knows' about other nodes via connections. These connections keep the nodes in some specific order. The connections in the image are the black lines you see connecting the nodes together.</p>
 	<p>When nodes are well designed, you can start anywhere in the list and move either direction. That means, each node has to know about the previous node, traditionally known as 'parent', and the next node traditionally known as 'child'. In the image above, the node containing B is the child of the node containing A and the node containing A is the parent of the node containing B.</p>
 	<p>
-		Take a look at the tree image again.
+		Examine the tree again.
 	</p>
 
-	<img src="images/tree.png">
+	<img src="images/tree.png" alt="A tree with root D, branches B and G, and leaves A, C in branch B, and E, Z in branch G">
 	<p>
 		In this image, each node has to 'know about' two children, traditionally called 'right child' and 'left child.' Therefore, the node containing D is the parent of the two nodes containing B and G. The parent of the node containing B is the node containing D. The parent of the node containing G is also the node containing D. 
 	</p>
@@ -77,7 +77,7 @@ public:
 <p>
 	Now, having a node that can hold characters is OK, but yuck! Why can't it hold anything we want like the std::list class template we used last week? To do that, the Node class also has to be changed and become a node class template.</p> 
 <p>
-	<img src="images/stop.png"> Go back and review <a href="../week04/index.html#template_description">last week's information about class templates</a> if you need to brush up.
+	<img src="images/stop.png" alt="a stop sign"> Go back and review <a href="../week04/index.html#template_description">last week's information about class templates</a> if you need to brush up.
 </p>
 <p> 
 	I'm going to show you some code here...don't over think it. All that's going to happen is the <span class="file_name">char</span> type keyword is going to get replaced with a temporary placeholder. It's called <span class="file_name">T</span>. The first line of the code snippet below tells the compiler that Node is a class template, instead of a complete class, and the type placeholder is called <span class="file_name">T</span>. The  <span class="file_name">typename</span> keyword is just used to tell the compiler that  <span class="file_name">T</span> is actually a type, not a variable. All that's happened is one line of code is added so the compiler can understand what we are doing, and then all the <span class="file_name">char</span> type keywords are replaced with <span class="file_name">T</span>. Other than that, there are no changes.

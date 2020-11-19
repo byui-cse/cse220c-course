@@ -33,8 +33,8 @@
 		as you intended.
 	</p>
 	<p>
-		There will be many actions you will take described for you based on which IDE you use. Read and follow them all. To start with, <a href="example_source/stepwise_debugging.zip">download the files</a> you'll use to help you learn how to use the stepwise debugger. 
-		Once you've got the zip file downloaded, <a href="https://www.google.com/search?q=%how to unzip"> unzip it</a>.
+		There will be many actions you will take described for you based on which IDE you use. Read and follow them all. To start with, download <a href="example_source/stepwise_debugging.zip">stepwise_debugging.zip</a>. You'll use it to help you learn how to use the stepwise debugger. 
+		Once you've got the zip file downloaded, unzip it. If you don't know how, here is a link that will do a Google search for you on <a href="https://www.google.com/search?q=%how to unzip">how to unzip</a> a file.
 	</p>
 
 	<h2>Visual Studio Users</h2>
@@ -52,18 +52,19 @@
 		set in the code. Breakpoints are how you temporarily pause the code's execution so you can see what is actually
 		going on in the code rather than what you think might be going on. You are now ready to use Visual Studio's built-in
 		stepwise debugger. <img src="images/break-point-visual-studio.png"
-			alt="Visual Studio code window showing learning_debugging.cpp with a breakpoint set on line 42"></p>
+			alt="Visual Studio code window showing the learning_debugging.cpp file with a breakpoint set on line 42"></p>
 	<p>Now click the green triangle button labeled "Local Windows Debugger" near the top center of the Visual Studio
 		window. This will compile your code and begin running it in debugger mode. You'll notice a black window pop open.
 		This is where the output from the program will eventually appear, so leave this window open (even though it is blank
-		right now). <img src="images/visual-studio-console-window.png" alt="Blank Visual Studio console window"></p>
+		right now). <img src="images/visual-studio-console-window.png" alt="a blank Visual Studio console window showing that nothing is running"></p>
 	<p>After the compilation process completes, the application will run up to the breakpoint on line 42 and pause. </p>
 	<p>You should see that the red dot breakpoint indicator you set earlier on line 42 now has a yellow arrow in it to
 		indicate that the program is currently executing, but has paused on line 42, which has not yet executed. Let's make
 		it execute. On the top center area of the Visual Studio window, look for a black dot with a bent arrow over it. When
 		you hover the mouse over it (without clicking), a help message pops up letting you know this is the 'step over'
 		button. Each time you click this button, the highlighted line of code executes. Let's try it. Click the step over
-		button. <img src="images/visual-studio-step-over.png" alt="Visual Studio step over button"></p>
+		button. <img src="images/visual-studio-step-over.png" alt="Visual Studio step over button" alt="The step over button
+		is found in the action bar."></p>
 	<p>The first thing you'll notice is the yellow arrow has moved down to the next line of code. Now Visual Studio has
 		paused again and is waiting to execute that line. Next, hover your mouse over "currentDateAndTime" on line 42 in the
 		code. You'll see a popup message with the value of this variable displayed. If you look in the pane at the bottom
@@ -76,7 +77,7 @@
 		messages. Whether you use a debug statement like this or the stepwise debugger is situationally dependent. Your
 		instructor and your own experience will help you decide when it is best to use which option. </p>
 	<img src="images/visual-studio-console.png"
-		alt="Visual Studio console window showing the message It is now followed by the current date">
+		alt="Visual Studio console window showing the message 'It is now' followed by what ever the current date is">
 	<p>The debugger has now paused on line 47. Line 47 is different. While you will learn much more about this later, what
 		you see in line 47 is a call to a C++ function that returns a value. That value is stored in the 'theTotal'
 		variable. Now...if you were to (please don't) click the step over button again, you would then see the sum of the
@@ -105,12 +106,13 @@
 		and shows you the line numbers for your code. You will see a blue indicator show up in the gutter. This indicator is showing you where a 'break point' 
 		has just been set in the code. Breakpoints are how you temporarily pause the code's execution so you can see what is actually going on in 
 		the code rather than what you think might be going on. You are now ready to use Xcode's built-in stepwise debugger and should see this.
-		<img src="images/break_point.png" alt="Xcode running, the main.cpp file selected, and a break point set on line 43."/>
+		<img src="images/break_point.png" alt="Xcode running, the main.cpp file being selected is displayed, and a break point has been set on line 43."/>
 		Now click the triangular run button in the upper-left-hand of the window. This will start the compilation process and run your code for you. 
 	</p>
 	<p>
 		After the compilation process completes, the application will run up to the breakpoint on line 42.
-		<img src="images/break_point_active.png" alt="Xcode running the application up to the break point set on line 43. The values for the variables are shown in the bottom-left pane."/>
+		<img src="images/break_point_active.png" alt="Xcode running the application up to the break point set on line 43. The values for 
+		all current variables are shown in the bottom-left pane."/>
 	</p>
 	<p>What you now see is a bounded green selection including all the 
 		code for line 42. At this point in time, line 42 has not executed. Let's make it execute. On the left-hand side of the top part of the bottom pane that just showed up,

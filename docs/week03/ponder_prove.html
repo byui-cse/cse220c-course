@@ -44,7 +44,12 @@
          should end up with four files: <span class="file_name">customer.h</span>, <span
             class="file_name">customer.cpp</span>, <span class="file_name">account.h</span>, and <span
             class="file_name">account.cpp</span>.
-         <img src="images/cse220c_week03_prove_uml.svg" alt="UML diagram showing Customer and Account classes">
+         <img src="images/cse220c_week03_prove_uml.svg" alt="UML diagram showing Customer and Account classes. 
+         Customer - Properties: given_name:string, family_name:string, id:int Methods: Customer(id:int, given_name:string, family_name:string) 
+         get_name()const:string, get_id():const:string.
+         Account - properties: account_number:int, balance:double, owner:Customer. Methods: Account(account_number:int, owner:Customer) 
+         Account(account_number:int, owner:Customer, opening_balance:double) get_account_num():const int get_balance():const double 
+         set_balance(double):void get_owner_name():const string get_owner_id():const int deposit(double):void withdraw(double):void">
       </p>
       <p>Do not use pass-by-value for the <span class="file_name">Customer</span> object in the <span
             class="file_name">Account</span> constructor. We

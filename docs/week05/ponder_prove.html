@@ -84,7 +84,14 @@
       location.
     </p>
     <img src="images/cse220c_week05_prove_uml_messagerouter.svg"
-      alt="UML class diagram for MessageRouter">
+      alt="UML for MessageRouter and OfficeNode. MessageRouter - Properties: root_ptr:shared_ptr<OfficeNode> 
+        Methods: add_office():void open_office(name:string,filename:string):void remove_office(name:string):void 
+        save_office(name:string, filename:string):void display_office_names():void location_is_valid(location:string) 
+        display_messages(location:string,recipient:string):void read_message(location:string,user:string,id:int):void 
+        delete_message(location:string,user:string,id:int):void send_message(location:string,sender:string, 
+        reciever:string, subject:string, content:string):void
+        OfficeNode - Properties: name:string store:shared_ptr<MesageStore> next_ptr:shared_ptr<OfficeNode>
+          Methods: OfficeNode()">
 
     <p>The <span class="file_name">MessageRouter</span> class is analogous to the List class you
       saw from the reading. It
@@ -103,19 +110,19 @@
       like this, where the "&bull;" represents a pointer to the next node, which we will
       call next_ptr:
     </p>
-    <img src="images/cse220c_week05_prove_linked_list.svg" alt="" class="border">
+    <img src="images/cse220c_week05_prove_linked_list.svg" alt="root_ptr -> a bullet -> b bullet -> c bullet -> d bullet -> nullptr" class="border">
 
     <p>Adding a new node is similar to the "push_back" function of a list. If the root_ptr is
       null, that means there are not currently any nodes:
     </p>
-    <img src="images/cse220c_week05_prove_linked_list_1.svg" alt="" class="border">
+    <img src="images/cse220c_week05_prove_linked_list_1.svg" alt="root_ptr -> nullptr" class="border">
 
     <p>In this case, we can add a node <span class="file_name">a</span> by first creating a new
       OfficeNode, then telling the
       root_ptr to point to the new node <span class="file_name">a</span>. The new node's
       next_ptr will point to nullptr:
     </p>
-    <img src="images/cse220c_week05_prove_linked_list_2.svg" alt="" class="border">
+    <img src="images/cse220c_week05_prove_linked_list_2.svg" alt="root_ptr -> a bullet -> nullptr" class="border">
 
     <p>If root_ptr is not null, then there is at least one node in existence. To add a new
       node <span class="file_name">d</span>, we would need to "walk" through each node in the
@@ -123,11 +130,11 @@
       find the one that points to nullptr, which would mean we have found the last node in the
       list:
     </p>
-    <img src="images/cse220c_week05_prove_linked_list_3.svg" alt="" class="border">
+    <img src="images/cse220c_week05_prove_linked_list_3.svg" alt="root_ptr -> a bullet -> b bullet -> c bullet -> nullptr" class="border">
 
     <p>We would then change the last node's next_ptr to point to the newly created node that we
       want to add, which effectively inserts the new node at the end of the list.</p>
-    <img src="images/cse220c_week05_prove_linked_list.svg" alt="" class="border">
+    <img src="images/cse220c_week05_prove_linked_list.svg" alt="root_ptr -> a bullet -> b bullet -> c bullet -> d bullet -> nullptr" class="border">
 
     <p>In a similar manner, if we want to send a message or read a message, we can "walk"
       through the list of <span class="file_name">OfficeNode</span>s looking for the node with
@@ -303,7 +310,7 @@ Saved office d to file
     <h3>Class Diagrams</h3>
 
     <img src="images/cse220c_week05_prove_uml.svg"
-      alt="UML Class Diagram showing the MessageRouter classes">
+      alt="UML Class Diagram showing the MessageRouter classes. The code directly follows. Get the Properties and Methods from there.">
 
     <h3>MessageRouter class declaration</h3>
     <pre><code>
