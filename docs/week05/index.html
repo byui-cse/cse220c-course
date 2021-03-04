@@ -72,15 +72,15 @@ public:
 	This Node class has a constructor that has, as parameters, a value and the node that should be the parent. Inside this constructor is where the pointers are arranged to point from parent to child and from child to parent.
 	</p>
 <p> 
-	Stop for a few minutes and think about deleting a bunch of linked nodes. Then answer the question, "Why is the parent pointer a <a href="https://studiofreya.com/cpp/cpp-smart-pointers-weak_ptr/">weak_ptr</a>?" Feel free to discuss this question and possible answers with other members of the class through direct conversation, or by some sort of posting. Googling won't be much help here.
+	Stop for a few minutes and think about deleting a bunch of linked nodes. Then answer the question, &ldquo;Why is the parent pointer a <a href="https://studiofreya.com/cpp/cpp-smart-pointers-weak_ptr/">weak_ptr</a>?&rdquo; Feel free to discuss this question and possible answers with other members of the class through direct conversation, or by some sort of posting. Googling won't be much help here.
 </p>
 <p>
-	Now, having a node that can hold characters is OK, but yuck! Why can't it hold anything we want like the std::list class template we used last week? To do that, the Node class also has to be changed and become a node class template.</p> 
+	A node that can hold characters is OK, but why can't it hold anything we want, like the std::list class template we used last week? To do that, the node class also has to be changed and become a node class template.</p> 
 <p>
 	<img src="images/stop.png" alt="a stop sign"> Go back and review <a href="../week04/index.html#template_description">last week's information about class templates</a> if you need to brush up.
 </p>
 <p> 
-	I'm going to show you some code here...don't over think it. All that's going to happen is the <span class="file_name">char</span> type keyword is going to get replaced with a temporary placeholder. It's called <span class="file_name">T</span>. The first line of the code snippet below tells the compiler that Node is a class template, instead of a complete class, and the type placeholder is called <span class="file_name">T</span>. The  <span class="file_name">typename</span> keyword is just used to tell the compiler that  <span class="file_name">T</span> is actually a type, not a variable. All that's happened is one line of code is added so the compiler can understand what we are doing, and then all the <span class="file_name">char</span> type keywords are replaced with <span class="file_name">T</span>. Other than that, there are no changes.
+	I'm going to show you some code here, but don't over think it. All that's going to happen is the <strong>char</strong> type keyword is going to get replaced with a temporary placeholder called <strong>T</strong>. The first line of the code snippet below tells the compiler that node is a class template, instead of a complete class, and the type placeholder is called <strong>T</strong>. The  <strong>typename</strong> keyword is just used to tell the compiler that  <strong>T</strong> is actually a type, not a variable. All that's happened is one line of code is added so the compiler can understand what we are doing, and then all the <strong>char</strong> type keywords are replaced with <strong>T</strong>. Other than that, there are no changes.
 </p>
 
 	<p><pre><code class="C++">template&lt;typename T>
@@ -100,19 +100,19 @@ public:
 	This node class works and can encapsulate any type of data. This is a very important step in your path to becoming a programmer or software engineer. You are at a crossroads. You can embrace this type of abstract thinking and go on to be a wonderful programmer or software engineer. On the other hand, you can reject this type of abstract thinking and make little or no progress. Choose wisely. &#129488;
 </p> 
 <p>
-	To continue learning about nodes, by themselves, they are pretty useless. Below is a simplistic, naive list class template. Notice, below, that the List class template has Node as a private, inner class. Because of this, no code anywhere else in any app can instantiate or use the encapsulated, Has_A Node class. Because the Node class template is completely encapsulated, it can be made much simpler than the previous code where Node was not encapsulated. Now its instance variables can be public and its operator can be deleted. It does keep the two constructors to help make instantiating Nodes easier.
+	Nodes, by themselves, are pretty useless. Below is a simplistic, naive list class template. Notice that the list class template has <strong>Node</strong> as a private, inner class. Because of this, no code anywhere else in any app can instantiate or use the encapsulated, Has_A Node class. Because the node class template is completely encapsulated, it can be made much simpler than the previous code where <strong>Node</strong> was not encapsulated. Now its instance variables can be public and its operator can be deleted. It does keep the two constructors to help make instantiating Nodes easier.
 </p>
 <p>
-	Using this design, each instance of List can instantiate and directly manipulate a Node any time the list is told to add an element, but nothing else can touch the List's Nodes. This is good.</p>
+	Using this design, each instance of <strong>List</strong> can instantiate and directly manipulate a node any time the list is told to add an element, but nothing else can touch the list's nodes. This is good.</p>
 	<p>&#128512 Now the node won't need any <a href="https://en.wikipedia.org/wiki/Boilerplate_code">boilerplate code</a> for getters, setters, operators, and the like.&#128512
 </p>
-<p>Compare the code for Node below with the Node code above.</p>
+<p>Compare the code for <strong>Node</strong> below with the <strong>Node</strong> code above.</p>
 <p>
 	There is a VERY important bit of code on the line right after the end of the encapsulated, Node inner class. <span class="file_name">shared_ptr&lt;Node&gt; root_node;</span>. This is a private instance variable of the List class template. It is a pointer to the Node instance that is the head, beginning, of the list. By convention, we are 
-	referring to is as the root of the list. The root is equal to <span class="file_name">nullptr</span> for an empty list. 
+	referring to it as the root of the list. The root is equal to <strong>nullptr</strong> for an empty list. 
 </p>
 <p>
-	If you would like to, you can dowload the <a href="example_source/list.h" download>example list.h file</a>.
+	If you would like to, you can download the <a href="example_source/list.h" download>example list.h file</a>.
 </p>
 
 <p>
@@ -163,7 +163,7 @@ public:
     List&lt;T&gt; map(std::function&lt;T(T& a_value)&gt;mapping_function);
     /*
      * There are many more instance functions a fully functional list would need.
-     * Take CSE232, Designing Data Structures, to learn more!!
+     * Take CSE232, Designing Data Structures, to learn more!
      */
 };//end of List class
 }//end of custom namespace
@@ -257,9 +257,9 @@ List&lt;T&gt;::Node::Node(T a_value, shared_ptr&lt;Node&gt; a_parent):value{a_va
 </p>
 
 <p>
-	To add a value to an empty list, use the list's <span class="file_name">push_back</span> instance function. You can find the code for the <span class="file_name">push_back</span> instance function above. There you can see that each time a value is to be added to a list, a node, <span class="file_name">node_to_add</span>, is created to encapsulate the value; then that node is added to the list. If the list is empty, <span class="file_name">node_to_add</span> is added to the list by setting the root node to be <span class="file_name">node_to_add</span>. Otherwise, the last node in the list is found, <span class="file_name">node_to_add</span> is set to be the last node's right child node, and <span class="file_name">node_to_add</span>'s parent is set to be the node that used to be the node at the end of the list.
+	To add a value to an empty list, use the list's <strong>push_back</strong> instance function. You can find the code for the <strong>push_back</strong> instance function above. There you can see that each time a value is to be added to a list, a node (<strong>node_to_add</strong>) is created to encapsulate the value. Then that node is added to the list. If the list is empty, <strong>node_to_add</strong> is added to the list by setting the root node to be <strong>node_to_add</strong>. Otherwise, the last node found in the list is set as a parent and <strong>node_to_add</strong> its right child node.
 </p>
-<p>Below is an example of using this naive, incomplete list class template by using it to contain ints and then adding 3 ints to the list.
+<p>Below is an example of using this naive, incomplete list class template by using it to contain ints and then adding three <strong>ints</strong> to the list.
 </p>
 <p><pre><code class="C++">#include "list.h"
 

@@ -43,7 +43,7 @@
     <h1>Week 5 Ponder and Prove: Nodes</h1>
     <h2>Overview</h2>
     <p>Task: Upgrade the messaging system with office locations</p>
-    <p>Purpose: Explore the concept of a Node</p>
+    <p>Purpose: Explore the concept of a node</p>
 
     <h2>Instructions</h2>
     <p>Scenario: Your company's CEO is getting more nervous about the possibility of company
@@ -57,10 +57,10 @@
       for the location at which they are logged in.
     </p>
     <p>In order to implement this new functionality, your team lead has given you the following
-      guidance, in addition to the <span class="file_name">MessageRouter</span> class
+      guidance, in addition to the <strong>MessageRouter</strong> class
       (message_router.h)
       declaration, the modified driver program (week05.cpp) for
-      the application using the <span class="file_name">MessageRouter</span> class, and message
+      the application using the <strong>MessageRouter</strong> class, and message
       files
       containing sample messages for three offices: a, b, and c.
     </p>
@@ -72,15 +72,14 @@
         week's sample solution</a> as a starting point)
     </p>
     <p>
-      Create a new class called <span class="file_name">MessageRouter</span> based on the
-      following diagram. The <span class="file_name">MessageRouter</span>
-      class includes a private class called <span class="file_name">OfficeNode</span>, which is
+      Create a new class called <strong>MessageRouter</strong> based on the
+      following diagram. The <strong>MessageRouter</strong>
+      class includes a private class called <strong>OfficeNode</strong>, which is
       a simplified version of the
-      <span class="file_name">Node</span> class you saw in the <a href="index.html">reading
-        material</a>. The <span class="file_name">OfficeNode</span>
+      <strong>Node</strong> class you saw in the <a href="index.html">reading
+        material</a>. The <strong>OfficeNode</strong>
       class is used to represent an
-      office location and includes an office name and a <span
-        class="file_name">MessageStore</span> unique to that office
+      office location and includes an office name and a <strong>MessageStore</strong> unique to that office
       location.
     </p>
     <img src="images/cse220c_week05_prove_uml_messagerouter.svg"
@@ -93,57 +92,57 @@
         OfficeNode - Properties: name:string store:shared_ptr<MesageStore> next_ptr:shared_ptr<OfficeNode>
           Methods: OfficeNode()">
 
-    <p>The <span class="file_name">MessageRouter</span> class is analogous to the List class you
+    <p>The <strong>MessageRouter</strong> class is analogous to the <strong>List</strong> class you
       saw from the reading. It
       provides a way to keep track of all the company offices (represented as
-      <span class="file_name">OfficeNode</span>s) and facilities for sending and reading
+      <strong>OfficeNode</strong>) and facilities for sending and reading
       messages
       at a given office location.
     </p>
-    <p>You will need to implement the <span class="file_name">MessageRouter</span> based on the
-      diagram and the <span class="file_name">MessageRouter.h</span>
+    <p>You will need to implement the <strong>MessageRouter</strong> based on the
+      diagram and the <strong>MessageRouter.h</strong>
       file provided.
     </p>
-    <p>Using the concept of a simplified Node as the <span class="file_name">OfficeNode</span>,
+    <p>Using the concept of a simplified node as the <strong>OfficeNode</strong>,
       we can keep track of an
-      unlimited number of <span class="file_name">OfficeNode</span>s by chaining them together
+      unlimited number of <strong>OfficeNodes</strong> by chaining them together
       like this, where the "&bull;" represents a pointer to the next node, which we will
-      call next_ptr:
+      call <strong>next_ptr</strong>:
     </p>
     <img src="images/cse220c_week05_prove_linked_list.svg" alt="root_ptr -> a bullet -> b bullet -> c bullet -> d bullet -> nullptr" class="border">
 
-    <p>Adding a new node is similar to the "push_back" function of a list. If the root_ptr is
+    <p>Adding a new node is similar to the <strong>push_back</strong> function of a list. If the <strong>root_ptr</strong> is
       null, that means there are not currently any nodes:
     </p>
     <img src="images/cse220c_week05_prove_linked_list_1.svg" alt="root_ptr -> nullptr" class="border">
 
-    <p>In this case, we can add a node <span class="file_name">a</span> by first creating a new
-      OfficeNode, then telling the
-      root_ptr to point to the new node <span class="file_name">a</span>. The new node's
-      next_ptr will point to nullptr:
+    <p>In this case, we can add a node <strong>a</strong> by first creating a new
+        <strong>OfficeNode</strong>, then telling the
+      <strong>root_ptr</strong> to point to the new node <strong>a</strong>. The new node's
+      <strong>next_ptr</strong> will point to <strong>nullptr</strong>:
     </p>
     <img src="images/cse220c_week05_prove_linked_list_2.svg" alt="root_ptr -> a bullet -> nullptr" class="border">
 
-    <p>If root_ptr is not null, then there is at least one node in existence. To add a new
-      node <span class="file_name">d</span>, we would need to "walk" through each node in the
+    <p>If <strong>root_ptr</strong> is not null, then there is at least one node in existence. To add a new
+      node <strong>d</strong>, we would need to "walk" through each node in the
       list until we
-      find the one that points to nullptr, which would mean we have found the last node in the
+      find the one that points to <strong>nullptr</strong>, which would mean we have found the last node in the
       list:
     </p>
     <img src="images/cse220c_week05_prove_linked_list_3.svg" alt="root_ptr -> a bullet -> b bullet -> c bullet -> nullptr" class="border">
 
-    <p>We would then change the last node's next_ptr to point to the newly created node that we
+    <p>We would then change the last node's <strong>next_ptr</strong> to point to the newly created node that we
       want to add, which effectively inserts the new node at the end of the list.</p>
     <img src="images/cse220c_week05_prove_linked_list.svg" alt="root_ptr -> a bullet -> b bullet -> c bullet -> d bullet -> nullptr" class="border">
 
     <p>In a similar manner, if we want to send a message or read a message, we can "walk"
-      through the list of <span class="file_name">OfficeNode</span>s looking for the node with
+      through the list of <strong>OfficeNodes</strong> looking for the node with
       the matching office name. Once
-      we find the appropriate node, we can use its <span class="file_name">MessageStore</span>
+      we find the appropriate node, we can use its <strong>MessageStore</strong>
       to send, read, or delete a
       message.
     </p>
-    <p>Here is an example of adding a new <span class="file_name">OfficeNode</span> to our list.
+    <p>Here is an example of adding a new <strong>OfficeNode</strong> to our list.
     </p>
     <pre><code>
 
@@ -542,7 +541,7 @@ int prompt_for_id()
     <h3>Sample message files</h3>
     <p>Use these sample files of stored messages to test your code. These files must be located
       in
-      the same folder as the week05.cpp file:
+      the same folder as the <strong>week05.cpp</strong> file:
       <ul>
         <li><a href="prove/a_messages.txt">a_messages.txt</a></li>
         <li><a href="prove/b_messages.txt">b_messages.txt</a></li>
@@ -550,9 +549,9 @@ int prompt_for_id()
       </ul>
     </p>
     <h2>Thinking about Security</h2>
-    <p> Instead of calling the offices "a", "b", "c" and so on, what if we think about each
+    <p> Instead of calling the offices "a," "b," "c," and so on, what if we think about each
       "office" as a security classification level? For example, we could create four offices
-      called "public",
+      called "public,"
       "confidential", "secret", and "top secret". Messages sent to each "office" can then be
       considered as "protected" at that level of classificatino. This prevents the accidental
       mingling
