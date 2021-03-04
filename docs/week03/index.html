@@ -105,7 +105,9 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		You'll notice the class keyword is followed directly by the name of the class. Also notice that, <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?crid=BTYSB77L90QG&dchild=1&keywords=a+tour+of+c+bjarne+stroustrup&qid=1594136212&sprefix=a+tour+of+%2Caps%2C249&sr=8-1">in accordance with convention</a>, the first letter 
+		You'll notice the class keyword is followed directly by the name of the class. Also notice that, in accordance with the community convention described 
+		in <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?crid=BTYSB77L90QG&dchild=1&keywords=a+tour+of+c+bjarne+stroustrup&qid=1594136212&sprefix=a+tour+of+%2Caps%2C249&sr=8-1">Stroustrup's 
+		latest book</a>, the first letter 
 		of a custom class's name is capitalized. Nothing else in C++ is usually capitalized except a thing called macros that have fallen out of favor.
 	</p>
 	<p>
@@ -131,7 +133,9 @@ namespace pharmaceutical_tracker {
 	<h3>Note!</h3>
     <h4>I should never actually use the <span class="file_name">protected</span> keyword when writing real code. Right?</h4>
     <p>
-    	No. You are wrong if you try to make this 'never' type of a claim. You should use <a href="https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil">protected when appropriate</a>. Use it when you don't really need to strongly hide how you've done something.
+    	No. You are wrong if you try to make this 'never' type of a claim. According to the 
+    	<a href="https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil">international stadards body's documentation</a>, you should use protected 
+    	when appropriate</a>. Use it when you don't really need to strongly hide how you've done something.
 	</p>
 </section>
 	<p>
@@ -141,7 +145,7 @@ namespace pharmaceutical_tracker {
 		<span class="file_name">other_date</span>. As part of this declaration, you can see another new type modifier, <span class="file_name">&</span>. This modifier 
 		means that the parameter isn't a <span class="file_name">Date</span>. Instead it is a <span class="file_name">Date</span> reference. References are similar to 
 		pointers in that references allow a class instance to be used within a function without the instance being copied. There are some differences however, and Bjarne 
-		Stroustrup states that references were <a href="http://www.stroustrup.com/bs_faq2.html#pointers-and-references"> designed specifically for operator overloading</a> to make the overloading syntax clearer. He also gives some rules for <a href="http://www.stroustrup.com/bs_faq2.html#pointers-and-references">when you should use references and when you should use pointers</a>.
+		Stroustrup, in his  <a href="http://www.stroustrup.com/bs_faq2.html#pointers-and-references">C++ documentation</a>, states that references were designed specifically for operator overloading to make the overloading syntax clearer. He also gives some <a href="http://www.stroustrup.com/bs_faq2.html#pointers-and-references">rules</a> for when you should use references and when you should use pointers.
 	</p>
 	<p>
 		One last item before moving on to the class function definitions. Notice the namespace declaration right before the class declaration. In C++, namespaces are 
@@ -246,7 +250,7 @@ bool Date::operator ==(const Date& other_date)const {
 	</p>
     <p>
     	This means that, with today's modern compilers, programmers don't have to chose when functions should or shouldn't be 'inlined'. The compiler will make a better choice than the programmer can, given the entirety of the code it is compiling. So put the declaration in the .h or .hpp file and the definition in 
-    	the .cpp file and let the compiler do a better job of optimization than you can <a href="https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl">unless otherwise restricted</a>.
+    	the .cpp file and let the compiler do a better job of optimization than you can. There is one specific exception to this rule listed in the <a href="https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl">international C++ standards body's documentation</a>. That is the only exception to this rule. 
     </p>
 </section>
 	<p>
@@ -350,7 +354,7 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		Since <span class="file_name">PhamaceuticalStockModel</span> Has_A array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">deal with the problem of a full array</a>.
+		Since <span class="file_name">PhamaceuticalStockModel</span> Has_A array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">resize</a> a full array.
 	</p>
 
 
