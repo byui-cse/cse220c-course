@@ -128,7 +128,7 @@
 </code>
 	</pre></p>
 	<p>
-		There is another benefit of this design. If bottles of medication are always added at the end of the list for their type of medication. The medication purchased longest ago will always be at the front of the list. That way, when a perscription for some amount of medication is recieved, the bottle purchased longest ago is the one that will be used to fill the perscription. That guarentees the stock of that medication will get turned over appropriately, assuming there is a correlation between the dates the medications were received and the expiration date of the medication in the bottles.
+		There is another benefit of this design. If bottles of medication are always added at the end of the list for their type of medication. The medication purchased longest ago will always be at the front of the list. That way, when a prescription for some amount of medication is received, the bottle purchased longest ago is the one that will be used to fill the prescription. That guarantees the stock of that medication will get turned over appropriately, assuming there is a correlation between the dates the medications were received and the expiration date of the medication in the bottles.
 	</p>
 	<p>
 		What, then, would the code for the <span class="file_name">PharmaceuticalStockModel</span> instance function <span class="file_name">add_tablet_to_stock</span> look like that adds a tablet-type medication to an existing list for that medication stored in the map? To pull this off, there is one more tool you need...
@@ -143,21 +143,21 @@
 		the list, the end of the list, or somewhere in between. But, unlike Python iterators, you have to use an operator in order to get the value out of the iterator.
 	</p>
 	<h3>Get the Beginning of the List</h3>
-		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
 auto front_age_iterator = ages.begin();
 cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
 </code>
 	</pre></p>
 
 	<h3>Get the End of the List</h3>
-		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
 auto end_age_iterator = ages.end();
 cout &lt;&lt; *end_age_iterator&lt;&lt;endl;//prints out 23
 </code>
 	</pre></p>
 	<h3>Find Some Place in the List</h3>
 
-	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
 auto front_age_iterator = ages.begin();
 auto back_age_iterator = ages.end();
 //find the location of 5 in the list...search from the list's beginning to its end
@@ -169,7 +169,7 @@ auto found_age_iterator = ages.find(ages.begin(),ages.end(),5);
 	<p>
 		To move to the next element of the list you use the ++ operator, a reflection of the sibling relationship C++ has with C.
 	</p>
-	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23}
+	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
 auto front_age_iterator = ages.begin();
 cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
 front_age_iterator++;
