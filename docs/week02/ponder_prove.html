@@ -131,14 +131,14 @@ Odd numbers: 9 49 841
       <p>Now that you've learned to use the built-in map, filter, and reduce functionality preferred in modern C++,
          let's look at another way you could have written the code to calculate the sum, min, and max using the older
          C-type <span class="file_name">for</span> loop. Then we'll see how this type of code could lead to bugs that
-         introduce a security vulnerabilities into our program.</p>
+         introduce security vulnerabilities into our program.</p>
 
       <p>Prompt the user for five additional numbers and store them in a new array, then write three functions to
          calculate the sum, min, and max. Each function should use a <span class="file_name">for</span> counting loop to
          iterate over each number in the array. Your three functions
          should implement the following function prototypes. Note that we must pass in the number of items in the array
          (the first parameter, <span class="file_name">count</span>) along with a reference to the array itself.
-         Othewise, the function has no way of knowing how many items are in
+         Otherwise, the function has no way of knowing how many items are in
          the array.</p>
       <pre><code>
 int calc_sum(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
