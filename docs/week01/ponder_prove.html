@@ -26,7 +26,7 @@
 	<h1>Your Task</h1>
 
 	<p>
-		Each of your IDE's, Visual Studio or Xcode, have tools built into them to make the creation and debugging of your code easier. Your task is to 
+		Each of your IDEs, <a href="https://visualstudio.microsoft.com/vs/community/">Visual Studio</a> or <a href="https://developer.apple.com/xcode/">Xcode</a>, have tools built into them to make the creation and debugging of your code easier. Your task is to 
 		experience and understand not only how the stepwise debugger for your IDE works, but to see how it can help you when you have a logic error in 
 		your code. In other words, when your code isn't doing what you think it should, you use the stepwise debugger to find out what it is actually doing 
 		so you can track down the flaw in your thinking and code. Once you've found the flaw, you can brainstorm about how to change your code so it works 
@@ -38,6 +38,10 @@
 	</p>
 
 	<h2>Visual Studio Users</h2>
+	<p>(Mac users <a href="#xcode">skip to the next section</a> for Xcode instructions)</p>
+	<section class="callout">
+		<p><strong>Note:</strong> Windows users should install <a href="https://visualstudio.microsoft.com/vs/community/">Visual Studio <em>Community</em></a>, NOT Visual Studio <em>Code</em>. These are two vastly different products. Visual Studio <em>Code</em> is a nice text editor with great extensions, but it is not the right tool for professional C++ development. Visual Studio <em>Community</em> is a full-featured IDE (Integrated Development Environment), including a modern C++ compiler and debugger. Both of these products from Microsoft are free. For this class, make sure you are using Visual Studio <em>Community</em>.</p>
+	</section>
 	<p>
 		Run Visual Studio and create a new Console App project called <span class="file_name">learning_debugging</span>.
 		Select the <span class="file_name">learning_debugging.cpp</span> file in your project and delete all the code there.
@@ -94,7 +98,7 @@
 	<p>Select <b>step over</b> again, and the hightlighted code moves back to line 47. Select <b>step over</b> one more time and the result
 		of the calculation, 55, is stored in the theTotal variable. With your next click, cout prints out the next debug
 		statement including the value 55, in the console window.</p>
-	<h2>Xcode Users</h2>
+	<h2 id="xcode">Xcode Users</h2>
 	<p>Run Xcode and create a new project called <span class="file_name">learning_debugging</span> following the same process you did the reading. Double-click 
 		the <span class="file_name">learning.cpp</span> file found in the zip file you donwloaded and unzipped earlier. Copy the contents of the file. Then select the <span class="file_name">main.cpp</span> file in your project 
 		and remove the code you find there and paste in the code from <span class="file_name">learning.cpp</span> that you copied. There is code in the learning.cpp file that will look 
@@ -160,6 +164,12 @@
 		Play around with this a little bit. Change the numbers being passed to the total function and see what happens.
 	</p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	<footer>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+			  style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+		licensed
+		under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+		   International License</a>.
+	 </footer>
 </body>
 </html>
