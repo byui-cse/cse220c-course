@@ -47,7 +47,7 @@
 		While this works, it uses that evil C-type array. It can definitely be improved upon for flexibility, usability, and security.
 	</p>
 	<p>
-		Consider this small part of the application's <a href="https://uxplanet.org/aligning-design-to-user-stories-614b4845fc8d">user story</a>. Using your application's User Interface (UI), your customer wants to select the name of a medication and see a list of all the bottles of that medication, when they were recieved, when they expire, and how many pills, or if liquid how much liquid, remains in each bottle. This can be done using C-type arrays, but the code will be slow since you will have to do a lot of searching...comparing the name of each medication in the array with the selected name and building a temporary C-type array to hold pointers or references to, heaven forbid copies of, each of the matching medications. Wow! Slow, error prone, <a href="https://www.quora.com/What-is-the-difference-between-robust-code-and-brittle-code">brittle</a>, insecure code. &#128561; 
+		Consider this small part of the application's <a href="https://uxplanet.org/aligning-design-to-user-stories-614b4845fc8d">user story</a>. Using your application's User Interface (UI), your customer wants to select the name of a medication and see a list of all the bottles of that medication, when they were received, when they expire, and how many pills, or if liquid how much liquid, remains in each bottle. This can be done using C-type arrays, but the code will be slow since you will have to do a lot of searching...comparing the name of each medication in the array with the selected name and building a temporary C-type array to hold pointers or references to, heaven forbid copies of, each of the matching medications. Wow! Slow, error prone, <a href="https://www.quora.com/What-is-the-difference-between-robust-code-and-brittle-code">brittle</a>, insecure code. &#128561; 
 	</p>
 	<h1>Maps</h1>
 	<p>
@@ -99,12 +99,12 @@
 	</p>
 	<a name="template_description"><h2>Templates</h2>
 	<p>
-		If you had a template for a pair of pants, known as a pattern, you could use that template to make pants from denim, cotton, or even silk if you wanted to. They would all be pants. The template ensures that, regardless of the material used, the pants would all be the same size, be put on the same way, and have the same number and shape of pockets. This is what templates do; maintain commonality. C++'s <span class="file_name">std::map</span> is a template. It maintains commonality, but doesn't care what is stored in it as long as there is one key for one value. You can choose anything you want for a key and anything you want for a value. 
+		If you had a template for a pair of pants, known as a pattern, you could use that template to make pants from denim, cotton, or even silk if you wanted to. They would all be pants. The template ensures that, regardless of the material used, the pants would all be the same size, be put on the same way, and have the same number and shape of pockets. This is what templates do; maintain commonality. C++'s <span class="file_name">std::map</span> is a template. It maintains commonality but doesn't care what is stored in it as long as there is one key for one value. You can choose anything you want for a key and anything you want for a value. 
 	</p>
 	<p>
 		As you know, a template (pattern) for a pair of pants isn't the same thing as having a pair of pants. Someone has to apply the pants template to cloth to create a pair of pants. This template to reality relationship is also true for <span class="file_name">std::map</span>. When the compiler reads code like <span class="file_name">map&lt;string,Medication&gt; in_stock_medications;</span> it 'says', "Oh...you have a template here for a map that uses a string for a key and a Medication for a value. I'll make a map for you that will do that. You're welcome." See? Your code informs the compiler what the template is for the container you want and it creates the code that is that container for you. Sweet! &#128526; Next week you'll get to create a class template of your own!
 	</p>
-	<p>This class template stuff and using map is all good. But there is one big problem. The C-type array could have many bottles of any specific type of medication. Maps use keys to look up a single value. Oh no...now we can only have one bottle of each type of medication in the pharamcy. Don't worry. There is a solution.
+	<p>This class template stuff and using map is all good. But there is one big problem. The C-type array could have many bottles of any specific type of medication. Maps use keys to look up a single value. Oh no...now we can only have one bottle of each type of medication in the pharmacy. Don't worry. There is a solution.
 	</p>
 	<h1>Lists</h1>
 	<p>
@@ -192,6 +192,12 @@ cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 17
 	</pre></p>
 
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	<footer>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+			  style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+		licensed
+		under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+		   International License</a>.
+	 </footer>
 </body>
 </html>
