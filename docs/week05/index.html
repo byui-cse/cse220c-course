@@ -43,7 +43,7 @@
 	</p>
 	<img src="images/list.png" alt="a list with the contents A through D">
 	<p>In this image, each blue square represents a node. A node has data. Each node in the image has A, B, C, or D as its data. A node also 'knows' about other nodes via connections. These connections keep the nodes in some specific order. The connections in the image are the black lines you see connecting the nodes together.</p>
-	<p>When nodes are well designed, you can start anywhere in the list and move either direction. That means, each node has to know about the previous node, traditionally known as 'parent', and the next node traditionally known as 'child'. In the image above, the node containing B is the child of the node containing A and the node containing A is the parent of the node containing B.</p>
+	<p>When nodes are well-designed, you can start anywhere in the list and move either direction. That means, each node has to know about the previous node, traditionally known as 'parent', and the next node traditionally known as 'child'. In the image above, the node containing B is the child of the node containing A and the node containing A is the parent of the node containing B.</p>
 	<p>
 		Examine the tree again.
 	</p>
@@ -53,7 +53,7 @@
 		In this image, each node has to 'know about' two children, traditionally called 'right child' and 'left child.' Therefore, the node containing D is the parent of the two nodes containing B and G. The parent of the node containing B is the node containing D. The parent of the node containing G is also the node containing D. 
 	</p>
 	<p>
-		Compare the list and tree images. Notice that the right-most branch of the tree, the nodes containing D, G, and Z, looks just like a list. That's because a list is just a tree with no branches.&#128512 It should, then, be possible to create a well designed node that can be used to represent both a list and a tree. Ah...code re-use...that's a great thing! The code snippet below shows the code for a node that can hold characters and be used for lists and trees.&#128526
+		Compare the list and tree images. Notice that the right-most branch of the tree, the nodes containing D, G, and Z, looks just like a list. That's because a list is just a tree with no branches.&#128512 It should, then, be possible to create a well-designed node that can be used to represent both a list and a tree. Ah...code re-use...that's a great thing! The code snippet below shows the code for a node that can hold characters and be used for lists and trees.&#128526
 	</p>
 	
 	<p><pre><code class="C++">class Node{
@@ -278,6 +278,12 @@ int main(int argc, const char * argv[]) {
 }
 </code></pre></p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+<footer>
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+          style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+    licensed
+    under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+       International License</a>.
+ </footer>
 </body>
 </html>
