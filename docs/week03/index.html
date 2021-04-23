@@ -45,7 +45,7 @@
 </p>
 <h1>The Classes</h1>
 <h2>C++ Peculiarities</h2>
-<p>Due to C++'s ancestor C, C++ class declarations and definitions are put in <a href="http://www.math.uaa.alaska.edu/~afkjm/csce211/handouts/SeparateCompilation.pdf">seperate files</a>. A declaration describes what properties and functions a class has, but 
+<p>Due to C++'s ancestor C, C++ class declarations and definitions are put in <a href="http://www.math.uaa.alaska.edu/~afkjm/csce211/handouts/SeparateCompilation.pdf">separate files</a>. A declaration describes what properties and functions a class has, but 
 	not what the functions do. An implementation describes what each class function does--but not what properties and functions a class has. Many other languages 
 	combine the declaration and definition in one spot. By convention, the declaration files for C++ use the .h or .hpp file extension to the file name. 
 	Also by convention, C++ implementation files use the .cpp extension. Since this is by convention only, you could use any extension you want, 
@@ -61,11 +61,11 @@
 		<blockquote><i>I have worked on projects that used .h, on projects that used .hpp, and on projects that used .H. 
 		I did not notice the choice of suffix to be among the significant problems or advantages. So, I prefer to spend my efforts 
             on other things.</i></blockquote>
-		<span class="citation">Excerpt From: <a href="https://github.com/isocpp/CppCoreGuidelines/issues/686">"Default convention for C++ header files should be .hpp"</a>ISO C++, 2016.</span>
+		<span class="citation">Excerpt From: <a href="https://github.com/isocpp/CppCoreGuidelines/issues/686">"Default convention for C++ header files should be .hpp"</a> ISO C++, 2016.</span>
 	</p>
     <p>
     	In other words, it doesn't matter which you use. Go with the default your IDE uses. It's not even worth the time to change it from your IDE's default. 
-    	When you get a job, your boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this is will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!! &#129395;
+    	When you get a job, your boss may have an opinion as to which to use. Be obedient and do what you are told then. The bosses that I (the author) had didn't care. Also, this will be remedied when compilers more fully support C++20. Then header files will not be needed at all. Party!! &#129395;
     </p>
 </section>
 </p>
@@ -134,7 +134,7 @@ namespace pharmaceutical_tracker {
     <h4>I should never actually use the <span class="file_name">protected</span> keyword when writing real code, right?</h4>
     <p>
     	No. You are wrong if you try to make this 'never' type of a claim. According to the 
-    	<a href="https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil">international stadards body's documentation</a>, you should use protected 
+    	<a href="https://isocpp.org/wiki/faq/basics-of-inheritance#protected-data-not-evil"> Standard C++ Foundation's documentation</a>, you should use <em>protected</em> 
     	when appropriate</a>. Use it when you don't really need to strongly hide how you've done something.
 	</p>
 </section>
@@ -249,7 +249,7 @@ bool Date::operator ==(const Date& other_date)const {
 		<span class="citation">Excerpt From: <a href="https://www.amazon.com/21st-Century-Tips-New-School-ebook/dp/B00NYBRH30/ref=sr_1_1?dchild=1&keywords=21st+century+c%3A+chips+from+the+new+school&qid=1588266896&sr=8-1&swrs=AF5B754DFF2FAA8BDA238ACC35626D8C">"21st Century C: C Tips from the New School (p. 181)"</a>Ben Klemens, O'Reilly Media. Kindle Edition. </span>
 	</p>
     <p>
-    	This means that with today's modern compilers, programmers don't have to chose when functions should or shouldn't be 'inlined'. The compiler will make a better choice than the programmer can, given the entirety of the code it is compiling. So put the declaration in the .h or .hpp file and the definition in 
+    	This means that with today's modern compilers, programmers don't have to choose when functions should or shouldn't be 'inlined'. The compiler will make a better choice than the programmer can, given the entirety of the code it is compiling. So put the declaration in the .h or .hpp file and the definition in 
     	the .cpp file and let the compiler do a better job of optimization than you can. There is one specific exception to this rule listed in the <a href="https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl">international C++ standards body's documentation</a>. That is the only exception to this rule. 
     </p>
 </section>
@@ -262,10 +262,10 @@ bool Date::operator ==(const Date& other_date)const {
 	
 	<h2>Creating an Instance</h2>
 	<p>
-		Declarations and definitions are vital, but they are not sufficient. To write object-oriented code in any language you need to be able to create an instance of any declared and defined class. The way you do this depends on whether you want to instantiate an instance <i>and</i> get a pointer to it, or just instantiate an instance. If you want both an instance and a pointer to that instance, you can do it the old fashioned pointer way or the modern pointer way. Remember, if you use the old fashioned way there must be a place, somewhere in your code, where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
+		Declarations and definitions are vital, but they are not sufficient. To write object-oriented code in any language you need to be able to create an instance of any declared and defined class. The way you do this depends on whether you want to instantiate an instance <i>and</i> get a pointer to it, or just instantiate an instance. If you want both an instance and a pointer to that instance, you can do it the old-fashioned pointer way or the modern pointer way. Remember, if you use the old-fashioned way there must be a place, somewhere in your code, where you delete the variable and set the variable to nullptr. If you use the modern way, that is done for you.
 	</p>
 	<p>
-	<pre><code>//old fashioned way
+	<pre><code>//old-fashioned way
 
 //the type of the birthday variable is Date* (date pointer)
 auto birthday = new Date(5,12,1999);
@@ -389,6 +389,12 @@ namespace pharmaceutical_tracker {
 		Notice the use of the <i>public</i> keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publicly accessible when using an instance of TabletMedication. That means the programmer does not need to create additional instance functions for <span class="file_name">TabletMedication</span> for programmers using the <span class="file_name">TabletMedication</span> class to use public methods of the <span class="file_name">Medication</span> class. This is the essence of the Is_A type of inheritance. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a> and those types of inheritance are Has_A instead of Is_A due to the inheritance hiding.
 	</p>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+	<footer>
+		<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+			  style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+		licensed
+		under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+		   International License</a>.
+	 </footer>
 </body>
 </html>
