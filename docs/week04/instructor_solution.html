@@ -60,7 +60,7 @@ Message::Message(const string&amp; sender, const string&amp; receiver,
 
 Message::Message(const string&amp; sender, const string&amp; receiver,
    const string&amp; date, const string&amp; subject, const string&amp; content) :
-   id{ ++id_next }, date{ date }, author{ sender }, recipient{ receiver },
+   id{ ++id_next }, author{ sender }, recipient{ receiver }, date{ date },
    subject{ subject }, content{ content } {}
 
 void Message::display_message() const
@@ -258,6 +258,7 @@ void MessageStore::write_messages_to_file(const string&amp; filename)
 
 #include &quot;message_store.h&quot;
 #include &lt;iostream&gt;  // cout, endl
+#include &lt;limits&gt; // numeric_limits
 #include &lt;string&gt;
 
 void display_menu();
