@@ -39,9 +39,9 @@
 
 class Customer {
 private:
+   int id;
    std::string given_name;
    std::string family_name;
-   int id;
 
 public:
    Customer(int id, std::string given_name, std::string family_name);
@@ -87,8 +87,8 @@ bool Customer::operator==(const Customer&amp; other_customer) const {
 class Account {
 private:
    int account_number;
-   double balance;
    const Customer&amp; owner; // owner is a constant reference to a Customer
+   double balance;
 
 public:
    // use &quot;pass-by-reference&quot; mechanism for the owner
