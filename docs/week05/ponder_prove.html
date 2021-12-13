@@ -322,6 +322,8 @@ Saved office d to file
 #ifndef message_router_h
 #define message_router_h
 
+
+#include &lt;memory&gt;  // for shared_ptr
 #include &lt;string&gt;
 #include &quot;message_store.h&quot;
 
@@ -386,9 +388,10 @@ private:
 // the MessageRouter class
 //
 
-#include &quot;message_router.h&quot;
 #include &lt;iostream&gt;  // cout, endl
+#include &lt;limits&gt;  // numeric_limits
 #include &lt;string&gt;
+#include &quot;message_router.h&quot;
 
 void display_menu();
 void user_loop(const string&amp; username, const string&amp; location, MessageRouter&amp; r);
