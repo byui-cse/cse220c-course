@@ -750,15 +750,15 @@ using std::endl;
 
 int main(int argc, const char * argv[]) {
 	int secretNumber = rand()%(100 + 1);
-	while(true){}
+	while(true){
 		cout&lt;&lt;"Guess a number between 0 and 100."&lt;&lt;endl;
 		int aGuess = -1;
 		cin&gt;&gtaGuess;
 		if (aGuess < secretNumber) {
-		    cout&lt;&lt;"To low."&lt;&lt;endl;
+		    cout&lt;&lt;"Too low."&lt;&lt;endl;
 		}
 		else if (aGuess > secretNumber){
-		    cout&lt;&lt;"To high."&lt;&lt;endl;
+		    cout&lt;&lt;"Too high."&lt;&lt;endl;
 		}
 		else{
 		    cout&lt;&lt;"You guessed correctly!!!"&lt;&lt;endl;
