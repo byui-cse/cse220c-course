@@ -1,0 +1,227 @@
+<!-- uses https://highlightjs.org/
+--><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 03 Ponder &amp; Prove | CSE 220c</title>
+    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
+      type="image/x-icon">
+    <script>
+      var codeType = "C++"
+   </script>
+    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+    <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <style>
+      .underline {
+         text-decoration: underline;
+      }
+   </style>
+  </head>
+  <body onload="fetchSource()">
+    <header class="hero-image">
+      <div class="hero-text">
+        <h1>CSE 220c: Week 03</h1>
+        <p>Ponder and Prove</p>
+      </div>
+    </header>
+    <main>
+      <h1>Week 3 Ponder and Prove: Standard Template Library and Iterators</h1>
+      <h2>Overview</h2>
+      <p>Task: Upgrade the bank system to handle more than one account.</p>
+      <p>Purpose: Learn how to use the Standard Template Library and iterators.</p>
+      <h2>Instructions</h2>
+      <p> These instructions are designed to help you break your programming
+        into small pieces to make it easier for you to write and debug. You only
+        turn in the final program, after all of the parts have been written, but
+        it will be easier if you make sure that each part is complete before
+        proceeding to the next. </p>
+      <p> <br>
+      </p>
+      <h3> Part 1. </h3>
+      <p>Add the ability to store more than one account to your bank program.
+        You should use one of the Standard Template Library containers to hold
+        the accounts. You may select which type of container to use.</p>
+      <p>Your program should no longer automatically create an account when it
+        starts. You will only create a new account when the user selects this as
+        an option. You should create a new menu option that will enable the user
+        to create a new account. Once the new account is added, store the new
+        account in your container. You will likely need to temporarily remove or
+        comment out the code for some of the other menu functions to get this to
+        work. We'll be adding those functions back later.</p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Main Menu:<br>
+        0. Quit Program<br>
+        1. Display account information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the initial balance: <u>100</u><br>
+      </code>
+      <p> <br>
+      </p>
+      <h3>Part 2.</h3>
+      <p>Change the "Display account information" menu option to show all
+        account information instead of just one account. When this option is
+        selected, all of the stored accounts are shown. Use iterators to
+        implement this option. </p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>Harry</u><br>
+        Enter the balance: <u>200</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        Your choice: <u>1</u><br>
+        Account ID: 0 Name: George Balance: $100.00<br>
+        Account ID: 1 Name: Harry Balance: $200.00<br>
+      </code>
+      <p> <br>
+      </p>
+      <h3>Part 3.</h3>
+      <p>Add the ability to search through the container of accounts for a
+        specific account and display the information associated with the
+        account. Use iterators to find the account. If the account doesn't exist
+        in the list, then display an appropriate error message. You may want to
+        create a function that finds the desired account because you can reuse
+        it later.</p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>Harry</u><br>
+        Enter the balance: <u>200</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>5</u><br>
+        Enter the ID of the account to find: <u>2</u><br>
+        Account not found.<br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>5</u><br>
+        Enter the ID of the account to find: <u>1</u><br>
+        Found account: Account ID: 1 Name: Harry Balance: $200.00<br>
+      </code>
+      <p> <br>
+      </p>
+      <h3>Part 4.</h3>
+      <p>Fix the add deposit and withdrawal options by reusing the code that
+        searches for an account, then apply the desired operation to that
+        account.</p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>Harry</u><br>
+        Enter the balance: <u>200</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>2</u><br>
+        Enter the ID of the account to find: <u>0</u><br>
+        Found account: Account ID: 0 Name: George Balance: $100.00<br>
+        Amount to deposit: <u>15</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>3</u><br>
+        Enter the ID of the account to find: <u>1</u><br>
+        Found account: Account ID: 1 Name: Harry Balance: $200.00<br>
+        Amount to withdraw: <u>25</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        Your choice: <u>1</u><br>
+        Account ID: 0 Name: George Balance: $115.00<br>
+        Account ID: 1 Name: Harry Balance: $175.00<br>
+      </code> </main>
+    <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+          alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+        Commons Attribution 4.0 International License</a>. </footer>
+    
+  </body>
+</html>
