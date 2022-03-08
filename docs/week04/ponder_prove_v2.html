@@ -1,0 +1,226 @@
+<!-- uses https://highlightjs.org/
+--><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 04 Ponder &amp; Prove | CSE 220c</title>
+    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
+      type="image/x-icon">
+    <script>
+      var codeType = "C++"
+   </script>
+    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+    <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <style>
+      .underline {
+         text-decoration: underline;
+         font-weight: bold;
+      }
+   </style>
+  </head>
+  <body onload="fetchSource()">
+    <header class="hero-image">
+      <div class="hero-text">
+        <h1>CSE 220c: Week 04</h1>
+        <p>Ponder and Prove</p>
+      </div>
+    </header>
+    <main>
+      <h1>Week 4 Ponder and Prove: Algorithms</h1>
+      <h2>Overview</h2>
+      <p>Task: Upgrade the bank system to include additional operations: remove an account, show total bank deposits, and pay dividends.</p>
+      <p>Purpose: Learn how to use standard C++ algorithms with the Standard Template Library containers.</p>
+      <h2>Instructions</h2>
+      <p>These instructions are designed to help you break your programming into
+        small pieces to make it easier for you to write and debug. You only turn
+        in the final program, after all of the parts have been written, but it
+        will be easier if you make sure that each part is complete before
+        proceeding to the next.</p>
+      <h3>Part 1.</h3>
+      <p>Rewrite the menu option to display account information to use <span class="file_name">for_each</span>
+        instead of iterators.</p>
+      <h3>Part 2.</h3>
+      <p>Add a menu option to remove an account from the system. Use <span class="file_name">remove_if</span>
+        to perform this operation. After calling <span class="file_name">remove_if</span>, erase the removed
+        elements permanently from the container. Note: some containers are not
+        compatible with <span class="file_name">remove_if</span>. For these containers, you should use <span class="file_name">erase_if</span>
+        instead.</p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>Harry</u><br>
+        Enter the balance: <u>200</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        Your choice: <u>1</u><br>
+        Account ID: 0 Name: George Balance: $100.00<br>
+        Account ID: 1 Name: Harry Balance: $200.00<br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        Your choice: <u>6</u><br>
+        Enter account ID to remove: <u>1</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        Your choice: <u>1</u><br>
+        Account ID: 0 Name: George Balance: $100.00<br>
+      </code>
+      <p> <br>
+      </p>
+      <h3>Part 3.</h3>
+      <p>Add a menu option to determine the total amount of deposits in the
+        system. Use <span class="file_name">accumulate</span> to accomplish this part of the task.</p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>Harry</u><br>
+        Enter the balance: <u>200</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        Your choice: <u>7</u><br>
+        Total in all accounts: $300.00<br>
+      </code>
+      <p> <br>
+      </p>
+      <h3>Part 4.</h3>
+      <p>Add a menu option to add a dividend to all of the accounts. The
+        dividend is calculated as a simple percentage of the current balance.
+        Have the user enter the amount of the dividend as a percentage. Use
+        <span class="file_name">transform</span> to accomplish this task. You could add a new operator *= to
+        your account class to make this task easier. Note: some containers are
+        not compatible with <span class="file_name">transform</span>. For these containers, use <span class="file_name">for_each</span>
+        instead.</p>
+      <p>Example input and output (input is underlined):</p>
+      <code class="console"> Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        8. Add a dividend to all accounts<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        8. Add a dividend to all accounts<br>
+        Your choice: <u>4</u><br>
+        Enter the name: <u>Harry</u><br>
+        Enter the balance: <u>200</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        8. Add a dividend to all accounts<br>
+        Your choice: <u>8</u><br>
+        Enter the dividend as a percentage: <u>5</u><br>
+        <br>
+        Account Menu:<br>
+        0. Quit Program<br>
+        1. Display Account Information<br>
+        2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
+        4. Add new account<br>
+        5. Find account by ID<br>
+        6. Remove account<br>
+        7. Show total balance for all accounts<br>
+        8. Add a dividend to all accounts<br>
+        Your choice: <u>1</u><br>
+        Account ID: 0 Name: George Balance: $105.00<br>
+        Account ID: 1 Name: Harry Balance: $210.00<br>
+      </code> </main>
+    <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+          alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+        Commons Attribution 4.0 International License</a>. </footer>
+    
+  </body>
+</html>
