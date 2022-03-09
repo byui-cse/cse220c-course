@@ -42,17 +42,24 @@
       <p> Create a simple class that represents a bank account. For this task,
         you will create a program that has a single account. In later tasks, you
         will add the ability to store multiple accounts.</p>
-      <p> The account class will have three data members: an account ID
-        (integer), account name (string), and an account balance (float). All of
-        these members should be private or protected.</p>
+      <p> The account class will have the following data members:</p>
+      <ul>
+       <li>an account ID (integer)</li>
+       <li>account name (string)</li>
+       <li>account balance (float)</li>
+      </ul>
+      <p>All of
+        these members should be private or protected. (This is generally true
+        of all class data members.)</p>
       <p> The account class will have a constructor that takes no parameters.
         This constructor will initialize the data members to empty values.</p>
       <p> The account class will have a copy constructor that copies all of the
-        data from one instance to another instance.</p>
+        data from one instance to another instance. The source instance should
+        be passed by reference.</p>
       <p> The account class will have a destructor that takes no parameters and
         an empty body. We'll add more code here later.</p>
       <p> The account class will have a method that prompts the user to enter
-        the name and the initial balance. The ID of the class will be
+        the name and the initial balance. The ID of the object will be
         automatically set by your program with the next ID number available. The
         first ID number is 0, and subsequent accounts will get numerically
         increasing ID numbers.</p>
@@ -60,10 +67,11 @@
         to the output stream passed in as a parameter. The stream should be
         passed by reference to the method, and should return the same stream
         reference that is passed to the method.</p>
-      <p> Your main function will create an object of the account class, ask the
-        user to enter the account information, and call the output method to
-        show the data members to the user. You can use the standard object cout
-        to pass to the output method.</p>
+      <p> Your main function will create an object of the account class, call the
+        object's input method that asks the user to enter the account
+        information, and call the object's output method to show the data
+        members to the user. You can use the standard object cout to pass to
+        the output method.</p>
       <p> Example input and output (input is underlined):</p>
       <p> <code class="console"> Enter the name: <u>George</u><br>
           Enter the balance: <u>100</u><br>
@@ -72,9 +80,12 @@
       <h3>Part 2.</h3>
       <p> Write an output operator &lt;&lt; to enable writing the object's data
         members to an output stream. Since you should already have a public
-        method that can be used for this purpose, you merely need to call it
-        from your output operator.&nbsp; The output operator should not be a
-        member of the account class.</p>
+        method that can be used to write an object's information to an output
+        stream (see part 1 above), you merely need to call it from your output
+        operator.&nbsp; Output operators take the output stream reference as
+        the first parameter, and a const reference of the class as the second
+        parameter. This operator returns the stream reference, which is what
+        allows these calls to be chained together.</p>
       <p> Modify your main function to use the output operator instead of
         calling the output method directly, to send the object to cout.</p>
       <p> Example input and output (input is underlined):</p>
