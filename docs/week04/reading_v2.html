@@ -1,0 +1,286 @@
+
+<!-- uses https://highlightjs.org/
+-->
+<!doctype html>
+<html>
+
+<head>
+	<title>Week 04 Reading | CSE 220C</title>
+	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
+        <script type="text/javascript">
+                 var codeType = "C++"
+        </script>
+        <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+        <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
+</head>
+
+<body onload="fetchSource()">
+	<div class="hero-image">
+		<div class="hero-text">
+			<h1>CSE 220C: Week 04</h1>
+			<p>Prepare</p>
+		</div>
+	</div>
+    <p></p>
+	<h3>Let's Get Loopy!&#129322;</h3>
+
+	<p>
+		From your previous experience with programming languages, it has probably occurred to you that accessing all values in an array using hardcoded numbers is 
+		not a good approach. However, loops are the way to go, and C++ has several loops to choose from.
+	</p>
+
+
+<h4>The Logical Loop</h4>
+	<p>
+		In C++, the logical loop uses a variation of the while syntax found in many languages. Here is one way you could do the names example 
+		using a logical loop.
+	</p>
+<p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long number_of_names = //code to get the number from some database response
+unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+long count_down_index = number_of_names - 1;
+        
+while (count_down_index >= 0) {
+    cout&lt;&lt;"while name: "&lt;&lt;names[count_down_index]&lt;&lt;endl;
+    count_down_index--;
+}
+</code></pre></p>
+
+	<h4>Map, Filter, Reduce, and For Each - looping's better, safer ways</h4>
+
+		<p>
+			In C++, as in most other languages, it is important not to write code that duplicates fundamental parts of the standard language library. While it is possible to write a loop in C++ to average, modify, or select some elements of an array, you should not. Instead you should use the built-in <span class="file_name">filter</span> (select some), <span class="file_name">reduce</span> (average, sum, product, etc.), or <span class="file_name">map</span> (convert all) functionality.
+		</p>
+      <p>
+        Consider a situation where you have been hired to write code for a
+        social media site. You have been asked to write code to count up the
+        total number of 'likes' postings from a single customer has received.
+        Existing code that others have written puts a likes count for each
+        posting in an array called 'likes' for you. The code they wrote looks something like this.
+      </p>
+      <p>
+      	<pre>
+<code class="C++">#include &lt;algorithm&gt;
+#include &lt;memory&gt;
+#include &lt;numeric&gt;
+
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long likes_count = //code to get the number from some database response
+unique_ptr&lt;int[]&gt; likes(new int[likes_count]);
+auto likes_end = likes.get()+likes_count;
+//some code here to fill the array with values from the database response
+}</code>
+</pre>
+      </p>
+      <p>
+		  Note that in the above code, <span class="file_name">likes.get()</span> provides us with access to the beginning of the array.
+		</p>
+		<p>
+		  Suppose you were told to write code that filtered out likes that are less
+        than 10. What's a good way to approach solving this problem?
+      </p>
+      <p>The answer is to use filter functionality. In C++, this is in the <a href="https://www.geeksforgeeks.org/stdremove-stdremove_if-c/"><span class="file_name">remove_if</span> function</a> of the standard algorithm library. Did you notice the <span class="file_name">#include</span> statement in the code snippet above?</p>
+ 	  <p>
+      <pre>
+<code class="JavaScript">likes_end = remove_if(likes.get(), likes_end, [](auto a_likes_amount){
+        return a_likes_amount < 10;
+    });
+}</code>
+	</pre>
+	  </p>
+	  <p>
+	  	The <span class="file_name">remove_if</span> function has three parameters, the beginning of the array, the end of the array, and a lambda that compares each element of the array to something of your choice and returns the result of that comparison. In contrast to the filtering behavior in many other languages, <span class="file_name">remove_if</span> does NOT return a filtered result. Instead, it copies all elements that do not match the condition (remember this is a <span class="file_name">remove_if</span> filter) in the lambda into the front the array and returns an indicator of where the end of the filtered part of the array is. That means that the elements in the array past the updated value (look at the assignment in the code snippet) of <span class="file_name">likes_end</span> are garbage. There's a bunch of elements still out there beyond the new value of <span class="file_name">likes_end</span>, but they are meaningless.
+	  </p>
+      <p>
+        Let's break up the syntax for the C++ lambda function being used. It starts with two operators <span class="file_name">[</span>, and <span class="file_name">]</span>. Between these two operators, you include any variables whose values you want to capture from the enclosing scope. In this case there are none, so <span class="file_name">[]</span> is empty. The lambda required for <span class="file_name">remove_if</span> has one required parameter. Its type must match the type of the elements in the array, <span class="file_name">auto</span> takes care of this for us, and the parameter's value is each element of the array in turn. The body of the lambda function is in the <span class="file_name">{}</span> scope operators, and in this case, consists of just one line of code where the result of comparing each array element to 10 is returned.
+      </p>
+
+      <p>
+        Now that you've accomplished this task, your boss asks you to write code that, instead of filtering out likes, gives the customer five
+        'bonus likes' that are to be added to each posting.
+      </p>
+
+      <p>
+      	What's the approach for this problem? Use map functionality, C++'s standard <a href="https://www.fluentcpp.com/2017/02/13/transform-central-algorithm/"><span class="file_name">transform</span></a> function. The code looks like this.
+      </p>
+      <pre>
+<code class="JavaScript">likes_end = transform(likes.get(), likes_end, likes.get(), [](auto a_likes_amount){
+        return a_likes_amount + 5;
+    });
+</code>
+	</pre>
+	  <p>
+	  	The <span class="file_name">transform</span> function has four parameters instead of just three. The additional parameter is the third, right before the lambda. It indicates to the function where the first result should be put back into the array. In this case, the beginning of the array is used and each subsequent result is placed in the next position. So, if the array consisted of <span class="file_name">{1,3,15,7,23}</span>, the array would be transformed to be <span class="file_name">{6,8,20,12,28}</span>. See? Each element had 5 added to it and the transformed value was put in the array where the un-transformed value was.
+	  </p>
+      <p>
+        Maybe you are asked to total the customers' likes instead of filtering or mapping them. If this were the case, then you should use reduce behavior, C++'s standard <a href="https://stackoverflow.com/questions/12633950/understanding-stdaccumulate"><span class="file_name">accumulate</span> function</a>. 
+      </p>
+      <p>
+      <pre>
+<code class="JavaScript">auto total = accumulate(likes.get(), likes_end, 0, [](auto accumulator, auto a_likes_amount){
+        return accumulator + a_likes_amount;
+    });
+</code>
+	</pre>
+	   </p>
+    	The <span class="file_name">accumulate</span> function also has four parameters. The first the beginning of the array to total, the second is the end, the third is the accumulator's initial value, and the fourth is the lambda that returns the partial accumulated value. For this case, the final result is the summation of the likes which the <span class="file_name">accumulate</span> function returns.
+      </p>
+      <p>
+        But what if you are asked to do something more real? For example, imagine that you are to give five bonus likes only for those that already
+        have 10 likes and then sum the result. The solution for this would use
+        map, filter, and reduce behaviors together.
+      </p>
+      <p><pre>
+<code class="JavaScript">
+    likes_end = remove_if(likes.get(), likes_end, [](auto a_like_count){
+        return a_like_count < 10;
+    });
+    
+    likes_end = transform(likes.get(), likes_end, likes.get(), [](int a_likes_amount){
+        return a_likes_amount + 5;
+    });
+    
+    auto total = accumulate(likes.get(), likes_end, 0, [](auto accumulator, auto a_likes_amount){
+        return accumulator + a_likes_amount;
+    });
+</code>
+	</pre></p>
+		<p>
+			If you just can't get map, filter, and reduce to work for you in any combination, there is a fallback option. The <span class="file_name">for_each</span> function. Like it does in other languages, <span class="file_name">for_each</span> iterates over each element in the array, hands it to you in a lambda, and says, "Do what you want!" If you were going to use <span class="file_name">for_each</span> to print out everything in the original array of likes to the console (something you are very unlikely to do in a real app), the code would look like this.
+		</p>
+		<p>
+      <pre>
+<code class="JavaScript">for_each(likes.get(), likes_end, [](auto a_likes_amount){
+        cout&lt;&lt;a_likes_amount&lt;&lt;endl;
+    });
+</code>
+	</pre>
+
+		<p>
+			But map, filter, and reduce aren't the only algorithms you are limited to. C++ has a large number of others in the <a href="https://www.youtube.com/watch?v=2olsGf6JIkU">standard library</a> you can use in your code. Nor are you limited to using arrays. There are a whole host of different kinds of data containers in C++ <a href="https://en.cppreference.com/w/cpp/container">containers library</a>, sometimes colloquially known as the STL library, that the algorithms library functions work on.
+		</p>
+	<h4>The Counting Loop - Welcome to the Past!</h4>
+	<p>
+		In older C++ code it can be common to see C-types of constructs &#128531;. C++ has been and is moving away from these kinds of things, but you will see them. Counting loops are one type of those C-type constructs.
+	</p>
+	<p>
+		Since C-type arrays have a fixed size and a way to access values using the [] operator, the counting loop is the C-type way to iterate over the elements of C-type arrays, but here is a very good piece of advice. Don't get too caught up in the counting loops you are about to see. In fact, you should have 
+		no raw loops in your code. If this statement bothers you greatly, watch the video <a href="https://www.youtube.com/watch?v=W2tWOdzgXHA">GoingNative 2013 C++ Seasoning Conference session</a>. It is quite long and very technical. Be warned. If you want a more accessible presentation on this topic, check out <a href="https://developer.apple.com/videos/play/wwdc2018/223">Dave Abraham's take</a>. Dave's code examples aren't in C++, but everything he says applies to C++ as well. It is a re-working of much of the material presented at the GoingNative 2013 C++ conference.
+	</p>
+	<p>
+		The traditional, forward-iteration C-type loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code snippet below (glance down and take a look). The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
+		initializes a variable traditionally called i, short for index. This is the variable that will be used later, to access the elements of the array to retrieve or modify them. This operation is executed only the first time the loop's code executes.
+	</p>
+	<p>
+		Item 4, below, increases the value of <span class="file_name">i</span> by one. This is no surprise, but it may be a little surprising that this statement 
+		isn't executed the first time the <span class="file_name">for</span> loop executes. Instead, it is executed every time except the first time. Items 
+		3 and 4 both execute every time, but when item 4 is executed it will always be executed before item 3. If this seems confusing, that is normal. Read it again, if necessary. Think through it carefully and see what the implications are for the example below.
+	</p>
+	<p>
+		Item 3 is a Boolean check. As with most loops in most languages, if the check returns 
+		<span class="file_name">false</span>, the loop terminates and the next line of code after the loop is executed.
+	</p>
+	<p>
+		Item 5 is a set of lines of codes executed every time the item 3 check returns true
+	</p>
+
+	<p><pre><code>
+ 1       2        3     4
+for (int i = 0; i < 7; i++){
+       .
+       . 5
+       .
+}
+<span class="citation">Excerpt From: <a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewBook?id=1023155821">"Doing Stuff With C."</a> Lee S. Barney, &copy;2015. Available on Apple Books. </span>
+</code></pre></p>
+<p>
+	So, recapping, the first time the line of code is executed, only items 2 and 3 are executed. Each time after that, 4 is executed, then 3. Then, if 3 is 
+	true, 5 executes.
+</p>
+<p>
+	An example using the customer names example you saw before is in order. That way, you can see how the counting loop replaces the ridiculous 
+	set of <span class="file_name">cout</span> lines of code with just one, as you would expect.
+</p>
+
+	<p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long number_of_names = //code to get the number from some database response
+unique_ptr&lt;string[]&gt; names(new string[5]);
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+for(int i = 0; i < number_of_names; i++){
+	cout&lt;&lt;"name: "&lt;&lt;names[i]&lt;&lt;endl;
+}
+</code></pre></p>
+<p>
+	There is another variant of the counting loop known as the count down loop. You use this when you want to go in the reverse order. Since dense arrays are 
+	zero indexed, you have to set the initial value of <span class="file_name">i</span> to be one less than some might expect. Here's our previous example, re-worked 
+	to use a count down loop.
+</p>
+
+	<p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long number_of_names = //code to get the number from some database response
+unique_ptr&lt;string[]&gt; names(new string[5]);
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+for(int i = number_of_names-1; i >= 0; i--){
+	cout&lt;&lt;"name: "&lt;&lt;names[i]&lt;&lt;endl;
+}
+</code></pre></p>
+<footer>
+	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+		  style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+	licensed
+	under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+	   International License</a>.
+ </footer>
+</body>
+</html>

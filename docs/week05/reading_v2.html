@@ -1,0 +1,257 @@
+
+<!-- uses https://highlightjs.org/
+-->
+<!doctype html>
+<html>
+
+<head>
+	<title>Week 05 Reading | CSE 220C</title>
+	<link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-i        con">
+        <script type="text/javascript">
+                 var codeType = "C++"
+        </script>
+        <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+        <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+        <script type="text/javascript" src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+
+</head>
+
+<body onload="fetchSource()">
+	<div class="hero-image">
+		<div class="hero-text">
+			<h1>CSE 220C: Week 05</h1>
+			<p>Prepare</p>
+		</div>
+	</div>
+    <p></p>
+	<h3>Arrays</h3>
+	<h4>The Basic Way, C-type Arrays</h4>
+	<p>
+		As with most languages, there are two ways to define and fill an array. Being experienced with <a href="https://www.w3schools.com/python/python_arrays.asp">
+			Python arrays</a>, little of this is new to you. The biggest differences are, since you are in C++, you have to declare the type of the data 
+			held in the array, and use the <span class="file_name">{</span> and <span class="file_name">}</span> characters when you are declaring and filling an array all at once.
+	</p>
+	<p>
+	<pre><code>auto names = {"sally","bob","jorge","brunhilda"};//an array of the four indicated strings
+</code>
+</pre>
+	</p>
+	<p>
+		You can also create an array, and then fill it with values later.
+	</p>
+	<p>
+	<pre><code>std::string names[4];//an array of four strings to be filled later
+	names[0] = "sally";
+	names[1] = "bob";
+	names[2] = "jorge";
+	names[3] = "brunhilda";
+</code>
+</pre>
+	</p>
+	<p>
+		There are also other <a href="https://www.tutorialspoint.com/cplusplus/cpp_arrays.htm">C-type ways</a> to create an array.
+	</p>
+
+	<h4>A More Flexible Way</h4>
+	<p>
+		One major problem with the C-type arrays, as you can see in the basic examples above, is you have to know either the size of the array or exactly 
+		what is going to be in the array when you are writing the code. C-type arrays don't have 
+		any sort of <a href="https://www.journaldev.com/33185/python-add-to-array">append</a> function. But what happens if you don't know what size the array should be? 
+		For example, what if the data to be put in the array is a set of your company's customers that have been pulled out of some database? You simply don't know how 
+		many there will be until after your code has pulled them out. You could write your code in such a way that it has an array that, you think, will always 
+		be larger than the number of customers. This approach will not only fail, because hopefully your business gets more and more customers, but creates an 
+		opening for a <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a> security exploit. Now your application can be hacked. 
+		Never a good thing. Only use the basic way of creating arrays if you know exactly how big, or small, the array needs to be. So, what is this other way? It involves the use of something very cool: pointers.
+	</p>
+	<h3>Pointers - keeping track of where things are</h3>
+	<p>
+		A pointer is a way of keeping track of where something is in RAM or in some other part of the computer. 
+		Whatever that something is, a pointer will point at it. Don't make it harder than this.
+		It just keeps track of where stuff is so you can use it or modify it later. Now let's use pointers so we can have a stable variable that we can use even though 
+		the array it points to can change.
+	</p>
+	<p>Say you have a set of patient name strings you have to repeatedly pull from and store to a database. Also, assume that the action of pulling those customers' names produces not only the names, but 
+		how many names there are. Additionally, suppose the purpose of pulling the names repeatedly is to announce who gets helped in the emergency room next at the hospital for which you work. The code below shows you C++'s original way of creating an array and storing where the newly created array is; it uses a pointer.
+	</p>
+	<p>
+	<pre><code>long number_of_names = //code to get the number from some database response
+auto names = new std::string[number_of_names];//the type of the names variable is std::string* as inferred by the compiler
+</code>
+</pre>
+	</p>
+	<p>
+		In the above example, the <span class="file_name">*</span> type modifier is used. The variable <span class="file_name">names</span> is not a string variable. 
+		Instead, it is a variable of type string pointer. The names variable is pointing at the first string in the <span class="file_name">names</span> array. C++ 
+		arrays are dense arrays, just like the ones in Python. This means that if we know where the first element of the array is and we know how many things there are 
+		in the array, we actually know where they all are since they are right next to each other. Because of this, you could print out the patients' names like this.
+	</p>
+
+	<p>
+	<pre><code>long number_of_names = //code to get the number from some database response
+auto names = new std::string[number_of_names];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+std::cout&lt;&lt;"name: "&lt;&lt;names[0]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[1]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[2]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;std::endl;
+std::cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;std::endl;
+
+//Clean Up Your Mess!
+delete[] names;
+names = nullptr;
+</code></pre></p>
+<p>
+	Notice the two lines of clean up at the end of this last example. If you use this old fashioned syntax for creating pointers in C++, any time you use the new keyword to create a pointer (called allocating memory in C++ speak), 
+	you must call delete. If you don't you will have a <a href="https://searchwindowsserver.techtarget.com/definition/memory-leak">memory leak</a> in your code. 
+	Memory leaks are REALLY BAD. Unfortunately, they are easy to create in C++ and can be really hard to fix in complicated code. So&hellip;do as your mother taught you 
+	and clean up your mess!
+</p>
+<p>
+	Another good practice to follow is, anytime you delete something, set all pointers to it to <span class="file_name"><a href="https://embeddedartistry.com/blog/2017/03/08/migrating-from-c-to-c-null-vs-nullptr/">nullptr</a></span>. (The <span class="file_name">nullptr</span>
+	keyword is similar to, but not the same as, the None keyword in Python.) If you don't get into this habit, you will eventually create something called a zombie pointer or <a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointer</a>. While zombie pointers won't eat your brains, they will eat up your time and energy when you get seemingly random crashes in your application. Just say 
+	no to zombie pointers. If you don't, you will eventually get a <a href="https://www.webopedia.com/TERM/U/use-after-free.html">use after free</a> crash in your code.
+</p>
+<p>
+		You can completely avoid zombie pointers by setting any pointer to <span class="file_name">nullptr</span> <i>after</i> you call delete. Order is important. Do <i>not</i> set it to nullptr before you call delete or you will have just written a memory leak into your code.
+</p>
+<section class="callout">
+	<h3>Note:</h3>
+	<h4>I'm getting tired of typing std:: all the time. Isn't there some other way?</h4>
+	<p>
+		Absolutely. All you have to do is put 
+		<p><pre><code>using std::cout;
+using std::endl;
+using std::string;</code></pre></p>
+		at the beginning of your file. Then, in that file, you don't have to type std:: in front of the <a href="https://cs.lmu.edu/~ray/notes/cppstandardlibrary/"> 
+		standard library</a> things you've specified. The standard items you've seen, string, cout, and endl, are just  a few examples.
+	</p>
+</section>
+
+	<h3>Pointers - the modern way</h3>
+	<p>
+		Unfortunately, the requirement to clean up your own mess, one aspect of memory management, is something that programmers and software engineers just can't seem to get right. <a href="https://www.zdnet.com/article/microsoft-heres-why-we-love-programming-language-rust-and-kicked-off-project-verona/"> Microsoft's own recent statements</a> claim that 70% of  mission-critical defects written into Microsoft's own apps and operating system by their programmers and engineers are the result of poor memory management (Google has made a <a href="https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/">similar statement about their Chrome web browser</a>). Modern C++ has some things in it that can help with this...smart pointers.
+	</p>
+	<p>
+		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us via His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the application of the <span class="file_name">using</span> keyword near the top of the file.
+	</p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+using std::unique_ptr;
+
+/*
+ .
+ .A bunch of code here
+ .
+ */
+
+long number_of_names = //code to get the names number from some database response
+unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+cout&lt;&lt;"name: "&lt;&lt;names[0]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[1]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[2]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;endl;
+cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;endl;
+</code></pre></p>
+<p>
+	Did you see that there is no call to delete for the array? The unique pointer takes care of that.&#128077; You don't have to set it to nullptr either.&#128077;&#128077; unique_ptr takes care of all of this for you!&#128077;&#128077;&#128077; Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead.&#129395;&#129395;&#129395; Which method of using pointers do you like better? Yep...that's what I thought.&#128578;
+</p>
+
+
+<p>
+	As with any well written language, spoken or computer, there is more than one way to accomplish the same thing. Here is another valid way to 
+	print out the values in an array if you are using the old kinds of pointers but, remember, this type of thing is very dangerous. You will learn a safe way to do this same kind of thing in the next section of this reading.
+</p>
+<p>
+	<pre><code>using std::cout;
+using std::endl;
+using std::string;
+/*
+ .
+ .A bunch of code in your app here
+ .
+ */
+long number_of_names = //code to get the number from some database response
+string* names = new string[number_of_names];
+/*
+ .
+ .Code here to fill the array with the names from some database, etc.
+ .
+ */
+
+//print out the names
+cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+names++;
+cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+names++;
+std::cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+names++;
+cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+names++;
+cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+
+//Clean Up Your Mess!
+names -= 4;//reset the pointer to the beginning of the array
+delete[] names;
+names = nullptr;
+</code></pre></p>
+<p>
+	In the first line of code where a name is being printed out, you are going to see the <span class="file_name">*</span> character again. This time, 
+	it isn't being used as a type modifier. Instead, it is an <a href="https://www.geeksforgeeks.org/operator-overloading-c/">overloaded operator</a> 
+	that has as its input the pointer and as its output the value of the thing being pointer at. That's why, when this code is run, the names get 
+	printed out instead of the pointer to the name.
+</p>
+<p> 
+	You'll also notice that in this case, the <span class="file_name">++</span> and <span class="file_name">-=</span> operators are used directly on the pointer. These 
+	are also overloaded operators. When <span class="file_name">++</span> works on a pointer, it moves the pointer to the next string in the array. It can do this 
+	since the compiler it 'knows' the array holds strings, therefore it knows how far to move the pointer to get to the next string. That's exactly what the overloaded ++ operator does on any kind of pointer, be it an array of strings, doubles, floats, ints, or anything else.
+</p>
+<p>
+	The <span class="">-=</span> operator is also overloaded. It moves the pointer backwards by some integer amount.
+</p>
+<p>You may be asking, "But wait a minute. Does that mean + and - are also overwritten?" Excellent question. The answer is yes. Stroustrup, however, does say <a href="https://www.amazon.com/Tour-2nd-Depth-Bjarne-Stroustrup/dp/0134997832/ref=sr_1_1?dchild=1&keywords=a+tour+of+c%2B%2B&qid=1594060107&sr=8-1">that being new to C++, you should never write code like the example you just saw</a>. These overloaded operators for pointers are for the use of the wise and highly experienced.</p>
+
+
+
+
+<section class="callout">
+	<h3>Note:</h3>
+	<h4>My application is crashing!!&#128560; Why?</h4>
+	<p>
+		If your application crashes, the odds are very high you have abused your memory management privileges. You might be deleting something more times than you 
+		should. Remember, with the old methodology, one new requires one and only one delete. It's also possible you created a zombie pointer, or you may have used up all the memory available for the 
+		application by creating a memory leak, or you may have set a variable to <span class="file_name">nullptr</span> and tried to use it anyway. All but the last of these problems go away if you use modern smart pointers.
+	</p>
+	<p>
+		Remember, if your C++ app crashes, the first thing to look for are memory issues.
+	</p>
+	<p>
+		One last thing about these C-style arrays you've been using. Don't fall in love with them. In week 04 you will learn much better and safer ways to store data in a 
+		C++ way. That doesn't mean you don't need to recognize the C-style arrays. You will see them in a lot of older code and will need to know how they work and 
+		what can go wrong with them. Then you will be able to fix the problem and, where possible, replace them with the C++ alternatives.
+	</p>
+</section>
+
+<footer>
+	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
+		  style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is
+	licensed
+	under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+	   International License</a>.
+ </footer>
+</body>
+</html>
