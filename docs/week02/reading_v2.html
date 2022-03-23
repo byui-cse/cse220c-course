@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ Basics</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 02</h1>
+      <p>Prepare</p>
+    </div>
+  </header>
+
+<main>
+<h1>C++ Basics</h1>
+
+<p>
+When learning C++, it's useful to introduce some C programming.  Why is this,
+you ask? C++ is an evolution of the C programming language, and many things are
+still done the same way. In this course, we will not get too deep into C
+programming, but you should at least know the basics. In this discussion,
+whenever the C language is discussed, the topic also applies to C++.
+</p>
+
+<p>
+C is a relatively low level language. This just means that it's closer to the
+machine's native language than some other languages, such as Python. This has
+advantages and disadvantages. Some disadvantages include more difficulty
+programming and less flexibility with data manipulation.  The main advantage is
+that compiled C programs usually run very fast. And C is the de facto lingua
+franca for computer code. There are hundreds if not thousands of C libraries
+out there already written and tested that can be used by your program without
+modification.
+</p>
+
+<p>
+C is a compiled language. This means that a C program needs to be transformed
+from C source code (which the programmer writes) into a native machine code
+(that the computer executes). This compilation takes place once, after code is
+written or changed, and then the resulting binary file can be executed over and
+over again without further processing. Some other languages, like Python, are
+interpreted instead of compiled. This just means that another program (the
+runtime interpreter) interprets the source code each time the program is run
+and translates the code into actions that the computer can understand.  The
+upside is that no compilation step is necessary for interpreted code. However,
+the process of interpreting code makes it run slower, generally, though there
+are tricks to make this process faster.
+</p>
+
+
+<h2>Variables</h2>
+
+<p></p>
+
+<h3>Python Variables</h3>
+<p>In Python, a variable can hold any type of value and can change the type of value it holds. For example, the following code is valid in Python:</p>
+    <pre>
+<code class="Python">age = 3
+age = 5
+age = 4.2</code>
+    </pre>
+
+<h3>C Variables</h3>
+    <p>C treats its variables differently. In C, you not only declare the variable name, but must also declare the type of data the variable can hold.
+    The example below is a valid C variable declaration that can hold an int.</p>
+    <pre>
+<code>int age = 3;</code>
+    </pre>
+The example below is valid C code.
+    <pre>
+<code>int age = 3;
+age = 5;</code>
+    </pre>
+    The following example is not valid.
+    <pre>
+<code>int age = 3;
+age = "Shoshana";</code>
+    </pre>
+    <p>As with all things, there are pluses and minuses of requiring the type of a variable to be unchangeable. One downside is that you may need to declare
+    more variables. One upside is that there is no chance that the type of data in a variable will change when the code is running.
+
+    <h3>Some Common, Valid, C Variable Types</h3>
+    <p>Basic Integer Types
+    <ul>
+        <li><tt>short</tt></li>
+        <li><tt>int</tt></li>
+        <li><tt>long</tt></li>
+
+    </ul></p>
+    <p>Basic Floating Point Types
+        <ul>
+            <li><tt>float</tt></li>
+            <li><tt>double</tt></li>
+            <li><tt>long double</tt></li>
+        </ul>
+    </p>
+    <p>Boolean Types (new in C++!)
+        <ul>
+            <li><tt>bool</tt></li>
+        </ul>
+    </p>
+    <p>Character Types
+        <ul>
+            <li><tt>char</tt> - single character</li>
+            <li><tt>char[]</tt> - array of characters</li>
+            <li><tt>std::string</tt> - a textual set of characters (new in C++!)</li>  
+        </ul>
+    </p>
+
+<section class="callout"> <h4>What is this std:: stuff?</h4>
+        <p>
+            C++ ships with a bunch of standard code already written and compiled for you. A bunch of this is in the <span class="file_name">standard library</span>.
+            Get it? standard -> std:: &#128512;
+        </p>
+        <p>The string type is one of those things found in the standard library. That's why the <span class="file_name">std::</span>
+            <a href="http://www.cplusplus.com/doc/oldtutorial/namespaces/"> namespace indicator</a> is in front
+            of it. By putting <span class="file_name">std::</span> in front of the string type indicator, the compiler knows to look for it in the standard library.</p>
+      </section>
+
+<p>
+Every variable must be
+declared before it's used. This declaration has several parts. First, is the
+name of the type of the variable.  Second, there is the variable name.  Third,
+there is an optional initialization.
+</p>
+
+<p>
+Here's an example of a variable declaration:
+</p>
+
+<code>
+int i = 3;
+</code>
+
+<p>
+Here we declare a variable of type <tt>int</tt> (which is short for integer), and name
+the variable <tt>i</tt>. We also give it a value of 3 as its initial value (a process we
+often refer to as initialization). In C, it's vital to always initialize all of
+your variables, because the compiler will not do it for you. If you fail to set
+your variables before you use them, they will contain garbage values and you
+should expect weird and inconsistent behavior from your programs. 
+</p>
+
+<p>
+Normally, integer types are signed (that is, they can represent negative
+numbers).  There are also unsigned versions of each of the integer types.  Thus
+you could have an <tt>unsigned int</tt> or an <tt>unsigned long</tt>. Unsigned
+values cannot store or represent negative numbers, whereas their signed
+equivalents can.  However, signed numbers can represent only half of the range
+in the positive numbers as the corresponding unsigned number type.  Each of
+these variables occupies a specific amount of memory. For example, if the
+<tt>int</tt> type on your system has a size of 4, it's a 32-bit number (this is
+pretty common). Such a variable can represent values from -2147483648 to
+2147483647, while an <tt>unsigned int</tt> will have the same size and can
+represent values from 0 to 4294967295. If you are curious, the
+<tt>sizeof()</tt> operator can be used to determine how much memory each type
+of variable occupies.  </p>
+
+<p>
+In C, groups of characters surrounded by quote characters are string or
+character literals. Single quotes and double quotes are used in different
+contexts. A single quote designates exactly a single character and is suitable
+with a variable of type char. An example: 
+</p>
+
+<code>
+char a = '1'; 
+</code>
+
+<p>
+Double quotes designate a string of multiple (zero or more) characters followed
+by a special null character that has a value of <tt>0</tt> or <tt>'\0'</tt>. String literals such
+as <tt>"nobody"</tt> are often used to initialize character arrays or for user output.
+Every string literal also contains a terminating null character which must be
+accounted for when using C-style arrays.  Fortunately, we will not deal with
+C-style arrays in this course.
+</p>
+
+<p><em>Important:</em> Double quotes and single quotes in C are <em>not</em> interchangeable.</p>
+
+<p>Here are some more examples of declaring and setting variables:</p>
+    <p>
+    <pre><code>bool am_smart = true;
+short seconds_for_four_tenths_of_day = 32767;
+int seconds_since_first_nevada_nuke_test = 2147483647;
+long milliseconds_since_first_lizards = 9223372036854775807;
+
+
+float largest_float = 340282346638528859811704183484516925440.000000;
+double largest_double = 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000;
+
+char sex = 'f';
+char name[6] = "Susan";
+std::string password = "235X-643!-54jnge;l1jt3;2";</code>
+    </pre>
+    </p>
+    <p>
+        Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought will lead you
+        down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are the same as a continuous number line. <a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html#680">They are not</a>. There are
+        numbers that a double cannot represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you
+        try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using variables of type double, not just integers.
+    </p>
+    <section class="callout">
+    <h4>What are all the underscores in the variable names?</h4>
+    <p>
+        Each language you will learn has written or unwritten rules called conventions. In this class you and I are following the naming convention used by Bjarne Stroustrup, the creator of C++ and head of the ISO international C++ standards body. According to
+        Bjarne, <a href="http://www.stroustrup.com/bs_faq2.html#Hungarian">underscores should be used for separation between the words making up names</a>. You will see this naming convention being used in the standard library containers you will see in week 4.
+    </p>
+    <p>
+        On the other hand, <a href="https://isocpp.org/wiki/faq/coding-standards#identifier-name-conventions">the official ISO standards body FAQ</a> which Bjarne helps oversee makes a different statement. Essentially, they say the way you write your names for things depends on your background, whether you are going to be using platform specific library functions, what your IDE generates for you automatically, and what your teammates are doing. In other words, don't sweat it. There are bigger things to think about and more important things to spend your time on. Oh...one more thing. Do what ever your boss says.
+    </p>
+    <p>
+        In this class, we are using underscores_like_this (snake case). In your other classes it will probably be different. This is a good thing.&#128077;
+    </p>
+</section>
+
+    <p>
+        Another common mistake made by those new to C is they will accidentally assign a float or double value to an integer variable. Your compiler may or may not warn you about this. If you do this, the float--or double value--will be converted into an int and all the data after the decimal point
+        will be lost. Be careful when you do this on purpose, as it can lead to logic errors. Instead, you should make this conversion explicit so you won't forget you meant to do this, and those who come along later to fix bugs in your code will also know you meant to do this. The code example below shows you how to explicitly
+        state that you meant to do this.
+    </p>
+<p>
+    <pre><code>double age_in_years = 21.6;
+int an_age = int(age_in_years);//convert the double into an int and store the result in an int-type variable
+</code>
+</pre>
+    </p>
+    <p>
+        You can also go the other direction, from int to double or float.
+    </p>
+<p>
+    <pre><code>int length_in_feet = 6;
+double a_length = double(length_in_feet);//convert the int into a double and store the result in an double-type variable
+</code>
+</pre>
+    </p>
+    <p>
+        In this case, the value stored in <span class="file_name">a_length</span> is 6.0 not 6.
+    </p>
+    <p>
+        There is one more type you can use when you declare a variable, <span class="file_name">auto</span>. The <span class="file_name">auto</span> type is very
+        interesting. Its purpose is to let the computer decide the type instead of you. Don't misunderstand, the type is still fixed. The compiler uses
+        a process called <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/">type inference</a> to decide what type to assign to the
+        variable. For example, if the compiler infers a variable is a string type, you can't later assign it an int value.
+    </p>
+    <p>
+    <pre><code>auto color = "blue"
+color = 3;//this line causes a compiler error
+</code>
+</pre>
+
+<h2>Blocks</h2>
+
+<p>
+A block of code is a section of code that begins with a curly bracket <tt>{</tt> and ends 
+with a closing curly bracket <tt>}</tt>. Variables declared in a block of code are local to
+that block of code and will be deallocated when the end of the block is 
+encountered. Blocks of code are useful to isolate variables and for loop bodies
+and <tt>if/else</tt> statements.
+</p>
+
+<h2>Operators</h2>
+<p></p>
+
+<h3>C++ and Python</h3>
+<p>Remember, both C++ and Python have C as an ancestor. Because of this, it is
+not shocking to find out that they share many of the same operators. These
+include +, -, /, *, ==, !=, &lt, &gt, etc. By going to these two sites, you can
+compare
+<a href="https://www.tutorialspoint.com/python/python_basic_operators.htm">Python's list of operators</a> to
+<a href="http://www.cplusplus.com/doc/tutorial/operators/">C++'s list of operators</a>. When you do so,
+you will find that Python has a few that C++ does not.</p>
+
+<h3>Missing Operators from C++</h3>
+<p>Because Python was created after C, its developers were able to add
+operators they had seen in other languages that made sense, to them, to include
+in Python. These are the ones you should not expect to find in C or C++:</p>
+
+<ul>
+    <li><tt>**</tt> - the exponentiation operator</li>
+    <li><tt>//</tt> - the floor division operator</li>
+    <li><tt>&lt&gt</tt> - an alternative to !=</li>
+    <li><tt>**=</tt> - the exponent and assign operator</li>
+    <li><tt>and</tt> - the logical and operator</li>
+    <li><tt>or</tt> - the logical or operator</li>
+    <li><tt>not</tt> - the logical not operator</li>
+</ul>
+<p>Don't get the wrong idea. Each of these behaviors can be done in C++, they will just be done a little differently. Take a look
+at Table 1 to see how.</p>
+<p>
+    <table class="blueTable">
+        <caption>Table 1: C Equivalents of Python Operators</caption>
+        <thead>
+            <tr>
+                <th>Python</th>
+                <th>C++</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>a**b</td><td>math.pow(a,b)</td>
+            </tr>
+            <tr>
+                <td>a//b</td><td>math.floor(a/b)</td>
+            </tr>
+            <tr>
+                <td>a &lt&gt b</td><td>a != b</td>
+            </tr>
+            <tr>
+                <td>a**=b</td><td>a = math.pow(a,b)</td>
+            </tr>
+            <tr>
+                <td>a and b</td><td>a && b</td>
+            </tr>
+            <tr>
+                <td>a or b</td><td>a || b</td>
+            </tr>
+            <tr>
+                <td>not(a and b)</td><td>!(a && b)</td>
+            </tr>
+        </tbody>
+    </table>
+</p>
+
+
+<h2>Conditions</h2>
+
+<p>
+In programs it is often useful to make a decision and do different things based
+on a condition. In C, we use <tt>if</tt> and <tt>else</tt> to make decisions:
+</p>
+
+
+<code> <pre>
+int a = 3;
+if (a == 2) {
+  // do something if a is 2
+} else if (a == 3) {
+  // do something if a is 3
+} else {
+  // do something otherwise
+}
+</pre> </code>
+
+<p>
+Notice that we use <tt>==</tt> inside our if statements. <tt>==</tt> is the equality test
+operator, while <tt>=</tt> is the assignment operator. It's usually an error to use one
+when the other is needed.
+</p>
+
+<p>
+Conditions are evaluated on the basis of true and false. Values of 0 are false,
+and every non-zero value is evaluated as true.
+</p>
+
+<code> <pre>
+int a = 3;
+if (a)
+{
+  // a is nonzero so this part is executed
+}
+else
+{
+  // this part is not executed
+}
+</pre> </code>
+
+<p>
+We can also make more complicated conditions by using more logical operators:
+</p>
+
+<ul>
+ <li> <tt>&amp;&amp;</tt> (and)  </li>
+ <li> <tt>||</tt> (or) </li>
+ <li> <tt>!=</tt> (not equal) </li>
+ <li> <tt>&lt;</tt> (less than) </li>
+ <li> <tt>&lt;=</tt> (less than or equal to) </li>
+ <li> <tt>&gt;</tt> (greater than) </li>
+ <li> <tt>&gt;=</tt> (greater than or equal to) </li>
+ <li> <tt>!</tt> (not)</li>
+</ul>
+
+<code> <pre>
+if (a &gt;= 3 &amp;&amp; a &lt;= 10)  // Read: if a is greater than or equal to 3 and a is less than or equal to 10
+{
+  // ...
+}
+</pre> </code>
+
+<p>
+When mixing <tt>&amp;&amp;</tt> and <tt>||</tt> operators in a single condition, you should make
+sure you use parentheses to clearly indicate which should be done first.
+</p>
+
+<p>
+Normally, <tt>if</tt> and <tt>else</tt> will execute only the next statement after the <tt>if</tt> or
+<tt>else</tt>. To have more than one statement we need to create a block by using the 
+curly braces <tt>{</tt> and <tt>}</tt>.
+</p>
+
+<p>
+A common, traditional example of using <tt>if</tt> and <tt>else</tt> is a number
+guessing game. This example strips away all extraneous thinking and allows the
+reader to focus on the concept and syntax of code-branching in C.
+</p>
+
+<code> <pre>
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+int main(void) {
+    int secretNumber = rand()%(100 + 1);
+    cout&lt;&lt;"Guess a number between 0 and 100."&lt;&lt;endl;
+    int aGuess = -1;
+    cin&gt;&gtaGuess;
+    if (aGuess < secretNumber) {
+        cout &lt;&lt; "Too low." &lt;&lt; endl;
+    }
+    else if (aGuess > secretNumber){
+        cout &lt;&lt; "Too high." &lt;&lt; endl;
+    }
+    else{
+        cout &lt;&lt; "You guessed correctly!!!" &lt;&lt; endl;
+    }
+}
+</pre></code>
+
+<p></p>
+
+<h2>Switch</h2>
+
+<p>
+If you want to make decisions based on different values of a single variable,
+the <tt>switch</tt> statement may be used. Each <tt>case</tt> label indicates what should be
+done if the variable has that value. There can also be a <tt>default</tt> case which
+is executed if none of the other labels apply. 
+</p>
+
+<code><pre>
+switch(a)
+{
+case 0:
+    // do stuff here
+    break;
+case 1:
+    // do more stuff here
+    break;
+default:
+    // none of the above
+    break;
+}
+</pre></code>
+
+<p>
+It is important to end each case with a <tt>break</tt> statement or else execution will
+continue into the next case. However, we can make use of this behavior if we
+want to do the same thing with more than one case:
+</p>
+
+<code><pre>
+switch(a)
+{
+case 0:
+case 1:
+    // do stuff here if a is 0 or 1
+    break;
+case 2:
+case 3:
+case 4:
+    // do stuff here if a is 2, 3, or 4
+    break;
+default:
+    // none of the above
+    break;
+}
+</pre></code>
+<p></p>
+
+<h2>Loops</h2>
+
+<p>
+There are three basic types of loops in C. The first, and simplest, is the
+<tt>while</tt> loop. This type of loop has a condition at the top of the loop, and
+executes the body of the loop as long as the condition is true. The same rules
+apply; all conditions of value 0 are treated as false, while nonzero values are
+true. The loop is executed while the condition is still true.
+</p>
+
+<code><pre>
+int done = 0;
+while (!done)   // ! is the logical negation operator, so this can read "while not done"
+{
+  // do stuff here. When done, set done to 1 to fall out of the loop.
+}
+</pre></code>
+
+
+<p>
+In C++, we actually have a real boolean type, so we can write this too:
+</p>
+
+<code><pre>
+bool done = false;
+while (!done)  // Again, read this as "while not done"
+{
+  // ...
+}
+</pre></code>
+
+<p>
+The second type of loop is a <tt>for</tt> loop. These loops are often used to count. The
+<tt>for</tt> loop consists of three statements and a body. The first statement is the
+initialization which is done once before the loop is entered.  The second
+statement is the condition which is exactly the same as the <tt>while</tt> loop. The
+third statement is performed at the end of each loop just before the condition
+is checked for the next iteration. Here's an example:
+</p>
+
+<code><pre>
+int i;
+for (i = 0; i &lt; 10; ++i)
+{
+  // count 0 to 9 (10 iterations)
+}
+</pre></code>
+
+<p>
+This <tt>for</tt> loop is exactly equivalent to this <tt>while</tt> loop:
+</p>
+
+<code><pre>
+int i = 0;
+while (i &lt; 10)
+{
+  // count 0 to 9 (10 iterations)
+  ++i;
+}
+</pre></code>
+
+<p>
+The third type of loop is the <tt>do..while</tt> loop. This type of loop is not often
+used, and can always be rewritten as a regular while loop. A <tt>do..while</tt> loop
+always executes the body at least once. Here's the same code written as a
+<tt>do..while</tt> loop:
+</p>
+
+<code><pre>
+int i = 0;
+do
+{
+  // do stuff here
+  ++i;
+} while (i &lt; 10);
+</pre></code>
+
+	<p>
+		Since there is always a way to rewrite <tt>do..while</tt> loops as plain <tt>while</tt> loops, there is little incentive to
+        write the former type of loop. Indeed, there are many, including Bjarne Stroustrup, the inventor of C++, who avoid using them
+        utterly. Here's what he has to say on the subject:
+        </p>
+		<p><blockquote>In my experience, the do-statement is a source of errors and confusion. The reason is that its body is always executed once before the condition is evaluated. However, for the body to work correctly, something very much like the condition must hold even the first time through. More often than I would have guessed, I have found that condition not to hold as expected either when the program was first written and tested or later after the code preceding it has been modified. I also prefer the condition "up front where I can see it." Consequently, I tend to avoid do-statements.</blockquote>
+		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false"">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
+</p>
+<p>
+As with conditions, the <tt>for</tt>, <tt>while</tt>, and <tt>do</tt> commands will only normally execute
+the next statement as the body of the loop. We can make the loop execute more
+than one statement by adding a block with the curly braces <tt>{</tt> and <tt>}</tt>.
+</p>
+
+<p>
+The <tt>break</tt> command can be used to break out of a loop at any time. The <tt>continue</tt>
+command can be used to go back to the top of the loop at any time. When <tt>continue</tt> is used with <tt>while</tt> or <tt>for</tt>
+loops, the loop condition is tested again to see if the loop will continue or not.
+</p>
+
+<p>Our previous example of a number-guessing game, admittedly, is a little
+ridiculous. You only get one chance to guess. Here is one way you can combine
+looping and code branching so the user can guess an infinite number of times or
+until they guess correctly.
+</p>
+
+<code><pre>
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+int main(void) {
+    int secretNumber = rand()%(100 + 1);
+    while(true){
+        cout &lt;&lt; "Guess a number between 0 and 100." &lt;&lt; endl;
+        int aGuess = -1;
+        cin &gt;&gt aGuess;
+        if (aGuess < secretNumber) {
+            cout &lt;&lt; "Too low." &lt;&lt; endl;
+        }
+        else if (aGuess > secretNumber){
+            cout &lt;&lt; "Too high." &lt;&lt; endl;
+        }
+        else{
+            cout &lt;&lt; "You guessed correctly!!!" &lt;&lt; endl;
+            break;
+        }
+    }
+}
+</pre></code>
+
+<p></p>
+
+<h2>Functions</h2>
+
+<p>
+C is a procedural language, which means that it uses procedures for most
+processing. In C, these are called functions. Functions usually return a single
+value. They are declared like this:
+</p>
+
+<code><pre>
+int some_function(int a, int b)
+{
+  // do stuff here
+  return a;
+}
+</pre></code>
+
+<p>
+This particular function returns a value of type <tt>int</tt>. It also takes two
+parameters, both of which are of type <tt>int</tt> and one is called <tt>a</tt> and the other is
+called <tt>b</tt>.
+</p>
+
+<p>
+If a function does not need to return a value, it should return <tt>void</tt> instead. If a
+function does not take parameters, <tt>void</tt> should take their place:
+</p>
+
+<code><pre>
+void some_function(void)
+{
+  // this function neither takes parameters nor does it return a value
+}
+</pre></code>
+
+<p>
+Function return values can be captured by callers.
+</p>
+
+<code><pre>
+int some_function(int a)
+{
+  return a * 3;
+}
+
+int b = some_function(15);
+</pre></code>
+
+<p>
+After this code is executed, the variable <tt>b</tt> would contain the value 45.
+</p>
+
+<p>
+Every C program needs to contain a function called <tt>main</tt>. This function should
+return an <tt>int</tt>. Your program begins execution at the beginning of the <tt>main</tt>
+function.  Normally, if the program is successful, it will return <tt>0</tt> from <tt>main</tt>.
+This is a signal to the operating system that the command executed properly.
+Nonzero return results often indicate some sort of exception or error.
+</p>
+
+<code><pre>
+int main(void)
+{
+    int a = 5;
+    return 0;
+}
+</pre></code>
+
+<p>
+Functions often call other functions. If a function calls another function that has not yet been
+declared (perhaps because that second function is defined later in the same
+file), the compiler will throw an error. One way around this is to use function
+prototypes at the top of the file or in a header file. A function prototype declares the return
+type and the parameter types without including the body code:
+</p>
+
+<code></pre>
+int some_function(int a, int b);
+</pre></code>
+
+<p></p>
+
+<h2>Libraries</h2>
+
+<p>
+You will not write every line of code you use. There are standard libraries that you can
+use in your programs. Whenever you use a library, you need to include the appropriate header file
+for that library. This is to help the compiler understand the definitions and functions that 
+appear in the library, and also helps the compiler let the programmer know if function arguments
+are being used correctly.
+</p>
+
+<p>
+For example, if we want to use C++ strings in our program, we must use this code at the top of the
+file where we use it:
+</p>
+
+<code><pre>
+#include &lt;string&gt;
+</pre></code>
+
+<p>
+It's important to include the right header files when you write your programs. You can consult online
+C++ documentation to understand which header file to include.
+</p>
+
+<p>
+When you write your own code, you should split your file into header files and source files (cpp files). 
+This allows separate compilation which allows faster compilation when only source files change. 
+Function prototypes and class definitions go in the header file, while function implementations and class
+method implementations go in the source (cpp) file. When including header files defined in your own project, 
+you should use double quotes <tt>"</tt> instead of angle brackets:
+</p>
+
+<code>
+<pre>
+#include "my_class.h"
+</pre></code>
+
+<p></p>
+
+<h2>Passing by Value</h2>
+
+<p>
+In C, values are passed to functions by value. This means that a copy of the
+parameter is placed in a certain location in memory called the stack. Variables
+declared in this function are local to that function and have no effect on
+variables in the caller function. Consider this code:
+</p>
+
+<code><pre>
+int some_function(int a)
+{
+    a = 15 * a;
+    return a;
+}
+
+int main(void)
+{
+    int a = 2;
+    int b = some_function(a);
+    // b now contains the value of 30, and a contains 2
+}
+</pre></code>
+
+<p>
+When we change <tt>a</tt> in the <tt>some_function</tt> function, it is changing a copy of the
+variable <tt>a</tt> declared in the main function. These are two totally separate and
+distinct variables.
+</p>
+
+
+<h2>Passing by Reference</h2>
+
+<p>
+Sometimes, however, we want to be able to declare a variable in one function,
+and change that value in another function. In C++, we can do this by passing
+variables by reference, using the <tt>&amp;</tt> operator in the type name of the
+parameter:
+</p>
+
+<code><pre>
+int some_function(int&amp; a)  // This variable is of type "int reference"
+{
+    a += 2;   // add 2 to original variable
+    return a;
+}
+
+int main(void)
+{
+    int b = 5;
+    some_function(b);
+    // b now contains 7
+}
+</pre></code>
+
+<p>
+Because we passed the variable <tt>b</tt> by reference, when we modify the parameter
+inside the function it actually modifies the original variable. We use
+references when we want to change a variable or we don't want to suffer any
+slowness by making a copy of the variable being passed in.  This becomes more
+important when we start dealing with classes.
+</p>
+
+<p></p>
+
+<h2>User Input and Output</h2>
+
+<p>Input and output are done in C++ using streams. This is a special type of object that can understand many different types of
+variables and will format each one appropriately. 
+</p>
+
+<p>
+Output is done using the <tt>std::cout</tt> object and the <tt>&lt;&lt;</tt> operator.
+</p>
+
+<code><pre>
+std::string s = "Something great is happening!";
+float f = 3.14;
+int i = 127;
+
+std::cout &lt;&lt; s &lt;&lt; " " &lt;&lt; f &lt;&lt; " " &lt;&lt; i &lt;&lt; "\n";
+</pre></code>
+
+<p>
+It is good practice to always end your output with a newline. This can be done with a newline character (shown above) or with the
+<tt>std::endl</tt> object. The <tt>std::endl</tt> object ensures that everything is flushed to the output which can be useful for
+screen output but is less efficient for file output.
+</p>
+
+<p>
+User input is similar to output. We use the <tt>&gt;&gt;</tt> operator with an input stream to read input. <tt>std::cin</tt> 
+is the standard input stream.
+</p>
+
+<code><pre>
+std::string name;
+int value;
+std::cin &gt;&gt; name &gt;&gt; value;
+</pre></code>
+
+<p>
+This code will first read in a name and a value. One important caveat to
+understand about C++ input is that when reading in variables in this fashion,
+only one value will be read at a time, and anything left over stays in the
+input buffer. Normally, this means that only one word will be read in when a
+string is used, only one number will be read in when an integer is used, etc.,
+and trailing newlines will remain in the input buffer.  When using the <tt>&gt;&gt;</tt>
+operator, leading whitespace is skipped, thus consuming any leftover newlines
+from previous read operations.  If we want to read in more than one word at a
+time, we must use a different method for input.  
+</p>
+
+<code><pre>
+std::string name;
+getline(std::cin, name);
+</pre></code>
+
+<p>
+This code reads in an entire line of input. We can then interpret this input any way we like. For example:
+</p>
+
+<code><pre>
+std::string line;
+getline(std::cin, line);
+
+// convert input line to an integer
+int i = std::stoi(line);
+
+// convert input line to a float
+float f = std::stof(line);
+</pre></code>
+
+<p>
+When mixing <tt>&gt;&gt;</tt> and <tt>getline</tt> you may encounter the
+situation where your <tt>getline</tt> calls may appear to be skipped. This
+happens when the <tt>getline</tt> call comes after some input is read using
+<tt>std::cin &gt;&gt;</tt>. What happens is that there is still a leftover
+newline character on standard input that was not consumed by the
+<tt>std::cin</tt> call. You can get around this situation by consuming any
+trailing newline character:
+</p>
+
+<code><pre>
+std::string line;
+int value;
+
+std::cin &gt;&gt; value;
+std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+getline(std::cin, line);
+</pre></code>
+
+<p></p>
+
+<h2>Classes</h2>
+
+<p>This section is still under construction. Please refer to the links in the
+task description for more information about declaring and using classes. Once
+you have finished looking over those documents, come back here for the rest of
+the story.</p>
+<!--
+<h3>Class Definitions</h3>
+<h3>Data Members</h3>
+<h3>Methods</h3>
+<h3>Access Modifiers</h3>
+<h3>Constructors</h3>
+<h3>Destructors</h3>
+<h3>Operator Overloading</h3>
+<h3>Output Operators</h3>
+-->
+
+<h3>Static class members</h3>
+
+<p>
+Normally, there is one copy of each data member for each object declared of a class. This means that
+each object is distinct and separate from every other object, and changing one object's data member does
+not change any other object's data member. However, sometimes we want to share a data member among
+all instances of a particular class. We can do this using the <tt>static</tt> keyword. Declaring a <tt>static</tt>
+member is like declaring a global variable that can only be used by the class members. Declaring
+<tt>static</tt> members is preferable to global variables.
+</p>
+
+<p>
+When a class declares <tt>static</tt> variables, they must be defined somewhere
+also exactly one time. A good place to do this is in the cpp file for the
+class. Static data members should not be initialized in constructors, but are rather
+initialized the same way as global variables. Don't forget to use the class name and the
+scope operator <tt>::</tt>, the same as other class members.</p>
+
+<code><pre>
+// Define Widget Class -- this part goes in a header file
+class Widget {
+protected:
+  int value;
+  static int next_id;  // Only one instance of next_id exists, regardless of the number of existing Widgets
+}
+
+// Instantiate Widget Class static variables -- this part goes in a cpp file
+int Widget::next_id = 0;
+</pre></code>
+
+<p></p>
+
+<h3>The <tt>const</tt> keyword</h3>
+
+<p>
+In C++, we want to ensure data integrity. This means that we want to be able to make sure
+that a particular object or function parameter does not change in a specific function. We can do this 
+with the <tt>const</tt> keyword. Consider this class:
+</p>
+
+<code><pre>
+class Widget {
+protected:
+  int value;
+
+public:
+  int get_value(void) const;
+
+};
+</pre></code>
+
+<p>
+We want to make sure that the <tt>get_value</tt> method on the <tt>Widget</tt> class does not change the <tt>Widget</tt> object, 
+so we put <tt>const</tt> on the function after the function's parameters. We need to put the <tt>const</tt> keyword again when we define
+the function in our cpp file:
+</p>
+
+<code><pre>
+
+int Widget::get_value(void) const
+{
+    return value;
+}
+</pre></code>
+
+<p>
+We can also use <tt>const</tt> with function parameters. When doing this, we ensure that the parameter will not be modified in 
+that function. <tt>const</tt> is often used with references to ensure that the object doesn't change and will not be copied (because
+copying objects can be a time-consuming activity that is usually made unnecessary by using <tt>const</tt>).
+</p>
+
+<code><pre>
+int some_function(const Widget&amp; w)    // type is "Constant Widget Reference"
+{
+    // ...
+}
+</pre></code>
+
+
+
+</body>
+</html>
