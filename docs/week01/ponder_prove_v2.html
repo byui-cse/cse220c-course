@@ -1,0 +1,121 @@
+<!-- uses https://highlightjs.org/
+--><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 01 Ponder &amp; Prove | CSE 220C</title>
+    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
+      type="image/x-icon">
+    <script>
+      var codeType = "C++"
+   </script>
+    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+    <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+    <style>
+      .underline {
+         text-decoration: underline;
+      }
+   </style>
+  </head>
+  <body onload="fetchSource()">
+    <header class="hero-image">
+      <div class="hero-text">
+        <h1>CSE 220C: Week 01</h1>
+        <p>Ponder and Prove</p>
+      </div>
+    </header>
+    <main>
+      <h1>Week 1: C++ Basics</h1>
+      <h2>Overview</h2>
+      <p>Task: Create a simple bank system to keep track of account balances.</p>
+      <p>Purpose: Learn how to declare variables, handle input and output, and loops.</p>
+      <h2>Instructions</h2>
+      <p>These instructions are designed to help you break your programming into
+        small pieces to make it easier for you to write and debug. You only turn
+        in the final program, after all of the parts have been written, but it
+        will be easier if you make sure that each part is complete before
+        proceeding to the next.</p>
+      <p>These links may help you:</p>
+      <p><ul>
+       <li><a href="reading_v2.html">CSE 220C: Week 01 Reading</a></li>
+
+       <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.01.Reading.Basics.html">CSE 230: C++ Basics</a></li>
+       <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.02.Reading.Computation.html">CSE 230: Computation</a></li>
+      </ul></p>
+       <p>You may need to consult additional documentation not listed here. You
+       should ask for help in our class discussion when you get stuck.</p>
+      <h3>Part 1.</h3>
+      <p> In your <tt>main</tt> function, declare three variables. The first is
+      an identification number of type <tt>int</tt>, which should be set to 0.
+      The second is a string that represents the name of the bank account
+      holder. The third is a floating point number that represents the balance
+      in the bank account.  Prompt the user to enter the name on the account
+      and the initial account balance.  </p>
+      <h3>Part 2.</h3>
+      <p>Create a loop inside your <tt>main</tt> function. Inside the loop, present
+        a menu of options to the user. For now, the only option will be to quit the program.
+        The menu should be presented to the user and the user's choice should be input. Only when the
+        user chooses to quit the program should the program exit.  </p>
+      <h3>Part 3.</h3>
+        <p>Add an option in your menu to display the account information. Use <tt>std::cout</tt> and the 
+        <tt>&lt;&lt;</tt> operator to display this information.</p>
+      <h3>Part 4.</h3>
+        <p>Add an option in your menu to add a deposit to the account. Ask the user for the amount
+          to deposit, and read in the amount. Add the new amount to the existing balance.</p>
+      <h3>Part 5.</h3>
+        <p>Add an option in your menu to make a withdrawal from the account. Ask the user for the amount
+        to withdraw, and read in the amount. Subtract the new amount to the existing balance.</p>
+      <p> Example input and output (input is underlined):&nbsp; </p>
+      <p> <code class="console"> Enter the name: <u>George</u><br>
+          Enter the balance: <u>100</u><br>
+          <br>
+          Account Menu:<br>
+          0. Quit Program<br>
+          1. Display Account Information<br>
+          2. Add a deposit to an account<br>
+          3. Withdraw from an account<br>
+          Your choice: <u>2</u><br>
+          Amount to deposit: <u>35</u><br>
+          <br>
+          Account Menu:<br>
+          0. Quit Program<br>
+          1. Display Account Information<br>
+          2. Add a deposit to an account<br>
+          3. Withdraw from an account<br>
+          Your choice: <u>1</u><br>
+          Account ID: 0&nbsp; Name: George&nbsp; Balance: $135.00 <br>
+          <br>
+          Account Menu:<br>
+          0. Quit Program<br>
+          1. Display Account Information<br>
+          2. Add a deposit to an account<br>
+          3. Withdraw from an account<br>
+          Your choice: <u>3</u><br>
+          Amount to withdraw: <u>15</u><br>
+          <br>
+          Account Menu:<br>
+          0. Quit Program<br>
+          1. Display Account Information<br>
+          2. Add a deposit to an account<br>
+          3. Withdraw from an account<br>
+          Your choice: <u>1</u><br>
+          Account ID: 0&nbsp; Name: George&nbsp; Balance: $120.00<br>
+          <br>
+          Account Menu:<br>
+          0. Quit Program<br>
+          1. Display Account Information<br>
+          2. Add a deposit to an account<br>
+          3. Withdraw from an account<br>
+          Your choice: <u>0</u><br> </code> </p>
+      <p><br>
+      </p>
+    </main>
+    <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+          alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
+      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
+        Commons Attribution 4.0 International License</a>. </footer>
+  </body>
+</html>
