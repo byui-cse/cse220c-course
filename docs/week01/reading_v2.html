@@ -72,7 +72,8 @@ age = 4.2</code>
     </pre>
 
 <h3>C Variables</h3>
-    <p>C treats its variables differently. In C, you not only declare the variable name, but must also declare the type of data the variable can hold.
+    <p>C treats its variables differently. In C, you not only declare the variable name, but must also declare the type of data the variable can hold. The type of variable implies which operations can be used on that variable, and also implies a fixed amount of
+    storage that the variables uses. Neither the type nor the storage used can be changed for the lifetime of that variable.
     The example below is a valid C variable declaration that can hold an int.</p>
     <pre>
 <code>int age = 3;</code>
@@ -184,10 +185,50 @@ by a special null character that has a value of <tt>0</tt> or <tt>'\0'</tt>. Str
 as <tt>"nobody"</tt> are often used to initialize character arrays or for user output.
 Every string literal also contains a terminating null character which must be
 accounted for when using C-style arrays.  Fortunately, we will not deal with
-C-style arrays in this course.
+C-style arrays in this course. Instead, we will use <tt>std::string</tt> to hold
+all string values. 
 </p>
 
+<code>
+std::string name = "George";
+</code>
+
 <p><em>Important:</em> Double quotes and single quotes in C are <em>not</em> interchangeable.</p>
+
+<section class="callout"> <h4>Why are C-style arrays so dangerous?</h4>
+<p>
+In C, the only way to represent strings is by using character arrays. As with other variables,
+when declaring a character array, the size of the array is fixed and cannot be changed.
+</p>
+<code><pre>
+char str[25] = "George";
+</pre></code>
+<p> However, even though C-style arrays are fixed in length, there is no boundary checking
+performed when using the array. It's fine to do something like this, because we are only
+using memory allocated to that array:</p>
+<code><pre>
+char str[20];
+str[0] = 'A';
+</pre></code>
+<p>However, it is not fine to do something like this, even though your compiler will 
+happily compile this code without even a warning:</p>
+<code><pre>
+char str[20];
+str[1000] = 'A';
+</pre></code>
+<p>
+The array here only holds 20 characters, so when you write a value to the
+1000th element, you are overwriting memory that has been allocated for some
+other use. You might stomp all over other variables or even your program's
+code. Changing memory like this is very bad and can cause all sorts of
+problems. Writing past the end of a buffer like this is one of the most common
+sources of program vulnerabilities. Attackers exploit such vulnerabilities to
+access and take control of computer systems.
+</p>
+<p>The <tt>std::string</tt> class in C++ is more flexible and also much safer.
+Not only does it expand when more data is added, it also does boundary checking.
+We'll only use <tt>string</tt> in this course.  </p>
+</section>
 
 <p>Here are some more examples of declaring and setting variables:</p>
     <p>
@@ -201,7 +242,7 @@ float largest_float = 340282346638528859811704183484516925440.000000;
 double largest_double = 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000;
 
 char sex = 'f';
-char name[6] = "Susan";
+std::string name = "Susan";
 std::string password = "235X-643!-54jnge;l1jt3;2";</code>
     </pre>
     </p>
@@ -209,7 +250,7 @@ std::string password = "235X-643!-54jnge;l1jt3;2";</code>
         Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought will lead you
         down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are the same as a continuous number line. <a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html#680">They are not</a>. There are
         numbers that a double cannot represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you
-        try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies floating point numbers when using variables of type double, not just integers.
+        try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies to floating point numbers when using variables of type double, not just integers.
     </p>
     <section class="callout">
     <h4>What are all the underscores in the variable names?</h4>
@@ -518,7 +559,7 @@ In C++, we actually have a real boolean type, so we can write this too:
 bool done = false;
 while (!done)  // Again, read this as "while not done"
 {
-  // ...
+  // do stuff here. When done, set done to true to fall out of the loop.
 }
 </pre></code>
 
@@ -574,7 +615,7 @@ do
         utterly. Here's what he has to say on the subject:
         </p>
 		<p><blockquote>In my experience, the do-statement is a source of errors and confusion. The reason is that its body is always executed once before the condition is evaluated. However, for the body to work correctly, something very much like the condition must hold even the first time through. More often than I would have guessed, I have found that condition not to hold as expected either when the program was first written and tested or later after the code preceding it has been modified. I also prefer the condition "up front where I can see it." Consequently, I tend to avoid do-statements.</blockquote>
-		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false"">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
+		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
 </p>
 <p>
 As with conditions, the <tt>for</tt>, <tt>while</tt>, and <tt>do</tt> commands will only normally execute
@@ -646,8 +687,7 @@ parameters, both of which are of type <tt>int</tt> and one is called <tt>a</tt> 
 called <tt>b</tt>.
 </p>
 
-<p>
-If a function does not need to return a value, it should return <tt>void</tt> instead. If a
+<p>If a function does not need to return a value, it should return <tt>void</tt> instead. If a
 function does not take parameters, <tt>void</tt> should take their place:
 </p>
 
@@ -658,9 +698,11 @@ void some_function(void)
 }
 </pre></code>
 
-<p>
-Function return values can be captured by callers.
-</p>
+<p>Functions that return any non-<tt>void</tt> value are required to have a <tt>return</tt> statement
+at the end of the function, with the value to be returned to the caller. These values can be captured
+by the callers. Functions that return <tt>void</tt> do not need a <tt>return</tt> statement, since they
+will return when the end of the function is reached. Functions may return early by including a <tt>
+return</tt> statement elsewhere within the function.</p>
 
 <code><pre>
 int some_function(int a)
@@ -703,6 +745,8 @@ type and the parameter types without including the body code:
 int some_function(int a, int b);
 </pre></code>
 
+<p>Function definitions should <em>not</em> be nested within other functions.</p>
+
 <p></p>
 
 <h2>Libraries</h2>
@@ -724,9 +768,14 @@ file where we use it:
 #include &lt;string&gt;
 </pre></code>
 
+<p>If we want to use input and output streams (including <tt>std::cin</tt> and <tt>std::cout</tt>), we need:</p>
+<code><pre>
+#include &lt;iostream&gt;
+</pre></code>
+
 <p>
 It's important to include the right header files when you write your programs. You can consult online
-C++ documentation to understand which header file to include.
+C++ documentation to understand which header file to include. 
 </p>
 
 <p>
