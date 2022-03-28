@@ -112,7 +112,7 @@
     <h1>Installations</h1>
     <h2>The IDE</h2>
     <br />
-    <h3>Windows</h3>
+    <h3>Microsoft Visual Studio Community Edition (Windows)</h3>
     <section class="callout">
         <p><strong>Note:</strong> Windows users should install <a
                 href="https://visualstudio.microsoft.com/vs/community/">Visual Studio
@@ -134,7 +134,7 @@
         first project, and then run it.
     </p>
 
-    <h3>MacOS</h3>
+    <h3>Xcode (MacOS)</h3>
     <p>If it isn't already installed on your machine, go to the
         <a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12" target="_blank">Apple
             app store download page for Xcode</a>. When you attempt to install, if you don't
@@ -146,9 +146,22 @@
             C++ Using Xcode</a> to see how to create, compile, and run a C++ project
         after launching Xcode.</p>
 
+    <h3>Eclipse (Windows, MacOS, Linux)</h3>
+    <p>Eclipse is a good cross-platform development environment. Eclipse can be
+    <a href="https://www.eclipse.org/ide/"> downloaded from the website</a>.
+    Note that Eclipse does not come with a compiler, so that will have to be
+    downloaded and installed separately. On Windows, you can download either
+    the original <a href="https://sourceforge.net/projects/mingw/">MinGW</a> or
+    the newer <a href="https://www.mingw-w64.org/">MinGW-w64</a> project. On
+    MacOS, you should use the clang compiler and lldb debugger because they are
+    natively supported (however, as of this writing they may not work well with
+    Eclipse).  You will need to install them using Xcode. On Linux, you should
+    just use the native gcc compiler. The gcc compiler should be available to
+    download the normal way you install software for your Linux distribution.
+    This course provides some videos to help you get started with Eclipse.
 
 
-    <h3>Both</h3>
+    <h2>Workflow</h2>
     <p>It is important for you to remember that you will want to make a DIFFERENT project for
         each task you are given. Do NOT create a single project
         and think you can reuse it for all of your tasks. If you try this, you will regret it.
@@ -157,7 +170,6 @@
         project.
     </p>
 
-    <h2>Workflow</h2>
     <p>The work you do using these two tools will flow like this. Each time you are asked to do
         a task, create a directory named for the task. For example,
         if you were asked for your task to write code that calculated loan payments, you could
