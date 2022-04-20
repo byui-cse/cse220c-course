@@ -64,13 +64,13 @@ Maximum: 9
          <li>Use <span class="file_name">unique_ptr</span> and <span class="file_name">new</span> to declare an
             array of the required size.</li>
          <li>You must use <span class="file_name">reduce</span> (<span class="file_name">accumulate</span>)
-            functionality to calculate the sum, min, and max</li>
+            functionality to calculate the sum, min, and max.</li>
          <li>Do not use any built-in sum, min, or max functions. You must write code to calculate them yourself.</li>
       </ul>
 
 
       <p>
-         After your program is working to calculate the sum, min, max, and average using the reduce functionality, now
+         After your program is working to calculate the sum, min, max, and average using the reduce functionality,
          practice using a map function. Use the
          C++ <span class="file_name">transform</span> function on the array of numbers to square each number, storing
          the results back in the array in place of the original numbers. Use a C++ <span
@@ -130,7 +130,7 @@ Odd numbers: 9 49 841
       <h2>Thinking about Security</h2>
       <p>Now that you've learned to use the built-in map, filter, and reduce functionality preferred in modern C++,
          let's look at another way you could have written the code to calculate the sum, min, and max using the older
-         C-type <span class="file_name">for</span> loop. Then we'll see how this type of code could lead to bugs that
+         C-type <span class="file_name">for</span> loop. We'll see how this type of code could lead to bugs that
          introduce security vulnerabilities into our program.</p>
 
       <p>Prompt the user for five additional numbers and store them in a new array, then write three functions to
@@ -152,7 +152,7 @@ int find_max(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
       </p>
       <p>
          What happens if you make a mistake and pass a wrong value for <span class="file_name">count</span> to one of
-         these functions? For example, if your array of numbers has 5 items, what if you accidentally pass the value 6
+         these functions? For example, if your array of numbers has five items, what if you accidentally pass the value 6
          as the first parameter to your <span class="file_name">calc_sum</span> function? </p>
       <p>What happens if you accidentally write a <span class="file_name">for</span> loop that counts one number too
          high so you end up trying to access an item in the numbers array that is outside the bounds of the array?</p>
@@ -166,7 +166,7 @@ int find_max(int count, const unique_ptr&lt;int[]&gt;&amp; numbers);
       <p>After completing the instructions, do the following:</p>
       <ol>
          <li>Review one of the many <a href="instructor_solution.html">possible solutions</a> for this task.</li>
-         <li>Compare and contrast your code with the possible solution's code, and</li>
+         <li>Compare and contrast your code with the possible solution's code.</li>
          <li>Make note of any improvements you could make for future tasks.</li>
       </ol>
 

@@ -24,7 +24,7 @@
   </div>
 </div>
 	<h1>Beyond Arrays</h1>
-	<p>Up to this point, the only type of container you've seen is a C-type array being used in C++. While these arrays are interesting, they lead to so many common coding crashes and security defects that the <a href="https://isocpp.org/wiki/faq/containers#arrays-are-evil">C++ documentation</a> says that they are evil and should be avoided in almost every situation. This is why C++ has a set of standard containers. These include, but are not limited to, <a href="https://stackoverflow.com/questions/45723819/what-is-a-span-and-when-should-i-use-one">spans</a>, <a href="https://www.geeksforgeeks.org/pair-in-cpp-stl/">pairs</a>, <a href="https://thispointer.com/c11-stdtuple-tutorial-examples/">tuples</a>, <a href="https://medium.com/the-renaissance-developer/c-standard-template-library-stl-vector-a-pretty-simple-guide-d2b64184d50b">vectors</a>, <a href="http://www.cplusplus.com/reference/list/list/">lists</a>, <a href="https://www.educative.io/edpresso/what-is-the-cpp-stl-map">maps</a>, and <a href="https://www.learncpp.com/cpp-tutorial/6-15-an-introduction-to-stdarray/">non-C arrays</a>. The code for these containers is highly optimized. Rarely is anyone able to write <a href="https://isocpp.org/wiki/faq/containers#slow-containers">more efficient code</a> to store multiple instances of classes compared to these standard containers. To help you begin your journey into the library of containers and thinking that way instead of in C-type arrays, this class focuses on lists and maps. 
+	<p>Up to this point, the only type of container you've seen is a C-type array being used in C++. While these arrays are interesting, they lead to so many common coding crashes and security defects; the <a href="https://isocpp.org/wiki/faq/containers#arrays-are-evil">C++ documentation</a> says that they are evil and should be avoided in almost every situation. This is why C++ has a set of standard containers. These include, but are not limited to, <a href="https://stackoverflow.com/questions/45723819/what-is-a-span-and-when-should-i-use-one">spans</a>, <a href="https://www.geeksforgeeks.org/pair-in-cpp-stl/">pairs</a>, <a href="https://thispointer.com/c11-stdtuple-tutorial-examples/">tuples</a>, <a href="https://medium.com/the-renaissance-developer/c-standard-template-library-stl-vector-a-pretty-simple-guide-d2b64184d50b">vectors</a>, <a href="http://www.cplusplus.com/reference/list/list/">lists</a>, <a href="https://www.educative.io/edpresso/what-is-the-cpp-stl-map">maps</a>, and <a href="https://www.learncpp.com/cpp-tutorial/6-15-an-introduction-to-stdarray/">non-C arrays</a>. The code for these containers is highly optimized. Rarely is anyone able to write <a href="https://isocpp.org/wiki/faq/containers#slow-containers">more efficient code</a> to store multiple instances of classes compared to these standard containers. To help you begin your journey into the library of containers and thinking that way instead of in C-type arrays, this class focuses on lists and maps. 
 	</p>
 	<p>
 		Consider the <span class="file_name">PharmaceuticalStockModel</span> class you saw last week. It Has_A unique pointer to a C type array of <span class="file_name">Medications</span>. 
@@ -47,18 +47,18 @@
 		While this works, it uses that evil C-type array. It can definitely be improved upon for flexibility, usability, and security.
 	</p>
 	<p>
-		Consider this small part of the application's <a href="https://uxplanet.org/aligning-design-to-user-stories-614b4845fc8d">user story</a>. Using your application's User Interface (UI), your customer wants to select the name of a medication and see a list of all the bottles of that medication, when they were received, when they expire, and how many pills, or if liquid how much liquid, remains in each bottle. This can be done using C-type arrays, but the code will be slow since you will have to do a lot of searching...comparing the name of each medication in the array with the selected name and building a temporary C-type array to hold pointers or references to, heaven forbid copies of, each of the matching medications. Wow! Slow, error prone, <a href="https://www.quora.com/What-is-the-difference-between-robust-code-and-brittle-code">brittle</a>, insecure code. &#128561; 
+		Consider this small part of the application's <a href="https://uxplanet.org/aligning-design-to-user-stories-614b4845fc8d">user story</a>. Using your application's User Interface (UI), your customer wants to select the name of a medication and see a list of all the bottles of that medication; when they were received; when they expire; and how many pills, or if liquid how much liquid, remains in each bottle. This can be done using C-type arrays, but the code will be slow since you will have to do a lot of searching;comparing the name of each medication in the array with the selected name and building a temporary C-type array to hold pointers or references to, heaven forbid copies of, each of the matching medications. Wow! Slow, error prone, <a href="https://www.quora.com/What-is-the-difference-between-robust-code-and-brittle-code">brittle</a>, insecure code. &#128561; 
 	</p>
 	<h1>Maps</h1>
 	<p>
 		All maps, a container type not the map functionality, including the map class in the standard library of C++, <a href="http://www.cplusplus.com/reference/map/map/map/"><span class="file_name">std::map</span></a>, are very good at looking stuff up. Each map is a group of keys and values in pairs. These key-value pairs are so common in programming and applications that you've been using them for a long time without knowing it. Think about your music player on your phone. It has lists of the songs, artists, and music genre on your phone. When you select a song to play, what is actually happening? After all, the display doesn't contain the actual song file. Instead it's the name of the song, musician, or genre. Let's say you select a song name. That name is a key that is used to look up the song file to play. The song file is the value. Key - song name: Value - song file.
 	</p>
 	<p>
-		'Wait a minute', you say. Doesn't the map just have an array inside? Isn't it going to look through that array just like I could? The answer to both of these questions is no. It is much more sophisticated than that. It uses a <a href="https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/">tree</a> 
+		"Wait a minute", you say. "Doesn't the map just have an array inside? Isn't it going to look through that array just like I could?" The answer to both of these questions is no. It is much more sophisticated than that. It uses a <a href="https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/">tree</a> 
 		implementation. You'll learn more about maps and trees when you take the <span class="file_name">CSE212 Programming with Data Structures</span> and <span class="file_name">CSE232 Designing Data Structures</span> classes. For now, just believe there are computer scientists who have more knowledge than you do right now and map is designed by them to be significantly better than using a hidden array.
 	</p>
 	<p>
-		Maps are good at looking things up. Looking up things in C++'s <span class="file_name">std::map</span> is O(log n) so let's modify the <span class="file_name">PharmaceuticalStockModel</span> class to have a map of medications instead of a unique_ptr to an array of medications. When this is done, what before was
+		Maps are good at looking things up. Looking up things in C++'s <span class="file_name">std::map</span> is O(log n), so let's modify the <span class="file_name">PharmaceuticalStockModel</span> class to have a map of medications instead of a unique_ptr to an array of medications. When this is done, what before was
 	</p>
 	<p><pre><code class="C++">class PharmaceuticalStockModel{
     private:
@@ -73,7 +73,7 @@
 </code>
 	</pre></p>
 	<p>
-		becomes
+		becomes this.
 	</p>
 
 	<p><pre><code class="C++">class PharmaceuticalStockModel{
@@ -91,7 +91,7 @@
 	<p>
 		Less code is good code! &#129299;</p>
 	<p>
-		Let's take a look at the lines that changed starting with the declaration of the <span class="file_name">in_stock_medications</span> instance variable. The changed line states that there is a instance variable named <span class="file_name">in_stock_medications</span> of type map where the key is a <span class="file_name">std::string</span> and the value is a list of <span class="file_name">Medications</span>. This is Sooo much simpler! Gone is the unique pointer. Gone is the C-type array. and gone are the <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> instance variables. Those last two were only there because a C-type array was used. They aren't needed anymore. Maps have infinite capacity and keep track of how many things are stored in them themselves. We don't have to do this separately like we had to when a C-type array was being used. 
+		Let's take a look at the lines that changed starting with the declaration of the <span class="file_name">in_stock_medications</span> instance variable. The changed line states that there is a instance variable named <span class="file_name">in_stock_medications</span> of type map where the key is a <span class="file_name">std::string</span> and the value is a list of <span class="file_name">Medications</span>. This is so much simpler! Gone is the unique pointer. Gone is the C-type array and gone are the <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> instance variables. Those last two were only there because a C-type array was used. They aren't needed anymore. Maps have infinite capacity and keep track of how many things are stored in them themselves. We don't have to do this separately like we had to when a C-type array was being used. 
 	</p>
 
 	<p>
@@ -99,18 +99,18 @@
 	</p>
 	<a name="template_description"><h2>Templates</h2>
 	<p>
-		If you had a template for a pair of pants, known as a pattern, you could use that template to make pants from denim, cotton, or even silk if you wanted to. They would all be pants. The template ensures that, regardless of the material used, the pants would all be the same size, be put on the same way, and have the same number and shape of pockets. This is what templates do; maintain commonality. C++'s <span class="file_name">std::map</span> is a template. It maintains commonality but doesn't care what is stored in it as long as there is one key for one value. You can choose anything you want for a key and anything you want for a value. 
+		If you had a template for a pair of pants, known as a pattern, you could use that template to make pants from denim, cotton, or even silk if you wanted to. They would all be pants. The template ensures that, regardless of the material used, the pants would all be the same size, be put on the same way, and have the same number and shape of pockets. This is what templates do; maintain commonality. C++'s <span class="file_name">std::map</span> is a template. It maintains commonality but doesn't care about what is stored in it as long as there is one key for one value. You can choose anything you want for a key and anything you want for a value. 
 	</p>
 	<p>
-		As you know, a template (pattern) for a pair of pants isn't the same thing as having a pair of pants. Someone has to apply the pants template to cloth to create a pair of pants. This template to reality relationship is also true for <span class="file_name">std::map</span>. When the compiler reads code like <span class="file_name">map&lt;string,Medication&gt; in_stock_medications;</span> it 'says', "Oh...you have a template here for a map that uses a string for a key and a Medication for a value. I'll make a map for you that will do that. You're welcome." See? Your code informs the compiler what the template is for the container you want and it creates the code that is that container for you. Sweet! &#128526; Next week you'll get to create a class template of your own!
+		As you know, a template (pattern) for a pair of pants isn't the same thing as having a pair of pants. Someone has to apply the pants template to cloth to create a pair of pants. This template to reality relationship is also true for <span class="file_name">std::map</span>. When the compiler reads code like <span class="file_name">map&lt;string,Medication&gt; in_stock_medications;</span> it 'says', "Oh...you have a template here for a map that uses a string for a key and a Medication for a value. I'll make a map for you that will do that. You're welcome." See? Your code informs the compiler what the template is for the container you want and it creates the code for that container for you. Sweet! &#128526; Next week you'll get to create a class template of your own!
 	</p>
-	<p>This class template stuff and using map is all good. But there is one big problem. The C-type array could have many bottles of any specific type of medication. Maps use keys to look up a single value. Oh no...now we can only have one bottle of each type of medication in the pharmacy. Don't worry. There is a solution.
+	<p>This class template stuff and using map is all good, but there is one big problem. The C-type array could have many bottles of any specific type of medication. Maps use keys to look up a single value. Oh no...now we can only have one bottle of each type of medication in the pharmacy. Don't worry. There is a solution.
 	</p>
 	<h1>Lists</h1>
 	<p>
 		Lists are containers that are very good at keeping a group of items in a specific order. They are also good at adding and removing additional elements at the beginning or end of the list, O(1). Since you've learned about and used lists before, draw on that experience to understand what you're reading next. 
 	</p>
-	<p>The pharmacy needs to be able to have multiple bottles of each type of medication. We know we can use a map with the name of the medication as a key to do a fast lookup. What if instead of looking up a single bottle the map could look up a list of bottles? Then the <span class="file_name">PharmaceuticalStockModel</span> class would be fast and flexible. That's a good design! &#127881; To make this happen all the map needs is a key of type string and a value that is a list of medications, <span class="file_name">list&lt;Medication&gt;</span>. The complete, fast, flexible change is now,
+	<p>The pharmacy needs to be able to have multiple bottles of each type of medication. We know we can use a map with the name of the medication as a key to do a fast lookup. What if instead of looking up a single bottle, the map could look up a list of bottles? Then the <span class="file_name">PharmaceuticalStockModel</span> class would be fast and flexible. That's a good design! &#127881; To make this happen, all the map needs is a key of type string and a value that is a list of medications, <span class="file_name">list&lt;Medication&gt;</span>. The complete, fast, flexible change is now,
 	</p>
 
 	<p><pre><code class="C++">class PharmaceuticalStockModel{
@@ -138,7 +138,7 @@
 		<dfn>iterate: </dfn><a href="https://www.merriam-webster.com/dictionary/iterate">to say or do again or again and again.</a>
 	</p>
 	<p>
-		<dfn>Iterators</dfn> are instances of classes that let you move through a container of elements. Python list, as you have learned, have <a href="https://www.w3schools.com/python/python_iterators.asp">iterators</a>. All C++ standard containers also have iterators. Each container has one or more instance 
+		<dfn>Iterators</dfn> are instances of classes that let you move through a container of elements. Python lists, as you have learned, have <a href="https://www.w3schools.com/python/python_iterators.asp">iterators</a>. All C++ standard containers also have iterators. Each container has one or more instance 
 		functions that return iterators. So for example, if you had the list of integers, list&lt;int&gt;ages{1,17,5,23}, you could get an iterator to the beginning of 
 		the list, the end of the list, or somewhere in between. But, unlike Python iterators, you have to use an operator in order to get the value out of the iterator.
 	</p>
@@ -182,7 +182,7 @@ cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 17
 	<p> First, use the map's find method to get an iterator that contains the list of medications with the name of the medication as the key. The iterator for this map Has_A private key-value pair of type <span class="file_name">std::pair&lt;string, list&lt;Medication&gt;&gt;</span>. Since the list is the second element of the pair, use the public <span class="file_name">second</span> instance variable of the pair to access the list containing all the bottles of medication. Lastly, use the list's <span class="file_name">push_back</span> method to add the medication to the end of the list...and you're done. The medication has been added.
 	</p>
 	<p>
-		Here is the code that is that series of steps. Take a good, long, look. Spend a good amount of time. Think about it. Ponder it. Talk about it with other members of the class. Ask your teacher about it. This is very important code.
+		Here is the code that is that series of steps. Take a good, long, look. Spend a good amount of time to think about it and ponder it. Talk about it with other members of the class. Ask your teacher about it. This is very important code.
 	</p>
 <p><pre><code class="C++">void PharmaceuticalStockModel::add_tablet_to_stock(const TabletMedication& medication_to_add){
 	auto found_medication_iterator = in_stock_medications.find(medication_to_add.get_name());

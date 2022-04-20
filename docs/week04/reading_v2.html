@@ -52,7 +52,7 @@ long number_of_names = //code to get the number from some database response
 unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
 /*
  .
- .Code here to fill the array with the names from some database, etc.
+ .Code here to fill the array with the names from some database, and so forth.
  .
  */
 long count_down_index = number_of_names - 1;
@@ -66,7 +66,7 @@ while (count_down_index >= 0) {
 	<h4>Map, Filter, Reduce, and For Each - looping's better, safer ways</h4>
 
 		<p>
-			In C++, as in most other languages, it is important not to write code that duplicates fundamental parts of the standard language library. While it is possible to write a loop in C++ to average, modify, or select some elements of an array, you should not. Instead you should use the built-in <span class="file_name">filter</span> (select some), <span class="file_name">reduce</span> (average, sum, product, etc.), or <span class="file_name">map</span> (convert all) functionality.
+			In C++, as in most other languages, it is important not to write code that duplicates fundamental parts of the standard language library. While it is possible to write a loop in C++ to average, modify, or select some elements of an array, you should not. Instead you should use the built-in <span class="file_name">filter</span> (select some), <span class="file_name">reduce</span> (average, sum, product, and so forth), or <span class="file_name">map</span> (convert all) functionality.
 		</p>
       <p>
         Consider a situation where you have been hired to write code for a
@@ -94,7 +94,7 @@ auto likes_end = likes.get()+likes_count;
 </pre>
       </p>
       <p>
-		  Note that in the above code, <span class="file_name">likes.get()</span> provides us with access to the beginning of the array.
+		  <strong>NOTE</strong>: in the above code, <span class="file_name">likes.get()</span> provides us with access to the beginning of the array.
 		</p>
 		<p>
 		  Suppose you were told to write code that filtered out likes that are less
@@ -110,14 +110,14 @@ auto likes_end = likes.get()+likes_count;
 	</pre>
 	  </p>
 	  <p>
-	  	The <span class="file_name">remove_if</span> function has three parameters, the beginning of the array, the end of the array, and a lambda that compares each element of the array to something of your choice and returns the result of that comparison. In contrast to the filtering behavior in many other languages, <span class="file_name">remove_if</span> does NOT return a filtered result. Instead, it copies all elements that do not match the condition (remember this is a <span class="file_name">remove_if</span> filter) in the lambda into the front the array and returns an indicator of where the end of the filtered part of the array is. That means that the elements in the array past the updated value (look at the assignment in the code snippet) of <span class="file_name">likes_end</span> are garbage. There's a bunch of elements still out there beyond the new value of <span class="file_name">likes_end</span>, but they are meaningless.
+	  	The <span class="file_name">remove_if</span> function has three parameters, the beginning of the array, the end of the array, and a lambda that compares each element of the array to something of your choice and returns the result of that comparison. In contrast to the filtering behavior in many other languages, <span class="file_name">remove_if</span> does <strong>not</strong> return a filtered result. Instead, it copies all elements that do not match the condition (remember this is a <span class="file_name">remove_if</span> filter) in the lambda into the front the array and returns an indicator of where the end of the filtered part of the array is. That means that the elements in the array past the updated value (look at the assignment in the code snippet) of <span class="file_name">likes_end</span> are garbage. There's a bunch of elements still out there beyond the new value of <span class="file_name">likes_end</span>, but they are meaningless.
 	  </p>
       <p>
         Let's break up the syntax for the C++ lambda function being used. It starts with two operators <span class="file_name">[</span>, and <span class="file_name">]</span>. Between these two operators, you include any variables whose values you want to capture from the enclosing scope. In this case there are none, so <span class="file_name">[]</span> is empty. The lambda required for <span class="file_name">remove_if</span> has one required parameter. Its type must match the type of the elements in the array, <span class="file_name">auto</span> takes care of this for us, and the parameter's value is each element of the array in turn. The body of the lambda function is in the <span class="file_name">{}</span> scope operators, and in this case, consists of just one line of code where the result of comparing each array element to 10 is returned.
       </p>
 
       <p>
-        Now that you've accomplished this task, your boss asks you to write code that, instead of filtering out likes, gives the customer five
+        Now that you've accomplished this task, your boss asks you to write code that, instead of filtering out 'likes', gives the customer five
         'bonus likes' that are to be added to each posting.
       </p>
 
@@ -147,8 +147,8 @@ auto likes_end = likes.get()+likes_count;
     	The <span class="file_name">accumulate</span> function also has four parameters. The first the beginning of the array to total, the second is the end, the third is the accumulator's initial value, and the fourth is the lambda that returns the partial accumulated value. For this case, the final result is the summation of the likes which the <span class="file_name">accumulate</span> function returns.
       </p>
       <p>
-        But what if you are asked to do something more real? For example, imagine that you are to give five bonus likes only for those that already
-        have 10 likes and then sum the result. The solution for this would use
+        But what if you are asked to do something more real? For example, imagine that you are to give five bonus 'likes' only for those that already
+        have 10 'likes' and then sum the result. The solution for this would use
         map, filter, and reduce behaviors together.
       </p>
       <p><pre>
@@ -186,11 +186,11 @@ auto likes_end = likes.get()+likes_count;
 	</p>
 	<p>
 		Since C-type arrays have a fixed size and a way to access values using the [] operator, the counting loop is the C-type way to iterate over the elements of C-type arrays, but here is a very good piece of advice. Don't get too caught up in the counting loops you are about to see. In fact, you should have 
-		no raw loops in your code. If this statement bothers you greatly, watch the video <a href="https://www.youtube.com/watch?v=W2tWOdzgXHA">GoingNative 2013 C++ Seasoning Conference session</a>. It is quite long and very technical. Be warned. If you want a more accessible presentation on this topic, check out <a href="https://developer.apple.com/videos/play/wwdc2018/223">Dave Abraham's take</a>. Dave's code examples aren't in C++, but everything he says applies to C++ as well. It is a re-working of much of the material presented at the GoingNative 2013 C++ conference.
+		no raw loops in your code. If this statement bothers you greatly, watch the video <a href="https://www.youtube.com/watch?v=W2tWOdzgXHA">GoingNative 2013 C++ Seasoning Conference session</a>. It is quite long and very technical&mdash;be warned. If you want a more accessible presentation on this topic, check out <a href="https://developer.apple.com/videos/play/wwdc2018/223">Dave Abraham's take</a>. Dave's code examples aren't in C++, but everything he says applies to C++ as well. It is a re-working of much of the material presented at the GoingNative 2013 C++ conference.
 	</p>
 	<p>
 		The traditional, forward-iteration C-type loop always has the same parts, labeled 1, 2, 3, 4, and 5 in the code snippet below (glance down and take a look). The keyword <span class="file_name">for</span> is labeled 1 and is always followed by a set of statements, 2, 3, and 4, inside the () operator. Item 2 is a statement that declares and 
-		initializes a variable traditionally called i, short for index. This is the variable that will be used later, to access the elements of the array to retrieve or modify them. This operation is executed only the first time the loop's code executes.
+		initializes a variable traditionally called <span class="file_name">i</span>, short for index. This is the variable that will be used later, to access the elements of the array to retrieve or modify them. This operation is executed only the first time the loop's code executes.
 	</p>
 	<p>
 		Item 4, below, increases the value of <span class="file_name">i</span> by one. This is no surprise, but it may be a little surprising that this statement 
@@ -202,7 +202,7 @@ auto likes_end = likes.get()+likes_count;
 		<span class="file_name">false</span>, the loop terminates and the next line of code after the loop is executed.
 	</p>
 	<p>
-		Item 5 is a set of lines of codes executed every time the item 3 check returns true
+		Item 5 is a set of lines of codes executed every time the item 3 check returns true.
 	</p>
 
 	<p><pre><code>
@@ -237,7 +237,7 @@ long number_of_names = //code to get the number from some database response
 unique_ptr&lt;string[]&gt; names(new string[5]);
 /*
  .
- .Code here to fill the array with the names from some database, etc.
+ .Code here to fill the array with the names from some database, and so forth.
  .
  */
 

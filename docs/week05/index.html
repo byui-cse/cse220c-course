@@ -25,14 +25,14 @@
 </div>
 	<h1>Hidden Arrays</h1>
 	<p>
-		Many of the standard containers, array, vector stack, queue, etc., are actually classes that have a private C-type array as a property. Algorithms are then turned into code, instance functions of the class, to make the use of the C-type array MUCH safer. These methods have been tested, enhanced, fixed, and optimized for decades. That's why it is so much safer to use a standard container that wraps a C-type array than to use one directly. If you are ever tempted to use a C-type array, you should probably use the std::array instead. It adds almost no overhead.
+		Many of the standard containers, array, vector stack, queue, and so forth, are actually classes that have a private C-type array as a property. Algorithms are then turned into code, instance functions of the class, to make the use of the C-type array <strong>much</strong> safer. These methods have been tested, enhanced, fixed, and optimized for decades. That's why it is so much safer to use a standard container that wraps a C-type array than to use one directly. If you are ever tempted to use a C-type array, you should probably use the std::array instead. It adds almost no overhead.
 	</p>
 	<p>
 		But sometimes, arrays are either too restrictive or the code to manipulate to match the need becomes way to complicated and slow. Here is an image of a structure known as a <a href="https://www.youtube.com/watch?v=qH6yxkw0u78">tree</a>.
 	</p>
 	<img src="images/tree.png" alt="A tree with root D, branches B and G, and leaves A, C in branch B, and E, Z in branch G">
 	<p>
-		Can this be represented using a C-type array? Yes. But just because you can, doesn't mean you should. When you shouldn't, that's when things like list and map come into play. They are NOT wrappers around a hidden C-type array. Instead they use a completely different design...nodes.
+		Can this be represented using a C-type array? Yes. But just because you can, doesn't mean you should. When you shouldn't, that's when things like list and map come into play. They are <strong>not</strong> wrappers around a hidden C-type array. Instead they use a completely different design...nodes.
 	</p>
 
 	<h1>Nodes: (Sometimes) A Better Way</h1>
@@ -75,7 +75,7 @@ public:
 	Stop for a few minutes and think about deleting a bunch of linked nodes. Then answer the question, &ldquo;Why is the parent pointer a <a href="https://studiofreya.com/cpp/cpp-smart-pointers-weak_ptr/">weak_ptr</a>?&rdquo; Feel free to discuss this question and possible answers with other members of the class through direct conversation, or by some sort of posting. Googling won't be much help here.
 </p>
 <p>
-	A node that can hold characters is OK, but why can't it hold anything we want, like the std::list class template we used last week? To do that, the node class also has to be changed and become a node class template.</p> 
+	A node that can hold characters is <strong>okay</strong>, but why can't it hold anything we want, like the std::list class template we used last week? To do that, the node class also has to be changed and become a node class template.</p> 
 <p>
 	<img src="images/stop.png" alt="a stop sign"> Go back and review <a href="../week04/index.html#template_description">last week's information about class templates</a> if you need to brush up.
 </p>
@@ -108,7 +108,7 @@ public:
 </p>
 <p>Compare the code for <strong>Node</strong> below with the <strong>Node</strong> code above.</p>
 <p>
-	There is a VERY important bit of code on the line right after the end of the encapsulated, Node inner class. <span class="file_name">shared_ptr&lt;Node&gt; root_node;</span>. This is a private instance variable of the List class template. It is a pointer to the Node instance that is the head, beginning, of the list. By convention, we are 
+	There is a <strong>very</strong> important bit of code on the line right after the end of the encapsulated, Node inner class. <span class="file_name">shared_ptr&lt;Node&gt; root_node;</span>. This is a private instance variable of the List class template. It is a pointer to the Node instance that is the head, beginning, of the list. By convention, we are 
 	referring to it as the root of the list. The root is equal to <strong>nullptr</strong> for an empty list. 
 </p>
 <p>

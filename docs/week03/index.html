@@ -34,25 +34,25 @@
 	<p>While each language has its own organizational rules, they all do the same thing. They allow us to organize and express
 	our thinking.</p>
 	<h3>Instances of Classes - the fundamental organizational concept of C++</h3>
-	<p>C++, being a sibling of C, has the concept of functions but when you truly begin thinking in C++, you think in classes and instances of classes. So much so, that, in modern C++, any stand-alone function other than the main function, has <a href="https://www.quora.com/What-is-code-smell">'code smell'</a>.</p>
+	<p>C++, being a sibling of C, has the concept of functions, but when you truly begin thinking in C++, you think in classes and instances of classes. So much so, that, in modern C++, any stand-alone function other than the main function, has <a href="https://www.quora.com/What-is-code-smell">'code smell'</a>.</p>
 
 <h1>The Situation</h1>
 <p>To help learn about the C++ syntax for classes and instances, a set of class descriptions is needed. The set selected for your perusal describes 
 	a very simplified stock-tracker for an imagined pharmaceutical company. Several classes are included in this set. A <span class="file_name">Date</span> class storing 
-	individual numbers for a day, month, and year; a medication class that is the parent class for two medication types-- TabletMedications 
+	individual numbers for a day, month, and year; a medication class that is the parent class for two medication types&mdash;TabletMedications 
 	and LiquidMedications. And last, but not least, a model class (<a href="https://www.youtube.com/watch?v=FCkDEHWDATI">MVC</a>) that stores and manipulates data regarding the stock available for sale. 
 <img src="images/pharm_uml.png" alt="An image showing each of the classes, Date, Medication, Liquid Medication, Tablet Medication, Pharmaceutical Stock Tracker, their properties, and the relationships between them">
 </p>
 <h1>The Classes</h1>
 <h2>C++ Peculiarities</h2>
 <p>Due to C++'s ancestor C, C++ class declarations and definitions are put in <a href="http://www.math.uaa.alaska.edu/~afkjm/csce211/handouts/SeparateCompilation.pdf">separate files</a>. A declaration describes what properties and functions a class has, but 
-	not what the functions do. An implementation describes what each class function does--but not what properties and functions a class has. Many other languages 
+	not what the functions do. An implementation describes what each class function does&mdash;but not what properties and functions a class has. Many other languages 
 	combine the declaration and definition in one spot. By convention, the declaration files for C++ use the .h or .hpp file extension to the file name. 
-	Also by convention, C++ implementation files use the .cpp extension. Since this is by convention only, you could use any extension you want, 
-	but if you choose to do so, you better have a VERY good reason or you will confuse everyone else who ever reads or supports your code. An example of a declaration 
+	Also by convention, C++ implementation files use the .cpp extension. Since this is by convention only, you could use any extension you want; 
+	if you choose to do so, you better have a <strong>very</strong> good reason or you will confuse everyone else who ever reads or supports your code. An example of a declaration 
 	file and an implementation file for a simple data-class is in order.
 	<section class="callout">
-    <h3>Note:</h3>
+    <h3>NOTE:</h3>
     <h4>.h or .hpp?</h4>
     <p>
     	Everybody who has written C++ for any significant amount of time has an opinion on what the extension for header files should be. Microsoft Visual Studio 
@@ -73,7 +73,7 @@
 <p>
 	The purpose of the <span class="file_name">Date</span> class is to store the day, month, and year for any specific date. In a real app, you'd never create this class. Instead you'd use the <a href="https://en.cppreference.com/w/cpp/chrono">standard date and time utilities</a>. Be flexible. The purpose of this <span class="file_name">Date</span> class is to help you learn how to write a simplistic C++ class.</p>
 <p> The design of the <span class="file_name">Date</span> class allows searching by comparing any 
-	or all of these three values. If you look at the UML class diagram, it shows the <span class="file_name">Date</span> class is composed of three integers--one for the day, one for the month, 
+	or all of these three values. If you look at the UML class diagram, it shows the <span class="file_name">Date</span> class is composed of three integers&mdash;one for the day, one for the month, 
 	and one for the year. In the code below focus, for now, on the code starting with the keyword <span class="file_name">class</span>.  
 </p>
 <h3>A Class Declaration, the date.hpp File</h3>
@@ -130,7 +130,7 @@ namespace pharmaceutical_tracker {
 		There is a third option in addition to <span class="file_name">private</span> and <span class="file_name">public</span>, known as <span class="file_name">protected</span>. If an instance variable or class function is protected, it is directly accessible to anything that inherits from the class but not accessible to everything else.
 	</p>
 <section class="callout">
-	<h3>Note:</h3>
+	<h3>NOTE:</h3>
     <h4>I should never actually use the <span class="file_name">protected</span> keyword when writing real code, right?</h4>
     <p>
     	No. You are wrong if you try to make this 'never' type of a claim. According to the 
@@ -168,11 +168,11 @@ namespace pharmaceutical_tracker {
 </p>
 <p>
 	The first line of code after the namespace declaration is the definition of the <span class="file_name">Date</span> constructor declared in the date.hpp file and discussed above. The name of 
-	this constructor includes the class, Date, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as its name. Directly 
+	this constructor includes the class, <span class="file_name">Date</span>, to which it belongs. That's why you see <span class="file_name">Date::Date()</span> as its name. Directly 
 	after the name of the function, you'll notice a colon character (:) followed by a list of the instance variable names for the date class. Each instance variable name is 
 	followed by a pair of curly braces ({ and }) and an integer value. The combination of an instance variable name, the curly braces, and a valid value initializes that 
 	instance variable with the stated value. In the default constructor for this <span class="file_name">Date</span> class, the day, month, and year are all set to be -1 (an invalid value), so any default 
-	instance of Day can be detected and differentiated from those instantiated using the non-default constructor. The items after the colon are known as an initiator 
+	instance of <span class="file_name">Date</span> can be detected and differentiated from those instantiated using the non-default constructor. The items after the colon are known as an initiator 
 	list.  
 </p>
 <p>
@@ -226,25 +226,25 @@ bool Date::operator ==(const Date& other_date)const {
 		if nothing, <span class="file_name">void</span>, is to be returned.
 	</p>
 	<p>
-		Remembering the discussion regarding the reference type modifier above, consider the lines of code that is the definition of the <span class="file_name">==</span> operator. When you use a reference to an instance of a class, you can access any class function or public properties using the <span class="file_name">.</span> <a href="http://www.stroustrup.com/bs_faq2.html#overload-dot">(dot) operator</a>. "But wait a minute!", you say. "Those properties being access are 
-		private!" You are absolutely right, they are private--but only to the <i>class</i>, not the instance. This means that since both items being checked are part of the 
+		Remembering the discussion regarding the reference type modifier above, consider the lines of code that is the definition of the <span class="file_name">==</span> operator. When you use a reference to an instance of a class, you can access any class function or public properties using the <span class="file_name">.</span> <a href="http://www.stroustrup.com/bs_faq2.html#overload-dot">(dot) operator</a>. "But wait a minute!", you say. "Those properties being accessed are 
+		private!" You are absolutely right, they are private&mdash;but only to the <i>class</i>, not the instance. This means that since both items being checked are part of the 
 		<span class="file_name">Date</span> class, they can access any of their own public, private, or protected properties. The reasoning behind this was to provide 
 		cleaner syntax for overloading operators and other class functions that need to access private and protected members.
 		
 	</p>
 
 <section class="callout">
-    <h3>Note:</h3>
+    <h3>NOTE:</h3>
     <h4>Put Code in the Header or Not?</h4>
     <p>
     	One important reason people use for selecting C or C++ as an implementation language for a project is speed. It used to be that you had to make difficult 
-    	choices as to where to put your code to make it fast but use more RAM. If you not only declared but also defined a class's functions in the header file, the functions would  
-    	end up 'inline', meaning the class function call would be replaced with the class function's code thus increasing the size of you application. If, on the other 
+    	choices like where to put your code to make it fast but use more RAM. If you not only declared but also defined a class's functions in the header file, the functions would  
+    	end up 'inline'; meaning the class function call would be replaced with the class function's code thus increasing the size of your application. If, on the other 
     	hand, you put the function's definition in the .cpp file it would not 
-    	end up inline, your application would use less RAM and run slower. There were tricks you could use to force the compiler to make you function be inline if you wanted. Thankfully those days of making difficult choices are gone. Today, the compilers for C and C++ are much more sophisticated than they used to be. 
+    	end up inline, your application would use less RAM and run slower. There were tricks you could use to force the compiler to make your function be inline if you wanted. Thankfully, those days of making difficult choices are gone. Today, the compilers for C and C++ are much more sophisticated than they used to be. 
 	</p>
     <p>
-    	Ben Klemens tested the compiler in the Gnu Compiler Collection (gcc) and found it that it
+    	Ben Klemens tested the compiler in the Gnu Compiler Collection (gcc) and found that it
     	<quote>"threw every optimization trick it knew at my sample programs, and those optimizations knew ... when to inline functions without my explicitly instructing the compiler."</quote>
 		<span class="citation">Excerpt From: <a href="https://www.amazon.com/21st-Century-Tips-New-School-ebook/dp/B00NYBRH30/ref=sr_1_1?dchild=1&keywords=21st+century+c%3A+chips+from+the+new+school&qid=1588266896&sr=8-1&swrs=AF5B754DFF2FAA8BDA238ACC35626D8C">"21st Century C: C Tips from the New School (p. 181)"</a>Ben Klemens, O'Reilly Media. Kindle Edition. </span>
 	</p>
@@ -254,7 +254,7 @@ bool Date::operator ==(const Date& other_date)const {
     </p>
 </section>
 	<p>
-		So far, this week, you've learned how to write the code that describes the class. You've seen the <span class="file_name">Date</span> class declaration and the definition of its class functions. This is a lot to take in, so if it's confusing, STOP&#x1F6D1;. Take the time to go over the previous material with a classmate. Talk about it. Discuss it. State what each of you understand and what each of you don't. If you just try to keep going without understanding, it's going to get worse not better. Please listen. Success in using C++ in your follow-on classes requires that you understand these basic, beginner things.
+		So far, this week, you've learned how to write the code that describes the class. You've seen the <span class="file_name">Date</span> class declaration and the definition of its class functions. This is a lot to take in, so if it's confusing, <strong>stop</strong>&#x1F6D1;. Take the time to go over the previous material with a classmate. Talk about it. Discuss it. State what each of you understand and what each of you don't. If you just try to keep going without understanding, it's going to get worse, not better. Please listen. Success in using C++ in your follow-on classes requires that you understand these basic, beginner things.
 	</p>
 	
 	
@@ -296,7 +296,7 @@ Date birthday(5, 12, 1999);//the type of the birthday variable is a unique point
 
 	<h2>Has_A Inheritance</h2>
 	<p>
-		Like all object oriented languages, C++ supports <a href="https://stackoverflow.com/questions/2218937/has-a-is-a-terminology-in-object-oriented-language">Has_A type inheritance</a>. As an example, look at the Medication class below (see the UML class diagram above for an overview). The medication class represents a bottle of medication in the pharmacy. It Has_A instance of <span class="file_name">Date</span> that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is Date. That's it. That's all you have to do to use Has_A type of inheritance. Also, if needed, you can have instance variables that are arrays of custom types like Dates.
+		Like all object oriented languages, C++ supports <a href="https://stackoverflow.com/questions/2218937/has-a-is-a-terminology-in-object-oriented-language">Has_A type inheritance</a>. As an example, look at the medication class below (see the UML class diagram above for an overview). The medication class represents a bottle of medication in the pharmacy. It Has_A instance of <span class="file_name">Date</span> that represents the expiration date of this bottle of medication. You can see in the medication.h file below that there is a protected class variable called expiration_date. Its type is <span class="file_name">Date</span>. That's it. That's all you have to do to use Has_A type of inheritance. Also, if needed, you can have instance variables that are arrays of custom types like <span class="file_name">Date</span>s.
 	</p>
 	<p>
 	<pre><code>#ifndef medication_hpp
@@ -354,13 +354,13 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		Since <span class="file_name">PhamaceuticalStockModel</span> Has_A array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">resize</a> a full array.
+		Since <span class="file_name">PhamaceuticalStockModel</span> Has_A array of medications, PharmaceuticalStockModel also has to have a counter for the current number of medications, and a known value of how many medications the array can hold. If it didn't have these, array overflow errors would happen when the array was filled up and another medication was added. This array overflow type of defect is the most common reason for security breaches in software. That's why <span class="file_name">medication_count</span> and <span class="file_name">medication_capacity</span> were added to <span class="file_name">PharmaceuticalStockModel</span> as an attempt to <a href="http://www.cplusplus.com/forum/general/11111/">resize</a> a full array.
 	</p>
 
 
 	<h2>Is_A Inheritance</h2>
 	<p>
-		<a href="https://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">Is_A inheritance is done differently</a>. The example below is the header file for <span class="file_name">TabletMedication</span>. It Is_A <span class="file_name">Medication</span>. It is a subclass of <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. It is a derived class of the <span class="file_name">Medication</span> base class. These statements all mean the same thing. Because it is  a derived class without very much added to the base class, you see very little in the <span class="file_name">TabletMedication</span> class' header file, just the instance variables and functions required to differentiate tablet type medications from other kinds.
+		<a href="https://www.tutorialspoint.com/cplusplus/cpp_inheritance.htm">Is_A inheritance is done differently</a>. The example below is the header file for <span class="file_name">TabletMedication</span>. It Is_A <span class="file_name">Medication</span>. It is a subclass of <span class="file_name">Medication</span>. It is a child of the parent class <span class="file_name">Medication</span>. It is a derived class of the <span class="file_name">Medication</span> base class. These statements all mean the same thing. Because it is  a derived class without very much added to the base class, you see very little in the <span class="file_name">TabletMedication</span> class' header file; just the instance variables and functions required to differentiate tablet type medications from other kinds.
 	</p>
 
 	<p>
@@ -386,7 +386,7 @@ namespace pharmaceutical_tracker {
 </pre>
 	</p>
 	<p>
-		Notice the use of the <i>public</i> keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publicly accessible when using an instance of TabletMedication. That means the programmer does not need to create additional instance functions for <span class="file_name">TabletMedication</span> for programmers using the <span class="file_name">TabletMedication</span> class to use public methods of the <span class="file_name">Medication</span> class. This is the essence of the Is_A type of inheritance. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a> and those types of inheritance are Has_A instead of Is_A due to the inheritance hiding.
+		Notice the use of the <i>public</i> keyword in the <span class="file_name">TabletMedication</span> class declaration line of code. Here, public means that any of the <span class="file_name">Medication</span> class' public  functions or variables are also publicly accessible when using an instance of <span class="file_name">TabletMedication</span>. That means the programmer does not need to create additional instance functions for <span class="file_name">TabletMedication</span> for programmers using the <span class="file_name">TabletMedication</span> class to use public methods of the <span class="file_name">Medication</span> class. This is the essence of the Is_A type of inheritance. There are times, however, when that is what a design calls for. In such cases, <a href="https://isocpp.org/wiki/faq/private-inheritance">protected or private inheritance may be more appropriate</a> and those types of inheritance are Has_A instead of Is_A due to the inheritance hiding.
 	</p>
 
 	<footer>

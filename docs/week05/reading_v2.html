@@ -61,8 +61,8 @@
 		For example, what if the data to be put in the array is a set of your company's customers that have been pulled out of some database? You simply don't know how 
 		many there will be until after your code has pulled them out. You could write your code in such a way that it has an array that, you think, will always 
 		be larger than the number of customers. This approach will not only fail, because hopefully your business gets more and more customers, but creates an 
-		opening for a <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a> security exploit. Now your application can be hacked. 
-		Never a good thing. Only use the basic way of creating arrays if you know exactly how big, or small, the array needs to be. So, what is this other way? It involves the use of something very cool: pointers.
+		opening for a <a href="https://en.wikipedia.org/wiki/Buffer_overflow">buffer overflow</a> security exploit. Now your application can be hacked, 
+		never a good thing. Only use the basic way of creating arrays if you know exactly how big, or small, the array needs to be. So, what is this other way? It involves the use of something very cool: pointers.
 	</p>
 	<h3>Pointers - keeping track of where things are</h3>
 	<p>
@@ -92,7 +92,7 @@ auto names = new std::string[number_of_names];//the type of the names variable i
 auto names = new std::string[number_of_names];
 /*
  .
- .Code here to fill the array with the names from some database, etc.
+ .Code here to fill the array with the names from some database, and so forth.
  .
  */
 
@@ -110,19 +110,19 @@ names = nullptr;
 <p>
 	Notice the two lines of clean up at the end of this last example. If you use this old fashioned syntax for creating pointers in C++, any time you use the new keyword to create a pointer (called allocating memory in C++ speak), 
 	you must call delete. If you don't you will have a <a href="https://searchwindowsserver.techtarget.com/definition/memory-leak">memory leak</a> in your code. 
-	Memory leaks are REALLY BAD. Unfortunately, they are easy to create in C++ and can be really hard to fix in complicated code. So&hellip;do as your mother taught you 
+	Memory leaks are <strong>really bad</strong>. Unfortunately, they are easy to create in C++ and can be really hard to fix in complicated code. So&hellip;do as your mother taught you 
 	and clean up your mess!
 </p>
 <p>
 	Another good practice to follow is, anytime you delete something, set all pointers to it to <span class="file_name"><a href="https://embeddedartistry.com/blog/2017/03/08/migrating-from-c-to-c-null-vs-nullptr/">nullptr</a></span>. (The <span class="file_name">nullptr</span>
-	keyword is similar to, but not the same as, the None keyword in Python.) If you don't get into this habit, you will eventually create something called a zombie pointer or <a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointer</a>. While zombie pointers won't eat your brains, they will eat up your time and energy when you get seemingly random crashes in your application. Just say 
+	keyword is similar to, but not the same as, the <span class="file_name">None</span> keyword in Python.) If you don't get into this habit, you will eventually create something called a zombie pointer or <a href="https://en.wikipedia.org/wiki/Dangling_pointer">dangling pointer</a>. While zombie pointers won't eat your brains, they will eat up your time and energy when you get seemingly random crashes in your application. Just say 
 	no to zombie pointers. If you don't, you will eventually get a <a href="https://www.webopedia.com/TERM/U/use-after-free.html">use after free</a> crash in your code.
 </p>
 <p>
-		You can completely avoid zombie pointers by setting any pointer to <span class="file_name">nullptr</span> <i>after</i> you call delete. Order is important. Do <i>not</i> set it to nullptr before you call delete or you will have just written a memory leak into your code.
+		You can completely avoid zombie pointers by setting any pointer to <span class="file_name">nullptr</span> <i>after</i> you call delete. Order is important. Do <strong>not</strong> set it to <span class="file_name">nullptr</span> before you call delete or you will have just written a memory leak into your code.
 </p>
 <section class="callout">
-	<h3>Note:</h3>
+	<h3>NOTE:</h3>
 	<h4>I'm getting tired of typing std:: all the time. Isn't there some other way?</h4>
 	<p>
 		Absolutely. All you have to do is put 
@@ -136,10 +136,10 @@ using std::string;</code></pre></p>
 
 	<h3>Pointers - the modern way</h3>
 	<p>
-		Unfortunately, the requirement to clean up your own mess, one aspect of memory management, is something that programmers and software engineers just can't seem to get right. <a href="https://www.zdnet.com/article/microsoft-heres-why-we-love-programming-language-rust-and-kicked-off-project-verona/"> Microsoft's own recent statements</a> claim that 70% of  mission-critical defects written into Microsoft's own apps and operating system by their programmers and engineers are the result of poor memory management (Google has made a <a href="https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/">similar statement about their Chrome web browser</a>). Modern C++ has some things in it that can help with this...smart pointers.
+		Unfortunately, the requirement to clean up your own mess, one aspect of memory management, is something that programmers and software engineers just can't seem to get right. <a href="https://www.zdnet.com/article/microsoft-heres-why-we-love-programming-language-rust-and-kicked-off-project-verona/"> Microsoft's own recent statements</a> claim that 70% of  mission-critical defects written into Microsoft's own apps and operating system by their programmers and engineers are the result of poor memory management. Google has made a <a href="https://www.zdnet.com/article/chrome-70-of-all-security-bugs-are-memory-safety-issues/">similar statement about their Chrome web browser</a>. Modern C++ has some things in it that can help with this...smart pointers.
 	</p>
 	<p>
-		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us via His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the application of the <span class="file_name">using</span> keyword near the top of the file.
+		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us in His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the application of the <span class="file_name">using</span> keyword near the top of the file.
 	</p>
 	<pre><code>using std::cout;
 using std::endl;
@@ -156,7 +156,7 @@ long number_of_names = //code to get the names number from some database respons
 unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
 /*
  .
- .Code here to fill the array with the names from some database, etc.
+ .Code here to fill the array with the names from some database, and so forth.
  .
  */
 
@@ -168,7 +168,7 @@ cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;endl;
 cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;endl;
 </code></pre></p>
 <p>
-	Did you see that there is no call to delete for the array? The unique pointer takes care of that.&#128077; You don't have to set it to nullptr either.&#128077;&#128077; unique_ptr takes care of all of this for you!&#128077;&#128077;&#128077; Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead.&#129395;&#129395;&#129395; Which method of using pointers do you like better? Yep...that's what I thought.&#128578;
+	Did you see that there is no call to delete for the array? The unique pointer takes care of that.&#128077; You don't have to set it to <span class="file_name">nullptr</span> either.&#128077;&#128077; unique_ptr takes care of all of this for you!&#128077;&#128077;&#128077; Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead.&#129395;&#129395;&#129395; Which method of using pointers do you like better? Yep...that's what I thought.&#128578;
 </p>
 
 
@@ -218,7 +218,7 @@ names = nullptr;
 <p> 
 	You'll also notice that in this case, the <span class="file_name">++</span> and <span class="file_name">-=</span> operators are used directly on the pointer. These 
 	are also overloaded operators. When <span class="file_name">++</span> works on a pointer, it moves the pointer to the next string in the array. It can do this 
-	since the compiler it 'knows' the array holds strings, therefore it knows how far to move the pointer to get to the next string. That's exactly what the overloaded ++ operator does on any kind of pointer, be it an array of strings, doubles, floats, ints, or anything else.
+	since the compiler 'knows' the array holds strings, therefore it knows how far to move the pointer to get to the next string. That's exactly what the overloaded ++ operator does on any kind of pointer, be it an array of strings, doubles, floats, ints, or anything else.
 </p>
 <p>
 	The <span class="">-=</span> operator is also overloaded. It moves the pointer backwards by some integer amount.
@@ -229,7 +229,7 @@ names = nullptr;
 
 
 <section class="callout">
-	<h3>Note:</h3>
+	<h3>NOTE:</h3>
 	<h4>My application is crashing!!&#128560; Why?</h4>
 	<p>
 		If your application crashes, the odds are very high you have abused your memory management privileges. You might be deleting something more times than you 
@@ -240,7 +240,7 @@ names = nullptr;
 		Remember, if your C++ app crashes, the first thing to look for are memory issues.
 	</p>
 	<p>
-		One last thing about these C-style arrays you've been using. Don't fall in love with them. In week 04 you will learn much better and safer ways to store data in a 
+		One last thing about these C-style arrays you've been using&mdash;don't fall in love with them. In Week 4, you will learn better and safer ways to store data in a 
 		C++ way. That doesn't mean you don't need to recognize the C-style arrays. You will see them in a lot of older code and will need to know how they work and 
 		what can go wrong with them. Then you will be able to fix the problem and, where possible, replace them with the C++ alternatives.
 	</p>
