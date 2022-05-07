@@ -118,7 +118,42 @@ int some_function(const Widget&amp; w)    // type is "Constant Widget Reference"
 }
 </pre></code>
 
+<p/>
 
+<h3>Passing objects to functions</h3>
+
+<p>Remember that all parameters are by default passed by value in C++ programs.
+This can cause all sorts of problems when passing objects to your functions,
+because this means that every object will be copied when it's passed in.
+Sometimes this is what you want to do, but usually you do not want to make
+extra copies of an object that you end up just throwing away. Therefore, when
+you're passing objects to functions in C++, it's best to pass them by reference
+(using the &amp; operator as part of the type name), such as this:
+</p>
+
+<code><pre>
+int some_function(Widget&amp; w)
+{
+    // ...
+}
+</pre></code>
+
+<p>This allows you to modify your original object inside the function, and also
+avoids making unnecessary copies of your object. If you want to ensure that
+your function does not modify your object, then you should make the parameter
+a constant reference:
+</p>
+
+<code><pre>
+int some_function(const Widget&amp; w)
+{
+    // The widget cannot be modified inside this function
+}
+</pre></code>
+
+<p>In this course, you should always pass your objects and containers by
+reference, unless you have a good reason not to.
+</p>
 
 </body>
 </html>
