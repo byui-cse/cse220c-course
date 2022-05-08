@@ -142,40 +142,90 @@
 		functions that return iterators. So for example, if you had the list of integers, list&lt;int&gt;ages{1,17,5,23}, you could get an iterator to the beginning of 
 		the list, the end of the list, or somewhere in between. But, unlike Python iterators, you have to use an operator in order to get the value out of the iterator.
 	</p>
+    <h3>Dereferencing iterators</h3>
+    <p>An iterator acts like a <dfn>pointer</dfn> into a container. Iterators
+    can be dereferenced using either the * operator or the -&gt; operator in
+    order to access the object through the iterator.  The * operator can be
+    used to access the object itself. The -&gt; operator can be used to access
+    an element (either data or function/method) of the object if it's a struct
+    or a class type.  Iterators might also be invalid, or in other words,
+    contain a value that does not refer to a valid object or value.  This is
+    indicated by the end() of a container. It is important to not dereference
+    an iterator that is invalid.<p>
+
+    <p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+list&lt;int&gt;::iterator it = ... (some sort of operation that gets an iterator from the list)
+if (it != ages.end())  // Must check for valid iterator first!
+{
+    // Can use * or -&gt; on the iterator now to access the object or value
+    cout &lt;&lt; *it &lt;&lt; endl;
+}
+    </code></pre></p>
+
 	<h3>Get the Beginning of the List</h3>
-		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
-auto front_age_iterator = ages.begin();
-cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
-</code>
-	</pre></p>
+    <p>This is straightforward, since there is a begin() operation on most container types that returns
+    the beginning of the list as an iterator.</p>
+		<p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+list&lt;int&gt;::iterator front_age_iterator = ages.begin();
+if (front_age_iterator != ages.end())  // Must check for valid iterator first!
+{
+    cout &lt;&lt; *front_age_iterator &lt;&lt; endl; //prints out 1
+}
+</code></pre></p>
 
 	<h3>Get the End of the List</h3>
-		<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
-auto end_age_iterator = ages.end();
-cout &lt;&lt; *end_age_iterator&lt;&lt;endl;//prints out 23
-</code>
-	</pre></p>
+    <p>This is actually a little tricky, since the end() function returns an iterator that is
+    one past the last element of the container.
+		<p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+list&lt;int&gt;::iterator end_age_iterator = ages.end();
+end_age_iterator--; // Go back one position
+if (end_age_iterator != ages.end())  // Must check for valid iterator first!
+{
+    cout &lt;&lt; *end_age_iterator &lt;&lt; endl; //prints out 23
+}
+</code></pre></p>
 	<h3>Find Some Place in the List</h3>
 
-	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
-auto front_age_iterator = ages.begin();
-auto back_age_iterator = ages.end();
-//find the location of 5 in the list...search from the list's beginning to its end
-auto found_age_iterator = ages.find(ages.begin(),ages.end(),5);
-</code>
-	</pre></p>
+	<p><pre><code class="C++">#include &lt;algorithm&gt;
+list&lt;int&gt; ages { 1, 17, 5, 23 };
+// find the location of 5 in the list...search from the list from beginning to end
+list&lt;int&gt;::iterator found_age_iterator = find(ages.begin(), ages.end(), 5);
+if (found_age_iterator != ages.end())  // Must check for valid iterator first!
+{
+    cout &lt;&lt; "Found " &lt;&lt; *found_age_iterator &lt;&lt; endl;
+}
+</code></pre></p>
 
 	<h3>Moving Using Iterators</h3>
 	<p>
 		To move to the next element of the list you use the ++ operator, a reflection of the sibling relationship C++ has with C.
 	</p>
-	<p><pre><code class="C++">list&lt;int&gt;ages{1,17,5,23};
-auto front_age_iterator = ages.begin();
+	<p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+list&lt;int&gt;::iterator front_age_iterator = ages.begin();
 cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
 front_age_iterator++;
 cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 17
-</code>
-	</pre></p>
+</code></pre></p>
+    <h3>Processing an entire list</h3>
+    <p>It is quite common to need to process every element in a container.</p>
+    <p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+for (list&lt;int&gt;::iterator it = ages.begin(); it != ages.end(); ++it)
+{
+    // do something with it here. We know that the iterator is valid at this point because if it
+    // isn't, the loop has already exited.
+    ...
+}
+</code></pre></p>
+<p> The <tt>auto</tt> keyword can help us shorten the type of our iterators:</p>
+    <p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+for (auto it = ages.begin(); it != ages.end(); ++it)
+{
+    // do something with it here. We know that the iterator is valid at this point because if it
+    // isn't, the loop has already exited.
+    ...
+}
+</code></pre></p>
+
 	<h3>Bringing it All Together</h3>
 	<p>
 	Now, combining a map that uses a string for its keys and a list of medications as its value, the <span class="file_name">add_tablet_to_stock</span> method can now be done. Compare these next sentences with the code example below.</p>
