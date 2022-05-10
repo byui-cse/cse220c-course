@@ -143,7 +143,8 @@
 		the list, the end of the list, or somewhere in between. But, unlike Python iterators, you have to use an operator in order to get the value out of the iterator.
 	</p>
     <h3>Dereferencing iterators</h3>
-    <p>An iterator acts like a <dfn>pointer</dfn> into a container. Iterators
+    <p>An iterator acts like a <dfn>pointer</dfn> or a bookmark into a container. They mark
+	    the location inside the container where the real object can be found. Iterators
     can be dereferenced using either the * operator or the -&gt; operator in
     order to access the object through the iterator.  The * operator can be
     used to access the object itself. The -&gt; operator can be used to access
