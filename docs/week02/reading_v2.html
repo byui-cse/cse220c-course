@@ -170,9 +170,8 @@ public:
     SomeClass(void);
     ~SomeClass(void);
     void DoSomething(void);
-    SomeClass&amp; Output(std::ostream&amp; os) const;
+    SomeClass&amp; operator+= (int a);
 };
-SomeClass&amp; operator&lt;&lt;(std::ostream&amp; os, const SomeClass&amp; obj);
 </pre></code>
 
 <p>Inside your class methods, you can access any member of the class as if
@@ -188,7 +187,11 @@ void SomeClass::DoSomething(void)
 </pre></code>
 
 <p>You can also use the hidden <tt>this</tt> object pointer to access the
-elements in the object (this could be data elements or functions/methods):</p>
+elements in the object (this could be data elements or functions/methods).
+In order to use the class members through the pointer, you should use the -&gt;
+operator to dereference the pointer. The -&gt; operator is used to
+access a member element from a pointer to a struct or a class.
+</p>
 
 <code><pre>
 void SomeClass::DoSomething(void)
@@ -198,18 +201,15 @@ void SomeClass::DoSomething(void)
 }
 </pre></code>
 
-<p>In order to access a data member from the pointer, you need to use the * or
--&gt; operators to dereference the pointer. The -&gt; operator is used to
-access a member element from a pointer to a struct or a class, and the *
-operator is used to access the object itself or a reference to the object.
-This is often used when writing output operators and methods.</p>
+<p>The other dereference operator, *, is used to access the object itself or to
+create a reference to the object. This is often used when overloading operators.</p>
 
 <code><pre>
-// We need to return a reference to the current object from this method.
+// We want to return a reference to the current object from this method.
 // The reference return type is used to avoid making a copy of the object.
-SomeClass&amp; Output(std::ostream&amp; os) const
+SomeClass&amp; SomeClass::operator+=(int a)
 {
-    os &lt;&lt; "name is " &lt;&lt; name &lt;&lt; "  value is " &lt;&lt; value &lt;&lt; std::endl;
+    value += a;
     return *this;   // return the dereferenced this pointer
 }
 </pre></code>
