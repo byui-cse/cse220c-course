@@ -155,5 +155,65 @@ int some_function(const Widget&amp; w)
 reference, unless you have a good reason not to.
 </p>
 
+<h3>Referring to the self object: <tt>this</tt></h3>
+
+<p>Whenever you have a method/function as part of a class, there is always a
+hidden first parameter to the function called <tt>this</tt>. This special
+variable is a pointer to the current object. Consider this class:</p>
+
+<code><pre>class SomeClass
+{
+protected:
+    int value;
+    std::string name;
+public:
+    SomeClass(void);
+    ~SomeClass(void);
+    void DoSomething(void);
+    SomeClass&amp; Output(std::ostream&amp; os) const;
+};
+SomeClass&amp; operator&lt;&lt;(std::ostream&amp; os, const SomeClass&amp; obj);
+</pre></code>
+
+<p>Inside your class methods, you can access any member of the class as if
+it were declared as a local variable. So you could have the following in
+your class implementation (cpp) file:</p>
+
+<code><pre>
+void SomeClass::DoSomething(void)
+{
+    std::cout &lt;&lt; value &lt;&lt; std::endl;  // value refers to the class data member
+    std::cout &lt;&lt; name &lt;&lt; std::endl;   // name refers to the class data member
+}
+</pre></code>
+
+<p>You can also use the hidden <tt>this</tt> object pointer to access the
+elements in the object (this could be data elements or functions/methods):</p>
+
+<code><pre>
+void SomeClass::DoSomething(void)
+{
+    std::cout &lt;&lt; this-&gt;value &lt;&lt; std::endl;  // value refers to the class data member
+    std::cout &lt;&lt; this-&gt;name &lt;&lt; std::endl;   // name refers to the class data member
+}
+</pre></code>
+
+<p>In order to access a data member from the pointer, you need to use the * or
+-&gt; operators to dereference the pointer. The -&gt; operator is used to
+access a member element from a pointer to a struct or a class, and the *
+operator is used to access the object itself or a reference to the object.
+This is often used when writing output operators and methods.</p>
+
+<code><pre>
+// We need to return a reference to the current object from this method.
+// The reference return type is used to avoid making a copy of the object.
+SomeClass&amp; Output(std::ostream&amp; os) const
+{
+    os &lt;&lt; "name is " &lt;&lt; name &lt;&lt; "  value is " &lt;&lt; value &lt;&lt; std::endl;
+    return *this;   // return the dereferenced this pointer
+}
+</pre></code>
+    
+
 </body>
 </html>
