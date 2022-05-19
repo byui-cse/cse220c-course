@@ -30,10 +30,13 @@
 	<p>
 		As with most languages, there are two ways to define and fill an array. Being experienced with <a href="https://www.w3schools.com/python/python_arrays.asp">
 			Python arrays</a>, little of this is new to you. The biggest differences are, since you are in C++, you have to declare the type of the data 
-			held in the array, and use the <span class="file_name">{</span> and <span class="file_name">}</span> characters when you are declaring and filling an array all at once.
+			held in the array, and use the <span class="file_name">{</span> and <span class="file_name">}</span> characters when you are declaring and filling an array all at once. We can use an initializer list to let the compiler count how many elements are in the new array.
 	</p>
 	<p>
-	<pre><code>auto names = {"sally","bob","jorge","brunhilda"};//an array of the four indicated strings
+	<pre><code>// Create an array of the four indicated strings. Since we are initializing the array
+// with an initializer list, the compiler knows how many strings there are
+// and we can leave the size between [ and ] blank.
+std::string names[] = {"sally","bob","jorge","brunhilda"}; 
 </code>
 </pre>
 	</p>
@@ -76,7 +79,7 @@
 	</p>
 	<p>
 	<pre><code>long number_of_names = //code to get the number from some database response
-auto names = new std::string[number_of_names];//the type of the names variable is std::string* as inferred by the compiler
+std::string* names = new std::string[number_of_names]; // use a pointer type with "new"
 </code>
 </pre>
 	</p>
@@ -89,7 +92,7 @@ auto names = new std::string[number_of_names];//the type of the names variable i
 
 	<p>
 	<pre><code>long number_of_names = //code to get the number from some database response
-auto names = new std::string[number_of_names];
+std::string* names = new std::string[number_of_names];
 /*
  .
  .Code here to fill the array with the names from some database, and so forth.
@@ -97,12 +100,12 @@ auto names = new std::string[number_of_names];
  */
 
 //print out the names
-std::cout&lt;&lt;"name: "&lt;&lt;names[0]&lt;&lt;std::endl;
-std::cout&lt;&lt;"name: "&lt;&lt;names[1]&lt;&lt;std::endl;
-std::cout&lt;&lt;"name: "&lt;&lt;names[2]&lt;&lt;std::endl;
-std::cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;std::endl;
-std::cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;std::endl;
-
+std::cout &lt;&lt; "name: " &lt;&lt; names[0] &lt;&lt; std::endl;
+std::cout &lt;&lt; "name: " &lt;&lt; names[1] &lt;&lt; std::endl;
+std::cout &lt;&lt; "name: " &lt;&lt; names[2] &lt;&lt; std::endl;
+std::cout &lt;&lt; "name: " &lt;&lt; names[3] &lt;&lt; std::endl;
+std::cout &lt;&lt; "name: " &lt;&lt; names[4] &lt;&lt; std::endl;
+ 
 //Clean Up Your Mess!
 delete[] names;
 names = nullptr;
@@ -161,11 +164,11 @@ unique_ptr&lt;string[]&gt; names(new string[number_of_names]);
  */
 
 //print out the names
-cout&lt;&lt;"name: "&lt;&lt;names[0]&lt;&lt;endl;
-cout&lt;&lt;"name: "&lt;&lt;names[1]&lt;&lt;endl;
-cout&lt;&lt;"name: "&lt;&lt;names[2]&lt;&lt;endl;
-cout&lt;&lt;"name: "&lt;&lt;names[3]&lt;&lt;endl;
-cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;endl;
+cout &lt;&lt; "name: " &lt;&lt; names[0] &lt;&lt; endl;
+cout &lt;&lt; "name: " &lt;&lt; names[1] &lt;&lt; endl;
+cout &lt;&lt; "name: " &lt;&lt; names[2] &lt;&lt; endl;
+cout &lt;&lt; "name: " &lt;&lt; names[3] &lt;&lt; endl;
+cout &lt;&lt; "name: " &lt;&lt; names[4] &lt;&lt; endl;
 </code></pre></p>
 <p>
 	Did you see that there is no call to delete for the array? The unique pointer takes care of that.&#128077; You don't have to set it to <span class="file_name">nullptr</span> either.&#128077;&#128077; unique_ptr takes care of all of this for you!&#128077;&#128077;&#128077; Also, there is no computational overhead to using unique_ptr. It doesn't use more memory or CPU cycles to do its job. So...all this safety, and no computational overhead.&#129395;&#129395;&#129395; Which method of using pointers do you like better? Yep...that's what I thought.&#128578;
@@ -174,19 +177,20 @@ cout&lt;&lt;"name: "&lt;&lt;names[4]&lt;&lt;endl;
 
 <p>
 	As with any well written language, spoken or computer, there is more than one way to accomplish the same thing. Here is another valid way to 
-	print out the values in an array if you are using the old kinds of pointers but, remember, this type of thing is very dangerous. You will learn a safe way to do this same kind of thing in the next section of this reading.
+	print out the values in an array if you are using the old kinds of pointers but, remember, this type of thing is very dangerous. 
 </p>
 <p>
 	<pre><code>using std::cout;
 using std::endl;
 using std::string;
+using std::unique_ptr;
 /*
  .
  .A bunch of code in your app here
  .
  */
 long number_of_names = //code to get the number from some database response
-string* names = new string[number_of_names];
+unique_ptr&lt;string&gt; names(new string[number_of_names]);
 /*
  .
  .Code here to fill the array with the names from some database, etc.
@@ -194,20 +198,22 @@ string* names = new string[number_of_names];
  */
 
 //print out the names
-cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
-names++;
-cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
-names++;
-std::cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
-names++;
-cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
-names++;
-cout&lt;&lt;"name: "&lt;&lt;*names&lt;&lt;endl;
+string* names_ptr = names.get(); // Get raw pointer from smart pointer
+cout &lt;&lt; "name: " &lt;&lt; *names_ptr &lt;&lt; endl;
+names_ptr++;
+cout &lt;&lt; "name: " &lt;&lt; *names_ptr &lt;&lt; endl;
+names_ptr++;
+cout &lt;&lt; "name: " &lt;&lt; *names_ptr &lt;&lt; endl;
+names_ptr++;
+cout &lt;&lt; "name: " &lt;&lt; *names_ptr &lt;&lt; endl;
+names_ptr++;
+cout &lt;&lt; "name: " &lt;&lt; *names_ptr &lt;&lt; endl;
+names_ptr -= 4;//reset the pointer to the beginning of the array
 
 //Clean Up Your Mess!
-names -= 4;//reset the pointer to the beginning of the array
-delete[] names;
-names = nullptr;
+names_ptr = nullptr;
+
+// We don't need to clean up names; since it's smart pointer it will clean itself up.
 </code></pre></p>
 <p>
 	In the first line of code where a name is being printed out, you are going to see the <span class="file_name">*</span> character again. This time, 
@@ -240,11 +246,124 @@ names = nullptr;
 		Remember, if your C++ app crashes, the first thing to look for are memory issues.
 	</p>
 	<p>
-		One last thing about these C-style arrays you've been using&mdash;don't fall in love with them. In Week 4, you will learn better and safer ways to store data in a 
+		One last thing about these C-style arrays you've been using&mdash;don't fall in love with them. In Week 4, you learned about better and safer ways to store data in a 
 		C++ way. That doesn't mean you don't need to recognize the C-style arrays. You will see them in a lot of older code and will need to know how they work and 
 		what can go wrong with them. Then you will be able to fix the problem and, where possible, replace them with the C++ alternatives.
 	</p>
 </section>
+
+<h3>More Uses of Smart Pointers</h3>
+<p>You can also use smart pointers with classes and structures, not just arrays. In traditional C++, here's how you would 
+create an object dynamically:
+<p><pre><code class="C++">class some_class
+{
+protected:
+    int some_value;
+    float some_other_value;
+public:
+    void some_function(void);
+    // other methods, constructors, destructor, etc would be added to the class as needed
+};
+
+...
+
+some_class* obj = new some_class;
+// do stuff with obj
+delete obj;   // must deallocate memory or memory leaks happen!
+</code></pre></p>
+
+<p>Here's the same code, but using smart pointers:</p>
+<p><pre><code class="C++">#include <memory>
+using std::unique_ptr;
+
+class some_class
+{
+protected:
+    int some_value;
+    float some_other_value;
+public:
+    void some_function(void);
+    // other methods, constructors, destructor, etc would be added to the class as needed
+};
+
+...
+
+unique_ptr&lt;some_class&gt; obj(new some_class);
+// do stuff with obj
+// no need to deallocate memory; this is done automatically! 
+</code></pre></p>
+
+<p>There are two operators that can be used to dereference pointers, or in other words, access the object
+or array through the pointer. These are the same two operators that we
+used with iterators. In fact, the designers of the standard template library borrowed these two operators 
+from the C language to use with iterators, since their function is the same. They are both used to access
+the original object from the iterator or pointer. We have already seen that the * operator can be used to
+access the object as a whole. The other dereference operator, -&gt;, is used to access members from a pointer
+to a structure or class. Yes, this is used so often it gets its own operator.</p>
+
+<p><pre><code class="C++">some_class* obj = new some_class;
+obj-&gt;some_function();
+</code></pre></p>
+
+<p>If we want to use smart pointers, the code is nearly the same. Only the variable initialization is different.</p>
+<p><pre><code class="C++">uniqe_ptr&lt;some_class&gt; obj(new some_class);
+obj-&gt;some_function();
+</code></pre></p>
+
+<h3>Smart Pointers and Raw Pointers</h3>
+<p>Sometimes, a program still needs regular (raw) pointers even though it uses smart pointers. Such occasions
+should be rare and avoided if possible. However, if a raw pointer is needed, the get() method can be used on the
+smart pointer. Care should be taken to not use the raw pointer copy after the smart pointer has disposed of the
+object.</p>
+<p><pre><code class="C++">std::unique_ptr&lt;some_class&gt; obj(new some_class);
+some_class* unsafe_ptr = obj.get();
+</code></pre></p>
+
+<h3>Shared Pointers</h3>
+<p>The <span class="file_name">unique_ptr</span> class allows only one object to own the pointer at a time. The 
+object is disposed as soon as that pointer goes out of scope. Sometimes, however, you want to have several 
+owners of the object in question, and only want the object to be destroyed after every owner is done with the 
+object. Fortunately, there is another type of smart pointer in C++ that works this way, the 
+<span class="file_name">shared_ptr</span> class. Because of the special nature of shared pointers, they are
+declared a little bit differently from unique pointers. A template function called <span class="file_name">make_shared</span>
+is used to create a shared pointer. Another benefit of using shared pointers is that you don't even have to 
+use the new operator; memory is allocated and deallocated for you.</p>
+
+<p><pre><code class="C++">#include &lt;memory&gt;
+using std::shared_ptr;
+
+class some_class
+{
+protected:
+    int some_value;
+    float some_other_value;
+public:
+    void some_function(void);
+    // other methods, constructors, destructor, etc would be added to the class as needed
+};
+
+...
+
+shared_ptr&lt;some_class&gt; obj = make_shared&lt;some_class&gt;();  // default constructor used
+obj-&gt;some_function();
+// do stuff with obj
+// no need to deallocate memory; this is done automatically!
+</code></pre></p>
+
+<p>Shared pointers are safe to return from functions.</p>
+
+<p><pre><code class="C++">std::shared&lt;some_class&gt; some_function(void)
+{
+    return make_shared&lt;some_class&gt;();  // default constructor used
+}
+
+std::shared&lt;some_class&gt; some_ptr = some_function();
+</code></pre></p>
+
+<h3>Concluding Remarks</h3>
+<p>In your programs, you should avoid using raw pointers as much as possible. Instead, you should use smart pointers that
+do the hard work of cleaning up after yourself.</p>
+
 
 <footer>
 	<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License"
