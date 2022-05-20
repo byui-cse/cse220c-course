@@ -207,7 +207,7 @@ cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 1
 front_age_iterator++;
 cout &lt;&lt; *front_age_iterator&lt;&lt;endl;//prints out 17
 </code></pre></p>
-    <h3>Processing an entire list</h3>
+    <h3>Processing an Entire List</h3>
     <p>It is quite common to need to process every element in a container.</p>
     <p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
 for (list&lt;int&gt;::iterator it = ages.begin(); it != ages.end(); ++it)
@@ -226,6 +226,81 @@ for (auto it = ages.begin(); it != ages.end(); ++it)
     ...
 }
 </code></pre></p>
+    <h3>Returning Container Values from Functions</h3>
+    <p>When dealing with containers, it's sometimes desired to search for an
+    object in a container, and to return that object from a function for
+    further processing. The naive way to do this looks something like this:
+    <p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+
+int find(list&lt;int&gt; &amp; numbers, int number_to_find)
+{
+    list&lt;int&gt;::iterator it;
+    for (it = numbers.begin(); it != numbers.end(); ++it)
+    {
+        if (*it == number_to_find)
+            return *it;
+    }
+}
+</code></pre></p>
+
+    <p>This does return the number from the container, but only if the number
+    is found in the container. Also, if the number is not found, then this
+    function returns nothing at all. How does a program determine from this
+    code that the number is not in the list? There needs to exist a special
+    value that can be returned from this function to indicate that nothing was
+    found. But since the container contains a bunch of ints, which number could
+    we use that is not also a possible valid value? There is no good answer to
+    this, because any possible value we might use to indicate "no valid value"
+    might also be a valid value contained in the list that we don't want to
+    ignore.</p>
+
+    <p> There is another problem with this code. If we want to get the object
+    in the container in order to modify it, we cannot do so, since this
+    function returns a copy of what is inside the container.</p>
+
+    <p>So what if we return a reference? This solves the second problem, 
+    but not the first, since there is no way to use a reference to indicate 
+    "no valid value".</p>
+
+    <p>However, if we use iterators, we do have a good answer to both of these
+    problems.  All containers have a special iterator that can be used (and
+    compared against) that represents "no valid value." This is the end() of the
+    container. </p>
+
+    <p><pre><code class="C++">list&lt;int&gt; ages { 1, 17, 5, 23 };
+
+list&lt;int&gt;::iterator find(list&lt;int&gt; &amp; numbers, int number_to_find)
+{
+    list&lt;int&gt;::iterator it;
+    for (it = numbers.begin(); it != numbers.end(); ++it)
+    {
+        if (*it == number_to_find)
+            return it;
+    }
+
+    return it;  // "it" has to be the same as "numbers.end()" here
+}
+</code></pre></p>
+
+<p>This code solves both problems! We can tell if the value was found
+(by checking the iterator against the end() of the list) and we can also
+modify the value inside the container (by operating on the object directly
+using the * operator, or by calling a member function using the -&gt;
+operator, depending on the type of what's in the container). It is
+very important that any iterator is checked for validity before it is used
+with the * or -&gt; dereference operators.</p>
+
+<p><pre><code class="C++">list&lt;int&gt; ages {1, 17, 5, 23 };
+
+list&lt;int&gt;::iterator it = ages.find(17);
+if (it != ages.end())
+{
+    // If we have 17 in our list, increment it to be 18
+    // parentheses are used to increment the value in the container instead of the iterator
+    (*it) ++;
+}
+</code></pre></p>
+
 
 	<h3>Bringing it All Together</h3>
 	<p>
