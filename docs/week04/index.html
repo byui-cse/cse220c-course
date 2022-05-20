@@ -292,7 +292,7 @@ with the * or -&gt; dereference operators.</p>
 
 <p><pre><code class="C++">list&lt;int&gt; ages {1, 17, 5, 23 };
 
-list&lt;int&gt;::iterator it = ages.find(17);
+list&lt;int&gt;::iterator it = find(ages, 17);
 if (it != ages.end())
 {
     // If we have 17 in our list, increment it to be 18
