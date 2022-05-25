@@ -290,6 +290,9 @@ operator, depending on the type of what's in the container). It is
 very important that any iterator is checked for validity before it is used
 with the * or -&gt; dereference operators.</p>
 
+<p>This code uses iterators to directly modify one of the elements in the
+	container:</p>
+
 <p><pre><code class="C++">list&lt;int&gt; ages {1, 17, 5, 23 };
 
 list&lt;int&gt;::iterator it = find(ages, 17);
