@@ -89,11 +89,12 @@
         the name and the initial balance. The ID of the object will be
         automatically set by your program with the next ID number available. The
         first ID number is zero, and subsequent accounts will get numerically
-        increasing ID numbers.</p>
+        increasing ID numbers. A static data member is one way to store the next
+        available ID number (this is separate from the ID data member in each
+        object).</p>
       <p> The account class will have a method that will send the data members
-        to the output stream passed in as a parameter. The stream should be
-        passed by reference to the method, and should return the same stream
-        reference that is passed to the method.</p>
+        to an output stream. The output stream to use is passed in as a parameter. 
+        The output stream should be passed by reference.</p>
       <p> Your main function will create an object of the account class, call the
         object's input method that asks the user to enter the account
         information, and call the object's output method to show the data
@@ -109,10 +110,14 @@
         members to an output stream. Since you should already have a public
         method that can be used to write an object's information to an output
         stream (see Part 1 above), you merely need to call it from your output
-        operator.&nbsp; Output operators take the output stream reference as
+        operator.&nbsp; Output operators take an output stream reference as
         the first parameter, and a const reference of the class as the second
         parameter. This operator returns the stream reference, which is what
-        allows these calls to be chained together.</p>
+        allows these calls to be chained together. The output operator should
+        not be defined as a member of your class; instead, it is defined as a
+        standalone function in the same file as the rest of your class methods.
+        A function prototype for this function should be placed in the class
+        header file below the class definition.</p>
       <p> Modify your main function to use the output operator instead of
         calling the output method directly, to send the object to <tt>std::cout</tt>.</p>
       <p> Example input and output (input is underlined):</p>
@@ -124,7 +129,10 @@
       <h3>Part 3.</h3>
       <p>Add a menu to your program to allow the user to manipulate and view the
         account information. Your menu should have two options: display the
-        account information and quit the program.</p>
+        account information and quit the program. The code that displays the menu
+        options and reads the user selection should be inside a loop in your main
+        function. This way the user can interact with the program repeatedly until
+        finished.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Enter the name: <u>George</u><br>
         Enter the balance: <u>100</u><br>
