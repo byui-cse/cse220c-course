@@ -57,7 +57,8 @@
         code, submit all of your files together in a single zip file. </p>
       <h3>Part 1.</h3>
       <p>Rewrite the menu option to display account information to use <span class="file_name">for_each</span>
-        instead of iterators.</p>
+        instead of iterators. Your loop variable should be a reference in order to avoid copying the objects in your container.
+        You should not use a ranged for loop for this part of the task.</p>
       <h3>Part 2.</h3>
       <p>Add a menu option to remove an account from the system. Use <span class="file_name">remove_if</span>
         to perform this operation. After calling <span class="file_name">remove_if</span>, erase the removed

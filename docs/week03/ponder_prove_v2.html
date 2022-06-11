@@ -61,7 +61,8 @@
       <h3> Part 1. </h3>
       <p>Add the ability to store more than one account to your bank program.
         You should use one of the Standard Template Library containers to hold
-        the accounts. You may select which type of container to use.</p>
+        the accounts. You may select which type of container to use. 
+        The list container type is recommended.</p>
       <p>Your program should no longer automatically create an account when it
         starts. You will only create a new account when the user selects this as
         an option. You should create a new menu option that will enable the user
@@ -85,8 +86,9 @@
       <h3>Part 2.</h3>
       <p>Change the "Display account information" menu option to show all
         account information instead of just one account. When this option is
-        selected, all of the stored accounts are shown. Use iterators to
-        implement this option. </p>
+        selected, all of the stored accounts are shown. <b>Use iterators to
+        implement this option.</b> The section in the reading called "Processing
+        an Entire List" under "Iterators" will be helpful for this part of the task.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
         0. Quit Program<br>
@@ -123,10 +125,12 @@
       <h3>Part 3.</h3>
       <p>Add the ability to search through the container of accounts for a
         specific account and display the information associated with the
-        account. Use iterators to find the account. If the account doesn't exist
-        in the list, then display an appropriate error message. You may want to
+        account. <b>Use iterators to find the account.</b> If the account doesn't exist
+        in the list, then display an appropriate error message. You should
         create a function that finds the desired account because you can reuse
-        it later.</p>
+        it later. This function should return an iterator. The section in the
+        reading called "Returning Container Values from Functions" under "Iterators"
+        will be helpful for this part of the task.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
         0. Quit Program<br>
@@ -175,9 +179,16 @@
       <p> <br>
       </p>
       <h3>Part 4.</h3>
-      <p>Fix the add deposit and withdrawal options by reusing the code that
-        searches for an account, then apply the desired operation to that
-        account.</p>
+      <p>Fix the deposit and withdrawal options to work on any of the 
+        accounts in the system. First call the function 
+        you wrote for Part 3 of this task to find the desired account. 
+        After obtaining the iterator for the desired element in the container, 
+        dereference that iterator to apply the += or -= operators directly to 
+        the object in the container. (You should have written these operators 
+        for the last task.) <b>You must use iterators to find and modify the
+        account.</b> The section in the documentation called "Returning Container
+        Values from Functions" under "Iterators" will be helpful for this part
+        of the task.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
         0. Quit Program<br>
