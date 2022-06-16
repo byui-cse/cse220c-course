@@ -1,122 +1,146 @@
 <!-- uses https://highlightjs.org/
---><!DOCTYPE html>
+-->
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 02 Ponder &amp; Prove | CSE 220C</title>
-    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
-      type="image/x-icon">
-    <script>
-      var codeType = "C++"
-   </script>
-    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-    <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
-    <style>
-      .underline {
-         text-decoration: underline;
-      }
-   </style>
-  </head>
-  <body onload="fetchSource()">
-    <header class="hero-image">
-      <div class="hero-text">
-        <h1>CSE 220C: Week 02</h1>
-        <p>Ponder and Prove</p>
-      </div>
-    </header>
-    <main>
-      <h1>Week 2: Using Classes</h1>
-      <h2>Overview</h2>
-      <p>Task: Create a simple bank system to keep track of account balances.</p>
-      <p>Purpose: Learn how to create C++ classes and use overloaded operators.</p>
-      <h2>Instructions</h2>
-      <p>These instructions are designed to help you break your programming into
-        small pieces to make it easier for you to write and debug. You only turn
-        in the final program, after all of the parts have been written, but it
-        will be easier if you make sure that each part is complete before
-        proceeding to the next.</p>
-      <p>Before attempting to complete the task, you should read through the following material. These reading links are provided to help you understand what you'll need to do as you complete the task. You don't necessarily need to read every word of each link, but you should browse through each link and spend time on concepts that are not familiar to you.</p>
-      <p><ul>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 02 Ponder &amp; Prove | CSE 220C</title>
+  <link rel="shortcut icon"
+    href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet"
+    href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+    .underline {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 02</h1>
+      <p>Ponder and Prove</p>
+    </div>
+  </header>
+  <main>
+    <h1>Week 2: Using Classes</h1>
+    <h2>Overview</h2>
+    <p>Task: Create a simple bank system to keep track of account balances.</p>
+    <p>Purpose: Learn how to create C++ classes and use overloaded operators.</p>
+    <h2>Instructions</h2>
+    <p>These instructions are designed to help you break your programming into
+      small pieces to make it easier for you to write and debug. You only turn
+      in the final program, after all of the parts have been written, but it
+      will be easier if you make sure that each part is complete before
+      proceeding to the next.</p>
+    <p>Before attempting to complete the task, you should read through the following material.
+      These reading links are provided to help you understand what you'll need to do as you
+      complete the task. You don't necessarily need to read every word of each link, but you
+      should browse through each link and spend time on concepts that are not familiar to you.
+    </p>
+    <p>
+      <ul>
         <li><a href="../week03/index.html">CSE 220C: Defining and Using Classes</a></li>
         <li><a href="reading_v2.html">CSE 220C: C++ Classes Additional Material</a></li>
-        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.03.Reading.Class.html">Learn C++: Class Syntax</a></li>
-        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.05.Reading.Methods.html">Learn C++: Method Definitions</a></li>
-        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.12.Reading.Operators.html">Learn C++: Operators</a> (Optional reading)</li>
-        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.13.Reading.Inheritance.html">Learn C++: Inheritance</a> (Optional reading)</li>
-      </ul></p>
-       <p>You may need to consult additional documentation not listed here. You should ask for help in our class discussion when
-         you get stuck.</p>
-      <p> <b>As you write your program code, you will separate your code into different
-        files.</b> 
-        <p>You should create the following files:</p>
-        <ul>
-          <li><code class="inline">account.h</code> - Stores the class definition for the Account class.</li>
-          <li><code class="inline">account.cpp</code> - Stores the Account class implementation.</li>
-          <li><code class="inline">program.cpp</code> - Contains the main function.</li>
-        </ul>
-        You will create header files and cpp source files for each class.
-        You will place the class declaration in a header file, and your class
-        method implementations will go in a cpp source file. Your main function
-        will go in yet another cpp source file. All of your cpp source files will
-        #include the header file for your class. Do not #include cpp files from
-        another cpp file. You should add each source file to the project in your
-        development environment. </p>
-        
-        <p><b>Hint:</b> The section called "The Date Class" in the <a href="../week03/index.html">Defining and Using Classes</a>
-        document will be helpful to determine how to separate your code. This document has an
-        example of which things go in the class header file and which things go in the cpp 
-        implementation file.</p>
-        <p> This task
-        will build upon last week's programming task.  However, you should
-        still create a new project for this week's task and copy last week's
-        code into your new project. When you submit your program
-        code, submit all of your files together in a single zip file. </p>
-      <h3>Part 1.</h3>
-      <p> Create a simple class that represents a bank account. For this task,
-        you will create a program that has a single account. In later tasks, you
-        will add the ability to store multiple accounts.</p>
-      <p> The account class will have the following data members:</p>
-      <ul>
-       <li>an account ID (integer)</li>
-       <li>account name (string)</li>
-       <li>account balance (float)</li>
+        <li><a
+            href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.03.Reading.Class.html">Learn
+            C++: Class Syntax</a></li>
+        <li><a
+            href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.05.Reading.Methods.html">Learn
+            C++: Method Definitions</a></li>
+        <li><a
+            href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.12.Reading.Operators.html">Learn
+            C++: Operators</a> (Optional reading)</li>
+        <li><a
+            href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.13.Reading.Inheritance.html">Learn
+            C++: Inheritance</a> (Optional reading)</li>
       </ul>
-      <p>All of
-        these members should be private or protected. (This is generally true
-        of all class data members.)</p>
-      <p>The account class will have a constructor that takes no parameters.
-        This constructor will initialize the data members to empty values.</p>
-      <!-- <p> The account class will have a copy constructor that copies all of the
+    </p>
+    <p>You may need to consult additional documentation not listed here. You should ask for help
+      in our class discussion when
+      you get stuck.</p>
+    <p> <b>As you write your program code, you will separate your code into different
+        files.</b>
+      <p>You should create the following files:</p>
+      <ul>
+        <li><code class="inline">account.h</code> - Stores the class definition for the Account
+          class.</li>
+        <li><code class="inline">account.cpp</code> - Stores the Account class implementation.
+        </li>
+        <li><code class="inline">program.cpp</code> - Contains the main function.</li>
+      </ul>
+      You will create header files and cpp source files for each class.
+      You will place the class declaration in a header file, and your class
+      method implementations will go in a cpp source file. Your main function
+      will go in yet another cpp source file. All of your cpp source files will
+      #include the header file for your class. Do not #include cpp files from
+      another cpp file. You should add each source file to the project in your
+      development environment.
+    </p>
+
+    <p><b>Hint:</b> The section called "The Date Class" in the <a
+        href="../week03/index.html">Defining and Using Classes</a>
+      document will be helpful to determine how to separate your code. This document has an
+      example of which things go in the class header file and which things go in the cpp
+      implementation file.</p>
+    <p> This task
+      will build upon last week's programming task. However, you should
+      still create a new project for this week's task and copy last week's
+      code into your new project. When you submit your program
+      code, submit all of your files together in a single zip file. </p>
+    <h3>Part 1.</h3>
+    <p> Create a simple class that represents a bank account. For this task,
+      you will create a program that has a single account. In later tasks, you
+      will add the ability to store multiple accounts.</p>
+    <p> The account class will have the following data members:</p>
+    <ul>
+      <li>an account ID (integer)</li>
+      <li>account name (string)</li>
+      <li>account balance (float)</li>
+    </ul>
+    <p>All of
+      these members should be private or protected. (This is generally true
+      of all class data members.)</p>
+    <p>The account class will have a constructor that takes no parameters.
+      This constructor will initialize the data members to empty values.</p>
+    <!-- <p> The account class will have a copy constructor that copies all of the
         data from one instance to another instance. The source instance should
         be passed by reference.</p>
       <p> The account class will have a destructor that takes no parameters and
         an empty body. We'll add more code here later.</p> -->
-      <p>The account class will have a method that prompts the user to enter
-        the name and the initial balance. The ID of the object will be
-        automatically set by your program with the next ID number available. The
-        first ID number is zero, and subsequent accounts will get numerically
-        increasing ID numbers. A static data member is one way to store the next
-        available ID number (this is separate from the ID data member in each
-        object).</p>
-      <!-- <p> The account class will have a method that will send the data members
+    <p>The account class will have a method that prompts the user to enter
+      the name and the initial balance. The ID of the object will be
+      automatically set by your program with the next ID number available. The
+      first ID number is zero, and subsequent accounts will get numerically
+      increasing ID numbers. A static data member is one way to store the next
+      available ID number (this is separate from the ID data member in each
+      object).</p>
+    <!-- <p> The account class will have a method that will send the data members
         to an output stream. The output stream to use is passed in as a parameter. 
         The output stream should be passed by reference.</p> -->
-      <p> The account class will have a method that will display the account information.</p>
-      <p> Your main function will create an object of the account class, call the
-        object's input method that asks the user to enter the account
-        information, and call the object's output method to show the account information to the user. </p>
-        <!-- <p>You can use the standard object <tt>std::cout</tt> to pass to
+    <p> The account class will have a method that will display the account information.</p>
+    <p> Your main function will create an object of the account class, call the
+      object's input method that asks the user to enter the account
+      information, and call the object's output method to show the account information to the
+      user. </p>
+    <!-- <p>You can use the standard object <tt>std::cout</tt> to pass to
           the output method.</p> -->
-      <p> Example input and output (input is underlined):</p>
-      <p> <code class="console"> Enter the name: <u>George</u><br>
-          Enter the balance: <u>100</u><br>
-          Account ID: 0&nbsp; Name: George&nbsp; Balance: $100.00</code></p>
-      <br>
-      <h3>Part 2.</h3>
-      <!-- <p> Write an output operator <tt>&lt;&lt;</tt> to enable writing the object's data
+    <p> Example input and output (input is underlined):</p>
+    <p> <code class="console"> Enter the name: <u>George</u><br>
+        Enter the balance: <u>100</u><br>
+        Account ID: 0&nbsp; Name: George&nbsp; Balance: $100.00</code></p>
+    <br>
+    <h3>Part 2.</h3>
+    <!-- <p> Write an output operator <tt>&lt;&lt;</tt> to enable writing the object's data
         members to an output stream. Since you should already have a public
         method that can be used to write an object's information to an output
         stream (see Part 1 above), you merely need to call it from your output
@@ -137,30 +161,31 @@
         </code> </p>
       <br>
       <h3>Part 3.</h3> -->
-      <p>Add a menu to your program to allow the user to manipulate and view the
-        account information. Your menu should have two options: display the
-        account information and quit the program. The code that displays the menu
-        options and reads the user selection should be inside a loop in your main
-        function. This way the user can interact with the program repeatedly until
-        finished.</p>
-      <p>Example input and output (input is underlined):</p>
-      <code class="console"> Enter the name: <u>George</u><br>
-        Enter the balance: <u>100</u><br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        Your choice: <u>1</u><br>
-        Account ID: 0 Name: George Balance: $100.00<br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        Your choice: <u>0</u><br>
-      </code> <br>
-      <h3> Part 3. </h3>
-      <p>Add a method to your Account class that will add a deposit to the account balance. This method should accept a <code class="inline">float</code> and return nothing.</p>
-      <!-- <p> Add a new operator += to the class that will add a deposit to the
+    <p>Add a menu to your program to allow the user to manipulate and view the
+      account information. Your menu should have two options: display the
+      account information and quit the program. The code that displays the menu
+      options and reads the user selection should be inside a loop in your main
+      function. This way the user can interact with the program repeatedly until
+      finished.</p>
+    <p>Example input and output (input is underlined):</p>
+    <code class="console"> Enter the name: <u>George</u><br>
+      Enter the balance: <u>100</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      Your choice: <u>1</u><br>
+      Account ID: 0 Name: George Balance: $100.00<br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      Your choice: <u>0</u><br>
+    </code> <br>
+    <h3> Part 3. </h3>
+    <p>Add a method to your Account class that will add a deposit to the account balance. This
+      method should accept a <code class="inline">float</code> and return nothing.</p>
+    <!-- <p> Add a new operator += to the class that will add a deposit to the
         account balance. This operator should take a <code class="inline">float</code> as a parameter and return a reference to an Account.</p>
         <p>As an example, the declaration of this operator in the header file should look something like this:</p> 
         <code>Account& operator+= (float deposit);</code>
@@ -172,58 +197,129 @@ Account& Account::operator+= (float deposit) {
     balance += deposit;
     return *this;
 }</code></pre> -->
-        
-        <p>Add a new menu selection to allow the user to add a
-        deposit to the account. </p>
-        
-      <p> Example input and output (input is underlined): </p>
-      <code class="console"> Enter the name: <u>George</u><br>
+
+    <p>Add a new menu selection to allow the user to add a
+      deposit to the account. </p>
+
+    <p> Example input and output (input is underlined): </p>
+    <code class="console"> Enter the name: <u>George</u><br>
+      Enter the balance: <u>100</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      Your choice: <u>2</u><br>
+      Amount to deposit: <u>15</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      Your choice: <u>1</u><br>
+      Account ID: 0&nbsp; Name: George&nbsp; Balance: $115.00<br>
+    </code> <br>
+    <h3> Part 4. </h3>
+    <p>Add a method to your Account class that will subtract a withdrawal amount from the
+      account balance. This method should accept a <code class="inline">float</code> and return
+      nothing.</p>
+    <!-- <p> Add a new operator -= to the class that will subtract a withdrawal
+        from the account balance. Add a new menu selection to allow the user to
+        make a withdrawal from the account. </p> -->
+    <p> Example input and output (input is underlined):&nbsp; </p>
+    <p> <code class="console"> Enter the name: <u>George</u><br>
         Enter the balance: <u>100</u><br>
         <br>
         Account Menu:<br>
         0. Quit Program<br>
         1. Display Account Information<br>
         2. Add a deposit to an account<br>
-        Your choice: <u>2</u><br>
-        Amount to deposit: <u>15</u><br>
+        3. Withdraw from an account<br>
+        Your choice: <u>3</u><br>
+        Amount to withdraw: <u>15</u><br>
         <br>
         Account Menu:<br>
         0. Quit Program<br>
         1. Display Account Information<br>
         2. Add a deposit to an account<br>
+        3. Withdraw from an account<br>
         Your choice: <u>1</u><br>
-        Account ID: 0&nbsp; Name: George&nbsp; Balance: $115.00<br>
-      </code> <br>
-      <h3> Part 4. </h3>
-      <p>Add a method to your Account class that will subtract a withdrawal amount from the account balance. This method should accept a <code class="inline">float</code> and return nothing.</p>
-      <!-- <p> Add a new operator -= to the class that will subtract a withdrawal
-        from the account balance. Add a new menu selection to allow the user to
-        make a withdrawal from the account. </p> -->
-      <p> Example input and output (input is underlined):&nbsp; </p>
-      <p> <code class="console"> Enter the name: <u>George</u><br>
-          Enter the balance: <u>100</u><br>
-          <br>
-          Account Menu:<br>
-          0. Quit Program<br>
-          1. Display Account Information<br>
-          2. Add a deposit to an account<br>
-          3. Withdraw from an account<br>
-          Your choice: <u>3</u><br>
-          Amount to withdraw: <u>15</u><br>
-          <br>
-          Account Menu:<br>
-          0. Quit Program<br>
-          1. Display Account Information<br>
-          2. Add a deposit to an account<br>
-          3. Withdraw from an account<br>
-          Your choice: <u>1</u><br>
-          Account ID: 0&nbsp; Name: George&nbsp; Balance: $85.00 </code> </p>
-      <p><br>
-      </p>
-    </main>
-    <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
-          alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
-      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
-        Commons Attribution 4.0 International License</a>. </footer>
-  </body>
+        Account ID: 0&nbsp; Name: George&nbsp; Balance: $85.00 </code> </p>
+    <p><br>
+    </p>
+    <h3> Part 5. Optional for extra learning and practice. </h3>
+    <p>As an optional enhancement to your program, implement one or more of the following. <b>
+        These
+        are all optional and are not required to complete this task.
+      </b> </p>
+    <ol>
+      <li>
+        <p> Add an add-onto operator += to the Account class that will add a deposit to the
+          account balance. This operator should take a <code class="inline">float</code> as a
+          parameter and return a reference to an Account.</p>
+        <p>The declaration of this operator in the header file should look
+          something like this:</p>
+        <code>Account& operator+= (float deposit);</code>
+        <p>If properly implemented, now you can add a deposit to the account by doing this: </p>
+        <pre><code>my_account += deposit_amount;</code></pre>
+      </li>
+      <li>
+        <p>Add a subtract-from operator -= to the class that will subtract a withdrawal
+          from the account balance. </p>
+        <p>If properly implemented, now you can subtract a withdrawal from the account by doing this: </p>
+        <pre><code>my_account -= withdrawal_amount;</code></pre>
+      </li>
+      <li>
+        <p>Add a method to the Account class that takes an output stream as a parameter and
+          returns an output stream. The declaration of this method in your header file should
+          look something like this:</p>
+        <code>std::ostream& display(std::ostream& out) const;</code>
+        <p>You can use the standard object <code class="inline">std::cout</code> to pass to
+          this output method.</p>
+          <p>If properly implemented, now you can display the account information by passing an output stream to the display method, like this: </p>
+        <pre><code>my_account.display(std::cout);</code></pre>
+        <p>This is helpful because we can now provide different output streams, such as a file output stream, rather than being limited to displaying account information only in the console using <code class="inline">std::cout</code></p>
+      </li>
+      <li>
+        <p>Add an insertion operator (<code class="inline">&lt;&lt;</code>) to enable
+          writing the object's data members to an output stream. Because this operator is
+          defined outside the class, it cannot access <code class="inline">private</code> or
+          <code class="inline">protected</code> members. You will need to use a public
+          method that can be used to write an object's information to an output
+          stream (see optional item number 3 above). Then, you merely need to call it from your
+          insertion operator. Insertion operators take an output stream reference as
+          the first parameter, and a const reference of the class as the second
+          parameter. This operator returns the output stream reference, which is what
+          allows these calls to be chained together. The insertion operator should
+          not be defined as a member of your class; instead, it is defined as a
+          standalone function in the same file as the rest of your class methods.
+          A function prototype for this function should be placed in the class
+          header file below the class definition.</p>
+        <p> Modify your main function to use the output operator instead of
+          calling the output method directly, to send the object to <code
+            class="inline">std::cout</code>.</p>
+        <p>Example:</p>
+        <pre><code>Account my_account; // Create an account
+my_account.initialize(); // Prompts user for name and account balance
+
+my_account.display(); // Default method to display account information
+
+my_account.display(std::cout); // Using the optional number 3 method
+
+std::cout &lt;&lt; my_account; // Do this instead after implementing the &lt;&lt; operator
+              </code>
+            </pre>
+
+      </li>
+
+    </ol>
+  </main>
+  <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+        alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
+    This work is licensed under a <a rel="license"
+      href="http://creativecommons.org/licenses/by/4.0/">Creative
+      Commons Attribution 4.0 International License</a>. </footer>
+</body>
+
 </html>
