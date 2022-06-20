@@ -41,9 +41,9 @@
       <p>These links may help you:</p>
       <p><ul>
        <!--<li><a href="../week03/reading_v2.html">CSE 220C Reading Week 03</a></li>-->
+       <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.04.Reading.Containers.html">Learn C++: Containers</a></li>
        <li><a href="../week04/index.html">CSE 220C: Data Storage and Access</a></li>
        <li><a href="../week05/index.html">CSE 220C: Inside Containers</a></li>
-       <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.04.Reading.Containers.html">Learn C++: Containers</a></li>
        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.07.Reading.Templates.html">Learn C++: Templates</a></li>
       </ul></p>
        <p>You may need to consult additional documentation not listed here. You should ask for help in our class discussion when
@@ -53,23 +53,24 @@
         You will place the class declaration in a header file, and your class
         method implementations will go in a cpp source file. Your main function
         will go in yet another cpp source file. All of your cpp source files will
-        include your header files as needed. This task
+        include your header files as needed. </p>
+        <p>This task
         will build upon last week's programming task.  However, you should
         still create a new project for this week's task and copy last week's
         code into your new project. When you submit your program
         code, submit all of your files together in a single zip file. </p>
       <h3> Part 1. </h3>
-      <p>Add the ability to store more than one account to your bank program.
-        You should use one of the Standard Template Library containers to hold
-        the accounts. You may select which type of container to use. 
-        The list container type is recommended.</p>
+      <p>Add the ability to store more than one account to your bank program using the <code class="inline">list</code> container from the Standard Template Library.</p>
       <p>Your program should no longer automatically create an account when it
         starts. You will only create a new account when the user selects this as
-        an option. You should create a new menu option that will enable the user
-        to create a new account. Once the new account is added, store the new
-        account in your container. You will likely need to temporarily remove or
+        an option. First, create a new menu option that will enable the user
+        to create a new account and implement functionality in your program that will allow the user to create a new account. Once the new account is added, store the new
+        account in your list container. You will likely need to temporarily remove or
         comment out the code for some of the other menu functions to get this to
-        work. We'll be adding those functions back later.</p>
+        work. You'll add those functions back later.</p>
+        <p><b>Hint:</b> You'll need to include the <code class="inline">&lt;list&gt;</code> 
+        library. You'll also need to declare a list that holds "Accounts" inside your <code class="inline">main</code> function, for example:
+      <code>list&lt;Account&gt; accounts;</code></p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Main Menu:<br>
         0. Quit Program<br>
@@ -183,9 +184,8 @@
         accounts in the system. First call the function 
         you wrote for Part 3 of this task to find the desired account. 
         After obtaining the iterator for the desired element in the container, 
-        dereference that iterator to apply the += or -= operators directly to 
-        the object in the container. (You should have written these operators 
-        for the last task.) <b>You must use iterators to find and modify the
+        dereference that iterator to apply the <code class="inline">deposit</code> or <code class="inline">withdraw</code> methods for that account. Alternatively, you can use the  += or -= operators directly to the object in the container if you created these
+        operators in the task last week. <b>You must use iterators to find and modify the
         account.</b> The section in the documentation called "Returning Container
         Values from Functions" under "Iterators" will be helpful for this part
         of the task.</p>
