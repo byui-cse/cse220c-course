@@ -926,7 +926,7 @@ float f = std::stof(line);
 </pre></code>
 
 <p>
-When mixing <tt>&gt;&gt;</tt> and <tt>getline</tt> you may encounter the
+When mixing <tt>cin &gt;&gt;</tt> and <tt>getline</tt> you may encounter the
 situation where your <tt>getline</tt> calls may appear to be skipped. This
 happens when the <tt>getline</tt> call comes after some input is read using
 <tt>std::cin &gt;&gt;</tt>. What happens is that there is still a leftover
@@ -936,11 +936,16 @@ trailing newline character:
 </p>
 
 <code><pre>
+#include &lt;limits&gt; # for std::numeric_limits
+#include &lt;ios&gt; # for std::streamsize
+
+...
+
 std::string line;
 int value;
 
 std::cin &gt;&gt; value;
-std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n');
 getline(std::cin, line);
 </pre></code>
 
