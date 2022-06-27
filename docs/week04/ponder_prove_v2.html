@@ -55,15 +55,21 @@
         still create a new project for this week's task and copy last week's
         code into your new project. When you submit your program
         code, submit all of your files together in a single zip file. </p>
+        <h3>Hints</h3>
+        <ul>
+           <li>Include the <code class="inline">algorithm</code> library for the <code class="inline">transform</code>, <code class="inline">remove_if</code>, and <code class="inline">for_each</code> functions.
+           </li>
+           <li>Include the <code class="inline">numeric</code> library for the <code class="inline">accumulate</code> function.</li>
+        </ul>
       <h3>Part 1.</h3>
-      <p>Rewrite the menu option to display account information to use <span class="file_name">for_each</span>
+      <p>Rewrite the menu option to display account information to use <code class="inline">for_each</code>
         instead of iterators. Your loop variable should be a reference in order to avoid copying the objects in your container.
         You should not use a ranged for loop for this part of the task.</p>
       <h3>Part 2.</h3>
-      <p>Add a menu option to remove an account from the system. Use <span class="file_name">remove_if</span>
-        to perform this operation. After calling <span class="file_name">remove_if</span>, erase the removed
+      <p>Add a menu option to remove an account from the system. Use <code class="inline">remove_if</code>
+        to perform this operation. After calling <code class="inline">remove_if</code>, erase the removed
         elements permanently from the container. <strong>NOTE</strong>: some containers are not
-        compatible with <span class="file_name">remove_if</span>. For these containers, you should use <span class="file_name">erase_if</span>
+        compatible with <code class="inline">remove_if</code>. For these containers, you should use <code class="inline">erase_if</code>
         instead.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
@@ -128,7 +134,7 @@
       </p>
       <h3>Part 3.</h3>
       <p>Add a menu option to determine the total amount of deposits in the
-        system. Use <span class="file_name">accumulate</span> to accomplish this part of the task.</p>
+        system. Use <code class="inline">accumulate</code> to accomplish this part of the task.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
         0. Quit Program<br>
@@ -174,9 +180,9 @@
       <p>Add a menu option to add a dividend to all of the accounts. The
         dividend is calculated as a simple percentage of the current balance.
         Have the user enter the amount of the dividend as a percentage. Use
-        <span class="file_name">transform</span> to accomplish this task. You could add a new operator *= to
+        <code class="inline">transform</code> to accomplish this task. You could add a new operator *= to
         your account class to make this task easier. <strong>NOTE</strong>: some containers are
-        not compatible with <span class="file_name">transform</span>. For these containers, use <span class="file_name">for_each</span>
+        not compatible with <code class="inline">transform</code>. For these containers, use <code class="inline">for_each</code>
         instead.</p>
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
