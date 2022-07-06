@@ -144,7 +144,9 @@ using std::string;</code></pre></p>
 	<p>
 		Smart pointers take care of cleaning up after you. It's kind of like having a very dedicated maid that you pay to follow you around and pick up after you. (FYI, you should never treat a maid or any other person this way. It is degrading and antithetical to what Christ teaches us in His gospel.) Instead of using old-fashioned 'raw' pointers, the array of names in the previous examples could be done using a smart pointer. Notice the application of the <span class="file_name">using</span> keyword near the top of the file.
 	</p>
-	<pre><code>using std::cout;
+	<pre><code>#include &lt;memory&gt; // for unique_ptr
+
+using std::cout;
 using std::endl;
 using std::string;
 using std::unique_ptr;
@@ -180,7 +182,9 @@ cout &lt;&lt; "name: " &lt;&lt; names[4] &lt;&lt; endl;
 	print out the values in an array if you are using the old kinds of pointers but, remember, this type of thing is very dangerous. 
 </p>
 <p>
-	<pre><code>using std::cout;
+	<pre><code>#include &lt;memory&gt;
+
+using std::cout;
 using std::endl;
 using std::string;
 using std::unique_ptr;
@@ -273,7 +277,8 @@ delete obj;   // must deallocate memory or memory leaks happen!
 </code></pre></p>
 
 <p>Here's the same code, but using smart pointers:</p>
-<p><pre><code class="C++">#include <memory>
+<p><pre><code class="C++">#include &lt;memory&gt;
+
 using std::unique_ptr;
 
 class some_class
