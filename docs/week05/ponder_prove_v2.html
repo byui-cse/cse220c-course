@@ -49,7 +49,7 @@
        <li><a href="../week05/reading_v2.html">CSE 220C: Week 05 Reading</a></li>
        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.08.Reading.Pointers.html">Learn C++: Pointers</a></li>
        <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.09.Reading.Allocation.html">Learn C++: Memory Allocation</a></li>
-       <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.10.Reading.PointerArithmetic.html">Learn C++: Pointer Arithmetic</a></li>
+       <li><a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.10.Reading.PointerArithmetic.html">Learn C++: Pointer Arithmetic</a> (Optional) </li>
       </ul></p>
        <p>You may need to consult additional documentation not listed here. You should ask for help in our class discussion when
          you get stuck.</p>
@@ -67,7 +67,7 @@
       <h3>Part 1.</h3>
       <p>We now want to add contact information to each account. We'll do this
         with an
-        additional class. This new contact class will have the following
+        additional class called <code class="inline">Contact</code> This new <code class="inline">Contact</code> class will have the following
         data members:</p>
       <p>
        <ul>
@@ -78,32 +78,31 @@
         <li>phone number (string)</li>
        </ul>
       </p>
-      <p>This contact class will have a constructor that takes no parameters. In
+      <p>The <code class="inline">Contact</code> class will have a constructor that takes no parameters. In
         this
         constructor, all of the data values will be given blank values or empty
         strings.</p>
-      <p>This contact class will have a copy constructor that copies all of the
+      <!-- <p>This contact class will have a copy constructor that copies all of the
         data members
         from one instance to another. The source instance should be passed by
         reference.</p>
       <p>This contact class will have a destructor. This destructor will have an
         empty
-        body. We'll add more code here later.</p>
-      <p>This contact class will have a method to ask the user for the values to
+        body. We'll add more code here later.</p> -->
+      <p>The <code class="inline">Contact</code> class will have a method to ask the user for the values to
         store in
         the data members.</p>
-      <p>This contact class will also have a method to show the data members.
-        This method
+      <p>The <code class="inline">Contact</code> class will have a method to show the data members.
+        <!-- This method
         will take an output stream reference as a parameter and return the same
         stream
-        reference as the return value.</p>
-      <p>The account class will contain an additional data member: a smart
-        pointer that
-        contains the contact information. In the constructors for the account
+        reference as the return value.</p> -->
+      <p>Add an additional data member to the <code class="inline">Account</code> class: a <code class="inline">shared_ptr</code> that
+        contains the contact information. In the constructor for the account
         class, initialize this smart pointer to nullptr.</p>
-      <p>Add a method to the account class that is used to add the contact info.
+      <p>Add a method to the <code class="inline">Account</code> class that is used to add the contact info.
         This
-        must be done as a method in the account class because we are modifying a
+        must be done as a method in the <code class="inline">Account</code> class because we are modifying a
         data
         member of the class.</p>
       <p>Add a menu item to attach contact information to an account. This menu
@@ -239,7 +238,7 @@
       </code>
       <p> <br>
       </p>
-      <h3>Part 3.</h3>
+      <!-- <h3>Part 3.</h3>
       <p>Add <strong>cout</strong> messages to the destructors for the account class and the
         contact
         class. Verify that when an account is removed from the system, any
@@ -359,7 +358,8 @@
         9. Add contact information to an account<br>
         Your choice: <u>1</u><br>
         Account ID: 0 Name: George Balance: $100.00<br>
-      </code> </main>
+      </code> -->
+    </main> 
     <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
           alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
       This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
