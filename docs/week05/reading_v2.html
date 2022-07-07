@@ -357,12 +357,12 @@ obj-&gt;some_function();
 
 <p>Shared pointers are safe to return from functions.</p>
 
-<p><pre><code class="C++">std::shared&lt;some_class&gt; some_function(void)
+<p><pre><code class="C++">std::shared_ptr&lt;some_class&gt; some_function(void)
 {
     return make_shared&lt;some_class&gt;();  // default constructor used
 }
 
-std::shared&lt;some_class&gt; some_ptr = some_function();
+std::shared_ptr&lt;some_class&gt; some_ptr = some_function();
 </code></pre></p>
 
 <h3>Concluding Remarks</h3>
