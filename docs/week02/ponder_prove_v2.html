@@ -51,6 +51,9 @@
       <ul>
         <li><a href="../week03/index.html">CSE 220C: Defining and Using Classes</a></li>
         <li><a href="reading_v2.html">CSE 220C: C++ Classes Additional Material</a></li>
+        <li><a href="https://video.byui.edu/media/t/1_ov5ob3xf">Demo Video</a> - Optional video
+          showing how to separate your classes into a header file and an implementation file,
+          including some tips for working with Visual Studio.</li>
         <li><a
             href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.03.Reading.Class.html">Learn
             C++: Class Syntax</a></li>
@@ -265,7 +268,8 @@ Account& Account::operator+= (float deposit) {
       <li>
         <p>Add a subtract-from operator -= to the class that will subtract a withdrawal
           from the account balance. </p>
-        <p>If properly implemented, now you can subtract a withdrawal from the account by doing this: </p>
+        <p>If properly implemented, now you can subtract a withdrawal from the account by doing
+          this: </p>
         <pre><code>my_account -= withdrawal_amount;</code></pre>
       </li>
       <li>
@@ -275,9 +279,12 @@ Account& Account::operator+= (float deposit) {
         <code>std::ostream& display(std::ostream& out) const;</code>
         <p>You can use the standard object <code class="inline">std::cout</code> to pass to
           this output method.</p>
-          <p>If properly implemented, now you can display the account information by passing an output stream to the display method, like this: </p>
+        <p>If properly implemented, now you can display the account information by passing an
+          output stream to the display method, like this: </p>
         <pre><code>my_account.display(std::cout);</code></pre>
-        <p>This is helpful because we can now provide different output streams, such as a file output stream, rather than being limited to displaying account information only in the console using <code class="inline">std::cout</code></p>
+        <p>This is helpful because we can now provide different output streams, such as a file
+          output stream, rather than being limited to displaying account information only in the
+          console using <code class="inline">std::cout</code></p>
       </li>
       <li>
         <p>Add an insertion operator (<code class="inline">&lt;&lt;</code>) to enable
