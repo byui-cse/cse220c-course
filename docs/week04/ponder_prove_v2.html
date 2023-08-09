@@ -1,183 +1,223 @@
 <!-- uses https://highlightjs.org/
---><!DOCTYPE html>
+-->
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Week 04 Ponder &amp; Prove | CSE 220C</title>
-    <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico"
-      type="image/x-icon">
-    <script>
-      var codeType = "C++"
-   </script>
-    <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
-    <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
-    <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
-    <style>
-      .underline {
-         text-decoration: underline;
-         font-weight: bold;
-      }
-   </style>
-  </head>
-  <body onload="fetchSource()">
-    <header class="hero-image">
-      <div class="hero-text">
-        <h1>CSE 220C: Week 04</h1>
-        <p>Ponder and Prove</p>
-      </div>
-    </header>
-    <main>
-      <h1>Week 4: Algorithms</h1>
-      <h2>Overview</h2>
-      <p>Task: Upgrade the bank system to include additional operations: remove an account, show total bank deposits, and pay dividends.</p>
-      <p>Purpose: Learn how to use standard C++ algorithms with the Standard Template Library containers.</p>
-      <h2>Instructions</h2>
-      <p>These instructions are designed to help you break your programming into
-        small pieces to make it easier for you to write and debug. You only turn
-        in the final program, after all of the parts have been written, but it
-        will be easier if you make sure that each part is complete before
-        proceeding to the next.</p>
-      <p>These links may help you:</p>
-      <p><ul>
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 04 Ponder &amp; Prove | CSE 220C</title>
+  <link rel="shortcut icon"
+    href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet"
+    href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+    .underline {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 04</h1>
+      <p>Ponder and Prove</p>
+    </div>
+  </header>
+  <main>
+    <h1>Week 4: Algorithms</h1>
+    <h2>Overview</h2>
+    <p>Task: Upgrade the bank system to include additional operations: remove an account, show
+      total bank deposits, and pay dividends.</p>
+    <p>Purpose: Learn how to use standard C++ algorithms with the Standard Template Library
+      containers.</p>
+    <h2>Instructions</h2>
+    <p>These instructions are designed to help you break your programming into
+      small pieces to make it easier for you to write and debug. You only turn
+      in the final program, after all of the parts have been written, but it
+      will be easier if you make sure that each part is complete before
+      proceeding to the next.</p>
+    <p>These links may help you:</p>
+    <p>
+      <ul>
         <li><a href="reading_v2.html">CSE 220C Week 04 Reading</a></li>
-      </ul></p>
-      <p>You may need to consult additional documentation not listed here. You should ask for help in our class discussion when
-         you get stuck.</p>
-      <p> As you write your program code, you will separate your code into different
-        files. You will create header files and cpp source files for each class.
-        You will place the class declaration in a header file, and your class
-        method implementations will go in a cpp source file. Your main function
-        will go in yet another cpp source file. All of your cpp source files will
-        include your header files as needed. This task
-        will build upon last week's programming task.  However, you should
-        still create a new project for this week's task and copy last week's
-        code into your new project. When you submit your program
-        code, submit all of your files together in a single zip file. </p>
-      <h3>Part 1.</h3>
-      <p>Rewrite the menu option to display account information to use <span class="file_name">for_each</span>
-        instead of iterators. Your loop variable should be a reference in order to avoid copying the objects in your container.
-        You should not use a ranged for loop for this part of the task.</p>
-      <h3>Part 2.</h3>
-      <p>Add a menu option to remove an account from the system. Use <span class="file_name">remove_if</span>
-        to perform this operation. After calling <span class="file_name">remove_if</span>, erase the removed
-        elements permanently from the container. <strong>NOTE</strong>: some containers are not
-        compatible with <span class="file_name">remove_if</span>. For these containers, you should use <span class="file_name">erase_if</span>
-        instead.</p>
-      <p>Example input and output (input is underlined):</p>
-      <code class="console"> Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        Your choice: <u>4</u><br>
-        Enter the name: <u>George</u><br>
-        Enter the balance: <u>100</u><br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        Your choice: <u>4</u><br>
-        Enter the name: <u>Harry</u><br>
-        Enter the balance: <u>200</u><br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        Your choice: <u>1</u><br>
-        Account ID: 0 Name: George Balance: $100.00<br>
-        Account ID: 1 Name: Harry Balance: $200.00<br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        Your choice: <u>6</u><br>
-        Enter account ID to remove: <u>1</u><br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        Your choice: <u>1</u><br>
-        Account ID: 0 Name: George Balance: $100.00<br>
+        <li><a href="./algorithms_demo.html">Code & video walkthrough demonstrating for_each, transform, accumulate, and remove_if</a></li>
+      </ul>
+    </p>
+    <p>You may need to consult additional documentation not listed here. You should ask for help
+      in our class discussion when
+      you get stuck.</p>
+    <p> As you write your program code, you will separate your code into different
+      files. You will create header files and cpp source files for each class.
+      You will place the class declaration in a header file, and your class
+      method implementations will go in a cpp source file. Your main function
+      will go in yet another cpp source file. All of your cpp source files will
+      include your header files as needed. This task
+      will build upon last week's programming task. However, you should
+      still create a new project for this week's task and copy last week's
+      code into your new project. When you submit your program
+      code, submit all of your files together in a single zip file. </p>
+    <h3>Hints</h3>
+    <ul>
+      <li>Include the <code class="inline">algorithm</code> library for the <code
+          class="inline">transform</code>, <code class="inline">remove_if</code>, and <code
+          class="inline">for_each</code> functions.
+      </li>
+      <li>Include the <code class="inline">numeric</code> library for the <code
+          class="inline">accumulate</code> function.</li>
+    </ul>
+    <h3>Part 1.</h3>
+    <p>Rewrite the menu option to display account information to use <code
+        class="inline">for_each</code>
+      instead of iterators. Your loop variable should be a reference in order to avoid copying
+      the objects in your container.
+      You should not use a ranged for loop for this part of the task.</p>
+    <h3>Part 2.</h3>
+    <p>Add a menu option to remove an account from the system. Use <code
+        class="inline">remove_if</code>
+      to perform this operation. After calling <code class="inline">remove_if</code>, erase the
+      removed elements permanently from the container using <class class="inline">erase</class>.
+    </p>
+    <p>Note: When using a lambda function, if you need to pass in a variable from outside the
+      lambda function, such as the ID number, look at the following syntax. The variable
+      <code class="inline">id</code> is <em>captured</em> by putting it in the square brackets,
+      which allows it to be accessed inside the lambda function. Note also the use of the <code
+        class="inline">&</code> symbol to indicate pass-by-reference to avoid copying the
+      <code class="inline">list_item</code>.</p>
+    <pre>
+      <code>
+int id = 1;
+auto end = remove_if(my_list.begin(), my_list.end(), [id](auto& list_item){
+  return id == list_item.get_id();
+}
       </code>
-      <p> <br>
-      </p>
-      <h3>Part 3.</h3>
-      <p>Add a menu option to determine the total amount of deposits in the
-        system. Use <span class="file_name">accumulate</span> to accomplish this part of the task.</p>
-      <p>Example input and output (input is underlined):</p>
-      <code class="console"> Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        7. Show total balance for all accounts<br>
-        Your choice: <u>4</u><br>
-        Enter the name: <u>George</u><br>
-        Enter the balance: <u>100</u><br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        7. Show total balance for all accounts<br>
-        Your choice: <u>4</u><br>
-        Enter the name: <u>Harry</u><br>
-        Enter the balance: <u>200</u><br>
-        <br>
-        Account Menu:<br>
-        0. Quit Program<br>
-        1. Display Account Information<br>
-        2. Add a deposit to an account<br>
-        3. Withdraw from an account<br>
-        4. Add new account<br>
-        5. Find account by ID<br>
-        6. Remove account<br>
-        7. Show total balance for all accounts<br>
-        Your choice: <u>7</u><br>
-        Total in all accounts: $300.00<br>
-      </code>
-      <p> <br>
-      </p>
-      <h3>Part 4.</h3>
-      <p>Add a menu option to add a dividend to all of the accounts. The
-        dividend is calculated as a simple percentage of the current balance.
-        Have the user enter the amount of the dividend as a percentage. Use
-        <span class="file_name">transform</span> to accomplish this task. You could add a new operator *= to
-        your account class to make this task easier. <strong>NOTE</strong>: some containers are
-        not compatible with <span class="file_name">transform</span>. For these containers, use <span class="file_name">for_each</span>
-        instead.</p>
+      </pre>
+    <p>Example input and output (input is underlined):</p>
+    <code class="console"> Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      Your choice: <u>4</u><br>
+      Enter the name: <u>George</u><br>
+      Enter the balance: <u>100</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      Your choice: <u>4</u><br>
+      Enter the name: <u>Harry</u><br>
+      Enter the balance: <u>200</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      Your choice: <u>1</u><br>
+      Account ID: 0 Name: George Balance: $100.00<br>
+      Account ID: 1 Name: Harry Balance: $200.00<br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      Your choice: <u>6</u><br>
+      Enter account ID to remove: <u>1</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      Your choice: <u>1</u><br>
+      Account ID: 0 Name: George Balance: $100.00<br>
+    </code>
+    <p> <br>
+    </p>
+    <h3>Part 3.</h3>
+    <p>Add a menu option to determine the total amount of deposits in the
+      system. Use <code class="inline">accumulate</code> to accomplish this part of the task.
+    </p>
+    <p>You might want to add a <code class="inline">get_balance</code> method to your class to
+      help accomplish this.</p>
+    <p>Note that you should use <code class="inline">0.0f</code> as the initial starting value
+      for the <code class="inline">accumulate</code> function to ensure it returns a
+      floating point number rather than an integer.</p>
+    <p>Example input and output (input is underlined):</p>
+    <code class="console"> Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      7. Show total balance for all accounts<br>
+      Your choice: <u>4</u><br>
+      Enter the name: <u>George</u><br>
+      Enter the balance: <u>100</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      7. Show total balance for all accounts<br>
+      Your choice: <u>4</u><br>
+      Enter the name: <u>Harry</u><br>
+      Enter the balance: <u>200</u><br>
+      <br>
+      Account Menu:<br>
+      0. Quit Program<br>
+      1. Display Account Information<br>
+      2. Add a deposit to an account<br>
+      3. Withdraw from an account<br>
+      4. Add new account<br>
+      5. Find account by ID<br>
+      6. Remove account<br>
+      7. Show total balance for all accounts<br>
+      Your choice: <u>7</u><br>
+      Total in all accounts: $300.00<br>
+    </code>
+    <p> <br>
+    </p>
+    <h3>Part 4.</h3>
+    <p>Add a menu option to add a dividend to all of the accounts. The
+      dividend is calculated as a simple percentage of the current balance.
+      Have the user enter the amount of the dividend as a percentage. Use
+      <code class="inline">transform</code> to accomplish this task. You could add a new
+      operator <code class="inline">*=</code> or a <code class="inline">get_balance</code>
+      method to your account class to make this task easier.
       <p>Example input and output (input is underlined):</p>
       <code class="console"> Account Menu:<br>
         0. Quit Program<br>
@@ -233,11 +273,15 @@
         Your choice: <u>1</u><br>
         Account ID: 0 Name: George Balance: $105.00<br>
         Account ID: 1 Name: Harry Balance: $210.00<br>
-      </code> </main>
-    <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
-          alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
-      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative
-        Commons Attribution 4.0 International License</a>. </footer>
-    
-  </body>
+      </code>
+  </main>
+  <footer> <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img
+        alt="Creative Commons License" style="border-width:0"
+        src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br>
+    This work is licensed under a <a rel="license"
+      href="http://creativecommons.org/licenses/by/4.0/">Creative
+      Commons Attribution 4.0 International License</a>. </footer>
+
+</body>
+
 </html>

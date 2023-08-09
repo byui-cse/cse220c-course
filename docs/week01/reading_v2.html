@@ -25,7 +25,7 @@
 <main>
 <h1>C++ Basics</h1>
 
-<p>
+<!-- <p>
 When learning C++, it's useful to introduce some C programming.  Why is this,
 you ask? C++ is an evolution of the C programming language, and many things are
 still done the same way. In this course, we will not get too deep into C
@@ -42,11 +42,11 @@ that compiled C programs usually run very fast. And C is the de facto lingua
 franca for computer code. There are hundreds if not thousands of C libraries
 out there already written and tested that can be used by your program without
 modification.
-</p>
+</p> -->
 
 <p>
-C is a compiled language. This means that a C program needs to be transformed
-from C source code (which the programmer writes) into a native machine code
+C++ is a compiled language. This means that a C++ program needs to be transformed
+from C++ source code (which the programmer writes) into a native machine code
 (that the computer executes). This compilation takes place once, after code is
 written or changed, and then the resulting binary file can be executed over and
 over again without further processing. Some other languages, like Python, are
@@ -71,69 +71,67 @@ age = 5
 age = 4.2</code>
     </pre>
 
-<h3>C Variables</h3>
-    <p>C treats its variables differently. In C, you not only declare the variable name, but must also declare the type of data the variable can hold. The type of variable implies which operations can be used on that variable, and also implies a fixed amount of
+<h3>C++ Variables</h3>
+    <p>C++ treats its variables differently. In C++, you not only declare the variable name, but must also declare the type of data the variable can hold. The type of variable implies which operations can be used on that variable, and also implies a fixed amount of
     storage that the variables uses. Neither the type nor the storage used can be changed for the lifetime of that variable.
-    The example below is a valid C variable declaration that can hold an int.</p>
+    The example below is a valid C++ variable declaration that can hold an <code class="inline">int</code>. It declares a variable of type <code class="inline">int</code> called <code class="inline">age</code> and initializes it to 3. </p>
     <pre>
 <code>int age = 3;</code>
     </pre>
-The example below is valid C code.
+The example below is also valid C++ code.
     <pre>
 <code>int age = 3;
 age = 5;</code>
     </pre>
-    The following example is not valid.
+    The following example is not valid because <code class="inline">age</code> is a variable that can only hold integers. It cannot be used to store a string.
     <pre>
 <code>int age = 3;
 age = "Shoshana";</code>
     </pre>
-    <p>As with all things, there are pluses and minuses of requiring the type of a variable to be unchangeable. One downside is that you may need to declare
+    <p>As with all things, there are pros and cons to requiring the type of a variable to be unchangeable. One downside is that you may need to declare
     more variables. One upside is that there is no chance that the type of data in a variable will change when the code is running.
 
-    <h3>Some Common, Valid, C Variable Types</h3>
+    <h3>Some Common, Valid, C++ Variable Types</h3>
     <p>Basic Integer Types
     <ul>
-        <li><tt>short</tt></li>
-        <li><tt>int</tt></li>
-        <li><tt>long</tt></li>
+        <li><code class="inline">short</code></li>
+        <li><code class="inline">int</code></li>
+        <li><code class="inline">long</code></li>
 
     </ul></p>
     <p>Basic Floating Point Types
         <ul>
-            <li><tt>float</tt></li>
-            <li><tt>double</tt></li>
-            <li><tt>long double</tt></li>
+            <li><code class="inline">float</code></li>
+            <li><code class="inline">double</code></li>
+            <li><code class="inline">long double</code></li>
         </ul>
     </p>
-    <p>Boolean Types (new in C++!)
+    <p>Boolean Types
         <ul>
-            <li><tt>bool</tt></li>
+            <li><code class="inline">bool</code></li>
         </ul>
     </p>
     <p>Character Types
         <ul>
-            <li><tt>char</tt> - single character</li>
-            <li><tt>char[]</tt> - array of characters</li>
-            <li><tt>std::string</tt> - a textual set of characters (new in C++!)</li>  
+            <li><code class="inline">char</code> - single character</li>
+            <li><code class="inline">char[]</code> - array of characters</li>
+            <li><code class="inline">std::string</code> - a textual set of characters</li>  
         </ul>
     </p>
 
 <section class="callout"> <h4>What is this std:: stuff?</h4>
         <p>
-            C++ ships with a bunch of standard code already written and compiled for you. A bunch of this is in the <span class="file_name">standard library</span>.
-            Get it? standard -> std:: &#128512;
+            C++ ships with a bunch of standard code already written and compiled for you. This code is included in the <code class="inline">standard library</code>.
         </p>
-        <p>The string type is one of those things found in the standard library. That's why the <span class="file_name">std::</span>
+        <p>The <code class="inline">string</code> type is one of those things found in the standard library. That's why the <code class="inline">std::</code>
             <a href="http://www.cplusplus.com/doc/oldtutorial/namespaces/"> namespace indicator</a> is in front
-            of it. By putting <span class="file_name">std::</span> in front of the string type indicator, the compiler knows to look for it in the standard library.</p>
+            of it. By putting <code class="inline">std::</code> in front of the string type indicator, the compiler knows to look for it in the standard library.</p>
       </section>
 
 <p>
 Every variable must be
 declared before it's used. This declaration has several parts. First, is the
-name of the type of the variable.  Second, there is the variable name.  Third,
-there is an optional initialization.
+type of the variable.  Second, is the variable name.  Third, is an optional initialization.
 </p>
 
 <p>
@@ -145,9 +143,9 @@ int i = 3;
 </code>
 
 <p>
-Here we declare a variable of type <tt>int</tt> (which is short for integer), and name
-the variable <tt>i</tt>. We also give it a value of 3 as its initial value (a process we
-often refer to as initialization). In C, it's vital to always initialize all of
+Here we declare a variable of type <code class="inline">int</code> (which is short for integer), and name
+the variable <code class="inline">i</code>. We also give it a value of 3 as its initial value (a process we
+often refer to as initialization). In C++, it's vital to always initialize all of
 your variables, because the compiler will not do it for you. If you fail to set
 your variables before you use them, they will contain garbage values and you
 should expect weird and inconsistent behavior from your programs. 
@@ -156,23 +154,24 @@ should expect weird and inconsistent behavior from your programs.
 <p>
 Normally, integer types are signed (that is, they can represent negative
 numbers).  There are also unsigned versions of each of the integer types.  Thus
-you could have an <tt>unsigned int</tt> or an <tt>unsigned long</tt>. Unsigned
+you could have an <code class="inline">unsigned int</code> or an <code class="inline">unsigned long</code>. Unsigned
 values cannot store or represent negative numbers, whereas their signed
 equivalents can.  However, signed numbers can represent only half of the range
 in the positive numbers as the corresponding unsigned number type.  Each of
-these variables occupies a specific amount of memory. For example, if the
-<tt>int</tt> type on your system has a size of 4, it's a 32-bit number (this is
+these variables occupies a specific amount of memory. </p>
+<p>For example, if the
+<code class="inline">int</code> type on your system has a size of 4, it's a 32-bit number (this is
 pretty common). Such a variable can represent values from -2147483648 to
-2147483647, while an <tt>unsigned int</tt> will have the same size and can
+2147483647, while an <code class="inline">unsigned int</code> will have the same size and can
 represent values from 0 to 4294967295. If you are curious, the
-<tt>sizeof()</tt> operator can be used to determine how much memory each type
+<code class="inline">sizeof()</code> operator can be used to determine how much memory each type
 of variable occupies.  </p>
 
 <p>
-In C, groups of characters surrounded by quote characters are string or
+In C++, groups of characters surrounded by quote characters are string or
 character literals. Single quotes and double quotes are used in different
 contexts. A single quote designates exactly a single character and is suitable
-with a variable of type char. An example: 
+with a variable of type <code class="inline">char</code>. An example: 
 </p>
 
 <code>
@@ -181,11 +180,11 @@ char a = '1';
 
 <p>
 Double quotes designate a string of multiple (zero or more) characters followed
-by a special null character that has a value of <tt>0</tt> or <tt>'\0'</tt>. String literals such
-as <tt>"nobody"</tt> are often used to initialize character arrays or for user output.
+by a special null character that has a value of <code class="inline">0</code> or <code class="inline">'\0'</code>. String literals such
+as <code class="inline">"nobody"</code> are often used to initialize character arrays or for user output.
 Every string literal also contains a terminating null character which must be
 accounted for when using C-style arrays.  Fortunately, we will not deal with
-C-style arrays in this course. Instead, we will use <tt>std::string</tt> to hold
+C-style arrays in this course. Instead, we will use <code class="inline">std::string</code> to hold
 all string values. 
 </p>
 
@@ -193,11 +192,11 @@ all string values.
 std::string name = "George";
 </code>
 
-<p><em>Important:</em> Double quotes and single quotes in C are <em>not</em> interchangeable.</p>
+<p><em>Important:</em> Double quotes and single quotes in C++ are <em>not</em> interchangeable.</p>
 
 <section class="callout"> <h4>Why are C-style arrays so dangerous?</h4>
 <p>
-In C, the only way to represent strings is by using character arrays. As with other variables,
+In C++, the only way to represent strings is by using character arrays. As with other variables,
 when declaring a character array, the size of the array is fixed and cannot be changed.
 </p>
 <code><pre>
@@ -225,9 +224,9 @@ problems. Writing past the end of a buffer like this is one of the most common
 sources of program vulnerabilities. Attackers exploit such vulnerabilities to
 access and take control of computer systems.
 </p>
-<p>The <tt>std::string</tt> class in C++ is more flexible and also much safer.
+<p>The <code class="inline">std::string</code> class in C++ is more flexible and also much safer.
 Not only does it expand when more data is added, it also does boundary checking.
-We'll only use <tt>string</tt> in this course.  </p>
+We'll only use <code class="inline">string</code> in this course.  </p>
 </section>
 
 <p>Here are some more examples of declaring and setting variables:</p>
@@ -247,10 +246,10 @@ std::string password = "235X-643!-54jnge;l1jt3;2";</code>
     </pre>
     </p>
     <p>
-        Be careful. It is tempting to think, "Hey...those doubles look like they could hold bigger integers. Maybe I'll just use them." Such a thought will lead you
-        down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are the same as a continuous number line. <a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html#680">They are not</a>. There are
-        numbers that a double cannot represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you
-        try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies to floating point numbers when using variables of type double, not just integers.
+        Be careful. It is tempting to think, "Hey...those <code class="inline">double</code> variables look like they could hold bigger integers. Maybe I'll just use them." Such a thought will lead you
+        down a path you do not want to be on. Beginning programmers tend to think of floating point numbers are if they are the same as a continuous number line. <a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html#680">They are not</a>. There are
+        numbers that a <code class="inline">double</code> cannot represent. There are gaps in the floating point numbers on all computers in all languages and the larger the integer you
+        try to represent, the higher the probability that adding 1 to that number will result in the original number. This also applies to floating point numbers when using variables of type <code class="inline">double</code>, not just integers.
     </p>
     <section class="callout">
     <h4>What are all the underscores in the variable names?</h4>
@@ -267,7 +266,7 @@ std::string password = "235X-643!-54jnge;l1jt3;2";</code>
 </section>
 
     <p>
-        Another common mistake made by those new to C is they will accidentally assign a float or double value to an integer variable. Your compiler may or may not warn you about this. If you do this, the float--or double value--will be converted into an int and all the data after the decimal point
+        Another common mistake made by those new to C++ is they will accidentally assign a float or double value to an integer variable. Your compiler may or may not warn you about this. If you do this, the float--or double value--will be converted into an int and all the data after the decimal point
         will be lost. Be careful when you do this on purpose, as it can lead to logic errors. Instead, you should make this conversion explicit so you won't forget you meant to do this, and those who come along later to fix bugs in your code will also know you meant to do this. The code example below shows you how to explicitly
         state that you meant to do this.
     </p>
@@ -287,10 +286,10 @@ double a_length = double(length_in_feet);//convert the int into a double and sto
 </pre>
     </p>
     <p>
-        In this case, the value stored in <span class="file_name">a_length</span> is 6.0 not 6.
+        In this case, the value stored in <code class="inline">a_length</code> is 6.0 not 6.
     </p>
     <p>
-        There is one more type you can use when you declare a variable, <span class="file_name">auto</span>. The <span class="file_name">auto</span> type is very
+        There is one more type you can use when you declare a variable, <code class="inline">auto</code>. The <code class="inline">auto</code> type is very
         interesting. Its purpose is to let the computer decide the type instead of you. Don't misunderstand, the type is still fixed. The compiler uses
         a process called <a href="https://www.geeksforgeeks.org/type-inference-in-c-auto-and-decltype/">type inference</a> to decide what type to assign to the
         variable. For example, if the compiler infers a variable is a string type, you can't later assign it an int value.
@@ -304,11 +303,11 @@ color = 3;//this line causes a compiler error
 <h2>Blocks</h2>
 
 <p>
-A block of code is a section of code that begins with a curly bracket <tt>{</tt> and ends 
-with a closing curly bracket <tt>}</tt>. Variables declared in a block of code are local to
+A block of code is a section of code that begins with a curly bracket <code class="inline">{</code> and ends 
+with a closing curly bracket <code class="inline">}</code>. Variables declared in a block of code are local to
 that block of code and will be deallocated when the end of the block is 
 encountered. Blocks of code are useful to isolate variables and for loop bodies
-and <tt>if/else</tt> statements.
+and <code class="inline">if/else</code> statements.
 </p>
 
 <h2>Operators</h2>
@@ -324,24 +323,24 @@ compare
 you will find that Python has a few that C++ does not.</p>
 
 <h3>Missing Operators from C++</h3>
-<p>Because Python was created after C, its developers were able to add
+<p>Because Python was created after C++, its developers were able to add
 operators they had seen in other languages that made sense, to them, to include
 in Python. These are the ones you should not expect to find in C or C++:</p>
 
 <ul>
-    <li><tt>**</tt> - the exponentiation operator</li>
-    <li><tt>//</tt> - the floor division operator</li>
-    <li><tt>&lt&gt</tt> - an alternative to !=</li>
-    <li><tt>**=</tt> - the exponent and assign operator</li>
-    <li><tt>and</tt> - the logical and operator</li>
-    <li><tt>or</tt> - the logical or operator</li>
-    <li><tt>not</tt> - the logical not operator</li>
+    <li><code class="inline">**</code> - the exponentiation operator</li>
+    <li><code class="inline">//</code> - the floor division operator</li>
+    <li><code class="inline">&lt&gt</code> - an alternative to !=</li>
+    <li><code class="inline">**=</code> - the exponent and assign operator</li>
+    <li><code class="inline">and</code> - the logical and operator</li>
+    <li><code class="inline">or</code> - the logical or operator</li>
+    <li><code class="inline">not</code> - the logical not operator</li>
 </ul>
 <p>Don't get the wrong idea. Each of these behaviors can be done in C++, they will just be done a little differently. Take a look
 at Table 1 to see how.</p>
 <p>
     <table class="blueTable">
-        <caption>Table 1: C Equivalents of Python Operators</caption>
+        <caption>Table 1: C++ Equivalents of Python Operators</caption>
         <thead>
             <tr>
                 <th>Python</th>
@@ -379,7 +378,7 @@ at Table 1 to see how.</p>
 
 <p>
 In programs it is often useful to make a decision and do different things based
-on a condition. In C, we use <tt>if</tt> and <tt>else</tt> to make decisions:
+on a condition. In C++, we use <code class="inline">if</code> and <code class="inline">else</code> to make decisions:
 </p>
 
 
@@ -395,8 +394,8 @@ if (a == 2) {
 </pre> </code>
 
 <p>
-Notice that we use <tt>==</tt> inside our if statements. <tt>==</tt> is the equality test
-operator, while <tt>=</tt> is the assignment operator. It's usually an error to use one
+Notice that we use <code class="inline">==</code> inside our if statements. <code class="inline">==</code> is the equality test
+operator, while <code class="inline">=</code> is the assignment operator. It's usually an error to use one
 when the other is needed.
 </p>
 
@@ -422,14 +421,14 @@ We can also make more complicated conditions by using more logical operators:
 </p>
 
 <ul>
- <li> <tt>&amp;&amp;</tt> (and)  </li>
- <li> <tt>||</tt> (or) </li>
- <li> <tt>!=</tt> (not equal) </li>
- <li> <tt>&lt;</tt> (less than) </li>
- <li> <tt>&lt;=</tt> (less than or equal to) </li>
- <li> <tt>&gt;</tt> (greater than) </li>
- <li> <tt>&gt;=</tt> (greater than or equal to) </li>
- <li> <tt>!</tt> (not)</li>
+ <li> <code class="inline">&amp;&amp;</code> (and)  </li>
+ <li> <code class="inline">||</code> (or) </li>
+ <li> <code class="inline">!=</code> (not equal) </li>
+ <li> <code class="inline">&lt;</code> (less than) </li>
+ <li> <code class="inline">&lt;=</code> (less than or equal to) </li>
+ <li> <code class="inline">&gt;</code> (greater than) </li>
+ <li> <code class="inline">&gt;=</code> (greater than or equal to) </li>
+ <li> <code class="inline">!</code> (not)</li>
 </ul>
 
 <code> <pre>
@@ -440,20 +439,20 @@ if (a &gt;= 3 &amp;&amp; a &lt;= 10)  // Read: if a is greater than or equal to 
 </pre> </code>
 
 <p>
-When mixing <tt>&amp;&amp;</tt> and <tt>||</tt> operators in a single condition, you should make
+When mixing <code class="inline">&amp;&amp;</code> and <code class="inline">||</code> operators in a single condition, you should make
 sure you use parentheses to clearly indicate which should be done first.
 </p>
 
 <p>
-Normally, <tt>if</tt> and <tt>else</tt> will execute only the next statement after the <tt>if</tt> or
-<tt>else</tt>. To have more than one statement we need to create a block by using the 
-curly braces <tt>{</tt> and <tt>}</tt>.
+Normally, <code class="inline">if</code> and <code class="inline">else</code> will execute only the next statement after the <code class="inline">if</code> or
+<code class="inline">else</code>. To have more than one statement we need to create a block by using the 
+curly braces <code class="inline">{</code> and <code class="inline">}</code>.
 </p>
 
 <p>
-A common, traditional example of using <tt>if</tt> and <tt>else</tt> is a number
+A common, traditional example of using <code class="inline">if</code> and <code class="inline">else</code> is a number
 guessing game. This example strips away all extraneous thinking and allows the
-reader to focus on the concept and syntax of code-branching in C.
+reader to focus on the concept and syntax of code-branching in C++.
 </p>
 
 <code> <pre>
@@ -464,18 +463,24 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-int main(void) {
+int main(void) 
+{
     int secretNumber = rand()%(100 + 1);
-    cout&lt;&lt;"Guess a number between 0 and 100."&lt;&lt;endl;
+
+    cout &lt;&lt; "Guess a number between 0 and 100." &lt;&lt; endl;
     int aGuess = -1;
-    cin&gt;&gtaGuess;
-    if (aGuess < secretNumber) {
+    cin &gt;&gt; aGuess;
+    
+    if (aGuess &lt; secretNumber) 
+    {
         cout &lt;&lt; "Too low." &lt;&lt; endl;
     }
-    else if (aGuess > secretNumber){
+    else if (aGuess &gt; secretNumber)
+    {
         cout &lt;&lt; "Too high." &lt;&lt; endl;
     }
-    else{
+    else
+    {
         cout &lt;&lt; "You guessed correctly!!!" &lt;&lt; endl;
     }
 }
@@ -487,8 +492,8 @@ int main(void) {
 
 <p>
 If you want to make decisions based on different values of a single variable,
-the <tt>switch</tt> statement may be used. Each <tt>case</tt> label indicates what should be
-done if the variable has that value. There can also be a <tt>default</tt> case which
+the <code class="inline">switch</code> statement may be used. Each <code class="inline">case</code> label indicates what should be
+done if the variable has that value. There can also be a <code class="inline">default</code> case which
 is executed if none of the other labels apply. 
 </p>
 
@@ -508,7 +513,7 @@ default:
 </pre></code>
 
 <p>
-It is important to end each case with a <tt>break</tt> statement or else execution will
+It is important to end each case with a <code class="inline">break</code> statement or else execution will
 continue into the next case. However, we can make use of this behavior if we
 want to do the same thing with more than one case:
 </p>
@@ -535,8 +540,8 @@ default:
 <h2>Loops</h2>
 
 <p>
-There are three basic types of loops in C. The first, and simplest, is the
-<tt>while</tt> loop. This type of loop has a condition at the top of the loop, and
+There are three basic types of loops in C++. The first, and simplest, is the
+<code class="inline">while</code> loop. This type of loop has a condition at the top of the loop, and
 executes the body of the loop as long as the condition is true. The same rules
 apply; all conditions of value 0 are treated as false, while nonzero values are
 true. The loop is executed while the condition is still true.
@@ -564,10 +569,10 @@ while (!done)  // Again, read this as "while not done"
 </pre></code>
 
 <p>
-The second type of loop is a <tt>for</tt> loop. These loops are often used to count. The
-<tt>for</tt> loop consists of three statements and a body. The first statement is the
+The second type of loop is a <code class="inline">for</code> loop. These loops are often used to count. The
+<code class="inline">for</code> loop consists of three statements and a body. The first statement is the
 initialization which is done once before the loop is entered.  The second
-statement is the condition which is exactly the same as the <tt>while</tt> loop. The
+statement is the condition which is exactly the same as the <code class="inline">while</code> loop. The
 third statement is performed at the end of each loop just before the condition
 is checked for the next iteration. Here's an example:
 </p>
@@ -581,7 +586,7 @@ for (i = 0; i &lt; 10; ++i)
 </pre></code>
 
 <p>
-This <tt>for</tt> loop is exactly equivalent to this <tt>while</tt> loop:
+This <code class="inline">for</code> loop is exactly equivalent to this <code class="inline">while</code> loop:
 </p>
 
 <code><pre>
@@ -594,10 +599,10 @@ while (i &lt; 10)
 </pre></code>
 
 <p>
-The third type of loop is the <tt>do..while</tt> loop. This type of loop is not often
-used, and can always be rewritten as a regular while loop. A <tt>do..while</tt> loop
+The third type of loop is the <code class="inline">do..while</code> loop. This type of loop is not often
+used, and can always be rewritten as a regular while loop. A <code class="inline">do..while</code> loop
 always executes the body at least once. Here's the same code written as a
-<tt>do..while</tt> loop:
+<code class="inline">do..while</code> loop:
 </p>
 
 <code><pre>
@@ -610,7 +615,7 @@ do
 </pre></code>
 
 	<p>
-		Since there is always a way to rewrite <tt>do..while</tt> loops as plain <tt>while</tt> loops, there is little incentive to
+		Since there is always a way to rewrite <code class="inline">do..while</code> loops as plain <code class="inline">while</code> loops, there is little incentive to
         write the former type of loop. Indeed, there are many, including Bjarne Stroustrup, the inventor of C++, who avoid using them
         utterly. Here's what he has to say on the subject:
         </p>
@@ -618,14 +623,14 @@ do
 		<span class="citation">Excerpt From: <a href="https://books.google.com/books?id=PSUNAAAAQBAJ&pg=PA236&lpg=PA236&dq=%22In+my+experience,+the+do-statement+is+a+source+of+errors+and+confusion.+The+reason+is+that+its+body+is+always+executed+once+before+the+condition+is+evaluated.+However,+for+the+body+to+work+correctly,+something+very+much+like+the+condition+must+hold+even+the+first+time+through.+More+often+then+a+would+have+guessed,+I+have+found+that+condition+not+to+hold+as+expected+either+when+the+program+was+first+written+and+tested+or+later+after+the+code+preceding+it+has+been+modified.+I+also+prefer+the+condition+%22up+front+where+I+can+see+it.%22+Consequently,+I+tend+to+avoid+do-statements.%22&source=bl&ots=DrzsEe8Y9H&sig=ACfU3U0XVl5mJvmAqxOnNeQoYWtpKSIjxQ&hl=en&sa=X&ved=2ahUKEwi9z4fejozpAhXRLs0KHfZ2CY0Q6AEwAHoECAsQAQ#v=onepage&q=%22In%20my%20experience%2C%20the%20do-statement%20is%20a%20source%20of%20errors%20and%20confusion.%20The%20reason%20is%20that%20its%20body%20is%20always%20executed%20once%20before%20the%20condition%20is%20evaluated.%20However%2C%20for%20the%20body%20to%20work%20correctly%2C%20something%20very%20much%20like%20the%20condition%20must%20hold%20even%20the%20first%20time%20through.%20More%20often%20then%20a%20would%20have%20guessed%2C%20I%20have%20found%20that%20condition%20not%20to%20hold%20as%20expected%20either%20when%20the%20program%20was%20first%20written%20and%20tested%20or%20later%20after%20the%20code%20preceding%20it%20has%20been%20modified.%20I%20also%20prefer%20the%20condition%20%22up%20front%20where%20I%20can%20see%20it.%22%20Consequently%2C%20I%20tend%20to%20avoid%20do-statements.%22&f=false">"The C++ Programming Language"</a> Bjarne Stroustrup, Addison-Wesley &copy;2013.</span>
 </p>
 <p>
-As with conditions, the <tt>for</tt>, <tt>while</tt>, and <tt>do</tt> commands will only normally execute
+As with conditions, the <code class="inline">for</code>, <code class="inline">while</code>, and <code class="inline">do</code> commands will only normally execute
 the next statement as the body of the loop. We can make the loop execute more
-than one statement by adding a block with the curly braces <tt>{</tt> and <tt>}</tt>.
+than one statement by adding a block with the curly braces <code class="inline">{</code> and <code class="inline">}</code>.
 </p>
 
 <p>
-The <tt>break</tt> command can be used to break out of a loop at any time. The <tt>continue</tt>
-command can be used to go back to the top of the loop at any time. When <tt>continue</tt> is used with <tt>while</tt> or <tt>for</tt>
+The <code class="inline">break</code> command can be used to break out of a loop at any time. The <code class="inline">continue</code>
+command can be used to go back to the top of the loop at any time. When <code class="inline">continue</code> is used with <code class="inline">while</code> or <code class="inline">for</code>
 loops, the loop condition is tested again to see if the loop will continue or not.
 </p>
 
@@ -649,10 +654,11 @@ int main(void) {
         cout &lt;&lt; "Guess a number between 0 and 100." &lt;&lt; endl;
         int aGuess = -1;
         cin &gt;&gt aGuess;
-        if (aGuess < secretNumber) {
+
+        if (aGuess &lt; secretNumber) {
             cout &lt;&lt; "Too low." &lt;&lt; endl;
         }
-        else if (aGuess > secretNumber){
+        else if (aGuess &gt; secretNumber){
             cout &lt;&lt; "Too high." &lt;&lt; endl;
         }
         else{
@@ -668,8 +674,8 @@ int main(void) {
 <h2>Functions</h2>
 
 <p>
-C is a procedural language, which means that it uses procedures for most
-processing. In C, these are called functions. Functions usually return a single
+C++ is a procedural language, which means that it uses procedures for most
+processing. In C++, these are called functions. Functions usually return a single
 value. They are declared like this:
 </p>
 
@@ -682,13 +688,13 @@ int some_function(int a, int b)
 </pre></code>
 
 <p>
-This particular function returns a value of type <tt>int</tt>. It also takes two
-parameters, both of which are of type <tt>int</tt> and one is called <tt>a</tt> and the other is
-called <tt>b</tt>.
+This particular function returns a value of type <code class="inline">int</code>. It also takes two
+parameters, both of which are of type <code class="inline">int</code> and one is called <code class="inline">a</code> and the other is
+called <code class="inline">b</code>.
 </p>
 
-<p>If a function does not need to return a value, it should return <tt>void</tt> instead. If a
-function does not take parameters, <tt>void</tt> should take their place:
+<p>If a function does not need to return a value, it should return <code class="inline">void</code> instead. If a
+function does not take parameters, <code class="inline">void</code> should take their place:
 </p>
 
 <code><pre>
@@ -698,11 +704,11 @@ void some_function(void)
 }
 </pre></code>
 
-<p>Functions that return any non-<tt>void</tt> value are required to have a <tt>return</tt> statement
+<p>Functions that return any non-<code class="inline">void</code> value are required to have a <code class="inline">return</code> statement
 at the end of the function, with the value to be returned to the caller. These values can be captured
-by the callers. Functions that return <tt>void</tt> do not need a <tt>return</tt> statement, since they
-will return when the end of the function is reached. Functions may return early by including a <tt>
-return</tt> statement elsewhere within the function.</p>
+by the callers. Functions that return <code class="inline">void</code> do not need a <code class="inline">return</code> statement, since they
+will return when the end of the function is reached. Functions may return early by including a <code class="inline">
+return</code> statement elsewhere within the function.</p>
 
 <code><pre>
 int some_function(int a)
@@ -714,13 +720,13 @@ int b = some_function(15);
 </pre></code>
 
 <p>
-After this code is executed, the variable <tt>b</tt> would contain the value 45.
+After this code is executed, the variable <code class="inline">b</code> would contain the value 45.
 </p>
 
 <p>
-Every C program needs to contain a function called <tt>main</tt>. This function should
-return an <tt>int</tt>. Your program begins execution at the beginning of the <tt>main</tt>
-function.  Normally, if the program is successful, it will return <tt>0</tt> from <tt>main</tt>.
+Every C++ program needs to contain a function called <code class="inline">main</code>. This function should
+return an <code class="inline">int</code>. Your program begins execution at the beginning of the <code class="inline">main</code>
+function.  Normally, if the program is successful, it will return <code class="inline">0</code> from <code class="inline">main</code>.
 This is a signal to the operating system that the command executed properly.
 Nonzero return results often indicate some sort of exception or error.
 </p>
@@ -768,7 +774,7 @@ file where we use it:
 #include &lt;string&gt;
 </pre></code>
 
-<p>If we want to use input and output streams (including <tt>std::cin</tt> and <tt>std::cout</tt>), we need:</p>
+<p>If we want to use input and output streams (including <code class="inline">std::cin</code> and <code class="inline">std::cout</code>), we need:</p>
 <code><pre>
 #include &lt;iostream&gt;
 </pre></code>
@@ -783,7 +789,7 @@ When you write your own code, you should split your file into header files and s
 This allows separate compilation which allows faster compilation when only source files change. 
 Function prototypes and class definitions go in the header file, while function implementations and class
 method implementations go in the source (cpp) file. When including header files defined in your own project, 
-you should use double quotes <tt>"</tt> instead of angle brackets:
+you should use double quotes <code class="inline">"</code> instead of angle brackets:
 </p>
 
 <code>
@@ -796,7 +802,7 @@ you should use double quotes <tt>"</tt> instead of angle brackets:
 <h2>Passing by Value</h2>
 
 <p>
-In C, values are passed to functions by value. This means that a copy of the
+In C++, values are passed to functions by value. This means that a copy of the
 parameter is placed in a certain location in memory called the stack. Variables
 declared in this function are local to that function and have no effect on
 variables in the caller function. Consider this code:
@@ -818,8 +824,8 @@ int main(void)
 </pre></code>
 
 <p>
-When we change <tt>a</tt> in the <tt>some_function</tt> function, it is changing a copy of the
-variable <tt>a</tt> declared in the main function. These are two totally separate and
+When we change <code class="inline">a</code> in the <code class="inline">some_function</code> function, it is changing a copy of the
+variable <code class="inline">a</code> declared in the main function. These are two totally separate and
 distinct variables.
 </p>
 
@@ -829,7 +835,7 @@ distinct variables.
 <p>
 Sometimes, however, we want to be able to declare a variable in one function,
 and change that value in another function. In C++, we can do this by passing
-variables by reference, using the <tt>&amp;</tt> operator in the type name of the
+variables by reference, using the <code class="inline">&amp;</code> operator in the type name of the
 parameter:
 </p>
 
@@ -849,7 +855,7 @@ int main(void)
 </pre></code>
 
 <p>
-Because we passed the variable <tt>b</tt> by reference, when we modify the parameter
+Because we passed the variable <code class="inline">b</code> by reference, when we modify the parameter
 inside the function it actually modifies the original variable. We use
 references when we want to change a variable or we don't want to suffer any
 slowness by making a copy of the variable being passed in.  This becomes more
@@ -865,7 +871,7 @@ variables and will format each one appropriately.
 </p>
 
 <p>
-Output is done using the <tt>std::cout</tt> object and the <tt>&lt;&lt;</tt> operator.
+Output is done using the <code class="inline">std::cout</code> object and the <code class="inline">&lt;&lt;</code> operator.
 </p>
 
 <code><pre>
@@ -878,12 +884,12 @@ std::cout &lt;&lt; s &lt;&lt; " " &lt;&lt; f &lt;&lt; " " &lt;&lt; i &lt;&lt; "\
 
 <p>
 It is good practice to always end your output with a newline. This can be done with a newline character (shown above) or with the
-<tt>std::endl</tt> object. The <tt>std::endl</tt> object ensures that everything is flushed to the output which can be useful for
+<code class="inline">std::endl</code> object. The <code class="inline">std::endl</code> object ensures that everything is flushed to the output which can be useful for
 screen output but is less efficient for file output.
 </p>
 
 <p>
-User input is similar to output. We use the <tt>&gt;&gt;</tt> operator with an input stream to read input. <tt>std::cin</tt> 
+User input is similar to output. We use the <code class="inline">&gt;&gt;</code> operator with an input stream to read input. <code class="inline">std::cin</code> 
 is the standard input stream.
 </p>
 
@@ -899,7 +905,7 @@ understand about C++ input is that when reading in variables in this fashion,
 only one value will be read at a time, and anything left over stays in the
 input buffer. Normally, this means that only one word will be read in when a
 string is used, only one number will be read in when an integer is used, etc.,
-and trailing newlines will remain in the input buffer.  When using the <tt>&gt;&gt;</tt>
+and trailing newlines will remain in the input buffer.  When using the <code class="inline">&gt;&gt;</code>
 operator, leading whitespace is skipped, thus consuming any leftover newlines
 from previous read operations.  If we want to read in more than one word at a
 time, we must use a different method for input.  
@@ -926,21 +932,26 @@ float f = std::stof(line);
 </pre></code>
 
 <p>
-When mixing <tt>&gt;&gt;</tt> and <tt>getline</tt> you may encounter the
-situation where your <tt>getline</tt> calls may appear to be skipped. This
-happens when the <tt>getline</tt> call comes after some input is read using
-<tt>std::cin &gt;&gt;</tt>. What happens is that there is still a leftover
+When mixing <code class="inline">cin &gt;&gt;</code> and <code class="inline">getline</code> you may encounter the
+situation where your <code class="inline">getline</code> calls may appear to be skipped. This
+happens when the <code class="inline">getline</code> call comes after some input is read using
+<code class="inline">std::cin &gt;&gt;</code>. What happens is that there is still a leftover
 newline character on standard input that was not consumed by the
-<tt>std::cin</tt> call. You can get around this situation by consuming any
-trailing newline character:
+<code class="inline">std::cin</code> call. You can get around this situation by consuming any
+trailing newline character using <code class="inline">std::cin.ignore()</code>:
 </p>
 
 <code><pre>
+#include &lt;limits&gt; # for std::numeric_limits
+#include &lt;ios&gt; # for std::streamsize
+
+...
+
 std::string line;
 int value;
 
 std::cin &gt;&gt; value;
-std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n');
 getline(std::cin, line);
 </pre></code>
 

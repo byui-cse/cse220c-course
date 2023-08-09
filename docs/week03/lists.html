@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE 220C lists</title>
+  <link rel="shortcut icon"
+    href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet"
+    href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+    .underline {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220c Using std::list</h1>
+      <!-- <p>Ponder and Prove</p> -->
+    </div>
+  </header>
+  <main>
+    <h2>Sample code to demonstrate using <code class="inline">std::list</code></h2>
+    <br>
+    <p>Review the code below for examples of how to use <code class="inline">std::list</code> and iterators.</p>
+    <p>Reference: <a href="https://en.cppreference.com/w/cpp/container/list">https://en.cppreference.com/w/cpp/container/list</a></p>
+    <hr>
+    <h3>Video walkthrough</h3>
+    <iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_6pyk06fb&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_9dyi781s" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="cse220c_demo_list"></iframe>
+<hr>
+    <h3>program.cpp</h3>
+    <pre><code>// list_demo.cpp : This file contains the &#39;main&#39; function.
+
+#include &quot;person.h&quot;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;list&gt;
+
+using namespace std;
+
+/* Function prototypes...these will be implemented after main. */
+void add_member(list&lt;Person&gt;&amp; member_list);
+void display_members(list&lt;Person&gt;&amp; member_list);
+list&lt;Person&gt;::iterator find_by_id(list&lt;Person&gt;&amp; member_list, int id);
+
+int main()
+{
+    list&lt;Person&gt; members; // Create a list to hold Person objects
+
+    // Prompt user to add people to the list
+    string input = &quot;y&quot;;
+    while (input == &quot;y&quot;)
+    {
+        cout &lt;&lt; &quot;Add another member (y/n)? &quot;;
+        getline(cin, input);
+        if (input == &quot;y&quot;)
+        {
+            add_member(members);
+        }
+    }
+
+    display_members(members);
+
+
+    // Search for a Person in the list matching a specific ID
+    cout &lt;&lt; &quot;Enter and ID to search for: &quot;;
+    cin &gt;&gt; input;
+    list&lt;Person&gt;::iterator it;
+    it = find_by_id(members, stoi(input));
+
+    // Check whether there was a Person in the list matching
+    // that ID
+    if (it != members.end()) {
+        cout &lt;&lt; &quot;Found that ID!&quot; &lt;&lt; endl;
+        it-&gt;display();
+    }
+    else {
+        cout &lt;&lt; &quot;That ID was not found!&quot; &lt;&lt; endl;
+    }    
+}
+
+/* Add a new Person to the list. Note the use
+    of the pass-by-reference mechanism using &amp; */
+void add_member(list&lt;Person&gt;&amp; member_list)
+{
+    string fname;
+    string lname;
+    string age;
+
+    cout &lt;&lt; &quot;First name: &quot;;
+    getline(cin, fname);
+
+    cout &lt;&lt; &quot;Last name: &quot;;
+    getline(cin, lname);
+
+    cout &lt;&lt; &quot;Age: &quot;;
+    getline(cin, age);
+
+    Person person{ fname, lname, stoi(age) }; // create a Person
+
+    member_list.push_back(person); // Add the Person to the list
+
+}
+
+/* Display all Person objects in the list */
+void display_members(list&lt;Person&gt;&amp; member_list)
+{
+    list&lt;Person&gt;::iterator it;
+    for (it = member_list.begin(); it != member_list.end(); it++)
+    {
+        it-&gt;display();
+    }
+
+}
+
+/* Search for a Person object in the list using an ID number */
+list&lt;Person&gt;::iterator find_by_id(list&lt;Person&gt;&amp; member_list, int id)
+{
+    list&lt;Person&gt;::iterator it;
+    for (it = member_list.begin(); it != member_list.end(); it++)
+    {
+        if (it-&gt;get_id() == id)
+        {
+            return it; // Return iterator to Person matching the ID
+        }
+    }
+
+    return it; // Person with that ID was not found
+}
+</code></pre>
+
+<h3>person.h</h3>
+<pre><code>// person.h - Header file to declare the Person class
+
+#pragma once
+
+#include &lt;string&gt;
+
+class Person
+{
+private:
+    std::string fname;
+    std::string lname;
+    int age;
+    int id_number;
+    static int next_id;
+
+public:
+    Person();
+
+    Person(std::string firstname, std::string lastname, int age);
+
+    std::string get_full_name() const;
+    void display() const;
+
+    int get_age() const;
+    int get_id() const;
+
+    void update_age(int new_age);
+    void update_name(std::string fname, std::string lname);
+};
+    
+    </code></pre>
+
+    <h3>person.cpp</h3>
+<pre><code>// person.cpp - Implements the Person class
+
+#include &quot;person.h&quot;
+#include &lt;iostream&gt;
+
+int Person::next_id = 1; // Set the static next_id to an initial value
+
+// Default contructor
+Person::Person(): fname(&quot;&quot;), lname(&quot;&quot;), age(0), id_number(next_id++)
+{
+}
+
+// Non-default constructor
+Person::Person(std::string firstname, std::string lastname, int age) : 
+    fname(firstname), lname(lastname), age(age), id_number(next_id++)
+{
+}
+
+// Return a Person object&#39;s full name
+std::string Person::get_full_name() const
+{
+    return fname + &quot; &quot; + lname;
+}
+
+// Display a Person
+void Person::display() const
+{
+    std::cout &lt;&lt; &quot;ID: &quot; &lt;&lt; id_number 
+        &lt;&lt; &quot; Name: &quot; &lt;&lt; fname &lt;&lt; &quot; &quot; &lt;&lt; lname 
+        &lt;&lt; &quot;, age: &quot; &lt;&lt; age &lt;&lt; std::endl;
+
+}
+
+// Return a Person object&#39;s age
+int Person::get_age() const
+{
+    return age;
+}
+
+// Return a Person object&#39;s ID
+int Person::get_id() const
+{
+    return id_number;
+}
+
+// Update a Person object&#39;s age
+void Person::update_age(int new_age)
+{
+    // Check to make sure age is reasonable
+    if (new_age &gt; 0 &amp;&amp; new_age &lt; 125)
+    age = new_age;
+}
+
+
+// Update a Person object&#39;s name
+void Person::update_name(std::string fname, std::string lname)
+{
+    this-&gt;fname = fname;
+    this-&gt;lname = lname;
+}
+</code></pre>
+
+</body>
+
+</html>
