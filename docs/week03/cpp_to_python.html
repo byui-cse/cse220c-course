@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE220C: C++ to Python Week 3</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+/**********************************************
+ * EXAMPLE TABLE - With two code examples side-by-side
+ **********************************************/
+table.example {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  margin-left: 0;
+  margin-bottom: 12pt;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Calibri', 'Verdana', geneva;
+}
+table.example tbody  {
+  width: 100%;  
+}
+table.example tr {
+  width: 100%;
+}
+table.example th {
+  background-color: #E2E2E2;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1pt 1pt 1pt 1pt;
+}
+table.example td {
+  vertical-align: top;
+  margin: 0;
+  padding: 5px;
+  border-style: solid;
+  border-color: #E0E0E0;
+  border-width: 1pt 1pt 1pt 1pt;
+  background-color: #EFEFEF;
+  width:  50%;
+}
+
+table.example pre {
+  margin:  0;
+}
+pre {
+  border: solid #D9D9D9 2.25pt;
+  padding: 1pt 4pt 1pt 4pt;
+#  background: #283D5E;
+  margin-left: 15pt;
+  margin-bottom: 12pt;
+#  color: #fff;
+  font-size: 10pt;
+  font-family: "Consolas", "Courier New", "Courier";
+}
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 03</h1>
+      <p>C++ and Python: Containers</p>
+    </div>
+  </header>
+
+    <div id="main" class="splash">
+      <div id="header">
+
+        <main>
+          <h1>Containers in Python and C++</h1>
+          <p>
+            We will now cover how Python containers compare to C++ containers.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Array">Array</h2>
+          <p>
+            The Python language has several containers built into the language: lists, sets, tuples, dictionaries, and others.
+            The C++ language has one built-in container: the array.
+            The array is a fixed-size container where every element is of the same datatype. 
+            Each element of an array is accessible through an index.
+            Note that if there are 10 elements in an array, then only index 0 through 9 are valid.
+            If you attempt to access index -1 or 10, then you will get an unexpected result.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre># Create a list of four elements.
+data = [2, 4, 6, 8]
+
+# Display the third element.
+print("data[2] = ",data[2])
+
+# Display the number of elements.
+print("size:", len(data))
+
+# Display all the elements.
+for datum in data:
+    print("\t", datum)
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // Create an array of four elements.
+   int data[] = {2, 4, 6, 8};
+
+   // Display the third element.
+   cout &lt;&lt; "data[2] = "
+        &lt;&lt; data[2] &lt;&lt; endl;
+
+   // Display the number of elements.
+   cout &lt;&lt; "size: "
+        &lt;&lt; sizeof(data)/sizeof(data[0])
+        &lt;&lt; endl;
+
+   // Display all the elements.
+   for (auto datum : data)
+      cout &lt;&lt; '\t'
+           &lt;&lt; datum &lt;&lt; endl;
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/array">C++ Reference: Array declaration</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Write the code to declare an empty array of ten <code class="inline">double</code>s 
+            and another array consisting of the first five prime numbers.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Vector">Vector</h2>
+          <p>
+            C++ has many containers which are not part of the language but included in the standard template library.
+            The most popular is the vector, a data structure nearly identical to Python's list.
+            The vector allows you to add elements to the back with the <code class="inline">push_back()</code> method,
+            query the length with the <code class="inline">size()</code> method, and provides a variety of other functionalities.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre># Create a list of four elements.
+data = [2, 4, 6, 8]
+
+# Add an element to the end.
+data.append(10);
+
+# Display the number of elements.
+print("size:", len(data))
+
+# Remove all elements.
+data.clear()
+</pre>
+</td>
+<td>
+<pre>// Vector is part of the "vector" library
+#include &lt;vector&gt;
+
+#include &lt;iostream&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // Create a vector of four integers.
+   vector&lt;int&gt; data = {2, 4, 6, 8};
+
+   // Add an element to the end.
+   data.push_back(10);
+
+   // Display the number of elements.
+   cout &lt;&lt; "size:" 
+        &lt;&lt; data.size() &lt;&lt; endl;
+
+   // Remove all elements.
+   data.clear();
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>    
+          <p>
+            Note that declaring a vector is different than other data-types
+            because of the somewhat "unique" <code class="inline">vector&lt;int&gt;</code> notation.
+            This notation means the vector class is a template.
+          </p>
+          <p class="navigation">See also: <a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.07.Reading.Templates.html">Learn C++: Templates</a></p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/container/vector">C++ Reference: std::vector</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a vector of strings.
+            Write a loop that counts to five
+            and prompt the user for five vegetables.
+            Push each vegetable onto the vector.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Iterator">Iterator</h2>
+          <p>
+            The traditional way to visit every element of an array is to do so by index. 
+            This index variable is an integer.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre># Create a list of four elements.
+data = [2, 4, 6, 8]
+
+# Visit each element by index
+for index in range(0, len(data)):
+    print(data[index])
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // Create a vector of four integers.
+   vector&lt;int&gt; data = {2, 4, 6, 8};
+
+   // Visit each element by index.
+   int index;
+   for (index = 0; 
+        index &lt; data.size(); 
+        index++)
+      cout &lt;&lt; data[index] &lt;&lt; endl;
+    
+    return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            An iterator is similar to an index except it knows which container it is pointing to.
+            To get a value from an index, you need the container. 
+            To get a value from an iterator, only the iterator itself is required.
+            An iterator retrieves the value in the container with the dereference operator <code class="inline">*</code>.
+          </p>
+
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // Create a vector of four integers.
+   vector&lt;int&gt; data = {2, 4, 6, 8};
+
+   // Visit each element by iterator.
+   for (auto it = data.begin(); it != data.end(); it++)
+      cout &lt;&lt; *it &lt;&lt; endl;
+    
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            In the above code, note that we used the <code class="inline">auto</code> keyword to allow C++ to determine the datatype of the variable.
+          </p><p>
+          </p><pre>auto it = data.begin();</pre>
+          <p>
+            We could also use the full variable data-type. 
+            Note that the iterator is a sub-class of the vector class.
+            The full name for the data-type is the following:
+          </p>
+          <pre>vector&lt;int&gt;::iterator it = data.begin();</pre>
+          <p>Most people prefer to use the <code class="inline">auto</code> keyword because it is much easier to use.</p>
+
+          <p>
+            It is also possible to go through a collection (list or vector) backwards.
+            To do this, we use a reverse iterator. 
+            The declaration for the vector's reverse iterator is <code class="inline">vector&lt;int&gt;::reverse_iterator rit;</code>.
+            The last element of the collection is reached through <code class="inline">rbegin()</code> rather than <code class="inline">begin()</code>.
+            The code to walk through four elements backwards is:
+          </p>
+
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // Create a vector of four integers.
+   vector&lt;int&gt; data = {2, 4, 6, 8};
+
+   // Visit each element by iterator backwards.
+   for (auto rit = data.rbegin(); rit != data.rend(); rit++)
+      cout &lt;&lt; *rit &lt;&lt; endl;
+    
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/container/vector/begin">C++ Reference: std::vector::begin()</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a vector and fill it with ten integers.
+            Write a FOR loop with an iterator that displays the contents of the vector.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="List">List</h2>
+          <p>
+            The list container is similar to the vector with one exception: it does not implement the <code class="inline">[ subscript ]</code> operator.
+            This means the only way to access each of the elements is through an iterator.
+            The list also facilitates efficient insertion and deletion from the middle
+            (unlike the vector which is slow when inserting or deleting from the middle).
+            Note that Python does not have a container similar to the list.
+          </p>
+
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+#include &lt;list&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // Create a list of four integers.
+   list&lt;int&gt; data = {2, 4, 6, 8};
+
+   // Create an iterator pointing to the first element.
+   auto it = data.begin();
+   ++it;
+
+   // Insert an element in the middle of the list.
+   data.insert(it, 5);
+
+   // Visit each element by iterator.
+   for (it = data.begin(); it != data.end(); it++)
+      cout &lt;&lt; *it &lt;&lt; endl;
+    
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/container/list">C++ Reference: std::list</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a list of strings.
+            Write a loop that counts to five
+            and prompt the user for five vegetables.
+            Push each vegetable onto the list.
+            Use an iterator to display the contents of the list.
+          </p>
+      </div> <!-- id="header" -->
+    </div> <!-- id="main" -->
+  
+</body>
+</html>

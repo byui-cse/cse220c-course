@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!-- saved from url=(0106)https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.10.Reading.PointerArithmetic.html -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE220C: C++ Pointer Arithmetic</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+/**********************************************
+ * EXAMPLE TABLE - With two code examples side-by-side
+ **********************************************/
+table.example {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  margin-left: 0;
+  margin-bottom: 12pt;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Calibri', 'Verdana', geneva;
+}
+table.example tbody  {
+  width: 100%;  
+}
+table.example tr {
+  width: 100%;
+}
+table.example th {
+  background-color: #E2E2E2;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1pt 1pt 1pt 1pt;
+}
+table.example td {
+  vertical-align: top;
+  margin: 0;
+  padding: 5px;
+  border-style: solid;
+  border-color: #E0E0E0;
+  border-width: 1pt 1pt 1pt 1pt;
+  background-color: #EFEFEF;
+  width:  50%;
+}
+
+table.example pre {
+  margin:  0;
+}
+pre {
+  border: solid #D9D9D9 2.25pt;
+  padding: 1pt 4pt 1pt 4pt;
+#  background: #283D5E;
+  margin-left: 15pt;
+  margin-bottom: 12pt;
+#  color: #fff;
+  font-size: 10pt;
+  font-family: "Consolas", "Courier New", "Courier";
+}
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 05</h1>
+      <p>C++ Pointer Arithmetic</p>
+    </div>
+  </header>
+
+    <div id="main" class="splash">
+      <div id="header">
+
+        <main>
+          <h1>Pointer Arithmetic</h1>
+          <p>
+            Pointer arithmetic is the process of manipulating pointers to better facilitate accessing arrays of data in memory.
+            Though the term “arithmetic” implies that a whole range of arithmetic operations can be performed, we are normally restricted to addition and subtraction. 
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="10.1">Manipulating Pointers</h2>
+          <p>
+            Remember <a href="pointers.html">the Pointers lesson</a>
+            that a pointer is a reference to a location in memory. 
+            We typically do not know where this memory is located until run-time; 
+            the operating system places the program in memory and often puts it in a different location every time. 
+            Note that arrays are collections of data guaranteed to reside in contiguous blocks of memory.
+            From these two observations it should be clear that, given some <code class="inline">array[i]</code>, 
+            the location <code class="inline">array[i + 1]</code> should be in the adjacent location in memory.
+            Pointer arithmetic is the process of levering this proximity to access array data. 
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.Array.png" alt="Image showing an array of 5 integers with pointers to each element">
+          </p>
+          <p>
+            Consider the following code:
+          </p>
+<pre>{
+   char text[] = "CS";     // some buffer in memory
+   char * pC = text;       // text refers to the first item, so pC does as well
+   char * pS = text + 1;   // the next location in memory is one item beyond the first
+}
+</pre>
+          <p>
+            In this example, text points to the string <code class="inline">"CS"</code> or, more accurately, to the first letter of the string. 
+            Next, the variable <code class="inline">pC</code> inherits its address from text which points to <code class="inline">'C'</code> (hence the name <code class="inline">pC</code>).
+            Finally, since the letter <code class="inline">'S'</code> is one letter beyond <code class="inline">'C'</code> in the string, 
+            it follows it has an address one greater than the <code class="inline">'C'</code>.
+            Thus, we can find the address of <code class="inline">'S'</code> by taking the address of <code class="inline">'C'</code> (as specified by the variable text) and adding one:
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.Pointers.png" alt="Image showing three points, to various parts of a c-string">
+          </p>
+          <p>
+            It turns out that integer pointers work the same way.
+            The only difference is that integers are 4 bytes in length where characters are one.
+            However, the pointer arithmetic is the same:
+          </p>
+<pre>{
+   int array[] = 
+   {
+      42, 99                      // two numbers using 8 bytes of memory
+   };
+   int * p42 = array;             // just like characters, points to the first item
+   int * p99 = array + 1;         // add one to move forward four bytes!
+}
+</pre>
+          <p>
+            Just like the first example, <code class="inline">array</code> points to the first number in the list.
+            Next, the variable <code class="inline">p42</code> has the same value (the address of <code class="inline">42</code>) as <code class="inline">array</code>.
+            Finally, since the number <code class="inline">99</code> is next to the number <code class="inline">42</code>, 
+            it follows it will have an address one greater. 
+            Thus, we can find the address of <code class="inline">99</code> by taking the address of <code class="inline">42</code> and adding one.
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.Array2.png" alt="image showing three pointers to various parts of an array">
+          </p>
+          <p>
+            Because arrays (including strings) are just pointers,
+            it is often most convenient to traverse an array with a pointer than with an index.
+            This involves incrementing the pointer variable rather than an index.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="10.2">Arrays in Memory</h2>
+          <p>
+            Because arrays are just pointers,
+            we have to distinct notations when working with arrays: 
+            the square bracket notation <code class="inline">[]</code> and the pointer notation <code class="inline">*</code>.
+            Consider the following array:
+          </p>
+<pre>int array[] = 
+{
+   7, 4, 2, 9, 3, 1, 8, 2, 9, 1, 2
+};
+</pre>
+          <p>
+            This can be represented with the following table:
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.Array3.png" alt="image showing an array of 10 integers with the array variable pointing to the first element.">
+          </p>
+          <p>
+            The first element in an array can be accessed two ways:
+          </p>
+<pre>cout &lt;&lt; "array[0] == " &lt;&lt; array[0] &lt;&lt; endl;
+cout &lt;&lt; "*array   == " &lt;&lt; *array   &lt;&lt; endl;
+assert(array[0] == *array);
+</pre>
+          <p>
+            The first output line will of course display the value <code class="inline">7</code>.
+            The second will dereference the array pointer, yielding the value it points to.
+            Since pointers to arrays always point to the first item, this too will give us the value <code class="inline">7</code>.
+            In other words, there is no difference between <code class="inline">*array</code> and <code class="inline">array[0]</code>; they are the same thing!
+            Similarly, consider the 6<sup>th</sup> item in the list. We can access with:
+          </p>
+<pre>cout &lt;&lt; "array[5]     == " &lt;&lt; array[5]     &lt;&lt; endl;
+cout &lt;&lt; "*(array + 5) == " &lt;&lt; *(array + 5) &lt;&lt; endl;
+assert(array[5] == *(array + 5));
+</pre>
+          <p>
+            The <code class="inline">*()</code> notation is somewhat complicated.
+            We know the 6<sup>th</sup> item in the list can be accessed with <code class="inline">array[5]</code>
+            (remembering that we start counting with zero instead of one).
+            The next statement (with <code class="inline">*(array + 5)</code> instead of <code class="inline">array[5]</code>) may be counter-intuitive. 
+            Since we can point to the 6<sup>th</sup> item on the list by adding five to the base pointer <code class="inline">(array + 5)</code>,
+            then by dereferencing the resulting pointer we get the data:
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.Pointers2.png" alt="Image showing two different ways to refer to an element in an array">
+          </p>
+          <p>
+            Therefore, we can access any member of an array using either the square bracket notation or the star-parentheses notation.
+          </p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Define an array of ten <code class="inline">doubles</code>.
+            Fill the array with the values <code class="inline">1.1</code>, <code class="inline">2.2</code>, and so on.
+            Display the 7<sup>th</sup> element of the array using the subscript operator (<code class="inline">[]</code>).
+            Do the same using the pointer notation<br>
+            (<code class="inline">*(array + 7)</code>).
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="10.3">Looping Through an Array</h2>
+          <p>
+            Up to this point, all the loops we have written to access individual members
+            of a string or array have used index variables and the square-bracket notation.
+            It turns out we can write an equivalent pointer-loop for each index-loop.
+            These loops tend to perform better than their index counterparts because fewer assembly instructions are required.
+            The two main applications for pointers as loop variables are array traversing loops and string traversing loops.
+          </p>
+          <p>
+            Recall that the standard way to use a for loop to walk through an array is:
+          </p>
+<pre>for (int i = 0; i &lt; num; i++)
+   cout &lt;&lt; array[i];
+</pre>
+          <p>
+            It turns out we can use a pointer to loop through an array of integers if the length of the array is known.
+            Consider the following array:
+          </p>
+<pre>int array[] =
+{
+   43, 96, 21, 35, 42
+};
+</pre>
+          <p>
+            In this example, the pointer to the beginning of the list is array and the pointer to the item off the end of the list is <code class="inline">array + num</code>: 
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.Array4.png" alt="Image showing how to find a pointer to the first element off the end of an array.">
+          </p>
+          <p>
+            This allows us to write a loop to walk through the list:
+          </p>
+<pre>int * pEnd = array + num;
+for (int * p = array; p &lt; pEnd; p++)
+   cout &lt;&lt; *p &lt;&lt; endl;
+</pre>
+          <p>
+            Observe how, with each iteration, the pointer variable <code class="inline">p</code> advances by one address.
+            This continues until <code class="inline">p</code> is no longer less-than the item off the end of the list <code class="inline">pEnd</code>.
+            Since we are working with arrays, we can dereference each item in the list with <code class="inline">*p</code>.
+          </p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Define an array of ten <code class="inline">doubles</code>.
+            Fill the array with the values <code class="inline">1.1</code>, <code class="inline">2.2</code>, and so on.
+            Display all ten values using a pointer loop.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="10.4">Looping Through a String</h2>          
+          <p>
+            With strings, the end of the string is defined as the null-character (<code class="inline">'\0'</code>) which happens to be <code class="inline">false</code>.
+            This leads us to the second standard for loop: traversing a string with a pointer.
+          </p>
+<pre>for (char * p = text; *p; p++)
+   cout &lt;&lt; *p;
+</pre>
+          <p>
+            Just like with the aforementioned array example, we advance the pointer rather than an index into the string.
+            The big difference is the controlling Boolean expression:
+            a null-terminator check rather than looking for a pointer to the end of the string.
+          </p>
+          <p>
+            <img src="./images/Cpp.10.Reading.String.png" alt="Image showing that a c-string is just an array and can be traversed with a pointer.">
+          </p>
+          <p>
+            In this example, text points to the first item in the string (<code class="inline">'S'</code>).
+            The loop starts by assigning <code class="inline">p</code> to also point to the first item.
+            The loop continues by advancing <code class="inline">p</code> through the string.
+            The loop terminates when <code class="inline">*p</code> is no longer <code class="inline">true</code>.
+            This occurs when <code class="inline">p</code> points to the null-character (<code class="inline">'\0'</code>).
+          </p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Define a string with your full name.
+            Display each letter in your name on its own line 
+            using a pointer loop.
+          </p>
+
+      </div> <!-- id="header" -->
+    </div> <!-- id="main" -->
+  
+</body>
+</html>

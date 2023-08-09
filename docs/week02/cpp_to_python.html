@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE220C: C++ to Python Week 2</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+/**********************************************
+ * EXAMPLE TABLE - With two code examples side-by-side
+ **********************************************/
+table.example {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  margin-left: 0;
+  margin-bottom: 12pt;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Calibri', 'Verdana', geneva;
+}
+table.example tbody  {
+  width: 100%;  
+}
+table.example tr {
+  width: 100%;
+}
+table.example th {
+  background-color: #E2E2E2;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1pt 1pt 1pt 1pt;
+}
+table.example td {
+  vertical-align: top;
+  margin: 0;
+  padding: 5px;
+  border-style: solid;
+  border-color: #E0E0E0;
+  border-width: 1pt 1pt 1pt 1pt;
+  background-color: #EFEFEF;
+  width:  50%;
+}
+
+table.example pre {
+  margin:  0;
+}
+pre {
+  border: solid #D9D9D9 2.25pt;
+  padding: 1pt 4pt 1pt 4pt;
+#  background: #283D5E;
+  margin-left: 15pt;
+  margin-bottom: 12pt;
+#  color: #fff;
+  font-size: 10pt;
+  font-family: "Consolas", "Courier New", "Courier";
+}
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 02</h1>
+      <p>C++ and Python: Classes</p>
+    </div>
+  </header>
+
+    <div id="main" class="splash">
+      <div id="header">
+
+        <main>
+          <h1>C++ and Python Class Syntax</h1>
+          <p>
+            This will review how classes work in Python and compare to C++ so that you may
+            translate your knowledge between the two languages.
+          </p>
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="DefineClass">Defining a Class</h2>
+          <p>
+            A class is defined in C++ much like it is in Python.
+            There are two key differences.
+            First, C++ uses <code class="inline">{</code> curly braces <code class="inline">}</code> to enclose the contents of a class
+            where Python uses indents.
+            Second, the end of the C++ class definition has a <code class="inline">;</code> semicolon.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class My_Class:
+    ''' A simple class. '''
+
+    # One attribute in this class.
+    x = 42
+
+    def set(self, x):
+        ''' Set the value. '''
+        self.x = x
+
+    def get(self):
+        ''' Get the value. '''
+        return self.x
+</pre>
+</td>
+<td>
+<pre>/*************************
+ * A simple class
+ *************************/
+class MyClass
+{
+public:
+   // Set the value.
+   void set(int x)
+   {
+      this-&gt;x = x;
+   }
+
+   // Get the value.
+   int get()
+   {
+      return x;
+   }
+
+   // One attribute in this class.
+   int x;
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Notice how the comment block describing a class comes before the class definition in C++,
+            where the comment block is inside the class definition in Python.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/class">C++ Reference: Class declaration</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a class to store a GPA.
+            There are two methods: <code class="inline">get()</code> and <code class="inline">set()</code>.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="DeclareObject">Declaring an Object</h2>
+          <p>
+            Remember that an object is one instance of a class.
+            Another way to say this is an object is a type of variable whose datatype is a class.
+            In Python, you can create an object with the assignment operator.
+            In C++, you do the same by declaring a variable that is of the class type.
+            The following example uses the same class declaration as above:
+          </p>
+
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre># Declare an object.
+mc = My_Class()
+
+# Call the two methods.
+mc.set(42);
+print(mc.get())
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * Main
+ *************************/
+int main()
+{
+   // Declare the object.
+   MyClass mc;
+
+   // Call the two methods.
+   mc.set(42);
+   cout &lt;&lt; mc.get() &lt;&lt; endl;
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Write the code to instantiate a <code class="inline">GPA</code> class.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="MethodDefinitions">Method Definitions</h2>
+          <p>
+            Methods are just functions associated with a class.
+            In both C++ and Python, method definitions 
+            work much like stand-alone function definitions.
+          </p>
+
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class My_Class:
+    ''' A simple class. '''
+
+    def simple_function(self):
+        ''' No input parameters or
+            return values. '''
+        print("Hello")
+
+    def one_parameter(self, param):
+        ''' One input parameter and
+            no return values. '''
+        print(param)
+
+    def return_value(self):
+        ''' No input parameter but
+            one return value. '''
+        return 42
+</pre>
+</td>
+<td>
+<pre>/*************************
+ * A simple class
+ *************************/
+class MyClass
+{
+public:
+   // No input parameters or
+   //   return values.
+   void simple_function()
+   {
+      cout &lt;&lt; "Hello";
+   }
+
+   // One input parameter and
+   //   no return values.
+   void one_parametere(int param)
+   {
+      cout &lt;&lt; param;
+   }
+
+   // No input parameter but
+   //   one return value.
+   int return_value()
+   {
+      return 42;
+   }
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Note that Python methods always have the <code class="inline">self</code> parameter.
+            C++ classes do not, though a similar parameter is implied.
+            It is called <code class="inline">this</code> in C++.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/member_functions">C++ Reference: Non-static member functions</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            For a GPA class, create three methods.
+            One to return the current value (no input parameters, one return value),
+            one to set the value to something new (one input parameter, no return value),
+            and one to display the current value (no input or return values).
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Attribute">Attribute Definitions</h2>
+          <p>
+            In Python, attributes can be added to a class after the class is defined.
+            With C++, attributes are specified at declaration time 
+            and the set of attributes cannot change without recompiling the code.
+          </p>
+
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class My_Class:
+    ''' A simple class. '''
+
+    # An attribute of unknown type.
+    one = None
+
+    # An integer attribute.
+    two = 42
+
+    # A list attribute
+    three = []
+</pre>
+</td>
+<td>
+<pre>/*************************
+ * A simple class
+ *************************/
+class MyClass
+{
+public:
+   // An attribute of type string.
+   // The type of the attribute must 
+   // be known at compile time.
+   std::string one;
+
+   // An integer attribute. 
+   // We can initialize the
+   // attribute in a constructor.
+   int two;
+
+   // An array attribute.
+   // The number of elements
+   // must be known at
+   // compile time.
+   int three[256];
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Note that we must know the data-type of the attributes when we define the class.
+            If we want an attribute to be initialized, we need to perform the initialization
+            in a constructor.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/data_members">C++ Reference: Non-static data members</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a <code class="inline">GPA</code> class that has two attributes:
+            a GPA which is a <code class="inline">double</code>, and a letter grade which is a <code class="inline">char</code>.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Access">Access Modifiers</h2>
+          <p>
+            C++ allows the author of a class to specify whether a given method (member function) or attribute (member variable)
+            is accessible to the users of the class, or just to the methods of the class itself.
+            Python has a notion of access modifiers, but it is not as strongly enforced as it is with C++.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class my_class:
+    ''' A simple class. '''
+
+    def access_to_all(self):
+        ''' No underscore means
+            all have access. '''
+        return 42
+
+    def __access_to_other_methods(self):
+        ''' Double-underscore at the 
+            beginning suggest the method 
+            is private. '''
+        return 42
+
+    def _access_to_derived(self):
+        ''' Single-underscore at 
+            the beginning means 
+            protected. '''
+        return 42
+</pre>
+</td>
+<td>
+<pre>/*************************
+ * A simple class
+ *************************/
+class MyClass
+{
+public:
+   // Public means all 
+   // can access this
+   int accessToAll()
+   {
+      return 42;
+   }
+
+private:
+   // Private means only
+   // methods can access this
+   int accessToOtherMethods()
+   {
+      return 42;
+   }
+
+protected:
+   // Protected means only
+   // methods and derived 
+   // classes can access this
+   int accessToDerived()
+   {
+      return 42;
+   }
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            With Python, a method or attribute that does not begin with an underscore <code class="inline">_</code> is public.
+            This means the method or attribute is directly accessible from the object. 
+            With C++, you use the <code class="inline">public</code> keyword to indicate the same.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class My_Class:
+    ''' A simple class. '''
+
+    # Public attribute.
+    x = 10
+
+    # Public method.
+    def get(self):
+        return self.x
+</pre>
+</td>
+<td>
+<pre>/****************************
+ * A simple class
+ ****************************/
+class MyClass
+{
+public:
+   // Public attribute.
+   int x;
+
+   // Public method.
+   int get()
+   {
+      return x;
+   }
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            With Python, a method or attribute that begins with a double-underscore <code class="inline">__</code> is private.
+            This means that the method or attribute is only accessible from other methods in the same class. 
+            With C++, you use the <code class="inline">private</code> keyword to indicate the same.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class My_Class:
+    ''' A simple class. '''
+
+    # Private attribute.
+    __x = 10
+
+    # Private method.
+    def __get(self):
+        return self.__x
+</pre>
+</td>
+<td>
+<pre>/****************************
+ * A simple class
+ ****************************/
+class MyClass
+{
+private:
+   // Private attribute.
+   int x;
+
+   // Private method.
+   int get()
+   {
+      return x;
+   }
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            With Python, a method or attribute that begins with a single underscore <code class="inline">_</code> is protected.
+            This means that the method or attribute is directly accessible only by methods in the class,
+            or by methods from a derived class. With C++, you use the <code class="inline">protected</code> keyword to indicate the same.
+            We will not cover derived classes further in this course, so just know they will be a thing in
+            C++ when using advanced class design techniques.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class My_Class:
+    ''' A simple class. '''
+
+    # Protected attribute.
+    _x = 10
+
+    # Protected method.
+    def _get(self):
+        return self._x
+</pre>
+</td>
+<td>
+<pre>/****************************
+ * A simple class
+ ****************************/
+class MyClass
+{
+protected:
+   // Protected attribute.
+   int x;
+
+   // Protected method.
+   int get()
+   {
+      return x;
+   }
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/access">C++ Reference: Access specifiers</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Modify your GPA class so the attributes are private and the methods are public.
+          </p>
+
+      </div> <!-- id="header" -->
+    </div> <!-- id="main" -->
+  
+</body>
+</html>

@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE220C: C++ to Python Week 1</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+/**********************************************
+ * EXAMPLE TABLE - With two code examples side-by-side
+ **********************************************/
+table.example {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  margin-left: 0;
+  margin-bottom: 12pt;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Calibri', 'Verdana', geneva;
+}
+table.example tbody  {
+  width: 100%;  
+}
+table.example tr {
+  width: 100%;
+}
+table.example th {
+  background-color: #E2E2E2;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1pt 1pt 1pt 1pt;
+}
+table.example td {
+  vertical-align: top;
+  margin: 0;
+  padding: 5px;
+  border-style: solid;
+  border-color: #E0E0E0;
+  border-width: 1pt 1pt 1pt 1pt;
+  background-color: #EFEFEF;
+  width:  50%;
+}
+
+table.example pre {
+  margin:  0;
+}
+pre {
+  border: solid #D9D9D9 2.25pt;
+  padding: 1pt 4pt 1pt 4pt;
+#  background: #283D5E;
+  margin-left: 15pt;
+  margin-bottom: 12pt;
+#  color: #fff;
+  font-size: 10pt;
+  font-family: "Consolas", "Courier New", "Courier";
+}
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 01</h1>
+      <p>C++ and Python</p>
+    </div>
+  </header>
+
+    <div id="main" class="splash">
+      <div id="header">
+
+        <main>
+          <h1>Getting Comfortable With C++</h1>
+          <p>
+            This section intends to help your understanding of C++ by comparing to Python directly.
+            As many of you are familiar with Python, you can study the following to aid in
+            translating basic concepts to C++. Try out the code as you go in your C++ IDE by
+            creating a small test project and running the short examples.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="HelloWorld">Hello World</h2>
+          <p>
+            Python is called a "multi-paradigm programming language."
+            This means it can be written in the imperative style where a statement can be executed without a function.
+            It can be written in the procedural style where every statement is inside a function.
+            It can also be written in the object-oriented style where every statement is in a method which is in a class.
+            C++ is a procedural language. 
+            Even a simple one-line program such as "Hello World" needs to have at least one function.
+            That function is called <code class="inline">main()</code>.
+          </p>
+          <p>
+            Note that C++ does not have any built-in input/output (I/O) functionality.
+            To print text on the screen, we need the <code class="inline">iostream</code> library. 
+            To indicate we want to use this library we need to include it with <code class="inline">#include &lt;iostream&gt;</code>.
+            All the code in the <code class="inline">iostream</code> library utilizes the standard namespace.
+            The full name of the output stream is <code class="inline">std::cout</code>. 
+            We can use the short <code class="inline">cout</code> version of the name with the <code class="inline">using namespace std;</code> 
+            line at the head of the program.
+          </p>
+          <p>The program "Hello World" in Python and in C++ is the following:</p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>print("Hello world")
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   cout &lt;&lt; "Hello world\n";
+   return 0;
+}</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Create a project in your IDE, which runs Hello World!
+        </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+        <h2 id="mainFunc">main()</h2>
+        <p>
+          Many Python programmers prefer to put all their code in functions and have the first function called <code class="inline">main()</code>.
+          This is not necessary, but is a common practice.
+          In C++, all programs must contain a function called <code class="inline">main()</code>.
+        </p>
+        <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre>def main():
+    '''This function will send 
+       a greeting to the user.'''
+
+    # Display the actual greeting.
+    print("Hello World")
+
+main()
+</pre>
+</td>
+<td>
+<pre>// This is where cout is defined
+#include &lt;iostream&gt;  
+
+// "cout" instead of "std::cout"
+using namespace std; 
+
+/************************************
+ * This function will send a greeting
+ * to the user.
+ ************************************/
+int main()
+{
+   // Display the actual greeting.
+   cout &lt;&lt; "Hello world\n";
+   return 0;
+}</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/main_function">C++ Reference: Main function</a></p>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Run this code, then change it to display your home address with multiple lines.
+        </p>
+
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+        <h2 id="CommentsStyle">Comments and Style</h2>
+        <p>
+          Comments serve the same purpose in C++ as they do in Python: 
+          to explain to the readers of the source code how the program is to work.
+          Though they serve the same purpose, comments in C++ use a different syntax.
+        </p>
+
+        <p>
+          Note that all function declarations should be accompanied by a comment describing what the function does. 
+          In Python, we use a triple-quote doc string to comment a function.
+        </p>
+        <pre>''' Docstring comments for Python function comment blocks '''</pre>
+        <p>In C++, we use block comments, usually with extra <code class="inline">*</code>'s.</p>
+        <pre>/* Block Comments for C++ function comment blocks */</pre>
+        <p>
+          We also put line comments in the code itself. 
+          In Python, line comments start with a pound sign.
+        </p>
+        <pre># Line comments start with a pound sign in Python.</pre> 
+        <p>In C++, line comments start with a double-slash.</p>
+        <pre>// Line comments start with a double-slash in C++</pre>
+        <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre>def function():
+    ''' Docstring comments are placed
+        inside function definitions. '''
+    pass
+
+# Line comments must be 
+# complete sentences.
+function()
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;  
+using namespace std; 
+
+/************************************
+ * Function comment blocks go before
+ * function definitions
+ ************************************/
+int main()
+{
+   // Line comments can be 
+   // complete sentences.
+   cout &lt;&lt; "Hello world"
+        &lt;&lt; endl; /* Block comment */
+   return 0;
+}</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          The Python language has a style guide defined by
+          <a href="https://www.python.org/dev/peps/pep-0008/">PEP 8 -- Style Guide for Python Code</a>.
+          There is no unified style guide for C++;
+          every organization seems to have their own standards for naming variables and indenting code.
+          BYU—Idaho has a style guide as well:
+          <a href="https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.00.Reading.Style.html">C++ Style for BYU—Idaho</a>
+        </p>
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/comment">C++ Reference: comments</a></p>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Add a function comment block, line comment, and a block comment to your own code.
+        </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+        <h2 id="output">Output</h2>
+        <p>
+          Textual output to the screen in Python is handled through the <code class="inline">print()</code> function. 
+          Textual output in C++ is handled through the <code class="inline">cout</code> object and the insertion operator <code class="inline">&lt;&lt;</code>.
+        </p>
+
+        <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre># Put text on the screen.
+print("Hello world")
+
+# Put numbers on the screen.
+print(3.14159)
+
+# Mix numbers and text.
+age = 24;
+print("My age is", age)
+print(f"My age is {age}")
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * Main
+ *************************/
+int main()
+{
+   // Put text on the screen.
+   cout &lt;&lt; "Hello world\n";
+
+   // Put numbers on the screen.
+   cout &lt;&lt; 3.14159 &lt;&lt; endl;
+
+   // Mix numbers and text.
+   int age = 24;
+   cout &lt;&lt; "My age is "
+        &lt;&lt; age 
+        &lt;&lt; endl;
+   return 0;
+}
+</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="navigation">See also: <a href="http://www.cplusplus.com/reference/iostream/cout/">C++: std::cout</a></p>
+        <br>
+        <p>
+          It is possible to configure <code class="inline">cout</code> to display floating point numbers.
+          There are two parts:
+        </p>
+        <ul>
+          <li><code class="inline">fixed</code>: Tells C++ not to use scientific notation</li>
+          <li><code class="inline">precision</code>: Tells C++ to use a certain number of digits after the decimal point</li>
+        </ul>
+
+        <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre># Puts $931.12 on the screen.
+dollars = 931.12322
+print(f"${dollars:.2f}")
+
+# Puts 3.9 on the screen.
+gpa = 3.871
+print(f"{gpa:.1f}")
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * Main
+ *************************/
+int main()
+{
+   // Puts $931.12 on the screen.
+   double dollars = 931.12322;
+   cout.setf(ios::fixed);
+   cout.precision(2);
+   cout &lt;&lt; "$"
+        &lt;&lt; dollars
+        &lt;&lt; endl;
+
+   // Puts 3.9 on the screen.
+   double gpa = 3.871;
+   cout.precision(1);
+   cout &lt;&lt; gpa
+        &lt;&lt; endl;
+
+   return 0;
+}</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/io/ios_base/precision">C++ Reference: std::ios_base::precision</a></p>
+        <p class="navigation">See also: <a href="ttps://en.cppreference.com/w/cpp/io/manip/showpoint">C++ Reference: std::showpoint, std::noshowpoint</a></p>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Make the number <code class="inline">3.1415926</code> appear as <code class="inline">3.14159</code>.
+        </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+        <h2 id="input">Input</h2>
+        <p>
+          Input in Python is handled with the <code class="inline">input()</code> function.
+          This always returns a string which the programmer may need to convert before use.
+          Input in C++ is handled with the extraction operator <code class="inline">&gt;&gt;</code>. 
+          Note that a variable must be declared before it can be used with an extraction operator.
+          We will learn more about variable declarations next week.
+        </p> 
+
+        <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre># Prompt for name.
+name = input("Name? ")
+
+# Prompt for age.
+age = int(integer("Age? "))
+</pre>
+</td>
+<td>
+<pre>// Use the iostream library for 
+// cout and cin
+#include &lt;iostream&gt;
+
+// Use the string library for string
+#include &lt;string&gt;
+
+// Use the standard namespace so we can
+// say "cout" rather than "std::cout".
+using namespace std;
+
+/*************************
+ * Main
+ *************************/
+int main()
+{
+   // Prompt for name.
+   string name;
+   cout &lt;&lt; "Name? ";
+   cin  &gt;&gt; name;
+
+   // Prompt for age.
+   int age;
+   cout &lt;&lt; "Age? ";
+   cin  &gt;&gt; age;
+
+   return 0;
+}
+</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/io/cin">C++ Reference: std::cin</a></p>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Prompt the user for his/her GPA (a <code class="inline">double</code>) and letter grade (a <code class="inline">char</code>).
+        </p>
+        <br>
+        <p>
+          It is also possible to prompt the use for an entire line of text.
+          Use the <code class="inline">getline()</code> function for that.
+        </p>
+       <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre># Prompt for full name.
+name = input("Full Name: ")
+
+# Display full name.
+print("Full name is:", name)
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt; // for cout, cin
+#include &lt;string&gt;   // for string
+using namespace std;
+
+/*************************
+ * Main
+ *************************/
+int main()
+{
+   // Prompt for full name.
+   string name;
+   cout &lt;&lt; "Full Name: ";
+   getline(cin, name);
+
+   // Display full name.
+   cout &lt;&lt; "Full name is: "
+        &lt;&lt; name
+        &lt;&lt; endl;
+
+   return 0;
+}
+</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/string/basic_string/getline">C++ Reference: std::getline</a></p>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Prompt the user for his/her street address, city, state, and zip code.
+          Display the results on the screen.
+          Test it with the White House address: 1600 Pennsylvania Avenue, Washington D.C., 20500
+        </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+        <h2 id="functions">Functions</h2>
+        <p>
+          You can declare your own function in C++ just as you can in Python.
+          The syntax is different of course.
+          In C++, you must explicitly state the return type, even if no value is returned.
+          You also enclose the body of the function in <code class="inline">{</code> curly braces <code class="inline">}</code>.
+        </p> 
+
+        <table class="example">
+          <tbody>
+            <tr><th>Python</th><th>C++</th></tr>
+            <tr>
+              <td>
+<pre>def my_simple_function():
+    ''' No parameters, 
+        no return value. '''
+    print("Hello world")
+
+def return_a_value():
+    ''' Only a return value. '''
+    return 42
+
+def take_two_parameters(x, y):
+    '' Takes two parameters. '''
+    print("(x,y) = {x},{y}")
+
+# Call the three functions
+my_simple_function()
+x = return_a_value()
+take_two_parameters(4, 5)
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * No parameters, no return
+ *************************/
+void mySimpleFunction()
+{
+   cout &lt;&lt; "Hello world\n";
+}
+
+/*************************
+ * Only a return value
+ *************************/
+int returnAValue()
+{
+   return 42;
+}
+
+/*************************
+ * Takes two parameters
+ *************************/
+void takeTwoParameters(int x, int y)
+{
+   cout &lt;&lt; "(x,y) ="
+        &lt;&lt; x &lt;&lt; ',' &lt;&lt; y
+        &lt;&lt; endl;
+}
+
+/*************************
+ * Main
+ *************************/
+int main()
+{
+   // Call the three functions
+   mySimpleFunction();
+   int x = returnAValue();
+   takeTwoParameters(4, 5);
+
+   return 0;
+}
+</pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Notice how comment blocks are done differently in C++ than in Python.
+          The most important difference is the comment which appears before the function declaration in C++, 
+          not inside the function as it does in Python.
+        </p>
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/functions">C++ Reference: Functions</a></p>
+        <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/function">C++ Reference: Function declaration</a></p>
+        <p class="tryIt"><b>Try it yourself!</b>
+          Write a function to prompt the user for his/her GPA, then write another function to display the GPA.
+        </p>
+      </div> <!-- id="header" -->
+    </div> <!-- id="main" -->
+  
+</body>
+</html>

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<!-- saved from url=(0097)https://content.byui.edu/file/4101122b-6564-4347-8376-d020600c9044/1/Cpp.08.Reading.Pointers.html -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE220C: C++ Pointers</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+/**********************************************
+ * EXAMPLE TABLE - With two code examples side-by-side
+ **********************************************/
+table.example {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  margin-left: 0;
+  margin-bottom: 12pt;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Calibri', 'Verdana', geneva;
+}
+table.example tbody  {
+  width: 100%;  
+}
+table.example tr {
+  width: 100%;
+}
+table.example th {
+  background-color: #E2E2E2;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1pt 1pt 1pt 1pt;
+}
+table.example td {
+  vertical-align: top;
+  margin: 0;
+  padding: 5px;
+  border-style: solid;
+  border-color: #E0E0E0;
+  border-width: 1pt 1pt 1pt 1pt;
+  background-color: #EFEFEF;
+  width:  50%;
+}
+
+table.example pre {
+  margin:  0;
+}
+pre {
+  border: solid #D9D9D9 2.25pt;
+  padding: 1pt 4pt 1pt 4pt;
+#  background: #283D5E;
+  margin-left: 15pt;
+  margin-bottom: 12pt;
+#  color: #fff;
+  font-size: 10pt;
+  font-family: "Consolas", "Courier New", "Courier";
+}
+  </style>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 05</h1>
+      <p>C++ Pointers</p>
+    </div>
+  </header>
+
+    <div id="main" class="splash">
+      <div id="header">
+        <main>
+          <h1>Pointers</h1>
+          <p>
+            Python is a programming language lacking a notion of pointers.
+            It will therefore be impossible to show the Python version of many of the C++ examples presented this week.
+          </p>
+          <p>
+            Up to this point, our variables have been working exclusively with data.
+            This is familiar and straight-forward: if you want to make a copy of a value then use the assignment (<code class="inline">=</code>) operator.
+            Often, however, it is more convenient to work with addresses rather than with data.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="declaring">Declaring a Pointer Variable</h2>
+          <p>
+            To declare a pointer variable, use the asterisk (<code class="inline">*</code>) operator between the data-type and the variable name.
+            Note that one never declares a pointer.
+            Instead, one declares a pointer to an integer, a pointer to a double, or a pointer to some other data-type.
+            In other words, it is necessary to tell the compiler what data-type we are pointing to.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Declare a pointer to an integer. Leave it uninitialized.
+   int * pInteger;
+
+   // Declare a pointer to a character. Leave it uninitialized.
+   char * pCharacter;
+
+   // Declare a pointer to a double. Initialize it to the NULL address.
+   double * pDouble = nullptr;
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>  
+          <p>
+            There are a few things to notice about this.
+            First, it is customary to put the <code class="inline">p</code> prefix
+            before the pointer variable.
+            This reminds us we are working with a pointer rather than with data.
+          </p>
+          <p>
+            The second thing to notice is we can initialize the pointer to <code class="inline">nullptr</code>.
+            This is a special address which says, "This pointer is not referring to anything in particular."
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/pointer">C++ Reference: Pointer declaration</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Declare a variable that is a pointer to a Boolean.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="addressof">Address-Of</h2>
+          <p>
+            Every variable in C++ resides in some memory location.
+            With the address-of operator (<code class="inline">&amp;</code>), it is possible to query a variable for its address at any point in the program.
+            Note that even though Python does not expose pointers to the user directly, 
+            the <code class="inline">id()</code> function provides similar functionality.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre># Create a variable with some value.
+x = 42
+
+# Display the "identity" of the value, 
+# the address of the object in memory.
+print(id(x))
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Create a variable with some value.
+   int x = 42;
+
+   // Display the "identity" of the value,
+   // the address of the object in memory.
+   cout &lt;&lt; &amp;x &lt;&lt; endl;
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>    
+            The most common use of the address-of operator is to initialize a pointer.
+            It is important that the data-type of the pointer 
+            matches the data-type of object from which we retrieve the address.
+            For example, a pointer to an integer (<code class="inline">int *</code>) variable
+            is needed when getting the address of an integer (<code class="inline">int</code>).
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // A bunch of normal data variables.
+   int    valueInteger;                     // integer
+   float  valueFloatingPoint;               // floating point number
+   bool   valueBoolean;                     // Boolean 
+   char   valueCharacter;                   // character
+
+   // A bunch of pointer variables, none of which are initialized.
+   int   * pInteger;                        // pointer to integer
+   float * pFloatingPoint;                  // pointer to a floating point number
+   bool  * pBoolean;                        // pointer to a Boolean value
+   char  * pCharacter;                      // pointer to a character
+
+   // Make the pointers refer to the normal data variables.
+   pInteger       = &amp;valueInteger;          // both sides of = are pointers to integers
+   pFloatingPoint = &amp;valueFloatingPoint;    // both sides are pointers to floats
+   pBoolean       = &amp;valueBoolean;          // both sides are pointers to Booleans
+   pCharacter     = &amp;valueCharacter;        // both sides are pointers to characters
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>  
+          <p>
+            In the first assignment (<code class="inline">pInteger = &amp;valueInteger</code>), the data-type of <code class="inline">valueInteger</code> is <code class="inline">int</code>.
+            When the address-of operator (<code class="inline">&amp;</code>) is added to the expression, the data-type becomes "pointer to int."
+            The left-side of the assignment is <code class="inline">pInteger</code> which is declared as a "pointer to an int." 
+            Since both sides are the same data-type (pointer to an int), then there is not a problem with the assignment.
+            If we tried to assign <code class="inline">&amp;valueInteger</code> to <code class="inline">pFloatPoint</code>, we would get the following compile error:
+          </p>
+<pre>example.cpp: In function “int main()”:
+example.cpp:20: error: cannot convert “int*” to “float*” in assignment
+</pre>
+          <p>
+            Note that we can display a pointer on the screen, 
+            but it will just give us nonsense.
+            It will tell us where a variable happens to be located in memory
+            during this execution.
+            The next time the program is executed, the operating system will likely
+            assign the program a different location in memory so the address will change.
+            A pointer address looks something like this:
+            <code class="inline">0xbfff0921</code>.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_address-of_operator">
+            C++ Reference: Member access operators: Build-in address-of operator
+          </a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Declare a variable that is a pointer to a double and make it point to a variable that is a <code class="inline">double</code>.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="dereference">Dereference</h2>
+          <p>
+            We can always retrieve the data from a given address using the dereference operator (<code class="inline">*</code>),
+            also known as the "indirection operator."
+            Python offers functionality similar to the dereference operator in the form of the <code class="inline">ctypes</code> object.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre># One needs the ctypes library
+# to directly access memory.
+import ctypes
+
+# Create a variable and get the id.
+x = 42
+p = id(x) 
+
+# Display the contents of 
+# the location in memory.
+value = ctypes.cast(id, 
+                    ctypes.py_object).value
+print(value)
+</pre>
+</td>
+<td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Create a variable and get the id.
+   int x = 42;
+   int * p = &amp;x;
+
+   // Display the contents of 
+   // the location in memory.
+   int value = *p;
+   cout &lt;&lt; value &lt;&lt; endl;
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            For this to be accomplished the compiler must know the data-type of the location in memory and the address must be valid.
+            Since the data-type is part of the pointer declaration, the first part is not a problem.
+            It is up to the programmer to ensure the second constraint is met.
+            In other words, the compiler ensures a data variable is always referring to a valid location in memory.
+            However, with pointers, the programmer needs to set up the value. Consider the following example:
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Declare two variables - one a data variable and one a pointer.
+   int speed = 65;             // the location in memory we will be pointing to
+   int * pSpeed = nullptr;
+
+   // Assign pSpeed to the address of speed.
+   pSpeed = &amp;speed;                  
+
+   // Display the value that pSpeed is pointing to. This will be 65.
+   cout &lt;&lt; *pSpeed &lt;&lt; endl;          
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            If we removed the dereference operator (<code class="inline">*</code>) from the <code class="inline">cout</code> statement: <code class="inline">cout &lt;&lt; pSpeed &lt;&lt; endl;</code>,
+            then we would pass a “pointer to an integer” to <code class="inline">cout</code>.
+            This would not display the value <code class="inline">65</code>, but rather the location where that value exists in memory:
+            <code class="inline">0x7fff9d235d74</code>.
+          </p>
+          <p>If we skipped the initialization step in the above code (<code class="inline">pSpeed = &amp;speed</code>),
+            then the variable <code class="inline">pSpeed</code> would remain un-initialized.
+            Thus, when we dereference it, it would refer to a location in memory (segment) the program does not own.
+            This would cause a segmentation fault (a.k.a “crash”) at run-time:
+            <code class="inline">Segmentation fault (core dumped)</code>.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_indirection_operator">
+            C++ Reference: Member access operators: Build-in indirection operator
+          </a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a double variable called <code class="inline">gpa</code>.
+            Create a pointer to a double and call it <code class="inline">pGpa</code>,
+            Make <code class="inline">pGpa</code> point to <code class="inline">gpa</code>.
+            Finally, display the data <code class="inline">pGpa</code> points to.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="classes">Classes</h2>
+          <p>
+            It is possible to create a pointer to an object in much the same way we can create a pointer to any other data type.
+            Unfortunately the syntax of accessing member variables gets a bit complex.
+            We need to first dereference the structure pointer with the dereference operator (<code class="inline">*</code>) 
+            before we can access the member variables with the dot operator.
+            The problem arises from the fact the dot operator comes before the dereference operator in the order of operations.
+            To make our intentions clear, we need to use parentheses.
+            Consider the following example:
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/*************************
+ * POSITION
+ *************************/
+class Position
+{
+public:
+   int altitude;
+   double latitude;
+   double longitude; 
+};
+
+/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Declare an object and a pointer to an object.
+   Position pos;
+   Position * pPos = &amp;pos;
+
+   // Access the member variable with the dot operator.
+   pos.altitude = 4865;
+   (*pPos).altitude = 5260;
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>          
+          <p>
+            To avoid this nasty syntax involving the dot, parentheses, and dereference operator,
+            a more convenient syntax was developed: the arrow operator (<code class="inline">-&gt;</code>).
+            The arrow operator (also known as "member of pointer operator")
+            allows us to access member variables from a pointer to a structure without the unpleasant syntax.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++ Dot Operator</th><th>C++ Arrow Operator</th></tr>
+              <tr>
+                <td>
+<pre>/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Declare an object 
+   // and a pointer to an object.
+   Position pos;
+   Position * pPos = &amp;pos;
+
+   // Access the member variable 
+   // with the dot operator.
+   pos.altitude = 4865;
+   (*pPos).altitude = 5260;
+
+   return 0;
+}
+</pre>
+</td>
+<td>
+<pre>/*************************
+ * MAIN
+ *************************/
+int main()
+{
+   // Declare an object 
+   // and a pointer to an object.
+   Position pos;
+   Position * pPos = &amp;pos;
+
+   // Access the member variable 
+   // with the dot operator.
+   pos.altitude = 4865;
+   pPos-&gt;altitude = 5260;
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_member_access_operators">
+            C++ Reference: Member access operators: Built-in member access operators
+          </a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a class called <code class="inline">Complex</code> with two member variables: <code class="inline">real</code> and <code class="inline">complex</code>.
+            Create an object (<code class="inline">c</code>) and a pointer to an object (<code class="inline">p</code>).
+            Set the member variables to <code class="inline">p</code> with the dot operator and with the arrow operator.
+            Also, display the contents of the member variables with the dot operator and with the arrow operator.
+            Create a <code class="inline">main()</code> function to test this class.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="this">This</h2>
+          <p>
+            When writing a method within a class, 
+            one has access to all the class's member variables.
+            With Python, one can access the member variables with the <code class="inline">self</code> variable.
+            With C++, one needs to use the <code class="inline">this</code> variable.
+            There is just one catch: <code class="inline">this</code> is a pointer.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>Python</th><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>class Gpa
+    ''' Represent a GPA '''
+
+    # One member variable.
+    gpa = 4.0
+
+    def set(self, gpa):
+        ''' Set the GPA '''
+        self.gpa = gpa
+
+    def get(self):
+        ''' Return the GPA '''
+        return self.gpa
+</pre>
+</td>
+<td>
+<pre>/*************************
+ * GPA: Represent a GPA
+ *************************/
+class Gpa
+{
+private:
+   // one member variable
+   float gpa;
+
+public:
+   Gpa() : gpa(4.0) {}
+
+   // Set the GPA
+   void set(float gpa)
+   {
+      this-&gt;gpa = gpa;
+   }
+
+   // Return the GPA
+   float get() const
+   {
+      return this-&gt;gpa;
+   }
+};
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Observe how Python requires an explicit <code class="inline">self</code> parameter
+            to the member functions.
+            C++ does not.
+            The <code class="inline">this</code> parameter is present but hidden.
+            The programmer does not need to place the <code class="inline">this</code> parameter
+            in the parameter list, the compiler silently places it in there for you.
+          </p>
+          <p>
+            Second, Python allows the programmer to access the member variables
+            with the dot operator (<code class="inline">.</code>).
+            Since <code class="inline">this</code> is a pointer in C++,
+            it is necessary to use the arrow operator.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/this">C++ Reference: The this pointer</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Create a class called <code class="inline">Complex</code> with two member variables: <code class="inline">real</code> and <code class="inline">complex</code>.
+            Create three methods: <code class="inline">set()</code> taking two parameters,
+            <code class="inline">getReal()</code>, and <code class="inline">getImaginary()</code>.
+            Create a <code class="inline">main()</code> function to test this class.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="funcpointer">Pointers and Functions</h2>
+          <p>
+            Up to this point in time, we have had two ways to pass a parameter:
+            pass-by-value which makes a copy of the variable so the callee can’t change it,
+            and pass-by-reference which links the variable from the callee to that of the caller so the callee can change it.
+            Now, with pointers, we can use pass-by-pointer.
+            Pass-by-pointer is sending a copy of the address of the caller’s variable to the callee.
+            With this pointer, the callee can then make a change to be reflected in the caller’s data.
+            To illustrate this point, consider the following code:
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th></tr>
+              <tr>
+                <td>
+<pre>/********************************************************************
+ * FUNCTION
+ * Demonstrate pass by-value, pass by-reference, and pass by-pointer
+ *******************************************************************/
+void function(int value, int &amp;reference, int * pointer)
+{
+   cout &lt;&lt; "value:     " &lt;&lt; value     &lt;&lt; " &amp;value:     " &lt;&lt; &amp;value     &lt;&lt; endl;
+   cout &lt;&lt; "reference: " &lt;&lt; reference &lt;&lt; " &amp;reference: " &lt;&lt; &amp;reference &lt;&lt; endl;
+   cout &lt;&lt; "*pointer:  " &lt;&lt; *pointer  &lt;&lt; " pointer:    " &lt;&lt; pointer    &lt;&lt; endl;
+}
+
+/********************************************************************
+ * Just call function()
+ ********************************************************************/
+int main()
+{
+   int number;
+   cout &lt;&lt; "Please give me a number: ";
+   cin  &gt;&gt; number;
+   cout &lt;&lt; "number:    " &lt;&lt; number
+        &lt;&lt; "\t&amp;number: " &lt;&lt; &amp;number
+        &lt;&lt; endl &lt;&lt; endl;
+
+
+   function(number  /*by value    */,
+            number  /*by reference*/,
+            &amp;number /*by pointer  */);
+
+
+   return 0;
+}
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table>    
+          <p>
+            The output of this program is:
+          </p>
+<pre>Please give me a number: 100
+number:    100 &amp;number:    0x7fff5fcbf07c
+
+value:     100 &amp;value:     0x7fff5fcbf54c
+reference: 100 &amp;reference: 0x7fff5fcbf07c
+*pointer:  100 pointer:    0x7fff5fcbf07c
+</pre>
+          <p>
+            Observe the value of number in <code class="inline">main()</code> (<code class="inline">100</code>) and the address in <code class="inline">main()</code> (<code class="inline">0x7fff5fcbf07c</code>).
+            The first parameter is pass-by-value.
+            Here, we would expect the value to be copied, which it is.
+            Since pass-by-value creates a new variable that is independent of the caller’s variable, we would expect that to be in a different address.
+            This is the case in the above example.
+            The address of value is <code class="inline">0x7fff5fcbf54c</code>, different than that of <code class="inline">number</code>.
+          </p>
+          <p>
+            The second parameter is pass-by-reference.
+            The claim was the caller’s variable and the callee’s variable are linked.
+            Now we can see that the linking is accomplished by making sure both refer to the same location in memory.
+            In other words, because they have the same address (<code class="inline">0x7fff5fcbf07c</code>), any change made to reference should also change number.
+          </p>
+          <p>
+            The final parameter is pass-by-pointer. 
+            A more accurate way of saying this is we are passing a pointer by value (in other words, making a copy of the address).
+            Since the address is duplicated in the pointer variable, it follows that the value of <code class="inline">*pointer</code> should be the same as that of <code class="inline">number</code>. 
+            The only difference between pass-by-pointer and pass-by-reference is notational.
+            With pass-by-pointer, we need to use the address-of operator (<code class="inline">&amp;</code>) when passing the parameter 
+            and the dereference operator (<code class="inline">*</code>) when accessing the value.
+            With pass-by-reference, we use the ampersand (<code class="inline">&amp;</code>) in the callee’s parameter.
+            Aside from these differences, they behave exactly the same.
+            This is why the C programming language does not have pass-by-reference; it doesn’t need it!
+          </p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Copy-Paste this code and run it a few times yourself.
+            Observe how the address changes each execution,
+            but the relationship between the addresses does not.
+            In other words, the by-value address is always different
+            than the by-reference or by-pointer address.
+            Also, the by-reference and by-pointer addresses are always the same.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="arrays">Arrays</h2>
+          <p>
+            It turns out that C++ arrays are simply pointers.
+            The pointer refers to the first element in the array.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th><th>Output</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // declare an array and a pointer
+   double values[3] = { 1.1, 2.2, 3.3 };
+   double *p = values;
+
+   // The first value can be accessed
+   // two ways: [] or *
+   cout &lt;&lt; values[0] &lt;&lt; endl;
+   cout &lt;&lt; *p &lt;&lt; endl &lt;&lt; endl;
+
+   // both "values" and "p" have 
+   // the same address
+   cout &lt;&lt; "values: " &lt;&lt; values &lt;&lt; endl;
+   cout &lt;&lt; "p: " &lt;&lt; p &lt;&lt; endl;
+
+   return 0;
+}
+</pre>
+</td>
+<td>
+<pre>1.1
+1.1
+
+0x7fff5fcbf54c
+0x7fff5fcbf54c
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table> 
+          <p>
+            When we pass an array to a function, 
+            we can pass it as an array or as a pointer.
+          </p>
+          <table class="example">
+            <tbody>
+              <tr><th>C++</th><th>Output</th></tr>
+              <tr>
+                <td>
+<pre>#include &lt;iostream&gt;
+using namespace std;
+
+/****************************
+ * FUNCTION
+ ****************************/
+void function(double array1[], 
+              double *array2)
+{
+   cout &lt;&lt; array1[0] &lt;&lt; endl;
+   cout &lt;&lt; array2[0] &lt;&lt; endl; 
+}
+
+/****************************
+ * MAIN
+ ****************************/
+int main()
+{
+   // declare an array
+   double values[3] = { 1.1, 2.2, 3.3 };
+
+   // display the first element
+   function(array1, array2);
+
+   return 0;
+}
+</pre>
+</td>
+<td>
+<pre>1.1
+1.1
+</pre>
+                </td>
+              </tr>
+            </tbody>
+          </table> 
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+
+      </div> <!-- id="header" -->
+    </div> <!-- id="main" -->
+  
+</body>
+</html>

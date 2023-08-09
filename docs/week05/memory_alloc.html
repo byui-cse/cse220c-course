@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSE220C: C++ Memory Allocation</title>
+  <link rel="shortcut icon" href="https://byui-cse.github.io/Language-Courses/site/images/fav.ico" type="image/x-icon">
+  <script>
+    var codeType = "C++"
+  </script>
+  <script src="https://byui-cse.github.io/Language-Courses/site/highlight.pack.js"></script>
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/highlight_styles/xcode.css">
+  <link rel="stylesheet" href="https://byui-cse.github.io/Language-Courses/site/weekly.css">
+  <script src="https://byui-cse.github.io/Language-Courses/site/weekly.js"></script>
+  <style>
+/**********************************************
+ * EXAMPLE TABLE - With two code examples side-by-side
+ **********************************************/
+table.example {
+  border: none;
+  border-collapse: collapse;
+  width: 100%;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  margin-left: 0;
+  margin-bottom: 12pt;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Calibri', 'Verdana', geneva;
+}
+table.example tbody  {
+  width: 100%;  
+}
+table.example tr {
+  width: 100%;
+}
+table.example th {
+  background-color: #E2E2E2;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  padding: 2pt 5.4pt 2pt 5.4pt;
+  border-style: solid;
+  border-color: #C0C0C0;
+  border-width: 1pt 1pt 1pt 1pt;
+}
+table.example td {
+  vertical-align: top;
+  margin: 0;
+  padding: 5px;
+  border-style: solid;
+  border-color: #E0E0E0;
+  border-width: 1pt 1pt 1pt 1pt;
+  background-color: #EFEFEF;
+  width:  50%;
+}
+
+table.example pre {
+  margin:  0;
+}
+pre {
+  border: solid #D9D9D9 2.25pt;
+  padding: 1pt 4pt 1pt 4pt;
+#  background: #283D5E;
+  margin-left: 15pt;
+  margin-bottom: 12pt;
+#  color: #fff;
+  font-size: 10pt;
+  font-family: "Consolas", "Courier New", "Courier";
+}
+  </style>
+</head>
+
+<body onload="fetchSource()">
+  <header class="hero-image">
+    <div class="hero-text">
+      <h1>CSE 220C: Week 05</h1>
+      <p>C++ Memory Allocation</p>
+    </div>
+  </header>
+
+    <div id="main" class="splash">
+      <div id="header">
+
+        <main>
+          <h1>Memory Allocation</h1>
+          <p>
+            This reading describes how memory allocation works in C++. While the focus of this week is on smart pointers, smart pointers are a container class that manages the memory allocation and traditional pointer access for you. When you allocate memory through a smart pointer, the following is what the smart pointer class will be doing for you. If in the event you do need to perform memory allocation directly, this is how to accomplish it.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="WhatIs">What Is Memory Allocation</h2>          
+          <p>
+            With C++, a declared variable is put on "the stack."
+            This means the compiler knows all the variables the program will need, 
+            including its data-type and size requirements.
+            This is not the case with Python.
+            The Python interpreter figures these things out as the code is being executed.
+            A variable can change its data-type and size requirements in the middle of program execution.
+          </p>
+          <p>
+            C++ provides the programmer with the ability to adjust the capacity of a variable during execution.
+            This mechanism is called allocation.
+            C++ gives the programmer a great deal of memory management control through the allocation process,
+            something Python hides from its programmers.
+          </p>
+          <p>
+            Dynamic memory allocation is the process of a program reserving an amount of memory that is known at runtime rather than at compile time.
+            In other words, the program is able to reserve as much memory as the user requires, even when the programmer has no idea how much memory that will be.
+          </p>
+          <p>
+            This is best explained by an analogy. 
+            Imagine a developer wishing to purchase an acre of land. 
+            He purchases the land and acquires two things: a deed and the address of the land. 
+            The deed is a guarantee the land will not be developed by anyone else, and the address is a pointer to the land so he knows where to find it. 
+            If there is no land available, then he will have to deal with the setback and make other plans. 
+            If land is available, the developer will walk out with a valid address. 
+            With this address and deed, the developer goes off to do something useful and productive with the newly acquired acre. 
+            Of course, the acre is not clean. 
+            The previous inhabitant of the land left some landscaping and structures on the land which will need to be removed and leveled before any building starts. 
+            The developer retains ownership of the land until his business is completed. 
+            At that time, he sells the land. In doing so, he forfeits the deed and forgets the address of the land.
+          </p>
+          <p>
+            This process is exactly what happens when working with memory allocation. 
+            The program (developer) asks the operating system (City Hall) for a range of memory (acre of land). 
+            If the request is greater than the amount of available memory, 
+            the request returns a failure condition which the program will need to handle. 
+            Otherwise, a pointer to the memory (address) will be given to the program as well as a guarantee that no other program will be given the same memory (deed). 
+            This memory is filled with random 1’s and 0’s from the previous occupant (landscaping and structures on the land) which will need to be initialized (leveled). 
+            When the program is finished with the memory, it should be returned to the operating system (returns the deed to City Hall) 
+            and the pointer should be set to <code class="inline">nullptr</code> (forgets the address).
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="nullptr">nullptr</h2>
+          <p>
+            Until now, all the pointers we have used in our programs pointed to an existing location in memory.
+            This location was always a local variable, meaning we could always assume that the pointer is referring to a valid location in memory.
+            However, there often arises the occasion when the pointer refers to nothing.
+            This situation requires us to mark the pointer so we can tell by inspection whether the address is valid.
+          </p>
+          <p>
+            The <code class="inline">nullptr</code> value is essentially an indication that a given pointer refers to no location in memory.
+            We can check the validity of a pointer with a “NULL-check:”
+          </p>
+<pre>if (p == nullptr)
+    cout &lt;&lt; "The pointer does not refer to a valid location in memory\n";
+</pre>  
+          <p>
+            The first thing to realize about <code class="inline">nullptr</code> is it is an address.
+            While we have created pointers to characters and pointers to integers, <code class="inline">nullptr</code> is a pointer to void.
+            This means we can assign <code class="inline">nullptr</code> to any pointer without error:
+          </p>
+<pre>{
+   int   * pGrade   = nullptr;           // we can assign NULL to any
+   float * pAccount = nullptr;           //    type of pointer without
+   char  * name     = nullptr;           //    casting
+}
+</pre>
+          <p>
+            The second thing to realize about <code class="inline">nullptr</code> is the numeric address is zero.
+            Thus, the definition of <code class="inline">nullptr</code> is similar to this:
+          </p>
+<pre>#define nullptr (void *)0x00000000
+</pre>
+          <p>
+            As you can imagine, choosing zero as the <code class="inline">nullptr</code> address was done on purpose. 
+            All valid memory locations are guaranteed to be not zero 
+            (the operating system owns that location: the first instruction to be executed when a computer boots). 
+            Also, zero is the only false value so <code class="inline">nullptr</code> is the only false address.
+            This makes doing a “NULL-check” easy:
+          </p>
+<pre>if (p)                                      // same as “if (p != NULL)”
+   cout &lt;&lt; "The address of p is valid!\n";
+</pre>
+          <p>
+            One use of the <code class="inline">nullptr</code> address is to indicate that a pointer is not valid.
+            This can be done when there is nothing to point to.
+            Consider the following function displaying the highest ‘A’ in a list of numeric grades. 
+            While commonly there is at least one ‘A’ in a list of student grades, it is not always the case. 
+          </p>
+<pre>/*************************************
+ * DISPLAY HIGHEST A
+ * Given a list of numeric grades
+ * for a class, display the highest
+ * A if one exists
+ *************************************/
+void displayHighestA(const int grades[],       // we won’t be changing this so 
+                     int num)                  //    the array is a const
+{
+   const int * pHighestA = nullptr;            // Initially no ‘A’s were found
+
+   // find the highest A
+   for (int count = 0; count &lt; num; count++)   // loop through all the grades
+      if (grades[count] &gt;= 90)                 // only A’s please
+      {
+         if (pHighestA == nullptr)             // if none were found, then any
+            pHighestA = &amp;(grades[count]);      //     ‘A’ is the highest
+         else if (*pHighestA &lt; grades[count])  // otherwise, only the highest if it
+            pHighestA = &amp;(grades[count]);      //     is better than any other
+      }
+            
+   // output the highest A
+   if (pHighestA)                              // classic NULL check: only display the                    
+      cout &lt;&lt; *pHighestA &lt;&lt; endl;              //     ‘A’ if one was found
+   else                                        // otherwise (pHighestA == NULL), 
+      cout &lt;&lt; "There was not an A\n";          //     none was found
+}
+</pre>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/nullptr">C++ Reference: nullptr, the pointer literal</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Declare a pointer to a <code class="inline">double</code>.
+            Set it to <code class="inline">nullptr</code>.
+            Implement a NULL-check using an IF statement.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="New">New</h2>
+          <p>
+            When we declare a local variable (also known as a stack variable), the compiler takes care of memory management.
+            The compiler ensures there is memory reserved for the variable as soon as the variable falls into scope.
+            The compiler also ensures the memory is freed as soon as the variable falls out of scope.
+            While this is very convenient, it can also be very limiting:
+            the compiler needs to know the size of the block of memory to be reserved and how long it will be needed.
+            Memory allocation relaxes both of these constraints.
+            We request new memory from the operating system with the new operator. The syntax is:
+          </p>
+<pre>{
+   double * p;                // “p” is a pointer to a double
+   p = new double;            // allocating a double returns a pointer to a double
+}
+</pre>
+          <p>
+            We can also initialize a block of memory at allocation time. The syntax is very similar:
+          </p>
+<pre>{
+   char * p = new char('A');
+}
+</pre>
+          <p>
+            This does three things: it reserves a byte of memory (<code class="inline">sizeof(char) == 1</code>),
+            it initializes that value to <code class="inline">65</code> (<code class="inline">'A' == 65</code>),
+            and it sends that address to the variable <code class="inline">p</code>.
+          </p>
+          <p>
+            We cannot generally assume that a memory allocation is successful.
+            In other words, it might be that there is no more memory to be had.
+            Our code needs to be able to detect this condition and gracefully handle the error. 
+            When a new request fails, the resulting pointer is <code class="inline">nullptr</code>.
+            However, we need to tell <code class="inline">new</code> that we wish to be notified of a failure in terms of the <code class="inline">nullptr</code> pointer. 
+            This is done with the <code class="inline">nothrow</code> parameter:
+          </p>
+<pre>{
+   int * p = new (nothrow) int;                    // notice the nothrow parameter
+   if (p == nullptr)                               // failure comes in the form of a
+      cout &lt;&lt; "Memory allocation failure!\n";      //     NULL pointer
+}
+</pre>
+          <p>
+            Every memory allocation should be accompanied by a <code class="inline">nullptr</code> check; 
+            never assume an allocation succeeded.
+          </p>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/new">C++ Reference: new expression</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Declare a pointer to a <code class="inline">double</code>.
+            Allocate the memory using <code class="inline">new</code>.
+            Make sure to do error detection by checking for the <code class="inline">nullptr</code> value.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Delete">Delete</h2>
+          <p>
+            Once we are finished with a given block of memory,
+            it is important to return it to the operating system so another program (or part of our own program!) can use it.
+            This is accomplished with the <code class="inline">delete</code> operator.
+            Note that we don’t need to do this with traditional local variables because, once the variable falls out of scope, the compiler frees it for us.
+            However, with memory allocation, the programmer (not the compiler!) indicates when the memory is no longer needed. 
+          </p>
+<pre>{
+   // Allocate an integer.
+   int * p = new int;
+
+   // Signify we are done with delete.
+   delete p;         
+}
+</pre>
+          <p class="navigation">See also: <a href="https://en.cppreference.com/w/cpp/language/delete">C++ Reference: delete expression</a></p>
+          <p class="tryIt"><b>Try it yourself!</b>
+            Declare a pointer to a <code class="inline">double</code> and allocate it with <code class="inline">new</code>.
+            Now, free the memory using <code class="inline">delete</code>.
+          </p>
+
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------------------------------------------------ -->
+          <h2 id="Arrays">Allocating Arrays</h2>
+          <p>
+            We allocate arrays much the same way we allocate individual data-types.
+            The difference, of course, is that we need to tell new how many instances of the data-type are needed. 
+            Note that, unlike with array local variables, the size parameter does not need to be a constant or a literal.
+            In other words, since new is essentially a function call, the compiler does not need to know how much data will be allocated; 
+            it can be determined at run-time. 
+            Consider the following code:
+          </p>
+<pre>{
+   // get the size of the text
+   int size;                                      // memory size variables are integers
+   do
+   {
+      cout &lt;&lt; "How long is your name? ";
+      cin  &gt;&gt; size;                               // continue prompting until the
+   }                                              //    user gives us a positive
+   while (size &lt;= 0);                             //    size
+
+   // allocate the memory
+   char * text = new(nothrow) char [size + 1];    // allocate one more for \0
+   if (!text)                                     // same as “if (text != nullptr)”
+      cout &lt;&lt; "No memory! This is bad!\n";        // should return because we will
+                                                  //    crash in a minute…
+   // prompt for the name
+   cout &lt;&lt; "What is your name? ";
+   cin.getline(text, size + 1);                   
+}
+</pre>
+          <p>
+            When freeing an array, we need to use the <code class="inline">[]</code> symbols after the <code class="inline">delete</code> keyword.
+          </p>
+<pre>{
+   // Allocate a string of 256 bytes.
+   char * text = new char[256];      
+
+   // The []s indicate an array is freed.
+   delete [] text;         
+}
+</pre>
+           <p class="tryIt"><b>Try it yourself!</b>
+            Declare a pointer to a <code class="inline">double</code>.
+            Allocate an array of 20 elements.
+            Place the values 1...20 in the array.
+            Finally, delete the array (setting the pointer to <class>nullptr</class> when done).
+          </p>
+
+      </div> <!-- id="header" -->
+    </div> <!-- id="main" -->
+
+</body>
+</html>
